@@ -1,0 +1,64 @@
+﻿@model BookingAirline.Models.Ve
+
+@{
+    ViewBag.Title = "Create";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_LayoutCreate.cshtml";
+}
+
+<script src="~/Style/Js/IMGScript.js"></script>
+
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Product", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+ {
+    <table class="table-bordered">
+        <tr>
+            <td>@Html.LabelFor(model => model.MaVe)</td>
+            <td>@Html.EditorFor(model => model.MaVe)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.TinhTrangVe)</td>
+            <td>@Html.EditorFor(model => model.TinhTrangVe)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.NoiDi)</td>
+            <td>@Html.EditorFor(model => model.NoiDi)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.NoiDen)</td>
+            <td>@Html.EditorFor(model => model.NoiDen)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.GioBay)</td>
+            <td>@Html.EditorFor(model => model.GioBay)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.GiaVe)</td>
+            <td>@Html.EditorFor(model => model.GiaVe)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.IMG)</td>
+            <td>
+                <img src="@Url.Content(Model.IMG)" height="50" width="50" id="previewImg"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <input type="file" name="UploadImage" onchange="ChangeImage(this, document.getElementById('previewImg'))"/>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Create New" /></td>
+        </tr>
+    </table>
+ } 
+

@@ -1,0 +1,30 @@
+﻿.banner {
+    background-image:url(/hinh/heading-pg1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    text-align: center;
+}
+
+.weather-content {
+    background-image: url(/hinh/weather-main1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    text-align: center;
+}
+
+#cd-logo {
+    float: left;
+    margin: 13px 0 0 5%;
+}
+
+    #cd-logo img {
+        display: block;
+    }
+
+@media only screen and (min-width: 768px) {
+    #cd-logo {
+        margin: 23px 0 0 5%;
+    }
+}
