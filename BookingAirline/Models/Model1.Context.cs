@@ -42,5 +42,6 @@ namespace BookingAirline.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TuyenBay> TuyenBays { get; set; }
         public virtual DbSet<Ve> Ves { get; set; }
+        public virtual DbSet<OrderStatu> OrderStatus { get; set; }
     }
 }

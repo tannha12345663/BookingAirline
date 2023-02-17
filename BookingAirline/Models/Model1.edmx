@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BookingAirLightModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BookingAirLightModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ChiTietChuyenBay">
           <Key>
             <PropertyRef Name="STT" />
@@ -116,6 +116,15 @@
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="50" />
           <Property Name="NgaySinh" Type="datetime" />
         </EntityType>
+        <EntityType Name="OrderStatus">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="MaCBdi" Type="varchar" MaxLength="10" />
+          <Property Name="MaCBve" Type="varchar" MaxLength="10" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Phi">
           <Key>
             <PropertyRef Name="MaPhi" />
@@ -171,6 +180,7 @@
           <Property Name="IDKH" Type="varchar" MaxLength="10" />
           <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
           <Property Name="GiaVe" Type="float" />
+          <Property Name="CCCD" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_ChiTietChuyenBay_ChuyenBay">
           <End Role="ChuyenBay" Type="Self.ChuyenBay" Multiplicity="0..1">
@@ -368,20 +378,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Ve_KhachHang">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="IDKH" />
-            </Principal>
-            <Dependent Role="Ve">
-              <PropertyRef Name="IDKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Ve_Phi">
           <End Role="Phi" Type="Self.Phi" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -408,6 +404,7 @@
           <EntitySet Name="LoaiKH" EntityType="Self.LoaiKH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MayBay" EntityType="Self.MayBay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Phi" EntityType="Self.Phi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhieuDatCho" EntityType="Self.PhieuDatCho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanBay" EntityType="Self.SanBay" Schema="dbo" store:Type="Tables" />
@@ -470,17 +467,12 @@
             <End Role="HangVe" EntitySet="HangVe" />
             <End Role="Ve" EntitySet="Ve" />
           </AssociationSet>
-          <AssociationSet Name="FK_Ve_KhachHang" Association="Self.FK_Ve_KhachHang">
-            <End Role="KhachHang" EntitySet="KhachHang" />
-            <End Role="Ve" EntitySet="Ve" />
-          </AssociationSet>
           <AssociationSet Name="FK_Ve_Phi" Association="Self.FK_Ve_Phi">
             <End Role="Phi" EntitySet="Phi" />
             <End Role="Ve" EntitySet="Ve" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookingAirLightModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -581,7 +573,6 @@
           <Property Name="NgaySinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LoaiKH" Relationship="Self.FK_KhachHang_LoaiKH" FromRole="KhachHang" ToRole="LoaiKH" />
           <NavigationProperty Name="PhieuDatChoes" Relationship="Self.FK_PhieuDatCho_KhachHang" FromRole="KhachHang" ToRole="PhieuDatCho" />
-          <NavigationProperty Name="Ves" Relationship="Self.FK_Ve_KhachHang" FromRole="KhachHang" ToRole="Ve" />
         </EntityType>
         <EntityType Name="LoaiKH">
           <Key>
@@ -680,8 +671,8 @@
           <NavigationProperty Name="ChuyenBay" Relationship="Self.FK_Ve_ChuyenBay" FromRole="Ve" ToRole="ChuyenBay" />
           <NavigationProperty Name="HangVe" Relationship="Self.FK_Ve_HangVe" FromRole="Ve" ToRole="HangVe" />
           <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_Ve" FromRole="Ve" ToRole="HoaDon" />
-          <NavigationProperty Name="KhachHang" Relationship="Self.FK_Ve_KhachHang" FromRole="Ve" ToRole="KhachHang" />
           <NavigationProperty Name="Phi" Relationship="Self.FK_Ve_Phi" FromRole="Ve" ToRole="Phi" />
+          <Property Name="CCCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_ChiTietChuyenBay_ChuyenBay">
           <End Role="ChuyenBay" Type="Self.ChuyenBay" Multiplicity="0..1">
@@ -861,20 +852,6 @@
               <PropertyRef Name="IDKH" />
             </Principal>
             <Dependent Role="PhieuDatCho">
-              <PropertyRef Name="IDKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ve_KhachHang">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="IDKH" />
-            </Principal>
-            <Dependent Role="Ve">
               <PropertyRef Name="IDKH" />
             </Dependent>
           </ReferentialConstraint>
@@ -977,10 +954,6 @@
             <End Role="KhachHang" EntitySet="KhachHangs" />
             <End Role="PhieuDatCho" EntitySet="PhieuDatChoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Ve_KhachHang" Association="Self.FK_Ve_KhachHang">
-            <End Role="KhachHang" EntitySet="KhachHangs" />
-            <End Role="Ve" EntitySet="Ves" />
-          </AssociationSet>
           <AssociationSet Name="FK_Ve_Phi" Association="Self.FK_Ve_Phi">
             <End Role="Phi" EntitySet="Phis" />
             <End Role="Ve" EntitySet="Ves" />
@@ -989,7 +962,17 @@
             <End Role="SanBay" EntitySet="SanBays" />
             <End Role="TuyenBay" EntitySet="TuyenBays" />
           </AssociationSet>
+          <EntitySet Name="OrderStatus" EntityType="BookingAirLightModel.OrderStatu" />
         </EntityContainer>
+        <EntityType Name="OrderStatu">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MaCBdi" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MaCBve" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1170,6 +1153,7 @@
           <EntitySetMapping Name="Ves">
             <EntityTypeMapping TypeName="BookingAirLightModel.Ve">
               <MappingFragment StoreEntitySet="Ve">
+                <ScalarProperty Name="CCCD" ColumnName="CCCD" />
                 <ScalarProperty Name="MaVe" ColumnName="MaVe" />
                 <ScalarProperty Name="MaCB" ColumnName="MaCB" />
                 <ScalarProperty Name="MaPhi" ColumnName="MaPhi" />
@@ -1177,6 +1161,16 @@
                 <ScalarProperty Name="IDKH" ColumnName="IDKH" />
                 <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
                 <ScalarProperty Name="GiaVe" ColumnName="GiaVe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderStatus">
+            <EntityTypeMapping TypeName="BookingAirLightModel.OrderStatu">
+              <MappingFragment StoreEntitySet="OrderStatus">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="MaCBve" ColumnName="MaCBve" />
+                <ScalarProperty Name="MaCBdi" ColumnName="MaCBdi" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

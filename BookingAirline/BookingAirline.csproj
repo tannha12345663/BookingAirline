@@ -184,6 +184,9 @@
     <Compile Include="Models\NhanVien.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderStatu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Phi.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -319,6 +322,7 @@
     <Content Include="Style\Css\datepicker.css" />
     <Content Include="Style\Css\fontAwesome.css" />
     <Content Include="Style\Css\hero-slider.css" />
+    <Content Include="Style\Css\InfoCustomers.css" />
     <Content Include="Style\Css\loginStyle.css" />
     <Content Include="Style\Css\myStyle.css" />
     <Content Include="Style\Css\owl-carousel.css" />
