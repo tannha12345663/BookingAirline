@@ -122,5 +122,9 @@ namespace BookingAirline.Controllers
         {
             return View(database.Ves.ToList()) ;
         }
+        public ActionResult ThankYou()
+        {
+            return View();
+        }
     }
 }

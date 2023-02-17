@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -25,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>4.3</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -129,6 +131,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
     <Compile Include="Controllers\LoginAdminController.cs" />
+    <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
@@ -224,6 +227,32 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\CSS_01\atomic.css" />
+    <Content Include="Content\CSS_01\blue-violet.css" />
+    <Content Include="Content\CSS_01\bootstrap.min.css" />
+    <Content Include="Content\CSS_01\brown.css" />
+    <Content Include="Content\CSS_01\caribbean-green.css" />
+    <Content Include="Content\CSS_01\datepicker.css" />
+    <Content Include="Content\CSS_01\egg-blue.css" />
+    <Content Include="Content\CSS_01\flexslider.css" />
+    <Content Include="Content\CSS_01\font-awesome.min.css" />
+    <Content Include="Content\CSS_01\green.css" />
+    <Content Include="Content\CSS_01\jquery-ui.min.css" />
+    <Content Include="Content\CSS_01\jquery.colorpanel.css" />
+    <Content Include="Content\CSS_01\lightblue.css" />
+    <Content Include="Content\CSS_01\magnific-popup.css" />
+    <Content Include="Content\CSS_01\orange.css" />
+    <Content Include="Content\CSS_01\owl.carousel.css" />
+    <Content Include="Content\CSS_01\owl.theme.css" />
+    <Content Include="Content\CSS_01\pigment-green.css" />
+    <Content Include="Content\CSS_01\pink.css" />
+    <Content Include="Content\CSS_01\preview.css" />
+    <Content Include="Content\CSS_01\purple.css" />
+    <Content Include="Content\CSS_01\red.css" />
+    <Content Include="Content\CSS_01\responsive.css" />
+    <Content Include="Content\CSS_01\slick-theme.css" />
+    <Content Include="Content\CSS_01\slick.css" />
+    <Content Include="Content\CSS_01\style.css" />
     <Content Include="Content\CSS_remake\Style01.css" />
     <Content Include="Content\images\logo-jetstar.jpg" />
     <Content Include="Content\images\logo-vietnamAL.png" />
@@ -323,6 +352,7 @@
     <Content Include="Style\Css\fontAwesome.css" />
     <Content Include="Style\Css\hero-slider.css" />
     <Content Include="Style\Css\InfoCustomers.css" />
+    <Content Include="Style\Css\Login.css" />
     <Content Include="Style\Css\loginStyle.css" />
     <Content Include="Style\Css\myStyle.css" />
     <Content Include="Style\Css\owl-carousel.css" />
@@ -362,6 +392,10 @@
     <Content Include="Views\KhachHang\DSachCB.cshtml" />
     <Content Include="Views\KhachHang\DienThongTinKH.cshtml" />
     <Content Include="Views\KhachHang\DSachCBVe.cshtml" />
+    <Content Include="Views\KhachHang\ThankYou.cshtml" />
+    <Content Include="Views\LoginUser\Login.cshtml" />
+    <Content Include="Views\LoginUser\SignUp.cshtml" />
+    <Content Include="Views\LoginUser\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -397,6 +431,7 @@
     <Content Include="Scripts\jquery-3.6.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
@@ -404,6 +439,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
