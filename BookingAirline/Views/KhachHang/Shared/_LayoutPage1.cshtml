@@ -34,13 +34,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Home", "TrangChu", "KhachHang")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="~/LoginUser/Login"><span class="fa fa-user"></span> Login</a></li>
-                    <li><a href="@Url.Action("LogOut","LoginAdmin")">Log Out</a></li>
+                    <li><a href="@Url.Action("LogOut","LoginUser")">Log Out</a></li>
                 </ul>
             </div>
         </div>

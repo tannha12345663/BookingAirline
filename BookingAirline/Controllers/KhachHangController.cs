@@ -45,7 +45,6 @@ namespace BookingAirline.Controllers
             }
             else
             {
-
                 var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
                 OrderStatu order = new OrderStatu();
                 order.IDUser = uid;
