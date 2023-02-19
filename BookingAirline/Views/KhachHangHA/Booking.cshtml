@@ -51,34 +51,34 @@
                                     <div class="dash-listing-heading">
                                         <div class="custom-radio">
                                             <input type="radio" id="radio01" name="radio" checked />
-                                            <label for="radio01"><span></span>All Types</label>
+                                            <label for="radio01"><span></span>FLIGHT</label>
                                         </div><!-- end custom-radio -->
 
-                                        <div class="custom-radio">
+                                        <!--<div class="custom-radio">
                                             <input type="radio" id="radio02" name="radio" />
                                             <label for="radio02"><span></span>Hotels</label>
-                                        </div><!-- end custom-radio -->
+                                        </div>--><!-- end custom-radio -->
 
-                                        <div class="custom-radio">
+                                        <!--<div class="custom-radio">
                                             <input type="radio" id="radio03" name="radio" />
                                             <label for="radio03"><span></span>Flights</label>
-                                        </div><!-- end custom-radio -->
+                                        </div>--><!-- end custom-radio -->
 
-                                        <div class="custom-radio">
+                                        <!--<div class="custom-radio">
                                             <input type="radio" id="radio04" name="radio" />
                                             <label for="radio04"><span></span>Cars</label>
-                                        </div><!-- end custom-radio -->
+                                        </div>--><!-- end custom-radio -->
                                     </div>
 
                                     <div class="table-responsive">
                                         <table class="table table-hover">
                                             <tbody>
                                                 @foreach (var item in Model)
-                                                {
+                                                 {
                                                     <tr>
                                                         <td class="dash-list-icon booking-list-date"><div class="b-date"><h3>18</h3><p>October</p></div></td>
                                                         <td class="dash-list-text booking-list-detail">
-                                                            <h3>Tom's Restaurant</h3>
+                                                            <h3>CODE BOOKING: </h3>
                                                             <ul class="list-unstyled booking-info">
                                                                 <li><span>Booking Ticket:</span> @item.MaVe</li>
                                                                 <li><span>Booking Date:</span> 26.12.2017 at 03:20 pm</li>
@@ -88,9 +88,9 @@
                                                             </ul>
                                                             <button class="btn btn-orange">Message</button>
                                                         </td>
-                                                        <td class="dash-list-btn"><button class="btn btn-orange">Cancel</button><button class="btn">Approve</button></td>
+                                                        <td class="dash-list-btn"><button class="btn btn-success">DETAILS</button></td>
                                                     </tr>
-                                                }
+                                                 }
 
                                             </tbody>
                                         </table>
