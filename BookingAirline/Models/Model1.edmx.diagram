@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="10301d2bf3f3475ea5e3d0a21a435ddb" Name="Diagram1" ZoomLevel="82">
+      <Diagram DiagramId="10301d2bf3f3475ea5e3d0a21a435ddb" Name="Diagram1" ZoomLevel="53">
         <EntityTypeShape EntityType="BookingAirLightModel.ChiTietChuyenBay" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingAirLightModel.ChiTietHD" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingAirLightModel.ChucVu" Width="1.5" PointX="6" PointY="14.125" IsExpanded="true" />
@@ -40,6 +40,7 @@
         <AssociationConnector Association="BookingAirLightModel.FK_PhieuDatCho_KhachHang" ManuallyRouted="false" />
         <AssociationConnector Association="BookingAirLightModel.FK_Ve_Phi" ManuallyRouted="false" />
         <AssociationConnector Association="BookingAirLightModel.FK_TuyenBay_SanBay" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingAirLightModel.FK_HoaDon_KhachHang" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

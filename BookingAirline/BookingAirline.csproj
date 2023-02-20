@@ -133,6 +133,7 @@
     <Compile Include="Controllers\KhachHangHAController.cs" />
     <Compile Include="Controllers\LoginAdminController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
+    <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
@@ -277,6 +278,7 @@
     <Content Include="hinh\fitness-service.jpg" />
     <Content Include="hinh\heading-bg.jpg" />
     <Content Include="hinh\heading-pg1.jpg" />
+    <Content Include="hinh\IMG_0839 %281%29.jpg" />
     <Content Include="hinh\ka-img.jpg" />
     <Content Include="hinh\log-in.png" />
     <Content Include="hinh\logo-cnpm-removebg.png" />
@@ -350,6 +352,13 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Style\apple-touch-icon.html" />
     <Content Include="Style\Css\aboutStyle.css" />
+    <Content Include="Style\Css\Admin\adminlte.min.css" />
+    <Content Include="Style\Css\Admin\all.min.css" />
+    <Content Include="Style\Css\Admin\icheck-bootstrap.min.css" />
+    <Content Include="Style\Css\Admin\icon.css" />
+    <Content Include="Style\Css\Admin\js\adminlte.min.js" />
+    <Content Include="Style\Css\Admin\js\bootstrap.bundle.min.js" />
+    <Content Include="Style\Css\Admin\js\jquery.min.js" />
     <Content Include="Style\Css\bootstrap-theme.min.css" />
     <Content Include="Style\Css\bootstrap.min.css" />
     <Content Include="Style\Css\contactStyle.css" />
@@ -390,7 +399,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\Create.cshtml" />
-    <Content Include="Views\LoginAdmin\Index.cshtml" />
     <Content Include="Views\LoginAdmin\Register.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
@@ -419,9 +427,12 @@
     <Content Include="Views\KhachHangHA\DienThongTinKH.cshtml" />
     <Content Include="Views\KhachHangHA\ThanhToan.cshtml" />
     <Content Include="Views\KhachHangHA\ThankYou.cshtml" />
+    <Content Include="Views\KhachHangHA\DetailBooking.cshtml" />
+    <Content Include="Views\LoginAdmin\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\NhanVien\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

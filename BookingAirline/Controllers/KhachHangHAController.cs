@@ -54,10 +54,16 @@ namespace BookingAirline.Controllers
         public ActionResult Booking()
         {
             var user = (BookingAirline.Models.KhachHang)Session["userKH"];
-            var data = database.Ves.Where(s => s.IDKH == user.IDKH).ToList();
-            return View(data);
+            var hd = database.HoaDons.Where(s => s.IDKH== user.IDKH).ToList();
+            return View(hd);
         }
 
+        public ActionResult DetailBooking(string id)
+        {
+            var cthd = database.ChiTietHDs.Where(s => s.MaHD == id).ToList();
+            TempData["mahd"] = id;
+            return View(cthd);
+        }
         public ActionResult Whishlist()
         {
             return View();
@@ -180,6 +186,7 @@ namespace BookingAirline.Controllers
         [HttpPost]
         public ActionResult ThanhToan01()
         {
+            var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
             //Lên hóa đơn mới
             HoaDon hd = new HoaDon();
             Random rd = new Random();
@@ -187,12 +194,12 @@ namespace BookingAirline.Controllers
             hd.IDNV = "HT";
             hd.TinhTrang = "Đã thanh toán";
             hd.NgayLap = System.DateTime.Now;
+            hd.IDKH = uid.IDKH;
             database.HoaDons.Add(hd);
             database.SaveChanges();
             //Thêm chi tiết hóa đơn
             ChiTietHD cthd = new ChiTietHD();
             cthd.MaHD = hd.MaHD;
-            var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
             var tt = "Chưa thanh toán";
             var Order = database.Ves.Where(s => s.IDKH == uid.IDKH && s.TinhTrang == tt).ToList() ;
             foreach(var item in Order)

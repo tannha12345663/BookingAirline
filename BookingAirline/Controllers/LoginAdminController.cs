@@ -12,7 +12,7 @@ namespace BookingAirline.Controllers
     {
         BookingAirLightEntities database = new BookingAirLightEntities();
         // GET: LoginAdmin
-        public ActionResult Index()
+        public ActionResult Login()
         {
             return View();
         }
