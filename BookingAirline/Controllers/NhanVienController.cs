@@ -8,8 +8,9 @@ namespace BookingAirline.Controllers
 {
     public class NhanVienController : Controller
     {
+
         // GET: NhanVien
-        public ActionResult Index()
+        public ActionResult TrangChu()
         {
             return View();
         }

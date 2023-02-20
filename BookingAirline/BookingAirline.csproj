@@ -350,6 +350,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Style\Admin\css\main.css" />
+    <Content Include="Style\Admin\css\styles.css" />
+    <Content Include="Style\Admin\js\chart-area-demo.js" />
+    <Content Include="Style\Admin\js\chart-bar-demo.js" />
+    <Content Include="Style\Admin\js\datatables-simple-demo.js" />
+    <Content Include="Style\Admin\js\scripts.js" />
     <Content Include="Style\apple-touch-icon.html" />
     <Content Include="Style\Css\aboutStyle.css" />
     <Content Include="Style\Css\Admin\adminlte.min.css" />
@@ -429,10 +435,11 @@
     <Content Include="Views\KhachHangHA\ThankYou.cshtml" />
     <Content Include="Views\KhachHangHA\DetailBooking.cshtml" />
     <Content Include="Views\LoginAdmin\Login.cshtml" />
+    <Content Include="Views\NhanVien\Shared\_LayoutPage1.cshtml" />
+    <Content Include="Views\NhanVien\TrangChu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\NhanVien\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
