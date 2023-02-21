@@ -11,10 +11,10 @@ namespace BookingAirline.Controllers
     {
         BookingAirLightEntities database = new BookingAirLightEntities();
         // GET: KhachHang
-        public ActionResult TrangChu()
-        {
-            return View();
-        }
+        //public ActionResult TrangChu()
+        //{
+        //    return View();
+        //}
         public ActionResult DSachCB()
         {
             Session["From"] = Request["from"];
