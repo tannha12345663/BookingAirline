@@ -1,12 +1,9 @@
-﻿@model IEnumerable<BookingAirline.Models.HoaDon>
+﻿@model IEnumerable<BookingAirline.Models.ChiTietHD>
 @using BookingAirline.Models
-@using System.Globalization
 @{
-    ViewBag.Title = "Booking";
+    ViewBag.Title = "DetailBooking";
     Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
-    BookingAirLightEntities db = new BookingAirLightEntities();
 }
-
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
@@ -47,7 +44,7 @@
                             </div><!-- end columns -->
 
                             <div class="col-xs-12 col-sm-10 col-md-10 dashboard-content booking-trips">
-                                <h2 class="dash-content-title">Trips You have Booked!</h2>
+                                <h2 class="dash-content-title">Detail bill : @TempData["mahd"]!</h2>
                                 <div class="dashboard-listing booking-listing">
                                     <div class="dash-listing-heading">
                                         <div class="custom-radio">
@@ -77,18 +74,17 @@
                                                 @foreach (var item in Model)
                                                 {
                                                     <tr>
-                                                        <td class="dash-list-icon booking-list-date"><div class="b-date"><h3>18</h3><p>October</p></div></td>
+                                                        <td class="dash-list-icon booking-list-date"><div class="b-date"><h3>@item.STT</h3><p></p></div></td>
                                                         <td class="dash-list-text booking-list-detail">
-                                                            <h3>CODE BOOKING: @item.MaHD</h3>
+                                                            <h3>Detail BOOKING: @item.MaHD</h3>
                                                             <ul class="list-unstyled booking-info">
-                                                                <li><span>Booking Date:</span> @item.NgayLap</li>
-                                                                @{ var email = db.KhachHangs.Where(s => s.IDKH == item.IDKH).FirstOrDefault();}
-                                                                <li><span>Client:</span> @item.IDKH<span class="line">|</span> @email.Email<span class="line">|</span></li>
-                                                                <li><span>Total bill:</span> @item.ThanhTien</li>
+                                                                <li><span>Ticket code :</span> @item.MaVe</li>
+                                                                <li><span>Quantity:</span> @item.SoLuong</li>
+                                                                <li><span>Price:</span> @item.DonGia</li>
+                                                                <li><span>Total:</span> @item.TongTien</li>
                                                             </ul>
-                                                            <button class="btn btn-orange">Message</button>
                                                         </td>
-                                                        <td class="dash-list-btn"><a href="~/KhachHangHA/DetailBooking/@item.MaHD" class="btn btn-success">DETAILS</a></td>
+                                                       
                                                     </tr>
                                                 }
 

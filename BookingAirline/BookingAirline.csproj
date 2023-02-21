@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>4.3</TypeScriptToolsVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -61,6 +62,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -68,12 +70,9 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -114,6 +113,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -124,15 +124,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\Authentication.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
     <Compile Include="Controllers\KhachHangHAController.cs" />
-    <Compile Include="Controllers\KhachHangsController.cs" />
     <Compile Include="Controllers\LoginAdminController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
+    <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
@@ -141,6 +142,9 @@
     </Compile>
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\ChiTietChuyenBay.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChiTietHD.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ChucVu.cs">
@@ -274,6 +278,7 @@
     <Content Include="hinh\fitness-service.jpg" />
     <Content Include="hinh\heading-bg.jpg" />
     <Content Include="hinh\heading-pg1.jpg" />
+    <Content Include="hinh\IMG_0839 %281%29.jpg" />
     <Content Include="hinh\ka-img.jpg" />
     <Content Include="hinh\log-in.png" />
     <Content Include="hinh\logo-cnpm-removebg.png" />
@@ -345,8 +350,21 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Style\Admin\css\main.css" />
+    <Content Include="Style\Admin\css\styles.css" />
+    <Content Include="Style\Admin\js\chart-area-demo.js" />
+    <Content Include="Style\Admin\js\chart-bar-demo.js" />
+    <Content Include="Style\Admin\js\datatables-simple-demo.js" />
+    <Content Include="Style\Admin\js\scripts.js" />
     <Content Include="Style\apple-touch-icon.html" />
     <Content Include="Style\Css\aboutStyle.css" />
+    <Content Include="Style\Css\Admin\adminlte.min.css" />
+    <Content Include="Style\Css\Admin\all.min.css" />
+    <Content Include="Style\Css\Admin\icheck-bootstrap.min.css" />
+    <Content Include="Style\Css\Admin\icon.css" />
+    <Content Include="Style\Css\Admin\js\adminlte.min.js" />
+    <Content Include="Style\Css\Admin\js\bootstrap.bundle.min.js" />
+    <Content Include="Style\Css\Admin\js\jquery.min.js" />
     <Content Include="Style\Css\bootstrap-theme.min.css" />
     <Content Include="Style\Css\bootstrap.min.css" />
     <Content Include="Style\Css\contactStyle.css" />
@@ -358,6 +376,7 @@
     <Content Include="Style\Css\loginStyle.css" />
     <Content Include="Style\Css\myStyle.css" />
     <Content Include="Style\Css\owl-carousel.css" />
+    <Content Include="Style\Css\Payment.css" />
     <Content Include="Style\Css\ticketStyle.css" />
     <Content Include="Style\Css\tooplate-style.css" />
     <Content Include="Style\Js\bootstrap.min.js" />
@@ -368,6 +387,7 @@
     <Content Include="Style\Js\jquery.min.js" />
     <Content Include="Style\Js\main.js" />
     <Content Include="Style\Js\modernizr-2.8.3-respond-1.4.2.min.js" />
+    <Content Include="Style\Js\Payment.js" />
     <Content Include="Style\Js\plugins.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -385,7 +405,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\Create.cshtml" />
-    <Content Include="Views\LoginAdmin\Index.cshtml" />
     <Content Include="Views\LoginAdmin\Register.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
@@ -407,12 +426,17 @@
     <Content Include="Views\KhachHangHA\Booking.cshtml" />
     <Content Include="Views\KhachHangHA\Whishlist.cshtml" />
     <Content Include="Views\KhachHangHA\MyCard.cshtml" />
-    <Content Include="Views\KhachHangs\Create.cshtml" />
-    <Content Include="Views\KhachHangs\Delete.cshtml" />
-    <Content Include="Views\KhachHangs\Details.cshtml" />
-    <Content Include="Views\KhachHangs\Edit.cshtml" />
-    <Content Include="Views\KhachHangs\Index.cshtml" />
     <Content Include="Views\KhachHangHA\EditProfile.cshtml" />
+    <Content Include="Views\KhachHang\ThanhToan.cshtml" />
+    <Content Include="Views\KhachHangHA\DSachCB.cshtml" />
+    <Content Include="Views\KhachHangHA\DSachCBVe.cshtml" />
+    <Content Include="Views\KhachHangHA\DienThongTinKH.cshtml" />
+    <Content Include="Views\KhachHangHA\ThanhToan.cshtml" />
+    <Content Include="Views\KhachHangHA\ThankYou.cshtml" />
+    <Content Include="Views\KhachHangHA\DetailBooking.cshtml" />
+    <Content Include="Views\LoginAdmin\Login.cshtml" />
+    <Content Include="Views\NhanVien\Shared\_LayoutPage1.cshtml" />
+    <Content Include="Views\NhanVien\TrangChu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

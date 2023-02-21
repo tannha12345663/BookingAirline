@@ -26,6 +26,7 @@ namespace BookingAirline.Models
         }
     
         public virtual DbSet<ChiTietChuyenBay> ChiTietChuyenBays { get; set; }
+        public virtual DbSet<ChiTietHD> ChiTietHDs { get; set; }
         public virtual DbSet<ChucVu> ChucVus { get; set; }
         public virtual DbSet<ChuyenBay> ChuyenBays { get; set; }
         public virtual DbSet<DoanhThuNam> DoanhThuNams { get; set; }
@@ -36,12 +37,12 @@ namespace BookingAirline.Models
         public virtual DbSet<LoaiKH> LoaiKHs { get; set; }
         public virtual DbSet<MayBay> MayBays { get; set; }
         public virtual DbSet<NhanVien> NhanViens { get; set; }
+        public virtual DbSet<OrderStatu> OrderStatus { get; set; }
         public virtual DbSet<Phi> Phis { get; set; }
         public virtual DbSet<PhieuDatCho> PhieuDatChoes { get; set; }
         public virtual DbSet<SanBay> SanBays { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TuyenBay> TuyenBays { get; set; }
         public virtual DbSet<Ve> Ves { get; set; }
-        public virtual DbSet<OrderStatu> OrderStatus { get; set; }
     }
 }

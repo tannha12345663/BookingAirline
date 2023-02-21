@@ -12,55 +12,31 @@ namespace BookingAirline.Controllers
     {
         BookingAirLightEntities database = new BookingAirLightEntities();
         // GET: LoginAdmin
-        public ActionResult Index()
+        public ActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(NhanVien _user)
+        public ActionResult Login(string user, string password)
         {
-            var check = database.NhanViens.Where(s => s.IDNV == _user.IDNV && s.Password == _user.Password).FirstOrDefault();
-
-            if (check != null)
+            var data = database.NhanViens.Where(s => s.UserName == user && s.Password == password).FirstOrDefault();
+            var taikhoan = database.NhanViens.SingleOrDefault(s => s.UserName == user && s.Password == password);
+            if (data == null)
             {
-                ViewBag.ErrorInfo = "Info Error";
-                return View("Index");
+                TempData["error"] = "Tài khoản đăng nhập không đúng";
+                return View();
             }
-            else
+            else if (taikhoan != null)
             {
+                //add session
                 database.Configuration.ValidateOnSaveEnabled = false;
-                Session["ID"] = _user.IDNV;
-                Session["password"] = _user.Password;
-                return RedirectToAction("Index", "Product");
-            }
-            
-        }
-
-        //Register
-        public ActionResult Register() { return View(); }
-
-        [HttpPost]
-        public ActionResult Register(NhanVien _user)
-        {
-            if (ModelState.IsValid)
-            {
-                var check_ID = database.NhanViens.Where(s => s.IDNV == _user.IDNV).FirstOrDefault();
-                if(check_ID == null) //chua co ID
-                {
-                    database.Configuration.ValidateOnSaveEnabled = false;
-                    database.NhanViens.Add(_user);
-                    database.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ViewBag.ErrorRegister = "This ID is exixst";
-                    return View();
-                }
+                Session["userNV"] = data;
+                return RedirectToAction("TrangChu", "NhanVien");
             }
             return View();
         }
+
 
         public ActionResult LogOut() 
         { 

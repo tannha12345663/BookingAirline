@@ -18,6 +18,7 @@ namespace BookingAirline.Models
         public KhachHang()
         {
             this.PhieuDatChoes = new HashSet<PhieuDatCho>();
+            this.HoaDons = new HashSet<HoaDon>();
         }
     
         public string IDKH { get; set; }
@@ -33,5 +34,7 @@ namespace BookingAirline.Models
         public virtual LoaiKH LoaiKH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhieuDatCho> PhieuDatChoes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
     }
 }

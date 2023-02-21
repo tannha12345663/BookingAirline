@@ -115,11 +115,14 @@ namespace BookingAirline.Controllers
                 database.SaveChanges();
             }
 
-            return RedirectToAction("TrangChu");
+            return RedirectToAction("ThanhToan");
         }
         public ActionResult ThanhToan()
         {
-            return View(database.Ves.ToList()) ;
+            var stt = "Chưa thanh toán";
+            var uid = "Vang Lai";
+            var dsve = database.Ves.Where(s => s.IDKH == uid && s.TinhTrang == stt).ToList();
+            return View(dsve);
         }
         public ActionResult ThankYou()
         {
