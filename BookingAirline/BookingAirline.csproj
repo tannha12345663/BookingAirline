@@ -259,6 +259,7 @@
     <Content Include="Content\CSS_01\slick-theme.css" />
     <Content Include="Content\CSS_01\slick.css" />
     <Content Include="Content\CSS_01\style.css" />
+    <Content Include="Content\CSS_remake\main.css" />
     <Content Include="Content\CSS_remake\Style01.css" />
     <Content Include="Content\images\logo-jetstar.jpg" />
     <Content Include="Content\images\logo-vietnamAL.png" />
@@ -439,6 +440,12 @@
     <Content Include="Views\NhanVien\Shared\_LayoutPage1.cshtml" />
     <Content Include="Views\NhanVien\TrangChu.cshtml" />
     <Content Include="Views\NhanVien\Scheduleaflight.cshtml" />
+    <Content Include="Views\NhanVien\FlightRoute.cshtml" />
+    <Content Include="Views\NhanVien\Plane.cshtml" />
+    <Content Include="Views\NhanVien\TotalRevenue.cshtml" />
+    <Content Include="Views\NhanVien\Reports.cshtml" />
+    <Content Include="Views\NhanVien\TicketList.cshtml" />
+    <Content Include="Views\NhanVien\AddSchedulea.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

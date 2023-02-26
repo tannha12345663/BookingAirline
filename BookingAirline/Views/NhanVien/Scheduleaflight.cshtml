@@ -1,8 +1,197 @@
-﻿
+﻿@using BookingAirline.Models
 @{
     ViewBag.Title = "Scheduleaflight";
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
+    BookingAirLightEntities database = new BookingAirLightEntities();
 }
+<h2>Schedulea flight</h2>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="~/NhanVien/TrangChu">Dashboard</a></li>
+    <li class="breadcrumb-item active">Schedulea flight</li>
+</ol>
+<div class="card mb-4">
+    <div class="card-body">
+        DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
+        <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2 mb-2">
+        <div class="btn btn-secondary text-white">
+            <a data-toggle="modal" data-target="#myModal01">Add Schulea </a>
+            <i class="fas fa-calendar me-2"></i>
+        </div>
+    </div>
+    <div class="col-md-2 mb-2">
+        <div class="btn btn-primary text-white">
+            <a data-toggle="modal" data-target="#myModal">Add Plane</a>
+            <i class="fas fa-plane me-1"></i>
+        </div>
+    </div>
 
-<h2>Scheduleaflight</h2>
+</div>
 
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        DataTable Flight
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                @*//Phần render*@
+                <tr>
+                    <th>Mã chuyến bay</th>
+                    <th>Mã máy bay</th>
+                    <th>Mã tuyến bay</th>
+                    <th>Ngày giờ</th>
+                    <th>Thời gian bay</th>
+                    <th>Số lượng G1</th>
+                    <th>Số lượng G2</th>
+                    <th>Số lượng G3</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var ttcb = database.ChuyenBays.ToList();
+                    foreach (var item01 in ttcb)
+                    {
+                        <tr>
+                            <td>@item01.MaCB</td>
+                            <td>@item01.MaMB</td>
+                            <td>@item01.MaTBay</td>
+                            <td>@item01.NgayGio</td>
+                            <td>@item01.ThoiGianBay</td>
+                            <td>@item01.SoLuongGheHang1</td>
+                            <td>@item01.SoLuongGheHang2</td>
+                            <td>@item01.SoLuongGheHang3</td>
+                            <td>Chỉnh sửa || Xóa</td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--Form thêm Sân bay-->
+<!-- The Modal -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add new Air plan</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-content">
+                <form action="~/NhanVien/AddAirport" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập mã máy bay</label>
+                                <input class="form-control text-box single-line" name="MaMB" type="text" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập loại máy bay</label>
+                                <input class="form-control" id="ChietKhau" name="LoaiMayBay" type="text" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Add new" class="btn btn-success" />
+                            <a class="btn btn-primary" data-dismiss="modal" href="#">Cancel</a>
+                            <BR>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--Form thêm tuyến bay-->
+<!-- The Modal -->
+<div class="modal" id="myModal01" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add new Air plan</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-content">
+                <form action="~/NhanVien/AddPlane" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="modal-body">
+                        <div class="row">
+                            @*<div class="form-group col-md-12">
+                                    <label class="control-label">Nhập tuyến bay</label>
+                                    <input class="form-control text-box single-line"  name="MaTbay" type="text" required>
+                                </div>*@
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Chọn mã máy bay</label>
+                                <select class="form-control " name="MaMB" type="text" required>
+                                    @{ var mb = database.MayBays.ToList();
+                                        foreach (var item in mb)
+                                        {
+                                            <option value="@item.MaMB">@item.MaMB</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Chọn mã tuyến bay</label>
+                                <select class="form-control " name="MaTBay" type="text" required>
+                                    @{ var tb = database.TuyenBays.ToList();
+                                        foreach (var item in tb)
+                                        {
+                                            <option value="@item.MaTBay">@item.MaTBay</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập ngày giờ khởi hành</label>
+                                <input class="form-control" name="NgayGio" type="datetime-local" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập thời gian bay</label>
+                                <input class="form-control" name="ThoiGianBay" type="text" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập số lượng G1</label>
+                                <input class="form-control" name="SoLuongGheHang1" type="number" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập số lượng G2</label>
+                                <input class="form-control" name="SoLuongGheHang2" type="number" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập số lượng G3</label>
+                                <input class="form-control" name="SoLuongGheHang3" type="number" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Add new" class="btn btn-success" />
+                            <a class="btn btn-primary" data-dismiss="modal" href="#">Cancel</a>
+                            <BR>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
