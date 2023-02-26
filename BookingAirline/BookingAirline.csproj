@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Authentication.cs" />
+    <Compile Include="App_Start\AuthenticationNV.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -437,6 +438,7 @@
     <Content Include="Views\LoginAdmin\Login.cshtml" />
     <Content Include="Views\NhanVien\Shared\_LayoutPage1.cshtml" />
     <Content Include="Views\NhanVien\TrangChu.cshtml" />
+    <Content Include="Views\NhanVien\Scheduleaflight.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
