@@ -23,7 +23,8 @@ namespace BookingAirline.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddPlane(ChuyenBay cb)
+        [ValidateAntiForgeryToken]
+        public ActionResult AddSchulea(ChuyenBay cb)
         {
             if (cb == null)
             {
@@ -37,11 +38,55 @@ namespace BookingAirline.Controllers
                 cb.MaCB = macb;
                 database.ChuyenBays.Add(cb);
                 database.SaveChanges();
+                var check = Convert.ToInt32(Request["checkbox01"]) ;
+                if ( check == 1)
+                {
+                    Session["mcb"] = cb.MaCB;
+                    TempData["themthongtin"] = check;
+                }
+                TempData["machuyenbay"] = cb.MaCB;
+                TempData["messageAlert"] = "success";
                 return RedirectToAction("Scheduleaflight");
             }
 
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddPlan ([Bind(Include = "MaMB,LoaiMayBay")] MayBay mb)
+        {
+            if (mb == null)
+            {
+                TempData["error"] = "Error";
+                return RedirectToAction("Scheduleaflight");
+            }
+            else
+            {
+                database.MayBays.Add(mb);
+                database.SaveChanges();
+                return RedirectToAction("Scheduleaflight");
+            }
 
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdddetailSchulea(ChiTietChuyenBay ct)
+        {
+            var checkmacb = Session["mcb"];
+            if (checkmacb != null)
+            {
+                ct.MaCTCB = (string)checkmacb;
+            }
+            else
+            {
+                TempData["messageAlert"] = "erorr";
+                return RedirectToAction("Scheduleaflight");
+            }
+            TempData["machuyenbay"] = ct.MaCTCB;
+            TempData["messageAlert"] = "success";
+            database.ChiTietChuyenBays.Add(ct);
+            database.SaveChanges();
+            return RedirectToAction("Scheduleaflight");
+        }
         public ActionResult AddSchedulea()
         {
             return View();
@@ -53,22 +98,25 @@ namespace BookingAirline.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddAirport(MayBay mb)
+        [ValidateAntiForgeryToken]
+        public ActionResult AddAirport([Bind(Include = "MaSB,TenSB")] SanBay sb)
         {
-            if (mb == null)
+            if (sb == null)
             {
                 TempData["error"] = "Error";
                 return RedirectToAction("FlightRoute");
             }
             else
             {
-                database.MayBays.Add(mb);
+                database.SanBays.Add(sb);
                 database.SaveChanges();
                 return RedirectToAction("FlightRoute");
             }
             
         }
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddRoute(TuyenBay tb)
         {
             if (tb == null)

@@ -4,6 +4,22 @@
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
     BookingAirLightEntities database = new BookingAirLightEntities();
 }
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@{
+    var checkmess = (string)TempData["messageAlert"];
+    var macb = (string)TempData["machuyenbay"];
+    if (checkmess == "success")
+    {
+        <script>
+            swal({
+                title: "Đã thêm chuyến bay thành công",
+                text: "Mã chuyến bay  @macb đã được thêm mới",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    };
+}
 <h2>Schedulea flight</h2>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="~/NhanVien/TrangChu">Dashboard</a></li>
@@ -24,13 +40,17 @@
     </div>
     <div class="col-md-2 mb-2">
         <div class="btn btn-primary text-white">
-            <a data-toggle="modal" data-target="#myModal">Add Plane</a>
+            <a data-toggle="modal" data-target="#myModal" data->Add Plane</a>
             <i class="fas fa-plane me-1"></i>
         </div>
     </div>
 
 </div>
-
+<div class="col-sm-2">
+    <a class="btn btn-success btn-sm print-file" title="In" onclick="myApp.printTable()">
+        <i class="fas fa-print"></i> In dữ liệu
+    </a>
+</div>
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
@@ -88,7 +108,7 @@
             </div>
 
             <div class="modal-content">
-                <form action="~/NhanVien/AddAirport" method="post">
+                <form action="~/NhanVien/AddPlan" method="post">
                     @Html.AntiForgeryToken()
                     <div class="modal-body">
                         <div class="row">
@@ -130,7 +150,7 @@
             </div>
 
             <div class="modal-content">
-                <form action="~/NhanVien/AddPlane" method="post">
+                <form action="~/NhanVien/AddSchulea" method="post">
                     @Html.AntiForgeryToken()
                     <div class="modal-body">
                         <div class="row">
@@ -180,6 +200,10 @@
                                 <label class="control-label">Nhập số lượng G3</label>
                                 <input class="form-control" name="SoLuongGheHang3" type="number" required>
                             </div>
+                            <div class="form-group col-md-8">
+                                <input name="checkbox01" value="1" type="radio" required /> Bổ sung thên chuyến bay (nếu có) <br />
+                                <input name="checkbox01" value="0" type="radio" required /> Không có
+                            </div>
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Add new" class="btn btn-success" />
@@ -195,3 +219,77 @@
         </div>
     </div>
 </div>
+
+<!--Form thêm thông tin chi tiết chuyến bay-->
+<!-- The Modal -->
+<div class="modal" id="myModal02" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add detaile schulea</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-content">
+                <form action="~/NhanVien/AdddetailSchulea" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập sân bay trung gian</label>
+                                <input class="form-control text-box single-line" name="SanBayTrungGian" type="text" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập thời gian dừng: </label>
+                                <input class="form-control" name="ThoiGianDung" type="text" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập ghi chú (nếu có):</label>
+                                <input class="form-control" name="GhiChu" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Add new" class="btn btn-success" />
+                            <a class="btn btn-primary" href="#">Cancel</a>
+                            <BR>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+@{
+    int check = Convert.ToInt32(TempData["themthongtin"]);
+    if (check == 1)
+    {
+        <script>
+            $('#myModal02').modal('show')
+        </script>
+    }
+}
+
+
+<script>
+    //In dữ liệu
+    var myApp = new function () {
+        this.printTable = function () {
+            var tab = document.getElementById('datatablesSimple');
+            var win = window.open('', '', 'height=800px,width=1200px');
+            win.document.write(tab.outerHTML);
+            win.document.close();
+            win.print();
+        }
+    }
+    oTable = $('#datatablesSimple').dataTable();
+    $('#all').click(function (e) {
+        $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
+        e.stopImmediatePropagation();
+    });
+
+</script>
