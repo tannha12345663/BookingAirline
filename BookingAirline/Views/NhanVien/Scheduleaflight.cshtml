@@ -1,4 +1,5 @@
-﻿@using BookingAirline.Models
+﻿@model BookingAirline.Models.ChuyenBay
+@using BookingAirline.Models
 @{
     ViewBag.Title = "Scheduleaflight";
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
@@ -18,8 +19,21 @@
                 button: "OK",
             });
         </script>
+    }
+    else if (checkmess == "SuaThanhCong")
+    {
+        <script>
+            swal({
+                title: "Đã sửa chuyến bay thành công",
+                text: "Mã chuyến bay  @macb đã được sửa đổi mới",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
     };
+
 }
+
 <h2>Schedulea flight</h2>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="~/NhanVien/TrangChu">Dashboard</a></li>
@@ -56,7 +70,7 @@
         <i class="fas fa-table me-1"></i>
         DataTable Flight
     </div>
-    <div class="card-body">
+    <div class="card-body table-responsive">
         <table id="datatablesSimple">
             <thead>
                 @*//Phần render*@
@@ -85,7 +99,19 @@
                             <td>@item01.SoLuongGheHang1</td>
                             <td>@item01.SoLuongGheHang2</td>
                             <td>@item01.SoLuongGheHang3</td>
-                            <td>Chỉnh sửa || Xóa</td>
+                            <td>
+                                @{ var ctcb = database.ChiTietChuyenBays.Where(s => s.MaCTCB == item01.MaCB).FirstOrDefault();
+                                    if (ctcb != null)
+                                    {
+                                        <a href="~/NhanVien/DetailFlight/@item01.MaCB" class="btn btn-info btn-sm edit">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    }
+                                }
+                                || <a href="/KinhDoanh/ChinhSuaDL/@item01.MaCB" class="btn btn-danger btn-sm edit">
+                                    <i class="fa fa-remove"></i>
+                                </a>
+                            </td>
                         </tr>
                     }
                 }
@@ -264,6 +290,13 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
 @{
     int check = Convert.ToInt32(TempData["themthongtin"]);
     if (check == 1)
@@ -272,6 +305,14 @@
             $('#myModal02').modal('show')
         </script>
     }
+    else if (check == 2)
+    {
+
+        <script>
+            $('#EditcbModal').modal('show')
+        </script>
+    }
+
 }
 
 

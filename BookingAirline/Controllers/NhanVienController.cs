@@ -43,6 +43,7 @@ namespace BookingAirline.Controllers
                 {
                     Session["mcb"] = cb.MaCB;
                     TempData["themthongtin"] = check;
+                    return RedirectToAction("Scheduleaflight");
                 }
                 TempData["machuyenbay"] = cb.MaCB;
                 TempData["messageAlert"] = "success";
@@ -85,6 +86,38 @@ namespace BookingAirline.Controllers
             TempData["messageAlert"] = "success";
             database.ChiTietChuyenBays.Add(ct);
             database.SaveChanges();
+            return RedirectToAction("Scheduleaflight");
+        }
+
+        public ActionResult DetailFlight(string id)
+        {
+            if (id != null)
+            {
+                var thongtincb = database.ChuyenBays.Find(id);
+                TempData["themthongtin"] = 2;
+                return View(thongtincb);
+            }
+            else if(id == null)
+            {
+                return HttpNotFound();
+            }
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DetailFlight(ChuyenBay cb)
+        {
+            ChiTietChuyenBay ctcb = new ChiTietChuyenBay();
+            ctcb.MaCTCB = cb.MaCB;
+            ctcb.SanBayTrungGian = Request["SanBayTrungGian"];
+            ctcb.ThoiGianDung = Request["ThoiGianDung"];
+            ctcb.GhiChu = Request["GhiChu"];
+            database.Entry(ctcb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+            database.SaveChanges();
+            database.Entry(cb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+            database.SaveChanges();
+            TempData["machuyenbay"] = cb.MaCB;
+            TempData["messageAlert"] = "SuaThanhCong";
             return RedirectToAction("Scheduleaflight");
         }
         public ActionResult AddSchedulea()
