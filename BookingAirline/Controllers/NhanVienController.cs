@@ -154,7 +154,7 @@ namespace BookingAirline.Controllers
         {
             if (tb == null)
             {
-                TempData["error"] = "Error";
+                TempData["messageAlert"] = "Error";
                 return RedirectToAction("FlightRoute");
             }
             else
@@ -164,6 +164,8 @@ namespace BookingAirline.Controllers
                 tb.MaTBay = matb;
                 database.TuyenBays.Add(tb);
                 database.SaveChanges();
+                TempData["matuyenbay"] = tb.MaTBay;
+                TempData["messageAlert"] = "success";
                 return RedirectToAction("FlightRoute");
             }
 
