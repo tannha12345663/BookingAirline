@@ -5,41 +5,43 @@
     BookingAirLightEntities database = new BookingAirLightEntities();
 }
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 @{
     var checkmess = (string)TempData["messageAlert"];
     var matb = (string)TempData["matuyenbay"];
     if (checkmess == "success")
     {
-        <script>
+    <script>
             swal({
                 title: "Đã thêm tuyến bay thành công",
                 text: "Mã tuyến bay  @matb đã được thêm mới",
                 icon: "success",
                 button: "OK",
             });
-        </script>
+    </script>
     }
     else if (checkmess == "SuaTBTC")
     {
-        <script>
+    <script>
             swal({
                 title: "Đã sửa chuyến bay thành công",
                 text: "Mã tuyến bay  @matb đã được sửa đổi mới",
                 icon: "success",
                 button: "OK",
             });
-        </script>
+    </script>
     }
     else if (checkmess == "Error")
     {
-        <script>
-            swal({
-                title: "Thêm tuyến bay không thành công",
-                text: "Vui lòng kiểm tra lại thông tin và nhập lại! ",
-                icon: "faile",
-                button: "OK",
-            });
-        </script>
+    <script>
+        swal({
+            title: "Thêm tuyến bay không thành công",
+            text: "Vui lòng kiểm tra lại thông tin và nhập lại! ",
+            icon: "faile",
+            button: "OK",
+        });
+    </script>
     };
 
 }
@@ -96,21 +98,25 @@
                     foreach (var item01 in dstb)
                     {
                         var tensb = database.SanBays.Find(item01.MaSB);
-                        <tr>
-                            <td>@item01.MaTBay</td>
-                            <td>@item01.MaSB</td>
-                            <td>@tensb.TenSB</td>
-                            <td>@item01.SanBayDi</td>
-                            <td>@item01.SanBayDen</td>
-                            <td>
-                                <a href="~/NhanVien/DetailFR/@item01.MaTBay" class="btn btn-info btn-sm edit">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                <a href="/KinhDoanh/RemoveFR/@item01.MaTBay" class="btn btn-danger btn-sm edit">
-                                    <i class="fa fa-remove"></i>
-                                </a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>@item01.MaTBay</td>
+                        <td>@item01.MaSB</td>
+                        <td>@tensb.TenSB</td>
+                        <td>@item01.SanBayDi</td>
+                        <td>@item01.SanBayDen</td>
+                        <td>
+                            <a href="~/NhanVien/DetailFR/@item01.MaTBay" class="btn btn-info btn-sm edit">
+                                <i class="fa fa-edit"></i>
+                            </a>
+
+                            @*<a id="delete01" onclick="XoaFR()" class="btn btn-danger btn-sm edit">
+                                <i class="fa fa-remove"></i>
+                            </a>*@
+                            <a href="~/NhanVien/DeleteFR/@item01.MaTBay" id="delete01" onclick=" return confirm('Are you sure you want to delete ?')" class="btn btn-danger btn-sm edit">
+                                <i class="fa fa-remove"></i>
+                            </a>
+                        </td>
+                    </tr>
                     };
                 }
 
@@ -184,7 +190,7 @@
                                     @{ var masb = database.SanBays.ToList();
                                         foreach (var item in masb)
                                         {
-                                            <option value="@item.MaSB">@item.MaSB</option>
+                                        <option value="@item.MaSB">@item.MaSB</option>
                                         }
                                     }
                                 </select>
@@ -237,7 +243,7 @@
                                     @{ var masb01 = database.SanBays.ToList();
                                         foreach (var item in masb01)
                                         {
-                                            <option value="@item.MaSB">@item.MaSB</option>
+                                        <option value="@item.MaSB">@item.MaSB</option>
                                         }
                                     }
                                 </select>
@@ -265,3 +271,47 @@
         </div>
     </div>
 </div>
+@section script{
+    <script>
+        //function XoaFR() {
+        //    $.confirm({
+        //        title: 'Bạn có muốn xóa tuyến bay này !',
+        //        content: 'Nhấn ok để xóa',
+        //        button: {
+        //            OK: function () {
+        //                //var ok = $(this).data('id');
+        //                //data: {id:id}
+        //                //location.href= '/KinhDoanh/RemoveFR'
+        //            },
+        //            CANCLE: function () {
+
+        //            }
+        //        }
+        //    })
+        //}
+        //function XoaFR() {
+        //    confirm({
+        //        title: 'Vui lòng xác nhận !',
+        //        content: 'Hãy chắc chắn rằng bạn muốn xóa tuyến bay này!',
+        //        buttons: {
+        //            confirm: function () {
+        //                $.alert('Xác nhận!');
+        //                /*location.href = this.$target.attr('href');*/
+        //            },
+        //            cancel: function () {
+        //                $.alert('Hủy!');
+        //            },
+        //            somethingElse: {
+        //                text: 'Something else',
+        //                btnClass: 'btn-blue',
+        //                keys: ['enter', 'shift'],
+        //                action: function () {
+        //                    $.alert('Something else?');
+        //                }
+        //            }
+        //        }
+        //    });
+        //}
+
+    </script>
+}

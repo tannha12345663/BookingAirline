@@ -185,6 +185,13 @@ namespace BookingAirline.Controllers
             TempData["messageAlert"] = "SuaTBTC";
             return RedirectToAction("FlightRoute");
         }
+        public ActionResult DeleteFR(string id)
+        {
+            var tb = database.TuyenBays.Find(id);
+            database.TuyenBays.Remove(tb);
+            database.SaveChanges();
+            return RedirectToAction("FlightRoute");
+        }
         public ActionResult Plane()
         {
             return View();

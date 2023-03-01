@@ -23,6 +23,8 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="~/Style/Admin/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="~/Style/Admin/js/jquery-confirm.js"></script>
+    <link href="~/Style/Admin/css/jquery-confirm.css" rel="stylesheet" />
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -127,5 +129,6 @@
     <script src="~/Style/Admin/js/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="~/Style/Admin/js/datatables-simple-demo.js"></script>
+    @RenderSection("script",false)
 </body>
 </html>
