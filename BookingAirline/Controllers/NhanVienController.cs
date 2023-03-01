@@ -170,6 +170,21 @@ namespace BookingAirline.Controllers
             }
 
         }
+        public ActionResult DetailFR(string id)
+        {
+            var ttFR = database.TuyenBays.Find(id);
+            return View(ttFR);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DetailFR(TuyenBay tb)
+        {
+            database.Entry(tb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+            database.SaveChanges();
+            TempData["matuyenbay"] = tb.MaTBay;
+            TempData["messageAlert"] = "SuaTBTC";
+            return RedirectToAction("FlightRoute");
+        }
         public ActionResult Plane()
         {
             return View();

@@ -1,0 +1,39 @@
+﻿@model BookingAirline.Models.TuyenBay
+@{
+    ViewBag.Title = "DetailFR";
+    Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>DetailFR</h2>
+<!-- Form chỉnh sửa thông tin chuyến bay -->
+<div class="container">
+    <form action="~/NhanVien/DetailFR" method="post">
+        @Html.AntiForgeryToken()
+        <div class="modal-body">
+            <div class="row">
+                @Html.HiddenFor(model => model.MaTBay)
+                <div class="row ">
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Mã sân bay đi: </label>
+                        <input class="form-control " name="MaSB" type="text" required value="@Model.MaSB">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Sân bay đi: </label>
+                        <input class="form-control" name="SanBayDi" type="text" required value="@Model.SanBayDi">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Sân bay đến: </label>
+                        <input class="form-control" name="SanBayDen" type="text" required value="@Model.SanBayDen">
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row ">
+                <div><input type="submit" value="Lưu chi tiết tuyến bay @Model.MaTBay này" class="btn btn-primary" /></div>
+                <div>@Html.ActionLink("Quay lại danh chuyến bay", "Scheduleaflight")</div>
+            </div>
+        </div>
+        </form>
+
+</div>

@@ -447,6 +447,7 @@
     <Content Include="Views\NhanVien\TicketList.cshtml" />
     <Content Include="Views\NhanVien\AddSchedulea.cshtml" />
     <Content Include="Views\NhanVien\DetailFlight.cshtml" />
+    <Content Include="Views\NhanVien\DetailFR.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
