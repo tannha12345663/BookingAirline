@@ -30,7 +30,19 @@
                 button: "OK",
             });
         </script>
-    };
+    }
+    else if (checkmess== "XoaThanhCong")
+    {
+        <script>
+            swal({
+                title: "Đã xóa chuyến bay thành công",
+                text: "Mã chuyến bay  @macb đã được xóa",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }
+        ;
 
 }
 
@@ -108,7 +120,7 @@
                                         </a>
                                     }
                                 }
-                                || <a href="/KinhDoanh/ChinhSuaDL/@item01.MaCB" class="btn btn-danger btn-sm edit">
+                                <a href="/NhanVien/DeleteFlight/@item01.MaCB" onclick=" return confirm('Are you sure you want to delete ?')" class="btn btn-danger btn-sm edit">
                                     <i class="fa fa-remove"></i>
                                 </a>
                             </td>
@@ -263,6 +275,8 @@
                     @Html.AntiForgeryToken()
                     <div class="modal-body">
                         <div class="row">
+                            <input name="STT" type="number" disabled />
+                            <input name="MaCTCB" type="text" disabled />
                             <div class="form-group col-md-12">
                                 <label class="control-label">Nhập sân bay trung gian</label>
                                 <input class="form-control text-box single-line" name="SanBayTrungGian" type="text" required>

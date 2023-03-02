@@ -72,10 +72,10 @@ namespace BookingAirline.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AdddetailSchulea(ChiTietChuyenBay ct)
         {
-            var checkmacb = Session["mcb"];
+            var checkmacb = (string)Session["mcb"];
             if (checkmacb != null)
             {
-                ct.MaCTCB = (string)checkmacb;
+                ct.MaCTCB = checkmacb;
             }
             else
             {
@@ -118,6 +118,15 @@ namespace BookingAirline.Controllers
             database.SaveChanges();
             TempData["machuyenbay"] = cb.MaCB;
             TempData["messageAlert"] = "SuaThanhCong";
+            return RedirectToAction("Scheduleaflight");
+        }
+        public ActionResult DeleteFlight(string id)
+        {
+            var tb = database.ChuyenBays.Find(id);
+            database.ChuyenBays.Remove(tb);
+            database.SaveChanges();
+            TempData["machuyenbay"] = tb.MaCB;
+            TempData["messageAlert"] = "XoaThanhCong";
             return RedirectToAction("Scheduleaflight");
         }
         public ActionResult AddSchedulea()
