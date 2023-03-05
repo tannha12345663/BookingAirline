@@ -12,36 +12,36 @@
     var matb = (string)TempData["matuyenbay"];
     if (checkmess == "success")
     {
-    <script>
+        <script>
             swal({
                 title: "Đã thêm tuyến bay thành công",
                 text: "Mã tuyến bay  @matb đã được thêm mới",
                 icon: "success",
                 button: "OK",
             });
-    </script>
+        </script>
     }
     else if (checkmess == "SuaTBTC")
     {
-    <script>
+        <script>
             swal({
                 title: "Đã sửa chuyến bay thành công",
                 text: "Mã tuyến bay  @matb đã được sửa đổi mới",
                 icon: "success",
                 button: "OK",
             });
-    </script>
+        </script>
     }
     else if (checkmess == "Error")
     {
-    <script>
-        swal({
-            title: "Thêm tuyến bay không thành công",
-            text: "Vui lòng kiểm tra lại thông tin và nhập lại! ",
-            icon: "faile",
-            button: "OK",
-        });
-    </script>
+        <script>
+            swal({
+                title: "Thêm tuyến bay không thành công",
+                text: "Vui lòng kiểm tra lại thông tin và nhập lại! ",
+                icon: "faile",
+                button: "OK",
+            });
+        </script>
     };
 
 }
@@ -86,37 +86,35 @@
                 <tr>
                     <th>Mã tuyến bay</th>
                     <th>Mã sân bay</th>
-                    <th>Cảng hàng không </th>
+                    <th>Sân bay khởi hành</th>
                     <th>Sân bay đi</th>
                     <th>Sân bay đến</th>
                     <th>Chức năng</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="show_data">
+
+                
                 @{
                     var dstb = database.TuyenBays.ToList();
                     foreach (var item01 in dstb)
                     {
                         var tensb = database.SanBays.Find(item01.MaSB);
-                    <tr>
-                        <td>@item01.MaTBay</td>
-                        <td>@item01.MaSB</td>
-                        <td>@tensb.TenSB</td>
-                        <td>@item01.SanBayDi</td>
-                        <td>@item01.SanBayDen</td>
-                        <td>
-                            <a href="~/NhanVien/DetailFR/@item01.MaTBay" class="btn btn-info btn-sm edit">
-                                <i class="fa fa-edit"></i>
-                            </a>
-
-                            @*<a id="delete01" onclick="XoaFR()" class="btn btn-danger btn-sm edit">
-                                <i class="fa fa-remove"></i>
-                            </a>*@
-                            <a href="~/NhanVien/DeleteFR/@item01.MaTBay" id="delete01" onclick=" return confirm('Are you sure you want to delete ?')" class="btn btn-danger btn-sm edit">
-                                <i class="fa fa-remove"></i>
-                            </a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>@item01.MaTBay</td>
+                            <td>@item01.MaSB</td>
+                            <td>@tensb.TenSB</td>
+                            <td>@item01.SanBayDi</td>
+                            <td>@item01.SanBayDen</td>
+                            <td>
+                                <a href="~/NhanVien/DetailFR/@item01.MaTBay" class="btn btn-info btn-sm edit">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="~/NhanVien/DeleteFR/@item01.MaTBay" id="delete01" onclick=" return confirm('Are you sure you want to delete ?')" class="btn btn-danger btn-sm edit">
+                                    <i class="fa fa-remove"></i>
+                                </a>
+                            </td>
+                        </tr>
                     };
                 }
 
@@ -144,19 +142,21 @@
                         <div class="row">
                             <div class="form-group col-md-12">
                                 <label class="control-label">Nhập mã sân bay</label>
-                                <input class="form-control text-box single-line" name="MaSB" type="text" required>
+                                <input class="form-control text-box single-line" id="InputMaSB" name="MaSB" type="text" required>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Nhập tên sân bay</label>
-                                <input class="form-control" name="TenSB" type="text" required>
+                                <input class="form-control" id="InputTenSB" name="TenSB" type="text" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Add new" class="btn btn-success" />
-                            <a class="btn btn-primary" data-dismiss="modal" href="#">Cancel</a>
+
+
                             <BR>
                         </div>
                         <div class="modal-footer">
+                            <button type="button" id="btnSave" class="btn btn-secondary">Add new </button>
+                            <button type="button" class="btn btn-primary " data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </form>
@@ -165,6 +165,8 @@
         </div>
     </div>
 </div>
+
+
 
 <!--Thêm tuyến bay-->
 <!-- The Modal -->
@@ -186,30 +188,28 @@
                         <div class="row">
                             <div class="form-group col-md-12">
                                 <label class="control-label">Chọn mã sân bay</label>
-                                <select class="form-control " name="MaSB" type="text" required>
+                                <select class="form-control " id="MaSB" name="MaSB" type="text" required>
+                                    <option value="">--Please choose an option--</option>
                                     @{ var masb = database.SanBays.ToList();
                                         foreach (var item in masb)
                                         {
-                                        <option value="@item.MaSB">@item.MaSB</option>
+                                            <option value="@item.MaSB">@item.MaSB</option>
                                         }
                                     }
                                 </select>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Nhập sân bay đi</label>
-                                <input class="form-control" name="SanBayDi" type="text" required>
+                                <input class="form-control" id="SanBayDi" name="SanBayDi" type="text" required>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Nhập sân bay đến</label>
-                                <input class="form-control" name="SanBayDen" type="text" required>
+                                <input class="form-control" id="SanBayDen" name="SanBayDen" type="text" required>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <input type="submit" value="Add new" class="btn btn-success" />
-                            <a class="btn btn-primary" data-dismiss="modal" href="#">Cancel</a>
-                            <BR>
-                        </div>
                         <div class="modal-footer">
+                            <button type="button" id="btnSaveAir" class="btn btn-secondary">Add new </button>
+                            <button type="button" class="btn btn-primary " data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </form>
@@ -243,7 +243,7 @@
                                     @{ var masb01 = database.SanBays.ToList();
                                         foreach (var item in masb01)
                                         {
-                                        <option value="@item.MaSB">@item.MaSB</option>
+                                            <option value="@item.MaSB">@item.MaSB</option>
                                         }
                                     }
                                 </select>
@@ -273,45 +273,53 @@
 </div>
 @section script{
     <script>
-        //function XoaFR() {
-        //    $.confirm({
-        //        title: 'Bạn có muốn xóa tuyến bay này !',
-        //        content: 'Nhấn ok để xóa',
-        //        button: {
-        //            OK: function () {
-        //                //var ok = $(this).data('id');
-        //                //data: {id:id}
-        //                //location.href= '/KinhDoanh/RemoveFR'
-        //            },
-        //            CANCLE: function () {
+        $(document).ready(function () {
+            $('#btnSave').click(function () {
+                var masb = $('#InputMaSB').val();
+                var tenSB = $('#InputTenSB').val();
+                var model = {
+                    MaSB: masb,
+                    TenSB: tenSB
 
-        //            }
-        //        }
-        //    })
-        //}
-        //function XoaFR() {
-        //    confirm({
-        //        title: 'Vui lòng xác nhận !',
-        //        content: 'Hãy chắc chắn rằng bạn muốn xóa tuyến bay này!',
-        //        buttons: {
-        //            confirm: function () {
-        //                $.alert('Xác nhận!');
-        //                /*location.href = this.$target.attr('href');*/
-        //            },
-        //            cancel: function () {
-        //                $.alert('Hủy!');
-        //            },
-        //            somethingElse: {
-        //                text: 'Something else',
-        //                btnClass: 'btn-blue',
-        //                keys: ['enter', 'shift'],
-        //                action: function () {
-        //                    $.alert('Something else?');
-        //                }
-        //            }
-        //        }
-        //    });
-        //}
+                };
+                $.ajax({
+                    url:'/NhanVien/AddAirport',
+                    type:'POST',
+                    data: model,
+                    success: function (res) {
+                        if (res.success) {
+                            window.location.reload();
+                        }
+                    }
+                });
+            });
+        });
+        //Thêm mới tuyến bay
+        $(document).ready(function () {
+            $('#btnSaveAir').click(function () {
+                var masb = $('#MaSB').val();
+                var sbdi = $('#SanBayDi').val();
+                var sbden = $('#SanBayDen').val();
+                var model = {
+                    MaSB: masb,
+                    SanBayDi: sbdi,
+                    SanBayDen: sbden
+                };
+                $.ajax({
+                    url: '/NhanVien/AddRoute',
+                    type: 'POST',
+                    data: model,
+                    success: function (res) {
+                        if (res.success == true) {
+                            window.location.reload();
+                        }
+                        else {
 
+                        }
+                    }
+                });
+            });
+        });
     </script>
 }
+,

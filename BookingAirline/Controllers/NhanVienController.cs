@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookingAirline.App_Start;
 using BookingAirline.Models;
+using Newtonsoft.Json;
 
 namespace BookingAirline.Controllers
 {
@@ -139,26 +141,62 @@ namespace BookingAirline.Controllers
 
             return View();
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddAirport([Bind(Include = "MaSB,TenSB")] SanBay sb)
+        public ActionResult GetData()
         {
-            if (sb == null)
+            try
             {
-                TempData["error"] = "Error";
-                return RedirectToAction("FlightRoute");
+                var data = database.TuyenBays.ToList();
+
+                return Json(new { Data=data,TotalItems=data.Count}, JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(ex.Message);
+            }
+        }
+        // Thêm AddAirport
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AddAirport([Bind(Include = "MaSB,TenSB")] SanBay sb)
+        //{
+        //    if (sb == null)
+        //    {
+        //        TempData["error"] = "Error";
+        //        return RedirectToAction("FlightRoute");
+        //    }
+        //    else
+        //    {
+        //        database.SanBays.Add(sb);
+        //        database.SaveChanges();
+        //        return RedirectToAction("FlightRoute");
+        //    }
+            
+        //}
+        //Áp dụng Ajax vào chức năng thêm mới sân bay
+        [HttpPost]
+        public ActionResult AddAirport(SanBay sb)
+        {
+            if (sb != null)
             {
                 database.SanBays.Add(sb);
-                database.SaveChanges();
-                return RedirectToAction("FlightRoute");
+                try
+                {
+                    database.SaveChanges();
+                    return Json(new { success = true });
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    TempData["error"] = "Error";
+                    return Json(new { success = false });
+                }
             }
-            
+            TempData["error"] = "Error";
+            return Json(new { success = false}); // Khai báo trả lại status của json
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult AddRoute(TuyenBay tb)
         {
             if (tb == null)
@@ -175,7 +213,8 @@ namespace BookingAirline.Controllers
                 database.SaveChanges();
                 TempData["matuyenbay"] = tb.MaTBay;
                 TempData["messageAlert"] = "success";
-                return RedirectToAction("FlightRoute");
+                //return RedirectToAction("FlightRoute");
+                return Json(new { success = true });
             }
 
         }
