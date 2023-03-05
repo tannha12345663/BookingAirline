@@ -141,18 +141,24 @@ namespace BookingAirline.Controllers
 
             return View();
         }
-        public ActionResult GetData()
+        [HttpGet]
+        public JsonResult GetData()
         {
+            bool proxyCreation = database.Configuration.ProxyCreationEnabled;
             try
             {
-                var data = database.TuyenBays.ToList();
-
-                return Json(new { Data=data,TotalItems=data.Count}, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
+                database.Configuration.ProxyCreationEnabled = false;
+                var dstb = database.TuyenBays.ToList();
+                return Json(new { Data=dstb,TotalItems=dstb.Count}, JsonRequestBehavior.AllowGet);
+            }catch(Exception ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(ex.Message);
+            }
+            finally
+            {
+                //restore ProxyCreation to its original state
+                database.Configuration.ProxyCreationEnabled = proxyCreation;
             }
         }
         // Thêm AddAirport
@@ -233,12 +239,16 @@ namespace BookingAirline.Controllers
             TempData["messageAlert"] = "SuaTBTC";
             return RedirectToAction("FlightRoute");
         }
+        [HttpPost]
         public ActionResult DeleteFR(string id)
         {
             var tb = database.TuyenBays.Find(id);
             database.TuyenBays.Remove(tb);
             database.SaveChanges();
-            return RedirectToAction("FlightRoute");
+            TempData["matuyenbay"] = tb.MaTBay;
+            TempData["messageAlert"] = "XoaTBay";
+            //return RedirectToAction("FlightRoute");
+            return Json(new { success = true });
         }
         public ActionResult Plane()
         {

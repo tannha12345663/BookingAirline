@@ -7,6 +7,8 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="jquery-3.6.3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 @{
     var checkmess = (string)TempData["messageAlert"];
     var matb = (string)TempData["matuyenbay"];
@@ -42,7 +44,18 @@
                 button: "OK",
             });
         </script>
-    };
+    }
+    if (checkmess == "XoaTBay")
+    {
+        <script>
+            swal({
+                title: "Xóa tuyến bay thành công",
+                text: "Thông tin tuyến bay @matb đã được xóa khỏi hệ thống! ",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }; ;
 
 }
 
@@ -86,15 +99,13 @@
                 <tr>
                     <th>Mã tuyến bay</th>
                     <th>Mã sân bay</th>
-                    <th>Sân bay khởi hành</th>
+                    <th>Cảng hàng không</th>
                     <th>Sân bay đi</th>
                     <th>Sân bay đến</th>
                     <th>Chức năng</th>
                 </tr>
             </thead>
-            <tbody id="show_data">
-
-                
+            <tbody>
                 @{
                     var dstb = database.TuyenBays.ToList();
                     foreach (var item01 in dstb)
@@ -110,9 +121,12 @@
                                 <a href="~/NhanVien/DetailFR/@item01.MaTBay" class="btn btn-info btn-sm edit">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="~/NhanVien/DeleteFR/@item01.MaTBay" id="delete01" onclick=" return confirm('Are you sure you want to delete ?')" class="btn btn-danger btn-sm edit">
+                                @*<a href="~/NhanVien/DeleteFR/@item01.MaTBay" onclick=" return confirm('Are you sure you want to delete ?')" class="btn btn-danger btn-sm edit">
                                     <i class="fa fa-remove"></i>
-                                </a>
+                                </a>*@
+                                <button value="@item01.MaTBay" id="MaTbay" data-toggle="modal" data-target="#myModal03" class="btn btn-danger btn-sm edit">
+                                    <i class="fa fa-remove"></i>
+                                </button>
                             </td>
                         </tr>
                     };
@@ -155,7 +169,7 @@
                             <BR>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="btnSave" class="btn btn-secondary">Add new </button>
+                            <button type="button" value="" id="btnSave" class="btn btn-secondary">Add new </button>
                             <button type="button" class="btn btn-primary " data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
@@ -271,8 +285,29 @@
         </div>
     </div>
 </div>
+<!--Modal xác nhận xóa Thông tin tuyến bay-->
+<div class="modal" id="myModal03" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Are you sure? You want to Delete this airport</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary" data-dismiss="modal">Cancle</a>
+                <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirm</a>
+            </div>
+
+        </div>
+    </div>
+</div>
 @section script{
     <script>
+        LoadData();
         $(document).ready(function () {
             $('#btnSave').click(function () {
                 var masb = $('#InputMaSB').val();
@@ -283,8 +318,8 @@
 
                 };
                 $.ajax({
-                    url:'/NhanVien/AddAirport',
-                    type:'POST',
+                    url: '/NhanVien/AddAirport',
+                    type: 'POST',
                     data: model,
                     success: function (res) {
                         if (res.success) {
@@ -320,6 +355,45 @@
                 });
             });
         });
+        function LoadData() {
+            $.ajax({
+                url: '/NhanVien/GetData',
+                type: 'GET',
+                success: function (res) {
+                    if (res.TotalItems > 0) {
+                        var SetData = $("#showdata");
+                        var items = res.Data;
+                        var html = "";
+                        console.log(items);
+                        for (let i = 0; i < res.TotalItems; i++) {
+                            html += "<tr>";
+                            html += "<td>" + items[i].MaTBay + "</td>";
+                            html += "<td>" + items[i].MaSB + "</td>";
+                            html += "<td>" + items[i].SanBayDi + "</td>";
+                            html += "<td>" + items[i].SanBayDen + "</td>";
+                            html += "<td></td>";
+                            html += "</tr>";
+                        }
+                        SetData.append(html);
+                    }
+                }
+            })
+        }
+        function ConfirmDelete() {
+            var matb = $('#MaTbay').val();
+            $.ajax({
+                type: "POST",
+                url: "/NhanVien/DeleteFR/" + matb,
+                success: function (res) {
+                    if (res.success == true) {
+                        window.location.reload();
+                    }
+                    else {
+
+                    }
+                }
+            })
+        }
     </script>
 }
 ,
