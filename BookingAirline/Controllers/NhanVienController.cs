@@ -122,6 +122,7 @@ namespace BookingAirline.Controllers
             TempData["messageAlert"] = "SuaThanhCong";
             return RedirectToAction("Scheduleaflight");
         }
+        [HttpPost]
         public ActionResult DeleteFlight(string id)
         {
             var tb = database.ChuyenBays.Find(id);
@@ -129,7 +130,8 @@ namespace BookingAirline.Controllers
             database.SaveChanges();
             TempData["machuyenbay"] = tb.MaCB;
             TempData["messageAlert"] = "XoaThanhCong";
-            return RedirectToAction("Scheduleaflight");
+            //return RedirectToAction("Scheduleaflight");
+            return Json(new { success = true });
         }
         public ActionResult AddSchedulea()
         {
@@ -260,7 +262,8 @@ namespace BookingAirline.Controllers
         }
         public ActionResult TotalRevenue()
         {
-            return View();
+            var dshd = database.HoaDons.ToList();
+            return View(dshd);
         }
         public ActionResult Reports()
         {

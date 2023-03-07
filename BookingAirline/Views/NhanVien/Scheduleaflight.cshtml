@@ -6,6 +6,11 @@
     BookingAirLightEntities database = new BookingAirLightEntities();
 }
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="jquery-3.6.3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 @{
     var checkmess = (string)TempData["messageAlert"];
     var macb = (string)TempData["machuyenbay"];
@@ -31,7 +36,7 @@
             });
         </script>
     }
-    else if (checkmess== "XoaThanhCong")
+    else if (checkmess == "XoaThanhCong")
     {
         <script>
             swal({
@@ -120,9 +125,12 @@
                                         </a>
                                     }
                                 }
-                                <a href="/NhanVien/DeleteFlight/@item01.MaCB" onclick=" return confirm('Are you sure you want to delete ?')" class="btn btn-danger btn-sm edit">
+                                @*<a href="/NhanVien/DeleteFlight/@item01.MaCB" onclick=" return confirm('Are you sure you want to delete ?')" class="btn btn-danger btn-sm edit">
                                     <i class="fa fa-remove"></i>
-                                </a>
+                                </a>*@
+                                <button value="@item01.MaCB" id="MaCbay" data-toggle="modal" data-target="#myModal03" class="btn btn-danger btn-sm edit">
+                                    <i class="fa fa-remove"></i>
+                                </button>
                             </td>
                         </tr>
                     }
@@ -304,7 +312,27 @@
         </div>
     </div>
 </div>
+<!--Xóa thông tin chuyến bay -->
+<!--Modal xác nhận xóa Thông tin chuyến bay-->
+<div class="modal" id="myModal03" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Are you sure? You want to Delete this airport</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary" data-dismiss="modal">Cancle</a>
+                <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirm</a>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 
@@ -328,23 +356,38 @@
     }
 
 }
-
-
-<script>
-    //In dữ liệu
-    var myApp = new function () {
-        this.printTable = function () {
-            var tab = document.getElementById('datatablesSimple');
-            var win = window.open('', '', 'height=800px,width=1200px');
-            win.document.write(tab.outerHTML);
-            win.document.close();
-            win.print();
+@section script{
+    <script>
+        //In dữ liệu
+        var myApp = new function () {
+            this.printTable = function () {
+                var tab = document.getElementById('datatablesSimple');
+                var win = window.open('', '', 'height=800px,width=1200px');
+                win.document.write(tab.outerHTML);
+                win.document.close();
+                win.print();
+            }
         }
-    }
-    oTable = $('#datatablesSimple').dataTable();
-    $('#all').click(function (e) {
-        $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
-        e.stopImmediatePropagation();
-    });
+        oTable = $('#datatablesSimple').dataTable();
+        $('#all').click(function (e) {
+            $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
+            e.stopImmediatePropagation();
+        });
 
-</script>
+        function ConfirmDelete() {
+            var macb = $('#MaCbay').val();
+            $.ajax({
+                type: "POST",
+                url: "/NhanVien/DeleteFlight/" + macb,
+                success: function (res) {
+                    if (res.success == true) {
+                        window.location.reload();
+                    }
+                    else {
+
+                    }
+                }
+            })
+        }
+    </script>
+}
