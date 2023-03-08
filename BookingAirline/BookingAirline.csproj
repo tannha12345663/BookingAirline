@@ -194,6 +194,7 @@
     <Compile Include="Models\NhanVien.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderStatu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -266,6 +267,7 @@
     <Content Include="Content\images\logo-vietnamAL.png" />
     <Content Include="Content\images\Vietjet-Air-Logo-PNG-3.png" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\Template\HtmlPage1.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont3e6e.html" />
     <Content Include="fonts\fontawesome-webfont3e6e.svg" />

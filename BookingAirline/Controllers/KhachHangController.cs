@@ -1,8 +1,7 @@
 ﻿using BookingAirline.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace BookingAirline.Controllers
@@ -83,6 +82,7 @@ namespace BookingAirline.Controllers
             var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
             var dsorder = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
             Random rd = new Random();
+            var total = 0;
             var mave = "VE" + rd.Next(1, 1000);
             //check ma ve duoi database
             //Tao ve moi
@@ -95,7 +95,7 @@ namespace BookingAirline.Controllers
             ve.CCCD = Request["cccd"];
             ve.IDKH = "Vang Lai";
             ve.MaHV = "HV01";
-            
+            total +=(int) ve.GiaVe;
             database.Ves.Add(ve);
             database.SaveChanges();
             //Kiểm tra nếu có khứ hồi 
@@ -111,17 +111,32 @@ namespace BookingAirline.Controllers
                 ve.CCCD = Request["cccd"];
                 ve.IDKH = "Vang Lai";
                 ve.MaHV = "HV01";
+                total += (int)ve.GiaVe;
                 database.Ves.Add(ve);
                 database.SaveChanges();
             }
-
+            var contact = new Order();
+            contact.CreateDate = DateTime.Now;
+            contact.ShipName = Request["name"];
+            contact.ShipEmail = Request["email"];
+            contact.NumberPhone = Request["number"];
+            contact.Total = total;
+            Session["contacKH"] = contact;
             return RedirectToAction("ThanhToan");
         }
         public ActionResult ThanhToan()
         {
+            var ttkh = (Order)Session["contacKH"];
             var stt = "Chưa thanh toán";
             var uid = "Vang Lai";
             var dsve = database.Ves.Where(s => s.IDKH == uid && s.TinhTrang == stt).ToList();
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/Template/HtmlPage1.html"));
+            content = content.Replace("{{CustomerName}}", ttkh.ShipName);
+            content = content.Replace("{{Phone}}", ttkh.NumberPhone);
+            content = content.Replace("{{Email}}", ttkh.ShipEmail);
+            content = content.Replace("{{Total}}", Convert.ToString(ttkh.Total));
+            string subject = "Đây là tin nhắn tự động từ hệ thống POS";
+            WebMail.Send(ttkh.ShipEmail, subject, content, null, null, null, true, null, null, null, null, null, null);
             return View(dsve);
         }
         public ActionResult ThankYou()
