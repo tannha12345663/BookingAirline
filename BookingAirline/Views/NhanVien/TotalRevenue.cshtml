@@ -50,9 +50,9 @@
                             <td>@item01.TinhTrang</td>
                             <td>@item01.NgayLap</td>
                             <td>@item01.ThanhTien</td>
-                            <td>
+                            <td id="hidden">
                                 <a href="~/NhanVien/DetailFlight/@item01.MaHD" class="btn btn-info btn-sm edit">
-                                    <i class="fa fa-info"></i>
+                                    <i style="height:20px" class="fa fa-info"></i>
                                 </a>
                             </td>
                         </tr>
@@ -62,3 +62,18 @@
         </table>
     </div>
 </div>
+@section script{
+    <script>
+        //In dữ liệu
+        var myApp = new function () {
+            this.printTable = function () {
+                var tab = document.getElementById('datatablesSimple');
+                var win = window.open('', '', 'height=800px,width=1200px');
+                win.document.write(tab.outerHTML);
+                win.document.close();
+                win.print();
+            }
+        }
+
+    </script>
+    } 
