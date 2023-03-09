@@ -96,7 +96,6 @@ namespace BookingAirline.Controllers
                 TempData["Succeed"] = "Đã gửi yêu cầu đặt lại mật khẩu thông qua email của bạn !";
                 return View();
             }
-            return View();
         }
         public ActionResult Logout()
         {

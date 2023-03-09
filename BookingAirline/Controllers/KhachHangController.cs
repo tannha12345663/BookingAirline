@@ -98,8 +98,11 @@ namespace BookingAirline.Controllers
             total +=(int) ve.GiaVe;
             database.Ves.Add(ve);
             database.SaveChanges();
+            dsorder.MaCBdi = ve.MaVe;
+            database.Entry(dsorder).State = System.Data.Entity.EntityState.Modified;
+            database.SaveChanges();
             //Kiểm tra nếu có khứ hồi 
-            if(dsorder.MaCBve != null)
+            if (dsorder.MaCBve != null)
             {
                 ve = new Ve();
                 mave = "VE" + rd.Next(1, 1000);
@@ -114,6 +117,9 @@ namespace BookingAirline.Controllers
                 total += (int)ve.GiaVe;
                 database.Ves.Add(ve);
                 database.SaveChanges();
+                dsorder.MaCBve = ve.MaVe;
+                database.Entry(dsorder).State = System.Data.Entity.EntityState.Modified;
+                database.SaveChanges();
             }
             var contact = new Order();
             contact.CreateDate = DateTime.Now;
@@ -124,12 +130,32 @@ namespace BookingAirline.Controllers
             Session["contacKH"] = contact;
             return RedirectToAction("ThanhToan");
         }
+        [HttpGet]
         public ActionResult ThanhToan()
         {
-            var ttkh = (Order)Session["contacKH"];
+           
             var stt = "Chưa thanh toán";
             var uid = "Vang Lai";
             var dsve = database.Ves.Where(s => s.IDKH == uid && s.TinhTrang == stt).ToList();
+            
+            return View(dsve);
+        }
+        public ActionResult ConfirmTT(string id)
+        {
+            var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
+            var kh = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
+            var mavedi = database.Ves.Where(s => s.MaVe == kh.MaCBdi).FirstOrDefault();
+            var maveve = database.Ves.Where(s => s.MaVe == kh.MaCBve).FirstOrDefault();
+            mavedi.TinhTrang = "Đã thanh toán";
+            database.Entry(mavedi).State = System.Data.Entity.EntityState.Modified;
+            database.SaveChanges();
+            if(maveve != null)
+            {
+                maveve.TinhTrang = "Đã thanh toán";
+                database.Entry(maveve).State = System.Data.Entity.EntityState.Modified;
+                database.SaveChanges();
+            };
+            var ttkh = (Order)Session["contacKH"];
             string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/Template/HtmlPage1.html"));
             content = content.Replace("{{CustomerName}}", ttkh.ShipName);
             content = content.Replace("{{Phone}}", ttkh.NumberPhone);
@@ -137,7 +163,7 @@ namespace BookingAirline.Controllers
             content = content.Replace("{{Total}}", Convert.ToString(ttkh.Total));
             string subject = "Đây là tin nhắn tự động từ hệ thống POS";
             WebMail.Send(ttkh.ShipEmail, subject, content, null, null, null, true, null, null, null, null, null, null);
-            return View(dsve);
+            return RedirectToAction("ThankYou");
         }
         public ActionResult ThankYou()
         {
