@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BookingAirline.App_Start;
+using System.Web.Helpers;
 
 namespace BookingAirline.Controllers
 {
@@ -141,6 +142,7 @@ namespace BookingAirline.Controllers
             var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
             var dsorder = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
             Random rd = new Random();
+            var total = 0;
             var mave = "VE" + rd.Next(1, 1000);
             //check ma ve duoi database
             //Tao ve moi
@@ -153,7 +155,7 @@ namespace BookingAirline.Controllers
             ve.CCCD = Request["cccd"];
             ve.IDKH = uid.IDKH;
             ve.MaHV = "HV01";
-
+            total += (int)ve.GiaVe;
             database.Ves.Add(ve);
             database.SaveChanges();
             //Kiểm tra nếu có khứ hồi 
@@ -169,10 +171,17 @@ namespace BookingAirline.Controllers
                 ve.CCCD = Request["cccd"];
                 ve.IDKH = uid.IDKH;
                 ve.MaHV = "HV01";
+                total += (int)ve.GiaVe;
                 database.Ves.Add(ve);
                 database.SaveChanges();
             }
-
+            var contact = new Order();
+            contact.CreateDate = DateTime.Now;
+            contact.ShipName = Request["name"];
+            contact.ShipEmail = Request["email"];
+            contact.NumberPhone = Request["number"];
+            contact.Total = total;
+            Session["contacKH"] = contact;
             return RedirectToAction("ThanhToan");
         }
 
@@ -186,6 +195,7 @@ namespace BookingAirline.Controllers
         [HttpPost]
         public ActionResult ThanhToan01()
         {
+            var ttkh = (Order)Session["contacKH"];
             var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
             //Lên hóa đơn mới
             HoaDon hd = new HoaDon();
@@ -195,6 +205,7 @@ namespace BookingAirline.Controllers
             hd.TinhTrang = "Đã thanh toán";
             hd.NgayLap = System.DateTime.Now;
             hd.IDKH = uid.IDKH;
+            hd.ThanhTien = ttkh.Total;
             database.HoaDons.Add(hd);
             database.SaveChanges();
             //Thêm chi tiết hóa đơn
@@ -223,6 +234,21 @@ namespace BookingAirline.Controllers
                 database.Entry(database.Ves.Find(item.MaVe)).CurrentValues.SetValues(stt);
                 database.SaveChanges();
             }
+            
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/Template/HtmlPage1.html"));
+            content = content.Replace("{{CustomerName}}", ttkh.ShipName);
+            content = content.Replace("{{Phone}}", ttkh.NumberPhone);
+            content = content.Replace("{{Email}}", ttkh.ShipEmail);
+            var total = string.Format("{0:0,0 vnđ}", ttkh.Total);
+            content = content.Replace("{{Total}}", total);
+            content = content.Replace("{{Thoigian}}",Convert.ToString(ttkh.CreateDate));
+            string subject = "Đây là tin nhắn tự động từ hệ thống POS";
+            WebMail.Send(ttkh.ShipEmail, subject, content, null, null, null, true, null, null, null, null, null, null);
+            return RedirectToAction("ThankYou");
+        }
+        public ActionResult ConfirmTT()
+        {
+
             return RedirectToAction("ThankYou");
         }
         public ActionResult ThankYou()

@@ -161,6 +161,7 @@ namespace BookingAirline.Controllers
             content = content.Replace("{{Phone}}", ttkh.NumberPhone);
             content = content.Replace("{{Email}}", ttkh.ShipEmail);
             content = content.Replace("{{Total}}", Convert.ToString(ttkh.Total));
+            content = content.Replace("{{Thoigian}}", Convert.ToString(ttkh.CreateDate));
             string subject = "Đây là tin nhắn tự động từ hệ thống POS";
             WebMail.Send(ttkh.ShipEmail, subject, content, null, null, null, true, null, null, null, null, null, null);
             return RedirectToAction("ThankYou");
