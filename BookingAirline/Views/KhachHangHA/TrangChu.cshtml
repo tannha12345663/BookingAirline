@@ -95,6 +95,17 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                            <fieldset>
+                                                <label for="to">Class:</label>
+                                                <select required name='Class' onchange='this.form()'>
+                                                    <option value="" disabled="disabled">Select a location...</option>
+                                                    <option value="HV01">Business class</option>
+                                                    <option value="HV02">Vip class</option>
+                                                    <option value="HV03">Economy class</option>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                    <div class="col-md-6 pull-right">
                                         <fieldset>
                                             <button type="submit" id="form-submit" class="btn">Order Ticket Now</button>
                                         </fieldset>

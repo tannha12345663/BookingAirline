@@ -20,6 +20,7 @@ namespace BookingAirline.Models
         public Nullable<int> SoLuong { get; set; }
         public Nullable<double> DonGia { get; set; }
         public Nullable<double> TongTien { get; set; }
+        public string MaCB { get; set; }
     
         public virtual HoaDon HoaDon { get; set; }
         public virtual Ve Ve { get; set; }

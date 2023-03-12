@@ -37,7 +37,7 @@ namespace BookingAirline.Controllers
                 return RedirectToAction("TrangChu");
             }
             var check = Session["trip"].ToString();
-            if  (check == "one-way")
+            if  (check == "oneway")
             {
                 
                 return RedirectToAction("DienThongTinKH");
@@ -76,6 +76,7 @@ namespace BookingAirline.Controllers
             Session["Mave"] = id;
             return View();
         }
+        //Version 1.0
         [HttpPost]
         public ActionResult DienThongTinKH()
         {
@@ -128,6 +129,9 @@ namespace BookingAirline.Controllers
             Session["contacKH"] = contact;
             return RedirectToAction("ThanhToan");
         }
+        //Version 2.0
+
+
         [HttpGet]
         public ActionResult ThanhToan()
         {

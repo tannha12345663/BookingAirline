@@ -41,14 +41,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Home", "TrangChu", "KhachHang")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <img src="@Url.Content("~/hinh/shopping-cart.png")" style="height:30px; width:30px; margin-top:10px" />
-                    </li>
                     <li><a href="/LoginAdmin/Index"><span class="fa fa-user"></span> Login</a></li>
                     <li><a href="@Url.Action("LogOut","LoginAdmin")">Log Out</a></li>
                 </ul>
