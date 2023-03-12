@@ -462,7 +462,6 @@
     <Content Include="Views\Email\SendEmail.cshtml" />
     <Content Include="Views\TemplateEmail\ViewPage1.cshtml" />
     <Content Include="Views\NhanVien\DetailTotalRevenue.cshtml" />
-    <Content Include="Views\NhanVien\TicketManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

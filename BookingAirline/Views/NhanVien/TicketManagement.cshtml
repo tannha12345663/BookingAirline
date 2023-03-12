@@ -38,6 +38,7 @@
                 <tr>
                     <th>Mã vé</th>
                     <th>Mã chuyến bay</th>
+                    <th>Mã phí</th>
                     <th>Hạng vé</th>
                     <th>CCCD</th>
                     <th>Giá vé</th>
@@ -52,6 +53,7 @@
                         <tr>
                             <td>@item01.MaVe</td>
                             <td>@item01.MaCB</td>
+                            <td>@item01.MaPhi</td>
                             @{ var tenhv = database.HangVes.Find(item01.MaHV);}
                             <td>@tenhv.TenHV</td>
                             <td>@item01.CCCD</td>
