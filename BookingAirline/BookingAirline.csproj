@@ -460,6 +460,7 @@
     <Content Include="Views\NhanVien\DetailFR.cshtml" />
     <Content Include="Style\Admin\css\jquery-confirm.less" />
     <Content Include="Views\Email\SendEmail.cshtml" />
+    <Content Include="Views\NhanVien\TicketManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

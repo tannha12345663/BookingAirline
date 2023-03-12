@@ -97,9 +97,11 @@
                     <th>Mã tuyến bay</th>
                     <th>Ngày giờ</th>
                     <th>Thời gian bay</th>
+                    <th>Tổng số ghế:</th>
                     <th>Số lượng G1</th>
                     <th>Số lượng G2</th>
                     <th>Số lượng G3</th>
+                    <th>Tổng số ghế còn lại:</th>
                     <th>Chức năng</th>
                 </tr>
             </thead>
@@ -113,9 +115,17 @@
                             <td>@item01.MaTBay</td>
                             <td>@item01.NgayGio</td>
                             <td>@item01.ThoiGianBay</td>
+                            @{ var tongghe = item01.SoLuongGheHang1 + item01.SoLuongGheHang2 + item01.SoLuongGheHang3;}
+                            <td>
+                                @tongghe
+                            </td>
                             <td>@item01.SoLuongGheHang1</td>
                             <td>@item01.SoLuongGheHang2</td>
                             <td>@item01.SoLuongGheHang3</td>
+                            @{ var slgh = item01.SoLuongGheHang1 + item01.SoLuongGheHang2 + item01.SoLuongGheHang3;}
+                            <td>
+                                @slgh
+                            </td>
                             <td>
                                 @{ var ctcb = database.ChiTietChuyenBays.Where(s => s.MaCTCB == item01.MaCB).FirstOrDefault();
                                     if (ctcb != null)
@@ -205,7 +215,7 @@
                                     <label class="control-label">Nhập tuyến bay</label>
                                     <input class="form-control text-box single-line"  name="MaTbay" type="text" required>
                                 </div>*@
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label class="control-label">Chọn mã máy bay</label>
                                 <select class="form-control " name="MaMB" type="text" required>
                                     @{ var mb = database.MayBays.ToList();
@@ -216,7 +226,7 @@
                                     }
                                 </select>
                             </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label class="control-label">Chọn mã tuyến bay</label>
                                 <select class="form-control " name="MaTBay" type="text" required>
                                     @{ var tb = database.TuyenBays.ToList();
@@ -235,17 +245,29 @@
                                 <label class="control-label">Nhập thời gian bay</label>
                                 <input class="form-control" name="ThoiGianBay" type="text" required>
                             </div>
-                            <div class="form-group col-md-12">
-                                <label class="control-label">Nhập số lượng G1</label>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Nhập số lượng G1:</label>
                                 <input class="form-control" name="SoLuongGheHang1" type="number" required>
                             </div>
-                            <div class="form-group col-md-12">
-                                <label class="control-label">Nhập số lượng G2</label>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Nhập đơn giá G1:</label>
+                                <input class="form-control" name="dongiaG1" type="number" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Nhập số lượng G2:</label>
                                 <input class="form-control" name="SoLuongGheHang2" type="number" required>
                             </div>
-                            <div class="form-group col-md-12">
-                                <label class="control-label">Nhập số lượng G3</label>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Nhập đơn giá G2:</label>
+                                <input class="form-control" name="dongiaG2" type="number" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Nhập số lượng G3:</label>
                                 <input class="form-control" name="SoLuongGheHang3" type="number" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Nhập đơn giá G3:</label>
+                                <input class="form-control" name="dongiaG3" type="number" required>
                             </div>
                             <div class="form-group col-md-8">
                                 <input name="checkbox01" value="1" type="radio" required /> Bổ sung thên chuyến bay (nếu có) <br />
@@ -285,7 +307,7 @@
                     @Html.AntiForgeryToken()
                     <div class="modal-body">
                         <div class="row">
-                            <input name="STT" type="number" disabled  hidden/>
+                            <input name="STT" type="number" disabled hidden />
                             <input name="MaCTCB" type="text" disabled hidden />
                             <div class="form-group col-md-12">
                                 <label class="control-label">Nhập sân bay trung gian</label>

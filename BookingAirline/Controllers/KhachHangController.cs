@@ -90,7 +90,6 @@ namespace BookingAirline.Controllers
             ve.MaVe = mave;
             ve.MaCB = dsorder.MaCBdi;
             ve.TinhTrang = "Chưa thanh toán";
-            ve.MaPhi = "PS01";
             ve.GiaVe = 500000;
             ve.CCCD = Request["cccd"];
             ve.IDKH = "Vang Lai";
@@ -109,7 +108,6 @@ namespace BookingAirline.Controllers
                 ve.MaVe = mave;
                 ve.MaCB = dsorder.MaCBve;
                 ve.TinhTrang = "Chưa thanh toán";
-                ve.MaPhi = "PS01";
                 ve.GiaVe = 500000;
                 ve.CCCD = Request["cccd"];
                 ve.IDKH = "Vang Lai";

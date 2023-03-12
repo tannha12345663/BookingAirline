@@ -21,12 +21,12 @@ namespace BookingAirline.Models
         }
     
         public string MaTBay { get; set; }
-        public string MaSB { get; set; }
         public string SanBayDi { get; set; }
         public string SanBayDen { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChuyenBay> ChuyenBays { get; set; }
         public virtual SanBay SanBay { get; set; }
+        public virtual SanBay SanBay1 { get; set; }
     }
 }

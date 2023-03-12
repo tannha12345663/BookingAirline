@@ -17,11 +17,12 @@ namespace BookingAirline.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KhachHang()
         {
-            this.PhieuDatChoes = new HashSet<PhieuDatCho>();
             this.HoaDons = new HashSet<HoaDon>();
+            this.PhieuDatChoes = new HashSet<PhieuDatCho>();
         }
     
         public string IDKH { get; set; }
+        public int CCCD { get; set; }
         public string MaLKH { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
@@ -31,10 +32,10 @@ namespace BookingAirline.Models
         public string GioiTinh { get; set; }
         public string NgaySinh { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
         public virtual LoaiKH LoaiKH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhieuDatCho> PhieuDatChoes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HoaDon> HoaDons { get; set; }
     }
 }
