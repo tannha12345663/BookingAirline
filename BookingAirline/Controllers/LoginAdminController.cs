@@ -41,7 +41,7 @@ namespace BookingAirline.Controllers
         public ActionResult LogOut() 
         { 
             Session.Abandon();
-            return RedirectToAction("Index", "LoginAdmin");
+            return RedirectToAction("Login", "LoginAdmin");
         }
         
     }

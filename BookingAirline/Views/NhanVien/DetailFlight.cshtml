@@ -1,0 +1,86 @@
+﻿@model BookingAirline.Models.ChuyenBay
+@using BookingAirline.Models
+@{
+    ViewBag.Title = "DetailFlight";
+    Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
+    BookingAirLightEntities database = new BookingAirLightEntities();
+}
+
+<h2>DetailFlight</h2>
+
+<!-- Form chỉnh sửa thông tin chuyến bay -->
+<div class="container">
+    <form action="~/NhanVien/DetailFlight" method="post">
+        @Html.AntiForgeryToken()
+        <div class="modal-body">
+            <div class="row">
+                @Html.HiddenFor(model => model.MaCB)
+                @Html.HiddenFor(model => model.MaMB)
+                @Html.HiddenFor(model => model.MaTBay)
+                <div class="row ">
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Ngày giờ: </label>
+                        <input class="form-control " name="NgayGio" type="datetime-local" required value="@Model.NgayGio">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Thời gian bay: </label>
+                        <input class="form-control" name="ThoiGianBay" type="text" required value="@Model.ThoiGianBay">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Số lượng G1:</label>
+                        <input class="form-control" name="SoLuongGheHang1" type="number" value="@Model.SoLuongGheHang1">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Số lượng G2:</label>
+                        <input class="form-control" name="SoLuongGheHang2" type="number" value="@Model.SoLuongGheHang2">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Số lượng G3:</label>
+                        <input class="form-control" name="SoLuongGheHang3" type="number" value="@Model.SoLuongGheHang3">
+                    </div>
+                </div>
+
+                @{ var ctcb = database.ChiTietChuyenBays.Where(m => m.MaCTCB == Model.MaCB).FirstOrDefault();}
+                <div class="form-group col-md-3">
+                    <label class="control-label">Sân bay trung gian:</label>
+                    <select class="form-control " name="SanBayTrungGian" type="text" required>
+                        @{ var sb = database.SanBays.ToList();
+                            <option value="@ctcb.SanBayTrungGian">@ctcb.SanBayTrungGian</option>
+                            foreach (var item in sb)
+                            {
+                                if (ctcb.SanBayTrungGian == item.MaSB)
+                                {
+
+                                }
+                                else
+                                {
+                                    <option value="@item.MaSB">@item.MaSB</option>
+                                }
+
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="control-label">Thời gian dừng:</label>
+                    <input class="form-control" name="ThoiGianDung" type="text" value="@ctcb.ThoiGianDung">
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label class="control-label">Ghi chú (nếu có):</label>
+                        <textarea class="form-control" name="GhiChu">@ctcb.GhiChu</textarea>
+                    </div>
+                    
+                </div>
+                <div class="row ">
+                    <div><input type="submit" value="Lưu chi tiết đơn hàng @Model.MaCB" class="btn btn-primary" /></div>
+                    <div>@Html.ActionLink("Quay lại danh chuyến bay", "Scheduleaflight")</div>
+                </div>
+            </div>
+
+        </div>
+        
+    </form>
+</div>

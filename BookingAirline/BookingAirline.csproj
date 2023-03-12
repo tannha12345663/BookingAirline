@@ -125,9 +125,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Authentication.cs" />
+    <Compile Include="App_Start\AuthenticationNV.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
     <Compile Include="Controllers\KhachHangHAController.cs" />
@@ -192,6 +194,7 @@
     <Compile Include="Models\NhanVien.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderStatu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -258,11 +261,13 @@
     <Content Include="Content\CSS_01\slick-theme.css" />
     <Content Include="Content\CSS_01\slick.css" />
     <Content Include="Content\CSS_01\style.css" />
+    <Content Include="Content\CSS_remake\main.css" />
     <Content Include="Content\CSS_remake\Style01.css" />
     <Content Include="Content\images\logo-jetstar.jpg" />
     <Content Include="Content\images\logo-vietnamAL.png" />
     <Content Include="Content\images\Vietjet-Air-Logo-PNG-3.png" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\Template\HtmlPage1.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont3e6e.html" />
     <Content Include="fonts\fontawesome-webfont3e6e.svg" />
@@ -351,11 +356,18 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Style\Admin\css\bootstrap.min.css" />
+    <Content Include="Style\Admin\css\jquery-confirm.css" />
     <Content Include="Style\Admin\css\main.css" />
+    <Content Include="Style\Admin\css\metisMenu.min.css" />
+    <Content Include="Style\Admin\css\morris.css" />
+    <Content Include="Style\Admin\css\startmin.css" />
     <Content Include="Style\Admin\css\styles.css" />
+    <Content Include="Style\Admin\css\timeline.css" />
     <Content Include="Style\Admin\js\chart-area-demo.js" />
     <Content Include="Style\Admin\js\chart-bar-demo.js" />
     <Content Include="Style\Admin\js\datatables-simple-demo.js" />
+    <Content Include="Style\Admin\js\jquery-confirm.js" />
     <Content Include="Style\Admin\js\scripts.js" />
     <Content Include="Style\apple-touch-icon.html" />
     <Content Include="Style\Css\aboutStyle.css" />
@@ -439,6 +451,19 @@
     <Content Include="Views\LoginAdmin\Login.cshtml" />
     <Content Include="Views\NhanVien\Shared\_LayoutPage1.cshtml" />
     <Content Include="Views\NhanVien\TrangChu.cshtml" />
+    <Content Include="Views\NhanVien\Scheduleaflight.cshtml" />
+    <Content Include="Views\NhanVien\FlightRoute.cshtml" />
+    <Content Include="Views\NhanVien\Plane.cshtml" />
+    <Content Include="Views\NhanVien\TotalRevenue.cshtml" />
+    <Content Include="Views\NhanVien\Reports.cshtml" />
+    <Content Include="Views\NhanVien\TicketList.cshtml" />
+    <Content Include="Views\NhanVien\AddSchedulea.cshtml" />
+    <Content Include="Views\NhanVien\DetailFlight.cshtml" />
+    <Content Include="Views\NhanVien\DetailFR.cshtml" />
+    <Content Include="Style\Admin\css\jquery-confirm.less" />
+    <Content Include="Views\Email\SendEmail.cshtml" />
+    <Content Include="Views\TemplateEmail\ViewPage1.cshtml" />
+    <Content Include="Views\NhanVien\DetailTotalRevenue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
