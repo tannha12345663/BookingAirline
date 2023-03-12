@@ -337,6 +337,12 @@ namespace BookingAirline.Controllers
             var dshd = database.HoaDons.ToList();
             return View(dshd);
         }
+        public ActionResult DetailTotalRevenue(string id)
+        {
+            var cthd = database.ChiTietHDs.Where(s => s.MaHD == id).ToList();
+            TempData["Mahd"] = id;
+            return View(cthd);
+        }
         public ActionResult Reports()
         {
             return View();
