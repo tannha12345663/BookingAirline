@@ -2,12 +2,15 @@
     ViewBag.Title = "Contact";
 }
 
-<link rel="stylesheet" href="~/Style/Css/contactStyle.css">
 
+<link href="~/Style/Css/contactStyle.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-<style>
 
+<style>
+   /* body {
+        background-image: url('../../hinh/background-contact.jpg');
+    }*/
         p{
             font-family: 'Open Sans', sans-serif;
         }
@@ -58,21 +61,31 @@
                 </form>
 
             </div>
-            <div class="right">
-                <p style="margin: 10px;" class="thongtin">Contact</p>
-
+            <div class="right" @*style="background-color: red;"*@>
+                <p style="margin: 10px; font-size:30px" class="thongtin">Contact Information</p>
                 <div class="contentlh">
-                    
+
                     <span style="font-size: 20px;"><b>Hotline:</b><br /></span>
-                    <span style="font-size: 16px;">0123.456.789</span><br /><br />
+                    <a href="tel:+0123456789">
+                        <span style="font-size: 16px;">0123.456.789</span>
+                    </a>
+                    <br /><br />
 
-                    
                     <span style="font-size: 20px;"><b>Address:</b><br /></span>
-                    <span style="font-size: 16px;">Su Van Hanh,TP.HCM</span><br /><br />
+                    <a href="https://goo.gl/maps/5qe2G132ofoo96hr5" target="_blank">
+                        <span style="font-size: 16px;">Su Van Hanh,TP.HCM</span>
+                    </a>
+                    <br /><br />
 
-                    
+
                     <span style="font-size: 20px;"><b>Email:</b><br /></span>
-                    <span style="font-size: 16px;">hotro@bookingairline.com</span><br /><br />
+                    <a href="mailto:leuyennhi@gmail.com">
+                        <span style="font-size: 16px;">hotro@bookingairline.com</span>
+                    </a>
+                    <br /><br /><br/>
+                    <p style="margin: 10px;">Fill up the form and our Team will get back to you within 24 hours</p>
+
+
 
                 </div>
             </div>

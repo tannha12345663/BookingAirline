@@ -269,7 +269,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="hinh\135017829_1026004181228801_2637032699560275_n.jpg" />
+    <Content Include="hinh\background-contact.jpg" />
+    <Content Include="hinh\contact_bgrbright.jpg" />
     <Content Include="hinh\banner-bg.jpg" />
     <Content Include="hinh\contact-01.jpg" />
     <Content Include="hinh\contact-02.jpg" />
@@ -367,6 +368,7 @@
     <Content Include="Style\Css\Admin\js\jquery.min.js" />
     <Content Include="Style\Css\bootstrap-theme.min.css" />
     <Content Include="Style\Css\bootstrap.min.css" />
+    <Content Include="Style\Css\Contact.css" />
     <Content Include="Style\Css\contactStyle.css" />
     <Content Include="Style\Css\datepicker.css" />
     <Content Include="Style\Css\fontAwesome.css" />
