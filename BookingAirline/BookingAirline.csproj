@@ -389,6 +389,7 @@
     <Content Include="Style\Css\myStyle.css" />
     <Content Include="Style\Css\owl-carousel.css" />
     <Content Include="Style\Css\Payment.css" />
+    <Content Include="Style\Css\style.css" />
     <Content Include="Style\Css\ticketStyle.css" />
     <Content Include="Style\Css\tooplate-style.css" />
     <Content Include="Style\Js\bootstrap.min.js" />
@@ -401,6 +402,7 @@
     <Content Include="Style\Js\modernizr-2.8.3-respond-1.4.2.min.js" />
     <Content Include="Style\Js\Payment.js" />
     <Content Include="Style\Js\plugins.js" />
+    <Content Include="Style\Js\script.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -463,6 +465,7 @@
     <Content Include="Views\TemplateEmail\ViewPage1.cshtml" />
     <Content Include="Views\NhanVien\DetailTotalRevenue.cshtml" />
     <Content Include="Views\NhanVien\TicketManagement.cshtml" />
+    <Content Include="Views\KhachHang\ChooseSeat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

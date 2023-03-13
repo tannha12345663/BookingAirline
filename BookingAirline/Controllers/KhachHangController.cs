@@ -130,6 +130,36 @@ namespace BookingAirline.Controllers
             return RedirectToAction("ThanhToan");
         }
         //Version 2.0
+        public ActionResult ChooseSeat()
+        {
+            var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
+            var dsorder = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
+            var dsve = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi).ToList();
+            return View(dsve);
+        }
+        [HttpPost]
+        public ActionResult ChooseSeatdi(int id)
+        {
+            int check = 0;
+            var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
+            var dsorder = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
+            var dsve = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi).ToList();
+            for(int i =1; i <= dsve.Count(); i++)
+            {
+                if( Request["Ma" + i] != null)
+                {
+                    //14/03/2023 Suy nghĩ làm thêm luồn xử lý dữ liệu
+                    dsorder.MaCBdi = Request["Ma" + i];
+                    check++;
+                    if(check == id)
+                    {
+                        break;
+                    }
+                }
+                
+            }
+            return View();
+        }
 
 
         [HttpGet]
