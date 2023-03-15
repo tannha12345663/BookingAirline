@@ -14,7 +14,7 @@
 <h2>ChooseSeat</h2>
 <link href="~/Style/Css/style.css" rel="stylesheet" />
 <div class="container">
-    <form action="/KhachHang/ChooseSeatdi" method="post" id="submit">
+    <form action="/KhachHang/ChooseSeat" method="post" id="submit">
         <div class="col">
             <div class="col-lg-6">
                 <div class="plane">
@@ -28,41 +28,45 @@
                         @{
                             var stt = 1;
                             var stt2 = 1;
-                            var row = ((Model.Count()) / 6) + 1;
-                            for (int i = 1; i < row + 1; i++)
+                            if ((Model.Count()) > 0)
                             {
-                                <li class="row row--1">
-                                    <ol class="seats" type="A">
-                                        @{
-                                            for (int y = stt2; y <= 6 * stt; y++)
-                                            {
-                                                var slot = database.Ves.Where(s => s.MaVe == "VE" + stt2).FirstOrDefault();
-                                                if (slot != null)
+                                var row = ((Model.Count()) / 6) + 1;
+                                for (int i = 1; i < row + 1; i++)
+                                {
+                                    <li class="row row--1">
+                                        <ol class="seats" type="A">
+                                            @{
+                                                for (int y = stt2; y <= 6 * stt; y++)
                                                 {
-                                                    if (slot.TinhTrang == "Chưa đặt chỗ")
+                                                    var slot = database.Ves.Where(s => s.MaVe == "VE" + stt2).FirstOrDefault();
+                                                    if (slot != null)
                                                     {
-                                                        <li class="seat">
-                                                            <input type="checkbox" id="@stt2" value="@slot.MaVe" />
-                                                            <label for="@stt2">@stt2</label>
-                                                        </li>
-                                                    }
-                                                    else
-                                                    {
-                                                        <li class="seat">
-                                                            <input disabled type="checkbox" id="@stt2" value="@slot.MaVe" />
-                                                            <label for="@stt2">@stt2</label>
-                                                        </li>
+                                                        if (slot.TinhTrang == "Chưa đặt chỗ")
+                                                        {
+                                                            <li class="seat">
+                                                                <input type="checkbox" id="@stt2" value="@slot.MaVe" />
+                                                                <label for="@stt2">@stt2</label>
+                                                            </li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li class="seat">
+                                                                <input disabled type="checkbox" id="@stt2" value="@slot.MaVe" />
+                                                                <label for="@stt2">@stt2</label>
+                                                            </li>
+                                                        }
+
+                                                        stt2++;
                                                     }
 
-                                                    stt2++;
                                                 }
-
                                             }
-                                        }
-                                    </ol>
-                                </li>
-                                stt++;
+                                        </ol>
+                                    </li>
+                                    stt++;
+                                }
                             }
+
                         }
                     </ol>
                     <div class="exit exit--back fuselage">
@@ -76,7 +80,7 @@
                     <h3> Selected Seats (<span id="counter">0</span>):</h3>
                     <ul id="selected-seats">
                     </ul>
-                    <button class="btn btn-success" value="">Next</button>
+                    <button type="submit" class="btn btn-success" value="">Next</button>
                     <div id="legend"></div>
                 </div>
             </div>
@@ -105,9 +109,9 @@
                     </div>`;
             $('#selected-seats').append(html);
             $('#counter').html(quantity);
-            var vitri = $this.val().substring(2,4);
+            var vitri = $this.val().substring(2, 4);
             $('#' + vitri).attr('name', 'Ma' + vitri);
-            $('#submit').attr('action','/KhachHang/ChooseSeatdi/'+quantity)
+            $('#submit').attr('action', '/KhachHang/ChooseSeat/' + quantity)
         }
         else {
             quantity -= 1;

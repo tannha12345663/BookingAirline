@@ -130,6 +130,7 @@ namespace BookingAirline.Controllers
             return RedirectToAction("ThanhToan");
         }
         //Version 2.0
+        [HttpGet]
         public ActionResult ChooseSeat()
         {
             var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
@@ -138,8 +139,13 @@ namespace BookingAirline.Controllers
             return View(dsve);
         }
         [HttpPost]
-        public ActionResult ChooseSeatdi(int id)
+        public ActionResult ChooseSeat(int id)
         {
+            Cart cart = Session["Cart"] as Cart;
+            if(cart != null)
+            {
+                cart.XoaSauKhiDat();
+            }
             int check = 0;
             var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
             var dsorder = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
@@ -149,7 +155,10 @@ namespace BookingAirline.Controllers
                 if( Request["Ma" + i] != null)
                 {
                     //14/03/2023 Suy nghĩ làm thêm luồn xử lý dữ liệu
-                    dsorder.MaCBdi = Request["Ma" + i];
+                    //Add thông tin vé vào giỏ hàng
+                    var ticket = Request["Ma" + i];
+                    var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi && s.MaVe == ticket).FirstOrDefault();
+                    GetCart().Add(detailtic,1);
                     check++;
                     if(check == id)
                     {
@@ -158,10 +167,20 @@ namespace BookingAirline.Controllers
                 }
                 
             }
-            return View();
+            return RedirectToAction("ThanhToan");
         }
 
-
+        // Tạo mới giỏ hàng
+        public Cart GetCart()
+        {
+            Cart cart = Session["Cart"] as Cart;
+            if (cart == null || Session["Cart"] == null)
+            {
+                cart = new Cart();
+                Session["Cart"] = cart;
+            }
+            return cart;
+        }
         [HttpGet]
         public ActionResult ThanhToan()
         {
@@ -169,8 +188,12 @@ namespace BookingAirline.Controllers
             var stt = "Chưa thanh toán";
             var uid = "Vang Lai";
             var dsve = database.Ves.Where(s => s.IDKH == uid && s.TinhTrang == stt).ToList();
-            
-            return View(dsve);
+            if(Session["Cart"] == null)
+            {
+                return View();
+            }
+            Cart cart = Session["Cart"] as Cart;
+            return View(cart);
         }
         public ActionResult ConfirmTT(string id)
         {
