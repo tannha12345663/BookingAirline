@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookingAirline.Models.Ve>
+﻿@model BookingAirline.Models.Cart
 @using BookingAirline.Models
 @{var cal = 0;}
 <!DOCTYPE html>
@@ -27,17 +27,16 @@
                 <form>
                     <div class="products">
                         <h3 class="title">Checkout</h3>
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.Items)
                         {
                             <div class="item">
-                                 @{ var ThanhTien = string.Format("{0:0,0 vnđ}", item.GiaVe);}
+                                 @{ var ThanhTien = string.Format("{0:0,0 vnđ}", item.idVe.GiaVe);}
                                 <span class="price">@ThanhTien</span>
-                                <p class="item-name">@item.MaVe</p>
-                                <p class="item-description">Số hiệu : @item.MaCB</p>
-                                <p class="item-description">Phí: @item.MaPhi</p>
-                                <p class="item-description">Status: @item.TinhTrang</p>
-                                <p class="item-description">Name: @item.IDKH</p>
-                                @{  cal += Convert.ToInt32(item.GiaVe); }
+                                <p class="item-name">@item.idVe.MaVe</p>
+                                <p class="item-description">Số hiệu : @item.idVe.MaCB</p>
+                                <p class="item-description">Status: @item.idVe.CCCD</p>
+                                <p class="item-description">Name: @item.idVe.IDKH</p>
+                                @{  cal += Convert.ToInt32(item.idVe.GiaVe); }
                             </div>
                           }
                             @{ var total = string.Format("{0:0,0 vnđ}", cal);}

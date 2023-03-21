@@ -40,7 +40,18 @@
             swal({
                 title: "Thêm tuyến bay không thành công",
                 text: "Vui lòng kiểm tra lại thông tin và nhập lại! ",
-                icon: "faile",
+                icon: "error",
+                button: "OK",
+            });
+        </script>
+    }
+    else if (checkmess == "Error01")
+    {
+        <script>
+            swal({
+                title: "Thêm tuyến bay không thành công",
+                text: "Mã sân bay đi và sân bay đến không được trùng nhau ! ",
+                icon: "error",
                 button: "OK",
             });
         </script>
@@ -98,32 +109,34 @@
                 @*//Phần render*@
                 <tr>
                     <th>Mã tuyến bay</th>
-                    <th>Mã sân bay</th>
-                    <th>Cảng hàng không</th>
                     <th>Sân bay đi</th>
+                    <th>Tên sân bay đi</th>
                     <th>Sân bay đến</th>
+                    <th>Tên sân bay đến</th>
                     <th>Chức năng</th>
                 </tr>
             </thead>
             <tbody>
                 @{
                     var dstb = database.TuyenBays.ToList();
+
                     foreach (var item01 in dstb)
                     {
-                        var tensb = database.SanBays.Find(item01.MaSB);
                         <tr>
+                            @{ var tensbdi = database.SanBays.Find(item01.SanBayDi);
+                                var tensbden = database.SanBays.Find(item01.SanBayDen);}
                             <td>@item01.MaTBay</td>
-                            <td>@item01.MaSB</td>
-                            <td>@tensb.TenSB</td>
                             <td>@item01.SanBayDi</td>
+                            <td>@tensbdi.TenSB</td>
                             <td>@item01.SanBayDen</td>
+                            <td>@tensbden.TenSB</td>
                             <td>
                                 <a href="~/NhanVien/DetailFR/@item01.MaTBay" class="btn btn-info btn-sm edit">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 @*<a href="~/NhanVien/DeleteFR/@item01.MaTBay" onclick=" return confirm('Are you sure you want to delete ?')" class="btn btn-danger btn-sm edit">
-                                    <i class="fa fa-remove"></i>
-                                </a>*@
+                                        <i class="fa fa-remove"></i>
+                                    </a>*@
                                 <button value="@item01.MaTBay" id="MaTbay" data-toggle="modal" data-target="#myModal03" class="btn btn-danger btn-sm edit">
                                     <i class="fa fa-remove"></i>
                                 </button>
@@ -138,7 +151,7 @@
 </div>
 <!--Thêm sân bay-->
 <!-- The Modal -->
-<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -163,11 +176,6 @@
                                 <input class="form-control" id="InputTenSB" name="TenSB" type="text" required>
                             </div>
                         </div>
-                        <div class="form-group">
-
-
-                            <BR>
-                        </div>
                         <div class="modal-footer">
                             <button type="button" value="" id="btnSave" class="btn btn-secondary">Add new </button>
                             <button type="button" class="btn btn-primary " data-dismiss="modal">Cancel</button>
@@ -184,7 +192,7 @@
 
 <!--Thêm tuyến bay-->
 <!-- The Modal -->
-<div class="modal" id="myModal01" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="myModal01" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -201,28 +209,32 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label class="control-label">Chọn mã sân bay</label>
-                                <select class="form-control " id="MaSB" name="MaSB" type="text" required>
-                                    <option value="">--Please choose an option--</option>
+                                <label class="control-label">Chọn mã sân bay đi</label>
+                                <select class="form-control" id="MaSB" name="SanBayDi" type="text" required>
+                                    <option selected="true" disabled="disabled">--Please choose an option--</option>
                                     @{ var masb = database.SanBays.ToList();
                                         foreach (var item in masb)
                                         {
-                                            <option value="@item.MaSB">@item.MaSB</option>
+                                            <option value="@item.MaSB">@item.MaSB (@item.TenSB)</option>
                                         }
                                     }
                                 </select>
                             </div>
                             <div class="form-group col-md-12">
-                                <label class="control-label">Nhập sân bay đi</label>
-                                <input class="form-control" id="SanBayDi" name="SanBayDi" type="text" required>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label class="control-label">Nhập sân bay đến</label>
-                                <input class="form-control" id="SanBayDen" name="SanBayDen" type="text" required>
+                                <label class="control-label">Chọn mã sân bay đến</label>
+                                <select class="form-control " id="MaSB" name="SanBayDen" type="text" required>
+                                    <option selected="true" disabled="disabled">--Please choose an option--</option>
+                                    @{
+                                        foreach (var item01 in masb)
+                                        {
+                                            <option value="@item01.MaSB">@item01.MaSB  (@item01.TenSB)</option>
+                                        }
+                                    }
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="btnSaveAir" class="btn btn-secondary">Add new </button>
+                            <button type="submit" id="btnSaveAir" class="btn btn-secondary">Add new </button>
                             <button type="button" class="btn btn-primary " data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
@@ -235,7 +247,7 @@
 <!--Phần modal hiển thị thông tin chỉnh sửa Flight Route-->
 <!-- The Modal -->
 
-<div class="modal" id="myModal02" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="myModal02" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -286,7 +298,7 @@
     </div>
 </div>
 <!--Modal xác nhận xóa Thông tin tuyến bay-->
-<div class="modal" id="myModal03" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="myModal03" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
