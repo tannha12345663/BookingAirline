@@ -198,9 +198,6 @@ namespace BookingAirline.Controllers
         [HttpGet]
         public ActionResult ThanhToan()
         {
-            var stt = "Chưa thanh toán";
-            var uid = "Vang Lai";
-            var dsve = database.Ves.Where(s => s.IDKH == uid && s.TinhTrang == stt).ToList();
             if(Session["Cart"] == null)
             {
                 return View();
@@ -239,9 +236,6 @@ namespace BookingAirline.Controllers
             ChiTietHD cthd = new ChiTietHD();
             cthd.MaHD = themhd.MaHD;
 
-
-
-
             Cart cart = Session["Cart"] as Cart;
             var dsorder = cart.Items;
             foreach (var item in dsorder)
@@ -266,11 +260,7 @@ namespace BookingAirline.Controllers
                 database.Entry(maveve).State = System.Data.Entity.EntityState.Modified;
                 database.SaveChanges();
             };
-            
 
-
-
-            
             string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/Template/HtmlPage1.html"));
             content = content.Replace("{{CustomerName}}", ttkh.ShipName);
             content = content.Replace("{{Phone}}", ttkh.NumberPhone);

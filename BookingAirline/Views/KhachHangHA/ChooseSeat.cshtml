@@ -1,0 +1,361 @@
+﻿@model IEnumerable<BookingAirline.Models.Ve>
+@using BookingAirline.Models;
+
+@{
+    ViewBag.Title = "ChooseSeat";
+    Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
+    BookingAirLightEntities database = new BookingAirLightEntities();
+
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<section class="banner" id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="left-side">
+                    <div class="logo">
+                        <img src="~/hinh/logo.png" alt="Flight Template">
+                    </div>
+                    <div class="tabs-content">
+                        <h4>Choose Your Direction:</h4>
+                        <ul class="social-links">
+                            <li><a href="#">Find us on <em>Facebook</em><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#">Our <em>YouTube</em> Channel<i class="fa fa-youtube"></i></a></li>
+                            <li><a href="#">Follow our <em>instagram</em><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="page-direction-button">
+                        <a href="/Home/Contact"><i class="fa fa-phone"></i>Contact Us Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-md-offset-1">
+                <section id="first-tab-group" class="tabgroup">
+                    <div id="tab1">
+                        <div class="submit-form">
+                            <h4>Check availability for <em>direction</em>:</h4>
+                            <form id="form-submit" action="~/KhachHangHA/DSachCB" method="get">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <label for="from">From:</label>
+                                            <select required name='from' onchange='this.form()'>
+                                                <option value="">Select a location...</option>
+                                                <option value="SGN">Hồ Chí Minh (SGN)</option>
+                                                <option value="Hong Kong">Hong Kong</option>
+                                                <option value="India">India</option>
+                                                <option value="Japan">Japan</option>
+                                                <option value="Korea">Korea</option>
+                                                <option value="Laos">Laos</option>
+                                                <option value="Myanmar">Myanmar</option>
+                                                <option value="Singapore">Singapore</option>
+                                                <option value="Thailand">Thailand</option>
+                                                <option value="Vietnam">Vietnam</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <label for="to">To:</label>
+                                            <select required name='to' onchange='this.form()'>
+                                                <option value="">Select a location...</option>
+                                                <option value="HAN">Hà Nội (HAN)</option>
+                                                <option value="Hong Kong">Hong Kong</option>
+                                                <option value="India">India</option>
+                                                <option value="Japan">Japan</option>
+                                                <option value="Korea">Korea</option>
+                                                <option value="Laos">Laos</option>
+                                                <option value="Myanmar">Myanmar</option>
+                                                <option value="Singapore">Singapore</option>
+                                                <option value="Thailand">Thailand</option>
+                                                <option value="Vietnam">Vietnam</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <label for="departure">Departure date:</label>
+                                            <input name="deparure" type="text" class="form-control date" id="deparure" placeholder="Select date..." required="" onchange='this.form()'>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <label for="return">Return date:</label>
+                                            <input name="return" type="text" class="form-control date" id="return" placeholder="Select date..." required="" onchange='this.form()'>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="radio-select">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <label for="round">Round</label>
+                                                    <input type="radio" name="trip" id="round" value="round" required="required" onchange='this.form.()'>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <label for="oneway">Oneway</label>
+                                                    <input type="radio" name="trip" id="oneway" value="one-way" required="required" onchange='this.form.()'>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <button type="submit" id="form-submit" class="btn">Order Ticket Now</button>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<h2>ChooseSeat</h2>
+<link href="~/Style/Css/style.css" rel="stylesheet" />
+<div class="container">
+    <form action="/KhachHangHA/ChooseSeat" method="post" id="submit">
+        <div class="col">
+            <div class="col-lg-6">
+                <div class="plane">
+                    <div class="cockpit">
+                        <h1>Please select 1 seat for your self !</h1>
+                    </div>
+                    <div class="exit exit--front fuselage">
+
+                    </div>
+                    <ol class="cabin fuselage">
+                        @{
+                            var stt = 1;
+                            var stt2 = 1;
+                            if ((Model.Count()) > 0)
+                            {
+                                var row = ((Model.Count()) / 6) + 1;
+                                for (int i = 1; i < row + 1; i++)
+                                {
+                                    <li class="row row--1">
+                                        <ol class="seats" type="A">
+                                            @{
+                                                for (int y = stt2; y <= 6 * stt; y++)
+                                                {
+                                                    var slot = database.Ves.Where(s => s.MaVe == "VE" + stt2).FirstOrDefault();
+                                                    if (slot != null)
+                                                    {
+                                                        if (slot.TinhTrang == "Chưa đặt chỗ")
+                                                        {
+                                                            <li class="seat">
+                                                                <input type="checkbox" id="@stt2" value="@slot.MaVe" />
+                                                                <label for="@stt2">@stt2</label>
+                                                            </li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li class="seat">
+                                                                <input disabled type="checkbox" id="@stt2" value="@slot.MaVe" />
+                                                                <label for="@stt2">@stt2</label>
+                                                            </li>
+                                                        }
+
+                                                        stt2++;
+                                                    }
+
+                                                }
+                                            }
+                                        </ol>
+                                    </li>
+                                    stt++;
+                                }
+                            }
+
+                        }
+                    </ol>
+                    <div class="exit exit--back fuselage">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="booking-details">
+                    <h2>Booking Details</h2>
+                    <h3> Selected Seats (<span id="counter">0</span>):</h3>
+                    <ul id="selected-seats">
+                    </ul>
+                    <button type="submit" class="btn btn-success" value="">Next</button>
+                    <div id="legend"></div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<section id="most-visited">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>Most Visited Places</h2>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div id="owl-mostvisited" class="owl-carousel owl-theme">
+                    <div class="item col-md-12">
+                        <div class="visited-item">
+                            <img src="~/hinh/place-01.jpg" alt="">
+                            <div class="text-content">
+                                <h4>River Views</h4>
+                                <span>New York</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item col-md-12">
+                        <div class="visited-item">
+                            <img src="~/hinh/place-02.jpg" alt="">
+                            <div class="text-content">
+                                <h4>Lorem ipsum dolor</h4>
+                                <span>Tokyo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item col-md-12">
+                        <div class="visited-item">
+                            <img src="~/hinh/place-03.jpg" alt="">
+                            <div class="text-content">
+                                <h4>Proin dignissim</h4>
+                                <span>Paris</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item col-md-12">
+                        <div class="visited-item">
+                            <img src="~/hinh/place-04.jpg" alt="">
+                            <div class="text-content">
+                                <h4>Fusce sed ipsum</h4>
+                                <span>Hollywood</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item col-md-12">
+                        <div class="visited-item">
+                            <img src="~/hinh/place-02.jpg" alt="">
+                            <div class="text-content">
+                                <h4>Vivamus egestas</h4>
+                                <span>Tokyo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item col-md-12">
+                        <div class="visited-item">
+                            <img src="~/hinh/place-04.jpg" alt="">
+                            <div class="text-content">
+                                <h4>Aliquam elit metus</h4>
+                                <span>New York</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item col-md-12">
+                        <div class="visited-item">
+                            <img src="~/hinh/place-03.jpg" alt="">
+                            <div class="text-content">
+                                <h4>Phasellus pharetra</h4>
+                                <span>Paris</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item col-md-12">
+                        <div class="visited-item">
+                            <img src="~/hinh/place-04.jpg" alt="">
+                            <div class="text-content">
+                                <h4>In in quam efficitur</h4>
+                                <span>Hollywood</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item col-md-12">
+                        <div class="visited-item">
+                            <img src="~/hinh/place-01.jpg" alt="">
+                            <div class="text-content">
+                                <h4>Sed faucibus odio</h4>
+                                <span>NEW YORK</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item col-md-12">
+                        <div class="visited-item">
+                            <img src="~/hinh/place-02.jpg" alt="">
+                            <div class="text-content">
+                                <h4>Donec varius porttitor</h4>
+                                <span>Tokyo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="primary-button">
+                    <a href="#" class="scroll-top">Back To Top</a>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <ul class="social-icons">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <p>By Team 30 </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- partial -->
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+<script src="~/Style/Js/script.js"></script>
+<script>
+    var html = "";
+    var quantity = 0;
+    $('input[type="checkbox"]').change(function () {
+
+        var $this = $(this);
+        console.log("Bạn chọn", $this.val());
+        if ($this.is(":checked")) {
+            quantity++;
+            html = `<div id="${$this.val()}">
+                        <p style="font-size:20px">
+                            Bạn đã chọn vé:  ${$this.val()}
+                        </p>
+                    </div>`;
+            $('#selected-seats').append(html);
+            $('#counter').html(quantity);
+            var vitri = $this.val().substring(2, 4);
+            $('#' + vitri).attr('name', 'Ma' + vitri);
+            $('#submit').attr('action', '/KhachHangHA/ChooseSeat/' + quantity)
+        }
+        else {
+            quantity -= 1;
+            var vitri = $this.val().substring(2, 4);
+            $('#counter').html(quantity);
+            $('#' + $this.val()).remove();
+            $('#' + vitri).removeAttr('name');
+            $('#submit').attr('action', '/KhachHangHA/ChooseSeatdi/' + quantity)
+        }
+    })
+</script>
