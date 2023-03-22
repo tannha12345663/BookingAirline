@@ -32,5 +32,6 @@ namespace BookingAirline.Models
         public virtual ICollection<ChiTietHD> ChiTietHDs { get; set; }
         public virtual ChuyenBay ChuyenBay { get; set; }
         public virtual HangVe HangVe { get; set; }
+        public virtual KhachHang KhachHang { get; set; }
     }
 }
