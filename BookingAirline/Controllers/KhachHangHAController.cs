@@ -89,7 +89,10 @@ namespace BookingAirline.Controllers
         }
         public ActionResult DSachCBVe(string id)
         {
-
+            var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
+            OrderStatu order = new OrderStatu();
+            order.IDUser = uid.IDKH;
+            var count = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
             //Kiểm tra nếu là khứ hồi
             if (Session["trip"] == null)
             {
@@ -98,15 +101,19 @@ namespace BookingAirline.Controllers
             var check = Session["trip"].ToString();
             if (check == "one-way")
             {
-
-                return RedirectToAction("DienThongTinKH");
+                if (count != null)
+                {
+                    database.OrderStatus.Remove(count);
+                    database.SaveChanges();
+                }
+                order.MaCBdi = id;
+                database.OrderStatus.Add(order);
+                database.SaveChanges();
+                return RedirectToAction("ChooseSeat");
             }
             else
             {
-                var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
-                OrderStatu order = new OrderStatu();
-                order.IDUser = uid.IDKH;
-                var count = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
+                
                 if (count != null)
                 {
                     database.OrderStatus.Remove(count);
@@ -125,15 +132,17 @@ namespace BookingAirline.Controllers
         }
         public ActionResult DienThongTinKH(string id)
         {
-            var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
-            OrderStatu order = new OrderStatu();
-            order = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
-            order.MaCBve = id;
-            database.Entry(order).State = System.Data.Entity.EntityState.Modified;
-            database.SaveChanges();
-
-            Session["Mave"] = id;
-
+            var check = Session["trip"].ToString();
+            if(check == "round")
+            {
+                var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
+                OrderStatu order = new OrderStatu();
+                order = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
+                order.MaCBve = id;
+                database.Entry(order).State = System.Data.Entity.EntityState.Modified;
+                database.SaveChanges();
+                Session["Mave"] = id;
+            }
             return View();
         }
         [HttpPost]
@@ -143,36 +152,38 @@ namespace BookingAirline.Controllers
             var dsorder = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
             Random rd = new Random();
             var total = 0;
+            #region Ban cu
             var mave = "VE" + rd.Next(1, 1000);
             //check ma ve duoi database
             //Tao ve moi
-            Ve ve = new Ve();
-            ve.MaVe = mave;
-            ve.MaCB = dsorder.MaCBdi;
-            ve.TinhTrang = "Chưa thanh toán";
-            ve.GiaVe = 500000;
-            ve.CCCD = Request["cccd"];
-            ve.IDKH = uid.IDKH;
-            ve.MaHV = "HV01";
-            total += (int)ve.GiaVe;
-            database.Ves.Add(ve);
-            database.SaveChanges();
-            //Kiểm tra nếu có khứ hồi 
-            if (dsorder.MaCBve != null)
-            {
-                ve = new Ve();
-                mave = "VE" + rd.Next(1, 1000);
-                ve.MaVe = mave;
-                ve.MaCB = dsorder.MaCBve;
-                ve.TinhTrang = "Chưa thanh toán";
-                ve.GiaVe = 500000;
-                ve.CCCD = Request["cccd"];
-                ve.IDKH = uid.IDKH;
-                ve.MaHV = "HV01";
-                total += (int)ve.GiaVe;
-                database.Ves.Add(ve);
-                database.SaveChanges();
-            }
+            //Ve ve = new Ve();
+            //ve.MaVe = mave;
+            //ve.MaCB = dsorder.MaCBdi;
+            //ve.TinhTrang = "Chưa thanh toán";
+            //ve.GiaVe = 500000;
+            //ve.CCCD = Request["cccd"];
+            //ve.IDKH = uid.IDKH;
+            //ve.MaHV = "HV01";
+            //total += (int)ve.GiaVe;
+            //database.Ves.Add(ve);
+            //database.SaveChanges();
+            ////Kiểm tra nếu có khứ hồi 
+            //if (dsorder.MaCBve != null)
+            //{
+            //    ve = new Ve();
+            //    mave = "VE" + rd.Next(1, 1000);
+            //    ve.MaVe = mave;
+            //    ve.MaCB = dsorder.MaCBve;
+            //    ve.TinhTrang = "Chưa thanh toán";
+            //    ve.GiaVe = 500000;
+            //    ve.CCCD = Request["cccd"];
+            //    ve.IDKH = uid.IDKH;
+            //    ve.MaHV = "HV01";
+            //    total += (int)ve.GiaVe;
+            //    database.Ves.Add(ve);
+            //    database.SaveChanges();
+            //}
+            #endregion
             var contact = new Order();
             contact.CreateDate = DateTime.Now;
             contact.ShipName = Request["name"];
@@ -182,6 +193,61 @@ namespace BookingAirline.Controllers
             Session["contacKH"] = contact;
             return RedirectToAction("ThanhToan");
         }
+
+        //Version 2.0
+        [HttpGet]
+        public ActionResult ChooseSeat()
+        {
+            var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
+            var dsorder = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
+            var dsve = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi).ToList();
+            return View(dsve);
+        }
+        [HttpPost]
+        public ActionResult ChooseSeat(int id)
+        {
+            Cart cart = Session["Cart"] as Cart;
+            if (cart != null)
+            {
+                cart.XoaSauKhiDat();
+            }
+            int check = 0;
+            var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
+            var dsorder = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
+            var dsve = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi).ToList();
+            for (int i = 1; i <= dsve.Count(); i++)
+            {
+                if (Request["Ma" + i] != null)
+                {
+                    //14/03/2023 Suy nghĩ làm thêm luồn xử lý dữ liệu
+                    //Add thông tin vé vào giỏ hàng
+                    var ticket = Request["Ma" + i];
+                    var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi && s.MaVe == ticket).FirstOrDefault();
+                    GetCart().Add(detailtic, 1);
+
+                    check++;
+                    if (check == id)
+                    {
+                        break;
+                    }
+                }
+            }
+            return RedirectToAction("DienThongTinKH");
+        }
+
+        // Tạo mới giỏ hàng
+        public Cart GetCart()
+        {
+            Cart cart = Session["Cart"] as Cart;
+            if (cart == null || Session["Cart"] == null)
+            {
+                cart = new Cart();
+                Session["Cart"] = cart;
+            }
+            return cart;
+        }
+
+
 
         public ActionResult ThanhToan()
         {

@@ -94,6 +94,7 @@ namespace BookingAirline.Controllers
             var dsorder = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
             Random rd = new Random();
             var total = 0;
+            #region Bancu
             //var mave = "VE" + rd.Next(1, 1000);
             //check ma ve duoi database
             //Tao ve moi
@@ -130,6 +131,7 @@ namespace BookingAirline.Controllers
             //    database.Entry(dsorder).State = System.Data.Entity.EntityState.Modified;
             //    database.SaveChanges();
             //}
+            #endregion
             var contact = new Order();
             contact.CreateDate = DateTime.Now;
             contact.ShipName = Request["name"];
@@ -217,9 +219,28 @@ namespace BookingAirline.Controllers
             
             var maveve = database.Ves.Where(s => s.MaCB == kh.MaCBve).FirstOrDefault();
             var ttkh = (Order)Session["contacKH"]; // Thông tin liên lạc của KH
+            var tongtien = string.Format("{0:0,0 vnđ}", ttkh.Total);
             //mavedi.TinhTrang = "Đã thanh toán";
             //database.Entry(mavedi).State = System.Data.Entity.EntityState.Modified;
             //database.SaveChanges();
+
+            //Thêm lưu xuất ra hóa đơn
+            Random rd = new Random();
+            HoaDon themhd = new HoaDon();
+            themhd.MaHD = "HD" + rd.Next(1, 100) + rd.Next(1, 100);
+            themhd.TinhTrang = "Đã thanh toán";
+            themhd.NgayLap = System.DateTime.Now;
+            themhd.ThanhTien = ttkh.Total;
+            themhd.CCCD = ttkh.CCCD;
+            database.HoaDons.Add(themhd);
+            database.SaveChanges();
+
+            //Thêm chi tiết hóa đơn
+            ChiTietHD cthd = new ChiTietHD();
+            cthd.MaHD = themhd.MaHD;
+
+
+
 
             Cart cart = Session["Cart"] as Cart;
             var dsorder = cart.Items;
@@ -230,6 +251,14 @@ namespace BookingAirline.Controllers
                 mavedi.CCCD = ttkh.CCCD;
                 database.Entry(mavedi).State = System.Data.Entity.EntityState.Modified;
                 database.SaveChanges();
+
+                cthd.MaVe = item.idVe.MaVe;
+                cthd.SoLuong = item.soLuong;
+                cthd.DonGia = item.idVe.GiaVe;
+                cthd.MaCB = item.idVe.MaCB;
+                cthd.TongTien = (item.soLuong) * (item.idVe.GiaVe);
+                database.ChiTietHDs.Add(cthd);
+                database.SaveChanges();
             }
             if (maveve != null)
             {
@@ -237,7 +266,11 @@ namespace BookingAirline.Controllers
                 database.Entry(maveve).State = System.Data.Entity.EntityState.Modified;
                 database.SaveChanges();
             };
-            var tongtien = string.Format("{0:0,0 vnđ}", ttkh.Total);
+            
+
+
+
+            
             string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/Template/HtmlPage1.html"));
             content = content.Replace("{{CustomerName}}", ttkh.ShipName);
             content = content.Replace("{{Phone}}", ttkh.NumberPhone);

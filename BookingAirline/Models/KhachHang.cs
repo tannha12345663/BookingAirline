@@ -22,7 +22,7 @@ namespace BookingAirline.Models
         }
     
         public string IDKH { get; set; }
-        public int CCCD { get; set; }
+        public string CCCD { get; set; }
         public string MaLKH { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
