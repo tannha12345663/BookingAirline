@@ -76,7 +76,6 @@ namespace BookingAirline.Controllers
                     ticket.MaVe = "VE" + stt;
                     ticket.MaCB = cb.MaCB;
                     ticket.MaHV = "HV01";
-                    ticket.IDKH = "null";
                     ticket.TinhTrang = "Chưa đặt chỗ";
                     ticket.GiaVe = Convert.ToDouble( Request["dongiaG1"]);
                     ticket.CCCD = "null";
@@ -90,7 +89,6 @@ namespace BookingAirline.Controllers
                     ticket.MaVe = "VE" + stt;
                     ticket.MaCB = cb.MaCB;
                     ticket.MaHV = "HV02";
-                    ticket.IDKH = "null";
                     ticket.TinhTrang = "Chưa đặt chỗ";
                     ticket.GiaVe = Convert.ToDouble(Request["dongiaG2"]);
                     ticket.CCCD = "null";
@@ -104,7 +102,6 @@ namespace BookingAirline.Controllers
                     ticket.MaVe = "VE" + stt;
                     ticket.MaCB = cb.MaCB;
                     ticket.MaHV = "HV03";
-                    ticket.IDKH = "null";
                     ticket.TinhTrang = "Chưa đặt chỗ";
                     ticket.GiaVe = Convert.ToDouble(Request["dongiaG3"]);
                     ticket.CCCD = "null";
