@@ -207,9 +207,6 @@
     <Compile Include="Models\SanBay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TuyenBay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -372,6 +369,7 @@
     <Content Include="Style\Css\aboutStyle.css" />
     <Content Include="Style\Css\Admin\adminlte.min.css" />
     <Content Include="Style\Css\Admin\all.min.css" />
+    <Content Include="Style\Css\Admin\contactStyle.css" />
     <Content Include="Style\Css\Admin\icheck-bootstrap.min.css" />
     <Content Include="Style\Css\Admin\icon.css" />
     <Content Include="Style\Css\Admin\js\adminlte.min.js" />

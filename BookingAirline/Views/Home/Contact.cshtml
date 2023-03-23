@@ -4,14 +4,13 @@
 
 <link rel="stylesheet" href="~/Style/Css/contactStyle.css">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-<style>
-
-        p{
-            font-family: 'Open Sans', sans-serif;
-        }
-</style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+            p{
+                font-family: 'Open Sans', sans-serif;
+            }
+    </style>
 
 
 
@@ -29,53 +28,23 @@
     </div>
 </nav>
 
-
-
-<div id="section1" class="container" style="padding: 80px 0px">
-    <div class="Content-detail">
-        <h1 class="title">CONTACT US</h1>
-
-        <div class="table-form">
-            <div class="left">
-                <form class="form-inline" action="/action_page.php">
-
-                    <label for="name"><b>Name:</b></label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="name">
-
-                    <label for="mail" class="mr-sm-2"><b>Address:</b></label>
-                    <input type="email" class="form-control mb-2 mr-sm-2" id="mail">
-
-                    <label for="sdt" class="mr-sm-2"><b>Number Phone: </b></label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="sdt">
-
-                    <label for="noidung" class="mr-sm-2"><b>Comment: </b></label>
-                    <textarea name="info" rows="5" cols="30" class="form-control mb-2 mr-sm-2" id="info">
-                  </textarea>
-
-
-                    <input type=button value="Send" onclick="HienThi()" class="gui">
-                    <input type=button value="Cancel" onclick="HienThi()" class="huy">
-                </form>
-
-            </div>
-            <div class="right">
-                <p style="margin: 10px;" class="thongtin">Contact</p>
-
-                <div class="contentlh">
-                    
-                    <span style="font-size: 20px;"><b>Hotline:</b><br /></span>
-                    <span style="font-size: 16px;">0123.456.789</span><br /><br />
-
-                    
-                    <span style="font-size: 20px;"><b>Address:</b><br /></span>
-                    <span style="font-size: 16px;">Su Van Hanh,TP.HCM</span><br /><br />
-
-                    
-                    <span style="font-size: 20px;"><b>Email:</b><br /></span>
-                    <span style="font-size: 16px;">hotro@bookingairline.com</span><br /><br />
-
-                </div>
-            </div>
+<head>
+    <title>Contact us</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+   
+</head>
+<body>
+    <form action="/" class="decor">
+        <div class="form-left-decoration"></div>
+        <div class="form-right-decoration"></div>
+        <div class="circle"></div>
+        <div class="form-inner">
+            <h1>Contact us</h1>
+            <input type="text" placeholder="Username">
+            <input type="email" placeholder="Email">
+            <textarea placeholder="Message..." rows="5"></textarea>
+            <button type="submit" href="/">Submit</button>
         </div>
-    </div>
-</div>
+    </form>
+</body>
+

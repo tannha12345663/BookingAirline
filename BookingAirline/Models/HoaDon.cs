@@ -32,7 +32,7 @@ namespace BookingAirline.Models
         public virtual ICollection<ChiTietHD> ChiTietHDs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoanhThuThang> DoanhThuThangs { get; set; }
-        public virtual NhanVien NhanVien { get; set; }
         public virtual KhachHang KhachHang { get; set; }
+        public virtual NhanVien NhanVien { get; set; }
     }
 }
