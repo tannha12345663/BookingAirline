@@ -1,0 +1,108 @@
+﻿@using BookingAirline.Models
+@{
+    ViewBag.Title = "Staff";
+    Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
+    BookingAirLightEntities db = new BookingAirLightEntities();
+}
+
+
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="jquery-3.6.3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+@{
+    var checkmess = (string)TempData["messageAlert"];
+    var idnv = (string)TempData["idnv"];
+    if (checkmess == "success")
+    {
+        <script>
+            swal({
+                title: "Thêm thành công",
+                text: "Nhân viên  @idnv đã được thêm mới",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }
+    else if (checkmess == "SuaThanhCong")
+    {
+        <script>
+            swal({
+                title: "Đã sửa thành công",
+                text: "Nhân viên  @idnv đã được sửa đổi mới",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }
+    else if (checkmess == "XoaThanhCong")
+    {
+        <script>
+            swal({
+                title: "Đã xóa thành công",
+                text: "Nhân viên @idnv đã được xóa",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    };
+
+
+}
+
+<h2>Staff</h2>
+
+<br />
+<div class="row">
+    <div class="col-md-2 mb-2">
+        <div class="btn btn-secondary text-white">
+            <a data-toggle="modal" data-target="#myModal01">Add </a>
+            
+        </div>
+    </div>
+
+
+
+</div>
+<br />
+<br />
+<div class="card mb-4">
+
+
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                @*//Phần render*@
+                <tr>
+                    <th>ID</th>
+
+                    <th>Full name</th>
+                    <th>User name</th>
+                    <th>Password</th>
+                    <th>Email</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @{ var dsstaff = db.NhanViens.ToList();
+                    foreach (var item01 in dsstaff)
+                    {
+                        <tr>
+                            <td>@item01.IDNV</td>
+                            <td>@item01.TenNV</td>
+                            <td>@item01.UserName</td>
+                            <td>@item01.Password</td>
+                            <td>@item01.Email_NV</td>
+                            <td>Chỉnh sửa || Xóa</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

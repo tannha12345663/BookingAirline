@@ -18,6 +18,8 @@ namespace BookingAirline.Controllers
         public ActionResult TrangChu()
         {
             return View();
+           
+            
         }
         
         public ActionResult Scheduleaflight()
@@ -344,5 +346,19 @@ namespace BookingAirline.Controllers
         {
             return View();
         }
+
+        public ActionResult Setting()
+        {
+            return View();
+        }
+
+        public ActionResult Staff()
+        {
+            return View();
+        }
+        
+       
+
+        
     }
 }

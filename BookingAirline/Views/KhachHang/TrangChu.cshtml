@@ -3,6 +3,19 @@
     ViewBag.Title = "TrangChu";
     Layout = "~/Views/KhachHang/Shared/_LayoutPage1.cshtml";
 }
+<link href="~/Style/Css/Admin/trangchu.css" rel="stylesheet" />
+<br />
+<br />
+
+<h2 style="text-align:center ">PROMOTION</h2>
+<br />
+<div class="Sale">
+
+    <img src="~/hinh/KM/du-lich-he-99k.jpg" />
+
+    <img src="~/hinh/KM/vietjet-khuyen-mai-ve-0-dong-moi-ngay.jpg" />
+
+</div>
 
 <div class="tabs-content" id="weather">
     <div class="container">
@@ -388,6 +401,38 @@
         </div>
     </div>
 </section>
+<span class="divider"><hr /></span>
+<br />
+<h2 style="text-align:center"> WHAT DO CUSTOMERS SAY ABOUT US?</h2>
+<br />
+
+<div class="display-container">
+    
+    <img class="mySlides" src="~/hinh/BL/Ảnh chụp màn hình 2023-03-23 235830.png" />
+    <img class="mySlides" src="~/hinh/BL/Ảnh chụp màn hình 2023-03-23 235918.png" />
+    <img class="mySlides" src="~/hinh/BL/Ảnh chụp màn hình 2023-03-23 235954.png" />
+
+    <button class="image-button button-left" onclick="plusDivs(-1)">&#10094;</button>
+    <button class="image-button button-right" onclick="plusDivs(1)">&#10095;</button>
+</div>
+
+<span class="divider"><hr /></span>
+<br />
+<h2 style="text-align:center">Business Partner</h2>
+<div class="Coop">
+    
+
+    <div class="logo">
+        <img src="~/hinh/Cooplogo/Bamboo-Airways-logo.png" />
+        <img src="~/hinh/Cooplogo/malaysia-airlines-logo.png" />
+        <img src="~/hinh/Cooplogo/Singapore-Airlines-logo-01.png" />
+        <img src="~/hinh/Cooplogo/thai-airway-logo.png" />
+        <img src="~/hinh/Cooplogo/VJ.png" />
+        <img src="~/hinh/Cooplogo/VNEl.png" />
+    </div>
+
+</div>
+<span class="divider"><hr /></span>
 
 <footer>
     <div class="container">
@@ -402,8 +447,7 @@
                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                     <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
+
                 </ul>
             </div>
             <div class="col-md-12">
@@ -412,3 +456,22 @@
         </div>
     </div>
 </footer>
+<script>
+    var slideIndex = 1;
+    showDivs(slideIndex);
+
+    function plusDivs(n) {
+        showDivs(slideIndex += n);
+    }
+
+    function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        if (n > x.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = x.length }
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        x[slideIndex - 1].style.display = "block";
+    }
+</script>

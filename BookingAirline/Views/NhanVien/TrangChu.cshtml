@@ -3,95 +3,459 @@
     ViewBag.Title = "TrangChu";
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
 }
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- ========== All CSS files linkup ========= -->
+    <link href="~/Content/admin/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/admin/css/lineicons.css" rel="stylesheet" />
+    <link href="~/Content/admin/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="~/Content/admin/css/fullcalendar.css" rel="stylesheet" />
+    <link href="~/Content/admin/css/main.css" rel="stylesheet" />
+</head>
 
-<h1 class="mt-4">Dashboard</h1>
-<ol class="breadcrumb mb-4">
-   
-</ol>
-<div class="row">
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-primary text-white mb-4">
-                <div class="card-body"><a class="small text-white stretched-link" href="#"><i class="fa fa-comments fa-1x"></i> Primary Card </a></div>
-                
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-warning text-white mb-4">
-                <div class="card-body" style="te"><a class="small text-white stretched-link" href="#"><i class="fa fa-tasks fa-1x"></i> Warning Card</a></div>
-                
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-success text-white mb-4">
-                <div class="card-body"><a class="small text-white stretched-link" href="#"><i class="fa fa-support fa-1x"></i> Success Card</a></div>
-                
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-danger text-white mb-4">
-                <div class="card-body"><a class="small text-white stretched-link" href="#">Danger Card</a></div>
-               
-            </div>
-        </div>
-    </div>
 
-<div class="row">
-    <div class="col-xl-6">
-        <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-chart-area me-1"></i>
-                Area Chart Example
+<body>
+    <!-- ======== main-wrapper start =========== -->
+    <!-- ========== section start ========== -->
+    <section class="section">
+        <div class="container-fluid">
+            <!-- ========== title-wrapper start ========== -->
+            <div class="title-wrapper pt-30">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="title mb-30">
+                            <h2>eCommerce Dashboard</h2>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-md-6">
+                        <div class="breadcrumb-wrapper mb-30">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="#0">Dashboard</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        eCommerce
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
             </div>
-            <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-        </div>
-    </div>
-    <div class="col-xl-6">
-        <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-chart-bar me-1"></i>
-                Bar Chart Example
+            <!-- ========== title-wrapper end ========== -->
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="icon-card mb-30">
+                        <div class="icon purple">
+                            <i class="lni lni-cart-full"></i>
+                        </div>
+                        <div class="content">
+                            <h6 class="mb-10">New Orders</h6>
+                            <h3 class="text-bold mb-10">34567</h3>
+                            <p class="text-sm text-success">
+                                <i class="lni lni-arrow-up"></i> +2.00%
+                                <span class="text-gray">(30 days)</span>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- End Icon Cart -->
+                </div>
+                <!-- End Col -->
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="icon-card mb-30">
+                        <div class="icon success">
+                            <i class="lni lni-dollar"></i>
+                        </div>
+                        <div class="content">
+                            <h6 class="mb-10">Total Income</h6>
+                            <h3 class="text-bold mb-10">$74,567</h3>
+                            <p class="text-sm text-success">
+                                <i class="lni lni-arrow-up"></i> +5.45%
+                                <span class="text-gray">Increased</span>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- End Icon Cart -->
+                </div>
+                <!-- End Col -->
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="icon-card mb-30">
+                        <div class="icon primary">
+                            <i class="lni lni-credit-cards"></i>
+                        </div>
+                        <div class="content">
+                            <h6 class="mb-10">Total Expense</h6>
+                            <h3 class="text-bold mb-10">$24,567</h3>
+                            <p class="text-sm text-danger">
+                                <i class="lni lni-arrow-down"></i> -2.00%
+                                <span class="text-gray">Expense</span>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- End Icon Cart -->
+                </div>
+                <!-- End Col -->
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="icon-card mb-30">
+                        <div class="icon orange">
+                            <i class="lni lni-user"></i>
+                        </div>
+                        <div class="content">
+                            <h6 class="mb-10">New User</h6>
+                            <h3 class="text-bold mb-10">34567</h3>
+                            <p class="text-sm text-danger">
+                                <i class="lni lni-arrow-down"></i> -25.00%
+                                <span class="text-gray"> Earning</span>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- End Icon Cart -->
+                </div>
+                <!-- End Col -->
             </div>
-            <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+            <!-- End Row -->
+
+
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-chart-area me-1"></i>
+                            Area Chart Example
+                        </div>
+                        <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-chart-bar me-1"></i>
+                            Bar Chart Example
+                        </div>
+                        <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="card-style calendar-card mb-30">
+                        <div id="calendar-mini"></div>
+                    </div>
+                </div>
+                <!--End Col -->
+                <div class="col-lg-7">
+                    <div class="card-style mb-30">
+                        <div class="
+                    title
+                    d-flex
+                    flex-wrap
+                    align-items-center
+                    justify-content-between
+                  ">
+                            <div class="left">
+                                <h6 class="text-medium mb-30">Sales History</h6>
+                            </div>
+                            <div class="right">
+                                <div class="select-style-1">
+                                    <div class="select-position select-sm">
+                                        <select class="light-bg">
+                                            <option value="">Today</option>
+                                            <option value="">Yesterday</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                @*end select*@
+                            </div>
+                        </div>
+                        @*End Title*@
+                        <div class="table-responsive">
+                            <table class="table top-selling-table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <h6 class="text-sm text-medium">Mã vé</h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6 class="text-sm text-medium">
+                                                Hạng vé <i class="lni lni-arrows-vertical"></i>
+                                            </h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6 class="text-sm text-medium">
+                                                Giá vé <i class="lni lni-arrows-vertical"></i>
+                                            </h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6 class="text-sm text-medium">
+                                            </h6>
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="product">
+                                                <p class="text-sm">VE1</p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm">HV01</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm">1550000</p>
+                                        </td>
+
+                                        <td>
+                                            <div class="action justify-content-end">
+                                                <button class="edit">
+                                                    <i class="lni lni-pencil"></i>
+                                                </button>
+                                                <button class="more-btn ml-10 dropdown-toggle"
+                                                        id="moreAction1"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                    <i class="lni lni-more-alt"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end"
+                                                    aria-labelledby="moreAction1">
+                                                    <li class="dropdown-item">
+                                                        <a href="#0" class="text-gray">Remove</a>
+                                                    </li>
+                                                    <li class="dropdown-item">
+                                                        <a href="#0" class="text-gray">Edit</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="product">
+
+                                                <p class="text-sm">VE10</p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm">HV01</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm">1550000</p>
+                                        </td>
+
+                                        <td>
+                                            <div class="action justify-content-end">
+                                                <button class="edit">
+                                                    <i class="lni lni-pencil"></i>
+                                                </button>
+                                                <button class="more-btn ml-10 dropdown-toggle"
+                                                        id="moreAction1"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                    <i class="lni lni-more-alt"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end"
+                                                    aria-labelledby="moreAction1">
+                                                    <li class="dropdown-item">
+                                                        <a href="#0" class="text-gray">Remove</a>
+                                                    </li>
+                                                    <li class="dropdown-item">
+                                                        <a href="#0" class="text-gray">Edit</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="product">
+
+                                                <p class="text-sm">VE11</p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm">HV02</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm">1230000</p>
+                                        </td>
+
+                                        <td>
+                                            <div class="action justify-content-end">
+                                                <button class="edit">
+                                                    <i class="lni lni-pencil"></i>
+                                                </button>
+                                                <button class="more-btn ml-10 dropdown-toggle"
+                                                        id="moreAction1"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                    <i class="lni lni-more-alt"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end"
+                                                    aria-labelledby="moreAction1">
+                                                    <li class="dropdown-item">
+                                                        <a href="#0" class="text-gray">Remove</a>
+                                                    </li>
+                                                    <li class="dropdown-item">
+                                                        <a href="#0" class="text-gray">Edit</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="product">
+
+                                                <p class="text-sm">VE12</p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm">HV02</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm">1230000</p>
+                                        </td>
+
+                                        <td>
+                                            <div class="action justify-content-end">
+                                                <button class="edit">
+                                                    <i class="lni lni-pencil"></i>
+                                                </button>
+                                                <button class="more-btn ml-10 dropdown-toggle"
+                                                        id="moreAction1"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                    <i class="lni lni-more-alt"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end"
+                                                    aria-labelledby="moreAction1">
+                                                    <li class="dropdown-item">
+                                                        <a href="#0" class="text-gray">Remove</a>
+                                                    </li>
+                                                    <li class="dropdown-item">
+                                                        <a href="#0" class="text-gray">Edit</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="product">
+
+                                                <p class="text-sm">VE13</p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm">HV02</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm">1230000</p>
+                                        </td>
+
+                                        <td>
+                                            <div class="action justify-content-end">
+                                                <button class="edit">
+                                                    <i class="lni lni-pencil"></i>
+                                                </button>
+                                                <button class="more-btn ml-10 dropdown-toggle"
+                                                        id="moreAction1"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                    <i class="lni lni-more-alt"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end"
+                                                    aria-labelledby="moreAction1">
+                                                    <li class="dropdown-item">
+                                                        <a href="#0" class="text-gray">Remove</a>
+                                                    </li>
+                                                    <li class="dropdown-item">
+                                                        <a href="#0" class="text-gray">Edit</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="product">
+
+                                                <p class="text-sm">VE15</p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm">HV02</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm">1230000</p>
+                                        </td>
+
+                                        <td>
+                                            <div class="action justify-content-end">
+                                                <button class="edit">
+                                                    <i class="lni lni-pencil"></i>
+                                                </button>
+                                                <button class="more-btn ml-10 dropdown-toggle"
+                                                        id="moreAction1"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                    <i class="lni lni-more-alt"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end"
+                                                    aria-labelledby="moreAction1">
+                                                    <li class="dropdown-item">
+                                                        <a href="#0" class="text-gray">Remove</a>
+                                                    </li>
+                                                    <li class="dropdown-item">
+                                                        <a href="#0" class="text-gray">Edit</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- End Table -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End Col -->
+            </div>
+            <!-- End Row -->
         </div>
-    </div>
-</div>
-<div class="card mb-4">
-    <div class="card-header">
-        <i class="fas fa-table me-1"></i>
-        DataTable Example
-    </div>
-    <div class="card-body">
-        <table id="datatablesSimple">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                </tr>
-            </tfoot>
-            <tbody>
-                <tr>
-                    <td>Donna Snider</td>
-                    <td>Customer Support</td>
-                    <td>New York</td>
-                    <td>27</td>
-                    <td>2011/01/25</td>
-                    <td>$112,000</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+        <!-- end container -->
+    </section>
+    <!-- ========== section end ========== -->
+    <!-- ======== main-wrapper end =========== -->
+    
+
+    <script>
+
+        // ====== calendar activation
+        document.addEventListener("DOMContentLoaded", function () {
+            var calendarMiniEl = document.getElementById("calendar-mini");
+            var calendarMini = new FullCalendar.Calendar(calendarMiniEl, {
+                initialView: "dayGridMonth",
+                headerToolbar: {
+                    end: "today prev,next",
+                },
+            });
+            calendarMini.render();
+        });
+
+
+    </script>
+
+
+
+
+</body>
