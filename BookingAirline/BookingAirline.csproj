@@ -465,11 +465,7 @@
     <Content Include="Views\NhanVien\DetailTotalRevenue.cshtml" />
     <Content Include="Views\NhanVien\TicketManagement.cshtml" />
     <Content Include="Views\KhachHang\ChooseSeat.cshtml" />
-    <Content Include="Views\KhachHangs\Create.cshtml" />
-    <Content Include="Views\KhachHangs\Delete.cshtml" />
-    <Content Include="Views\KhachHangs\Details.cshtml" />
-    <Content Include="Views\KhachHangs\Edit.cshtml" />
-    <Content Include="Views\KhachHangs\Index.cshtml" />
+    <Content Include="Views\KhachHangHA\ChooseSeat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

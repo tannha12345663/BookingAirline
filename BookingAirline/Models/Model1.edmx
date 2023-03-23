@@ -92,7 +92,7 @@
             <PropertyRef Name="IDKH" />
           </Key>
           <Property Name="IDKH" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="CCCD" Type="nvarchar" MaxLength="50" />
+          <Property Name="CCCD" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MaLKH" Type="varchar" MaxLength="10" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
@@ -635,7 +635,7 @@
             <PropertyRef Name="IDKH" />
           </Key>
           <Property Name="IDKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CCCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CCCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MaLKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
