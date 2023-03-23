@@ -27,7 +27,7 @@ namespace BookingAirline.Controllers
                 TempData["error"] = "Tài khoản đăng nhập không đúng";
                 return View("Login");
             }
-            else if (taikhoan != null)
+            else if (data != null)
             {
                 //add session
                 database.Configuration.ValidateOnSaveEnabled = false;

@@ -473,6 +473,7 @@
     <Content Include="Views\NhanVien\DetailTotalRevenue.cshtml" />
     <Content Include="Views\NhanVien\TicketManagement.cshtml" />
     <Content Include="Views\KhachHang\ChooseSeat.cshtml" />
+    <Content Include="Views\KhachHangHA\ChooseSeat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
