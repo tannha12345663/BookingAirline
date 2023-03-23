@@ -3,6 +3,7 @@
 }
 
 <link rel="stylesheet" href="~/Style/Css/contactStyle.css">
+<link rel="Shortcut Icon" href="~/hinh/logo-i.png" type="image/x-icon" />
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -31,51 +32,52 @@
 
 
 
-<div id="section1" class="container" style="padding: 80px 0px">
-    <div class="Content-detail">
-        <h1 class="title">CONTACT US</h1>
+<div class="map">
+    <iframe src="https://snazzymaps.com/embed/2369" width="100%" height="100%" style="border:none;"></iframe>
+</div>
 
-        <div class="table-form">
-            <div class="left">
-                <form class="form-inline" action="/action_page.php">
-
-                    <label for="name"><b>Name:</b></label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="name">
-
-                    <label for="mail" class="mr-sm-2"><b>Address:</b></label>
-                    <input type="email" class="form-control mb-2 mr-sm-2" id="mail">
-
-                    <label for="sdt" class="mr-sm-2"><b>Number Phone: </b></label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="sdt">
-
-                    <label for="noidung" class="mr-sm-2"><b>Comment: </b></label>
-                    <textarea name="info" rows="5" cols="30" class="form-control mb-2 mr-sm-2" id="info">
-                  </textarea>
-
-
-                    <input type=button value="Send" onclick="HienThi()" class="gui">
-                    <input type=button value="Cancel" onclick="HienThi()" class="huy">
-                </form>
-
-            </div>
-            <div class="right">
-                <p style="margin: 10px;" class="thongtin">Contact</p>
-
-                <div class="contentlh">
-                    
-                    <span style="font-size: 20px;"><b>Hotline:</b><br /></span>
-                    <span style="font-size: 16px;">0123.456.789</span><br /><br />
-
-                    
-                    <span style="font-size: 20px;"><b>Address:</b><br /></span>
-                    <span style="font-size: 16px;">Su Van Hanh,TP.HCM</span><br /><br />
-
-                    
-                    <span style="font-size: 20px;"><b>Email:</b><br /></span>
-                    <span style="font-size: 16px;">hotro@bookingairline.com</span><br /><br />
-
+<div class="content">
+    <div class="contact">
+        <div class="other">
+            <div class="info">
+                <h2>CONTACT </h2>
+                <div class="col-md-4">
+                    <div class="single-contact">
+                        
+                        <h5>Address</h5>
+                        <p>Su Van Hanh,TP.HCM</p>
+                    </div>
+                    <div class="single-contact">
+                        
+                        <h5>Hotline:</h5>
+                        <p>0123.456.789</p>
+                    </div>
+                    <div class="single-contact">
+                        
+                        <h5>Email</h5>
+                        <p>hotro@bookingairline.com</p>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="form">
+            <h1>Get In Touch</h1>
+            <form action="">
+                <div class="flex-rev">
+                    <input type="text" name="name" id="name" />
+                    <label for="name">Name</label>
+                </div>
+                <div class="flex-rev">
+                    <input type="email" name="email" id="email" />
+                    <label for="email">Email</label>
+                </div>
+
+                <div class="flex-rev">
+                    <textarea name="message" id="message" ></textarea>
+                    <label for="message">Message</label>
+                </div>
+                <button>Send</button>
+            </form>
         </div>
     </div>
 </div>

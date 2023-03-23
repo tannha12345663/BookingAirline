@@ -18,11 +18,11 @@ namespace BookingAirline.Models
         public KhachHang()
         {
             this.HoaDons = new HashSet<HoaDon>();
-            this.PhieuDatChoes = new HashSet<PhieuDatCho>();
+            this.Ves = new HashSet<Ve>();
         }
     
         public string IDKH { get; set; }
-        public int CCCD { get; set; }
+        public string CCCD { get; set; }
         public string MaLKH { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
@@ -36,6 +36,6 @@ namespace BookingAirline.Models
         public virtual ICollection<HoaDon> HoaDons { get; set; }
         public virtual LoaiKH LoaiKH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuDatCho> PhieuDatChoes { get; set; }
+        public virtual ICollection<Ve> Ves { get; set; }
     }
 }

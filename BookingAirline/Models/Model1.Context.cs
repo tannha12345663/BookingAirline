@@ -41,7 +41,6 @@ namespace BookingAirline.Models
         public virtual DbSet<Phi> Phis { get; set; }
         public virtual DbSet<PhieuDatCho> PhieuDatChoes { get; set; }
         public virtual DbSet<SanBay> SanBays { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TuyenBay> TuyenBays { get; set; }
         public virtual DbSet<Ve> Ves { get; set; }
     }

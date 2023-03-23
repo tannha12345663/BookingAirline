@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BookingAirLightModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BookingAirLightModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ChiTietChuyenBay">
           <Key>
             <PropertyRef Name="STT" />
@@ -85,15 +85,14 @@
           <Property Name="NgayLap" Type="datetime" />
           <Property Name="ThanhTien" Type="float" />
           <Property Name="IDKH" Type="varchar" MaxLength="10" />
-          <Property Name="CCCD" Type="int" />
+          <Property Name="CCCD" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
             <PropertyRef Name="IDKH" />
-            <PropertyRef Name="CCCD" />
           </Key>
           <Property Name="IDKH" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="CCCD" Type="int" Nullable="false" />
+          <Property Name="CCCD" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MaLKH" Type="varchar" MaxLength="10" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
@@ -157,7 +156,7 @@
           <Property Name="MaPhieu" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="MaCB" Type="varchar" MaxLength="10" />
           <Property Name="IDKH" Type="varchar" MaxLength="10" />
-          <Property Name="CCCD" Type="int" />
+          <Property Name="CCCD" Type="nvarchar" MaxLength="50" />
           <Property Name="NgayDat" Type="datetime" />
           <Property Name="SoGhe" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -167,16 +166,6 @@
           </Key>
           <Property Name="MaSB" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="TenSB" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TuyenBay">
           <Key>
@@ -298,16 +287,16 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HoaDon_KhachHang1">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhachHang">
               <PropertyRef Name="IDKH" />
-              <PropertyRef Name="CCCD" />
             </Principal>
             <Dependent Role="HoaDon">
               <PropertyRef Name="IDKH" />
-              <PropertyRef Name="CCCD" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -381,20 +370,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PhieuDatCho_KhachHang1">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
-          <End Role="PhieuDatCho" Type="Self.PhieuDatCho" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="IDKH" />
-              <PropertyRef Name="CCCD" />
-            </Principal>
-            <Dependent Role="PhieuDatCho">
-              <PropertyRef Name="IDKH" />
-              <PropertyRef Name="CCCD" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TuyenBay_SanBay1">
           <End Role="SanBay" Type="Self.SanBay" Multiplicity="0..1" />
           <End Role="TuyenBay" Type="Self.TuyenBay" Multiplicity="*" />
@@ -447,6 +422,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Ve_KhachHang">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="IDKH" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="IDKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BookingAirLightModelStoreContainer">
           <EntitySet Name="ChiTietChuyenBay" EntityType="Self.ChiTietChuyenBay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietHD" EntityType="Self.ChiTietHD" Schema="dbo" store:Type="Tables" />
@@ -464,7 +451,6 @@
           <EntitySet Name="Phi" EntityType="Self.Phi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhieuDatCho" EntityType="Self.PhieuDatCho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanBay" EntityType="Self.SanBay" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TuyenBay" EntityType="Self.TuyenBay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ve" EntityType="Self.Ve" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ChiTietChuyenBay_ChuyenBay" Association="Self.FK_ChiTietChuyenBay_ChuyenBay">
@@ -519,10 +505,6 @@
             <End Role="ChuyenBay" EntitySet="ChuyenBay" />
             <End Role="PhieuDatCho" EntitySet="PhieuDatCho" />
           </AssociationSet>
-          <AssociationSet Name="FK_PhieuDatCho_KhachHang1" Association="Self.FK_PhieuDatCho_KhachHang1">
-            <End Role="KhachHang" EntitySet="KhachHang" />
-            <End Role="PhieuDatCho" EntitySet="PhieuDatCho" />
-          </AssociationSet>
           <AssociationSet Name="FK_TuyenBay_SanBay1" Association="Self.FK_TuyenBay_SanBay1">
             <End Role="SanBay" EntitySet="SanBay" />
             <End Role="TuyenBay" EntitySet="TuyenBay" />
@@ -539,8 +521,13 @@
             <End Role="HangVe" EntitySet="HangVe" />
             <End Role="Ve" EntitySet="Ve" />
           </AssociationSet>
+          <AssociationSet Name="FK_Ve_KhachHang" Association="Self.FK_Ve_KhachHang">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="Ve" EntitySet="Ve" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookingAirLightModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -565,9 +552,9 @@
           <Property Name="SoLuong" Type="Int32" />
           <Property Name="DonGia" Type="Double" />
           <Property Name="TongTien" Type="Double" />
-          <NavigationProperty Name="HoaDon" Relationship="Self.FK_ChiTietHD_HoaDon" FromRole="ChiTietHD" ToRole="HoaDon" />
           <Property Name="MaCB" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Ve" Relationship="BookingAirLightModel.FK_ChiTietHD_Ve1" FromRole="ChiTietHD" ToRole="Ve" />
+          <NavigationProperty Name="HoaDon" Relationship="Self.FK_ChiTietHD_HoaDon" FromRole="ChiTietHD" ToRole="HoaDon" />
+          <NavigationProperty Name="Ve" Relationship="Self.FK_ChiTietHD_Ve1" FromRole="ChiTietHD" ToRole="Ve" />
         </EntityType>
         <EntityType Name="ChucVu">
           <Key>
@@ -594,7 +581,7 @@
           <NavigationProperty Name="MayBay" Relationship="Self.FK_ChuyenBay_MayBay" FromRole="ChuyenBay" ToRole="MayBay" />
           <NavigationProperty Name="TuyenBay" Relationship="Self.FK_ChuyenBay_TuyenBay" FromRole="ChuyenBay" ToRole="TuyenBay" />
           <NavigationProperty Name="PhieuDatChoes" Relationship="Self.FK_PhieuDatCho_ChuyenBay" FromRole="ChuyenBay" ToRole="PhieuDatCho" />
-          <NavigationProperty Name="Ves" Relationship="BookingAirLightModel.FK_Ve_ChuyenBay" FromRole="ChuyenBay" ToRole="Ve" />
+          <NavigationProperty Name="Ves" Relationship="Self.FK_Ve_ChuyenBay" FromRole="ChuyenBay" ToRole="Ve" />
         </EntityType>
         <EntityType Name="DoanhThuNam">
           <Key>
@@ -624,7 +611,7 @@
           <Property Name="MaHV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TenHV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhuPhi" Type="Double" />
-          <NavigationProperty Name="Ves" Relationship="BookingAirLightModel.FK_Ve_HangVe" FromRole="HangVe" ToRole="Ve" />
+          <NavigationProperty Name="Ves" Relationship="Self.FK_Ve_HangVe" FromRole="HangVe" ToRole="Ve" />
         </EntityType>
         <EntityType Name="HoaDon">
           <Key>
@@ -637,7 +624,7 @@
           <Property Name="NgayLap" Type="DateTime" Precision="3" />
           <Property Name="ThanhTien" Type="Double" />
           <Property Name="IDKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CCCD" Type="Int32" />
+          <Property Name="CCCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ChiTietHDs" Relationship="Self.FK_ChiTietHD_HoaDon" FromRole="HoaDon" ToRole="ChiTietHD" />
           <NavigationProperty Name="DoanhThuThangs" Relationship="Self.FK_DoanhThuThang_HoaDon" FromRole="HoaDon" ToRole="DoanhThuThang" />
           <NavigationProperty Name="KhachHang" Relationship="Self.FK_HoaDon_KhachHang1" FromRole="HoaDon" ToRole="KhachHang" />
@@ -647,10 +634,9 @@
         <EntityType Name="KhachHang">
           <Key>
             <PropertyRef Name="IDKH" />
-            <PropertyRef Name="CCCD" />
           </Key>
           <Property Name="IDKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CCCD" Type="Int32" Nullable="false" />
+          <Property Name="CCCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MaLKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -661,7 +647,7 @@
           <Property Name="NgaySinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_KhachHang1" FromRole="KhachHang" ToRole="HoaDon" />
           <NavigationProperty Name="LoaiKH" Relationship="Self.FK_KhachHang_LoaiKH" FromRole="KhachHang" ToRole="LoaiKH" />
-          <NavigationProperty Name="PhieuDatChoes" Relationship="Self.FK_PhieuDatCho_KhachHang1" FromRole="KhachHang" ToRole="PhieuDatCho" />
+          <NavigationProperty Name="Ves" Relationship="Self.FK_Ve_KhachHang" FromRole="KhachHang" ToRole="Ve" />
         </EntityType>
         <EntityType Name="LoaiKH">
           <Key>
@@ -722,11 +708,10 @@
           <Property Name="MaPhieu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MaCB" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="IDKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CCCD" Type="Int32" />
+          <Property Name="CCCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NgayDat" Type="DateTime" Precision="3" />
           <Property Name="SoGhe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ChuyenBay" Relationship="Self.FK_PhieuDatCho_ChuyenBay" FromRole="PhieuDatCho" ToRole="ChuyenBay" />
-          <NavigationProperty Name="KhachHang" Relationship="Self.FK_PhieuDatCho_KhachHang1" FromRole="PhieuDatCho" ToRole="KhachHang" />
         </EntityType>
         <EntityType Name="SanBay">
           <Key>
@@ -736,16 +721,6 @@
           <Property Name="TenSB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TuyenBays" Relationship="Self.FK_TuyenBay_SanBay1" FromRole="SanBay" ToRole="TuyenBay" />
           <NavigationProperty Name="TuyenBays1" Relationship="Self.FK_TuyenBay_SanBay2" FromRole="SanBay" ToRole="TuyenBay" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="TuyenBay">
           <Key>
@@ -757,6 +732,23 @@
           <NavigationProperty Name="ChuyenBays" Relationship="Self.FK_ChuyenBay_TuyenBay" FromRole="TuyenBay" ToRole="ChuyenBay" />
           <NavigationProperty Name="SanBay" Relationship="Self.FK_TuyenBay_SanBay1" FromRole="TuyenBay" ToRole="SanBay" />
           <NavigationProperty Name="SanBay1" Relationship="Self.FK_TuyenBay_SanBay2" FromRole="TuyenBay" ToRole="SanBay" />
+        </EntityType>
+        <EntityType Name="Ve">
+          <Key>
+            <PropertyRef Name="MaVe" />
+            <PropertyRef Name="MaCB" />
+          </Key>
+          <Property Name="MaVe" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaCB" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaHV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="IDKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GiaVe" Type="Double" />
+          <Property Name="CCCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ChiTietHDs" Relationship="Self.FK_ChiTietHD_Ve1" FromRole="Ve" ToRole="ChiTietHD" />
+          <NavigationProperty Name="ChuyenBay" Relationship="Self.FK_Ve_ChuyenBay" FromRole="Ve" ToRole="ChuyenBay" />
+          <NavigationProperty Name="HangVe" Relationship="Self.FK_Ve_HangVe" FromRole="Ve" ToRole="HangVe" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.FK_Ve_KhachHang" FromRole="Ve" ToRole="KhachHang" />
         </EntityType>
         <Association Name="FK_ChiTietChuyenBay_ChuyenBay">
           <End Role="ChuyenBay" Type="Self.ChuyenBay" Multiplicity="0..1">
@@ -783,6 +775,20 @@
             </Principal>
             <Dependent Role="ChiTietHD">
               <PropertyRef Name="MaHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChiTietHD_Ve1">
+          <End Role="Ve" Type="Self.Ve" Multiplicity="0..1" />
+          <End Role="ChiTietHD" Type="Self.ChiTietHD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ve">
+              <PropertyRef Name="MaVe" />
+              <PropertyRef Name="MaCB" />
+            </Principal>
+            <Dependent Role="ChiTietHD">
+              <PropertyRef Name="MaVe" />
+              <PropertyRef Name="MaCB" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -842,6 +848,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Ve_ChuyenBay">
+          <End Role="ChuyenBay" Type="Self.ChuyenBay" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChuyenBay">
+              <PropertyRef Name="MaCB" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="MaCB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DoanhThuNam_DoanhThuThang">
           <End Role="DoanhThuThang" Type="Self.DoanhThuThang" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -870,17 +890,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Ve_HangVe">
+          <End Role="HangVe" Type="Self.HangVe" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HangVe">
+              <PropertyRef Name="MaHV" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="MaHV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HoaDon_KhachHang1">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhachHang">
               <PropertyRef Name="IDKH" />
-              <PropertyRef Name="CCCD" />
             </Principal>
             <Dependent Role="HoaDon">
               <PropertyRef Name="IDKH" />
-              <PropertyRef Name="CCCD" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -926,17 +960,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PhieuDatCho_KhachHang1">
+        <Association Name="FK_Ve_KhachHang">
           <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
-          <End Role="PhieuDatCho" Type="Self.PhieuDatCho" Multiplicity="*" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhachHang">
               <PropertyRef Name="IDKH" />
-              <PropertyRef Name="CCCD" />
             </Principal>
-            <Dependent Role="PhieuDatCho">
+            <Dependent Role="Ve">
               <PropertyRef Name="IDKH" />
-              <PropertyRef Name="CCCD" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -981,14 +1013,18 @@
           <EntitySet Name="Phis" EntityType="Self.Phi" />
           <EntitySet Name="PhieuDatChoes" EntityType="Self.PhieuDatCho" />
           <EntitySet Name="SanBays" EntityType="Self.SanBay" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TuyenBays" EntityType="Self.TuyenBay" />
+          <EntitySet Name="Ves" EntityType="Self.Ve" />
           <AssociationSet Name="FK_ChiTietChuyenBay_ChuyenBay" Association="Self.FK_ChiTietChuyenBay_ChuyenBay">
             <End Role="ChuyenBay" EntitySet="ChuyenBays" />
             <End Role="ChiTietChuyenBay" EntitySet="ChiTietChuyenBays" />
           </AssociationSet>
           <AssociationSet Name="FK_ChiTietHD_HoaDon" Association="Self.FK_ChiTietHD_HoaDon">
             <End Role="HoaDon" EntitySet="HoaDons" />
+            <End Role="ChiTietHD" EntitySet="ChiTietHDs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChiTietHD_Ve1" Association="Self.FK_ChiTietHD_Ve1">
+            <End Role="Ve" EntitySet="Ves" />
             <End Role="ChiTietHD" EntitySet="ChiTietHDs" />
           </AssociationSet>
           <AssociationSet Name="FK_NhanVien_ChucVu" Association="Self.FK_NhanVien_ChucVu">
@@ -1007,6 +1043,10 @@
             <End Role="ChuyenBay" EntitySet="ChuyenBays" />
             <End Role="PhieuDatCho" EntitySet="PhieuDatChoes" />
           </AssociationSet>
+          <AssociationSet Name="FK_Ve_ChuyenBay" Association="Self.FK_Ve_ChuyenBay">
+            <End Role="ChuyenBay" EntitySet="ChuyenBays" />
+            <End Role="Ve" EntitySet="Ves" />
+          </AssociationSet>
           <AssociationSet Name="FK_DoanhThuNam_DoanhThuThang" Association="Self.FK_DoanhThuNam_DoanhThuThang">
             <End Role="DoanhThuThang" EntitySet="DoanhThuThangs" />
             <End Role="DoanhThuNam" EntitySet="DoanhThuNams" />
@@ -1014,6 +1054,10 @@
           <AssociationSet Name="FK_DoanhThuThang_HoaDon" Association="Self.FK_DoanhThuThang_HoaDon">
             <End Role="HoaDon" EntitySet="HoaDons" />
             <End Role="DoanhThuThang" EntitySet="DoanhThuThangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ve_HangVe" Association="Self.FK_Ve_HangVe">
+            <End Role="HangVe" EntitySet="HangVes" />
+            <End Role="Ve" EntitySet="Ves" />
           </AssociationSet>
           <AssociationSet Name="FK_HoaDon_KhachHang1" Association="Self.FK_HoaDon_KhachHang1">
             <End Role="KhachHang" EntitySet="KhachHangs" />
@@ -1031,9 +1075,9 @@
             <End Role="LoaiKH" EntitySet="LoaiKHs" />
             <End Role="KhachHang" EntitySet="KhachHangs" />
           </AssociationSet>
-          <AssociationSet Name="FK_PhieuDatCho_KhachHang1" Association="Self.FK_PhieuDatCho_KhachHang1">
+          <AssociationSet Name="FK_Ve_KhachHang" Association="Self.FK_Ve_KhachHang">
             <End Role="KhachHang" EntitySet="KhachHangs" />
-            <End Role="PhieuDatCho" EntitySet="PhieuDatChoes" />
+            <End Role="Ve" EntitySet="Ves" />
           </AssociationSet>
           <AssociationSet Name="FK_TuyenBay_SanBay1" Association="Self.FK_TuyenBay_SanBay1">
             <End Role="SanBay" EntitySet="SanBays" />
@@ -1043,78 +1087,7 @@
             <End Role="SanBay" EntitySet="SanBays" />
             <End Role="TuyenBay" EntitySet="TuyenBays" />
           </AssociationSet>
-          <EntitySet Name="Ves" EntityType="BookingAirLightModel.Ve" />
-          <AssociationSet Name="FK_ChiTietHD_Ve1" Association="BookingAirLightModel.FK_ChiTietHD_Ve1">
-            <End Role="Ve" EntitySet="Ves" />
-            <End Role="ChiTietHD" EntitySet="ChiTietHDs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ve_ChuyenBay" Association="BookingAirLightModel.FK_Ve_ChuyenBay">
-            <End Role="ChuyenBay" EntitySet="ChuyenBays" />
-            <End Role="Ve" EntitySet="Ves" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ve_HangVe" Association="BookingAirLightModel.FK_Ve_HangVe">
-            <End Role="HangVe" EntitySet="HangVes" />
-            <End Role="Ve" EntitySet="Ves" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Ve">
-          <Key>
-            <PropertyRef Name="MaVe" />
-            <PropertyRef Name="MaCB" />
-          </Key>
-          <Property Name="MaVe" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="MaCB" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="MaHV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="IDKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GiaVe" Type="Double" />
-          <Property Name="CCCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ChiTietHDs" Relationship="BookingAirLightModel.FK_ChiTietHD_Ve1" FromRole="Ve" ToRole="ChiTietHD" />
-          <NavigationProperty Name="ChuyenBay" Relationship="BookingAirLightModel.FK_Ve_ChuyenBay" FromRole="Ve" ToRole="ChuyenBay" />
-          <NavigationProperty Name="HangVe" Relationship="BookingAirLightModel.FK_Ve_HangVe" FromRole="Ve" ToRole="HangVe" />
-        </EntityType>
-        <Association Name="FK_ChiTietHD_Ve1">
-          <End Type="BookingAirLightModel.Ve" Role="Ve" Multiplicity="0..1" />
-          <End Type="BookingAirLightModel.ChiTietHD" Role="ChiTietHD" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ve">
-              <PropertyRef Name="MaVe" />
-              <PropertyRef Name="MaCB" />
-            </Principal>
-            <Dependent Role="ChiTietHD">
-              <PropertyRef Name="MaVe" />
-              <PropertyRef Name="MaCB" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ve_ChuyenBay">
-          <End Type="BookingAirLightModel.ChuyenBay" Role="ChuyenBay" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="BookingAirLightModel.Ve" Role="Ve" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ChuyenBay">
-              <PropertyRef Name="MaCB" />
-            </Principal>
-            <Dependent Role="Ve">
-              <PropertyRef Name="MaCB" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ve_HangVe">
-          <End Type="BookingAirLightModel.HangVe" Role="HangVe" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="BookingAirLightModel.Ve" Role="Ve" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HangVe">
-              <PropertyRef Name="MaHV" />
-            </Principal>
-            <Dependent Role="Ve">
-              <PropertyRef Name="MaHV" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1135,13 +1108,13 @@
           <EntitySetMapping Name="ChiTietHDs">
             <EntityTypeMapping TypeName="BookingAirLightModel.ChiTietHD">
               <MappingFragment StoreEntitySet="ChiTietHD">
-                <ScalarProperty Name="MaCB" ColumnName="MaCB" />
                 <ScalarProperty Name="STT" ColumnName="STT" />
                 <ScalarProperty Name="MaHD" ColumnName="MaHD" />
                 <ScalarProperty Name="MaVe" ColumnName="MaVe" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
                 <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="MaCB" ColumnName="MaCB" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1299,17 +1272,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="BookingAirLightModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TuyenBays">
             <EntityTypeMapping TypeName="BookingAirLightModel.TuyenBay">
               <MappingFragment StoreEntitySet="TuyenBay">
@@ -1322,13 +1284,13 @@
           <EntitySetMapping Name="Ves">
             <EntityTypeMapping TypeName="BookingAirLightModel.Ve">
               <MappingFragment StoreEntitySet="Ve">
-                <ScalarProperty Name="CCCD" ColumnName="CCCD" />
-                <ScalarProperty Name="GiaVe" ColumnName="GiaVe" />
-                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
-                <ScalarProperty Name="IDKH" ColumnName="IDKH" />
-                <ScalarProperty Name="MaHV" ColumnName="MaHV" />
-                <ScalarProperty Name="MaCB" ColumnName="MaCB" />
                 <ScalarProperty Name="MaVe" ColumnName="MaVe" />
+                <ScalarProperty Name="MaCB" ColumnName="MaCB" />
+                <ScalarProperty Name="MaHV" ColumnName="MaHV" />
+                <ScalarProperty Name="IDKH" ColumnName="IDKH" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="GiaVe" ColumnName="GiaVe" />
+                <ScalarProperty Name="CCCD" ColumnName="CCCD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

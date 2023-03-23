@@ -208,9 +208,6 @@
     <Compile Include="Models\SanBay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TuyenBay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -267,6 +264,7 @@
     <Content Include="Content\images\logo-jetstar.jpg" />
     <Content Include="Content\images\logo-vietnamAL.png" />
     <Content Include="Content\images\Vietjet-Air-Logo-PNG-3.png" />
+    <Content Include="Content\index.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Template\HtmlPage1.html" />
     <Content Include="favicon.ico" />
@@ -280,8 +278,15 @@
     <Content Include="hinh\contact-01.jpg" />
     <Content Include="hinh\contact-02.jpg" />
     <Content Include="hinh\contact-bg.jpg" />
+    <Content Include="hinh\Cooplogo\Bamboo-Airways-logo.png" />
+    <Content Include="hinh\Cooplogo\malaysia-airlines-logo.png" />
+    <Content Include="hinh\Cooplogo\Singapore-Airlines-logo-01.png" />
+    <Content Include="hinh\Cooplogo\thai-airway-logo.png" />
+    <Content Include="hinh\Cooplogo\VJ.png" />
+    <Content Include="hinh\Cooplogo\VNEl.png" />
     <Content Include="hinh\evening-event.jpg" />
     <Content Include="hinh\fitness-service.jpg" />
+    <Content Include="hinh\Fly.jpg" />
     <Content Include="hinh\heading-bg.jpg" />
     <Content Include="hinh\heading-pg1.jpg" />
     <Content Include="hinh\IMG_0839 %281%29.jpg" />
@@ -363,6 +368,7 @@
     <Content Include="Style\Admin\css\morris.css" />
     <Content Include="Style\Admin\css\startmin.css" />
     <Content Include="Style\Admin\css\styles.css" />
+    <Content Include="Style\Admin\css\styles1.css" />
     <Content Include="Style\Admin\css\timeline.css" />
     <Content Include="Style\Admin\js\chart-area-demo.js" />
     <Content Include="Style\Admin\js\chart-bar-demo.js" />
