@@ -22,6 +22,5 @@ namespace BookingAirline.Models
         public string SoGhe { get; set; }
     
         public virtual ChuyenBay ChuyenBay { get; set; }
-        public virtual KhachHang KhachHang { get; set; }
     }
 }
