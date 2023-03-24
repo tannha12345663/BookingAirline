@@ -93,6 +93,11 @@ namespace BookingAirline.Controllers
             OrderStatu order = new OrderStatu();
             order.IDUser = uid.IDKH;
             var count = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
+            if (count != null)
+            {
+                database.OrderStatus.Remove(count);
+                database.SaveChanges();
+            }
             //Kiểm tra nếu là khứ hồi
             if (Session["trip"] == null)
             {
@@ -101,11 +106,6 @@ namespace BookingAirline.Controllers
             var check = Session["trip"].ToString();
             if (check == "one-way")
             {
-                if (count != null)
-                {
-                    database.OrderStatus.Remove(count);
-                    database.SaveChanges();
-                }
                 order.MaCBdi = id;
                 database.OrderStatus.Add(order);
                 database.SaveChanges();
@@ -114,11 +114,6 @@ namespace BookingAirline.Controllers
             else
             {
                 
-                if (count != null)
-                {
-                    database.OrderStatus.Remove(count);
-                    database.SaveChanges();
-                }
                 order.MaCBdi = id;
                 database.OrderStatus.Add(order);
                 database.SaveChanges();
@@ -130,10 +125,12 @@ namespace BookingAirline.Controllers
             }
 
         }
-        public ActionResult DienThongTinKH(string id)
+
+        [HttpGet]
+        public ActionResult DSachCBVe01(string id)
         {
             var check = Session["trip"].ToString();
-            if(check == "round")
+            if (check == "round")
             {
                 var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
                 OrderStatu order = new OrderStatu();
@@ -142,9 +139,16 @@ namespace BookingAirline.Controllers
                 database.Entry(order).State = System.Data.Entity.EntityState.Modified;
                 database.SaveChanges();
                 Session["Mave"] = id;
+                return RedirectToAction("ChooseSeat");
             }
             return View();
         }
+
+        public ActionResult DienThongTinKH(string id)
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult DienThongTinKH()
         {
@@ -233,9 +237,50 @@ namespace BookingAirline.Controllers
                     }
                 }
             }
+            var ktkh = Session["trip"].ToString();
+            if (ktkh == "round")
+            {
+                return RedirectToAction("ChooseSeatVe");
+            }
             return RedirectToAction("DienThongTinKH");
         }
+        //Chọn chỗ ngồi lúc về
+        [HttpGet]
+        public ActionResult ChooseSeatVe()
+        {
+            var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
+            var dsorder = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
+            var dsve = database.Ves.Where(s => s.MaCB == dsorder.MaCBve).ToList();
+            ViewData["MaCB"] = dsorder.MaCBve;
+            return View(dsve);
+        }
+        [HttpPost]
+        public ActionResult ChooseSeatVe(int id)
+        {
+            Cart cart = Session["Cart"] as Cart;
+            int check = 0;
+            var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
+            var dsorder = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
+            var dsve = database.Ves.Where(s => s.MaCB == dsorder.MaCBve).ToList();
+            for (int i = 1; i <= dsve.Count(); i++)
+            {
+                if (Request["Ma" + i] != null)
+                {
+                    //Add thông tin vé vào giỏ hàng
+                    var ticket = Request["Ma" + i];
+                    var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBve && s.MaVe == ticket).FirstOrDefault();
+                    GetCart().Add(detailtic, 1);
 
+                    check++;
+                    if (check == id)
+                    {
+                        break;
+                    }
+                }
+
+            }
+            return RedirectToAction("DienThongTinKH");
+        }
         // Tạo mới giỏ hàng
         public Cart GetCart()
         {

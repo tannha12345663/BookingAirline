@@ -152,6 +152,7 @@ namespace BookingAirline.Controllers
             var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
             var dsorder = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
             var dsve = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi).ToList();
+            ViewData["MaCB"] = dsorder.MaCBdi;
             return View(dsve);
         }
         [HttpPost]
@@ -322,6 +323,10 @@ namespace BookingAirline.Controllers
             return RedirectToAction("ThankYou");
         }
         public ActionResult ThankYou()
+        {
+            return View();
+        }
+        public ActionResult DSChuyenBayTest()
         {
             return View();
         }

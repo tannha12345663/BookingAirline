@@ -467,6 +467,8 @@
     <Content Include="Views\KhachHang\ChooseSeat.cshtml" />
     <Content Include="Views\KhachHangHA\ChooseSeat.cshtml" />
     <Content Include="Views\KhachHang\ChooseSeatVe.cshtml" />
+    <Content Include="Views\KhachHangHA\ChooseSeatVe.cshtml" />
+    <Content Include="Views\KhachHang\DSChuyenBayTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
