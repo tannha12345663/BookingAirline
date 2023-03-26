@@ -3,7 +3,7 @@
 @using System.Globalization
 @{
     ViewBag.Title = "Booking";
-    //Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
+    Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
     BookingAirLightEntities db = new BookingAirLightEntities();
 }
 
@@ -27,10 +27,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="dashboard-heading">
-                        <h2>Travel <span>Profile</span></h2>
-                        <p>Hi Lisa, Welcome to Star Travels!</p>
-                        <p>All your trips booked with us will appear here and you'll be able to manage everything!</p>
+                    <div class="dashboard-heading">                       
+                        <h2> <span>Booking</span></h2>
+                        <p>
+                            Hi  @{var khachHang = (BookingAirline.Models.KhachHang)HttpContext.Current.Session["userKH"];}
+                            @khachHang.UserName, Welcome to FLIGHT Travels!
+                        </p>
                     </div><!-- end dashboard-heading -->
 
                     <div class="dashboard-wrapper">
