@@ -41,7 +41,7 @@
                                             @{
                                                 for (int y = stt2; y <= 6 * stt; y++)
                                                 {
-                                                    var slot = database.Ves.Where(s => s.MaVe == "VE" + stt2).FirstOrDefault();
+                                                    var slot = database.Ves.Where(s => s.MaVe == "VE" + stt2 && s.MaCB == macb).FirstOrDefault();
                                                     if (slot != null)
                                                     {
                                                         if (slot.TinhTrang == "Chưa đặt chỗ")

@@ -462,8 +462,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\KhachHang\About.cshtml" />
+    <Content Include="Views\KhachHang\Contact.cshtml" />
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\Create.cshtml" />
     <Content Include="Views\LoginAdmin\Register.cshtml" />
@@ -516,6 +516,9 @@
     <Content Include="Views\KhachHangHA\ChooseSeatVe.cshtml" />
     <Content Include="Views\KhachHang\DSChuyenBayTest.cshtml" />
     <Content Include="Views\Home\Shared\_LayoutContact.cshtml" />
+    <Content Include="Views\KhachHangHA\About.cshtml" />
+    <Content Include="Views\KhachHangHA\Contact.cshtml" />
+    <Content Include="Views\KhachHang\Shared\_LayoutContact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

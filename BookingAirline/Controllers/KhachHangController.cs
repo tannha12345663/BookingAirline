@@ -29,10 +29,11 @@ namespace BookingAirline.Controllers
             var chuyendi = database.TuyenBays.Where(s => s.SanBayDi == di).FirstOrDefault();
             //var listdi = database.ChuyenBays.Where(s => s.MaTBay == chuyendi.MaTBay && Convert.ToDateTime(s.NgayGio).ToString("dd")== Day ).ToList();
             var test = database.ChuyenBays.SqlQuery
-                ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month", 
+                ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month and MaTBay = @chuyendi ", 
                 new SqlParameter("@year",year),
                 new SqlParameter("@day", Day),
-                new SqlParameter("@month", month)).ToList();
+                new SqlParameter("@month", month),
+                new SqlParameter("@chuyendi", chuyendi.MaTBay)).ToList();
             //Hiển thị danh sách các chuyến bay
             return View(test);
         }
@@ -338,6 +339,19 @@ namespace BookingAirline.Controllers
         }
         public ActionResult DSChuyenBayTest()
         {
+            return View();
+        }
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
             return View();
         }
     }
