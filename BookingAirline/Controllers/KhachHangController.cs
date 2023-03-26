@@ -1,5 +1,6 @@
 ﻿using BookingAirline.Models;
 using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -19,13 +20,21 @@ namespace BookingAirline.Controllers
             Session["From"] = Request["from"];
             Session["To"] = Request["to"];
             Session["Trip"] = Request["trip"];
-
+            DateTime ngaykh =  Convert.ToDateTime( Request["deparure"]);
+            var month = ngaykh.ToString("MM");
+            var Day = ngaykh.ToString("dd");
+            var year = ngaykh.ToString("yyyy");
             //Lọc tìm kiếm chuyến bay
             var di = Request["From"].ToString();
             var chuyendi = database.TuyenBays.Where(s => s.SanBayDi == di).FirstOrDefault();
-            var listdi = database.ChuyenBays.Where(s => s.MaTBay == chuyendi.MaTBay).ToList();
+            //var listdi = database.ChuyenBays.Where(s => s.MaTBay == chuyendi.MaTBay && Convert.ToDateTime(s.NgayGio).ToString("dd")== Day ).ToList();
+            var test = database.ChuyenBays.SqlQuery
+                ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month", 
+                new SqlParameter("@year",year),
+                new SqlParameter("@day", Day),
+                new SqlParameter("@month", month)).ToList();
             //Hiển thị danh sách các chuyến bay
-            return View(listdi);
+            return View(test);
         }
 
         public ActionResult DSachCBVe(string id)
