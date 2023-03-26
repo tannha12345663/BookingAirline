@@ -10,7 +10,7 @@ namespace BookingAirline.Controllers
     public class KhachHangController : Controller
     {
         BookingAirLightEntities database = new BookingAirLightEntities();
-        // GET: KhachHang
+        //GET: KhachHang
         public ActionResult TrangChu()
         {
             return View();
@@ -66,6 +66,7 @@ namespace BookingAirline.Controllers
                 order.MaCBdi = id;
                 database.OrderStatus.Add(order);
                 database.SaveChanges();
+
                 //Kiểm tra và xuất dữ liệu vé theo trước
                 var to = Session["To"].ToString();
                 var chuyenve = database.TuyenBays.Where(s => s.SanBayDi == to).FirstOrDefault();
