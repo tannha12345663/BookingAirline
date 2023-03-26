@@ -34,26 +34,33 @@
             </div>
             <div class="navbar-collapse collapse" style="font-size:16px;">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "TrangChu", "KhachHang")</li>
+                    <li>@Html.ActionLink("Home", "TrangChu", "KhachHangHA")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="~/LoginUser/Login"><span class="fa fa-user"></span> Login</a></li>
+                    <li>
+                        <a href="~/KhachHangHA/ThongTinKH">
+                            <span class="fa fa-user">
+                                @{var user = (BookingAirline.Models.KhachHang)HttpContext.Current.Session["userKH"]; }
+                            </span>
+                            @user.UserName
+                        </a>                       
+                    </li>                  
                     <li><a href="@Url.Action("LogOut","LoginUser")">Log Out</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    <section class="banner" id="top">
+    <!--<section class="banner" id="top">
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
-                    <div class="left-side">
+                    <div class="left-side">-->
                         @*<div class="logo">
                                 <img src="~/hinh/logo.png" alt="Flight Template">
                             </div>*@
-                        <div class="tabs-content">
+                        <!--<div class="tabs-content">
                             <h4>Choose Your Direction:</h4>
                             <ul class="social-links">
                                 <li><a href="#">Find us on <em>Facebook</em><i class="fa fa-facebook"></i></a></li>
@@ -119,6 +126,19 @@
                                                 <input name="return" type="text" class="form-control date" id="return" placeholder="Select date..." required="" onchange='this.form()'>
                                             </fieldset>
                                         </div>
+
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label for="to">Class:</label>
+                                                <select required name='Class' onchange='this.form()'>
+                                                    <option value="" disabled="disabled">Select a location...</option>
+                                                    <option value="HV01">Business class</option>
+                                                    <option value="HV02">Vip class</option>
+                                                    <option value="HV03">Economy class</option>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+
                                         <div class="col-md-6">
                                             <div class="radio-select">
                                                 <div class="row">
@@ -146,7 +166,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
     @RenderBody()
 </body>
 <footer>
