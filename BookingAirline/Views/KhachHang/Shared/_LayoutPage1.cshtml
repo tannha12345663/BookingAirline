@@ -4,6 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link href="~/Style/Css/Admin/footerStyle.css" rel="stylesheet" />
     <link rel="apple-touch-icon" href="~/Style/apple-touch-icon.html">
     <link rel="stylesheet" href="~/Style/Css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Style/Css/bootstrap-theme.min.css">
@@ -21,7 +22,7 @@
     <script src="~/Style/Js/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="opacity:70%">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="opacity:80%;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -31,7 +32,7 @@
                 </button>
                 @*@Html.ActionLink("Home","Home",new {area = ""}, new {@class = "navbar-brand"})*@
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse" style="font-size:16px;">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "TrangChu", "KhachHang")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
@@ -49,19 +50,17 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="left-side">
-                        <div class="logo">
-                            <img src="~/hinh/logo.png" alt="Flight Template">
-                        </div>
+                        @*<div class="logo">
+                                <img src="~/hinh/logo.png" alt="Flight Template">
+                            </div>*@
                         <div class="tabs-content">
                             <h4>Choose Your Direction:</h4>
                             <ul class="social-links">
                                 <li><a href="#">Find us on <em>Facebook</em><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#">Our <em>YouTube</em> Channel<i class="fa fa-youtube"></i></a></li>
                                 <li><a href="#">Follow our <em>instagram</em><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="~/Home/Contact">Contact our <em>Infomations</em><i class="fa fa-phone"></i></a></li>
                             </ul>
-                        </div>
-                        <div class="page-direction-button">
-                            <a href="/Home/Contact"><i class="fa fa-phone"></i>Contact Us Now</a>
                         </div>
                     </div>
                 </div>
@@ -148,24 +147,31 @@
             </div>
         </div>
     </section>
-
-     @RenderBody()
-    
-
-
-
-    
-
-
-
-
-    <br />
-
-
-
-
-
+    @RenderBody()
 </body>
+
+
+<footer>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="primary-button">
+                <a href="#" class="scroll-top">Back To Top</a>
+                </div>
+            </div>
+    <div class="col-md-12">
+        <ul class="social-icons">
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            <li><a href="#"><i class="fa fa-rss"></i></a></li>
+            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+        </ul>
+        </div
+    </div>
+    </div>
+</footer>
 
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>

@@ -17,14 +17,15 @@ namespace BookingAirline.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Phi()
         {
-            this.Ves = new HashSet<Ve>();
+            this.HoaDons = new HashSet<HoaDon>();
         }
     
         public string MaPhi { get; set; }
+        public string TenPhi { get; set; }
         public Nullable<double> DonGia { get; set; }
         public string DonVi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ve> Ves { get; set; }
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
     }
 }

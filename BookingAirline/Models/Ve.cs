@@ -22,7 +22,6 @@ namespace BookingAirline.Models
     
         public string MaVe { get; set; }
         public string MaCB { get; set; }
-        public string MaPhi { get; set; }
         public string MaHV { get; set; }
         public string IDKH { get; set; }
         public string TinhTrang { get; set; }
@@ -33,6 +32,6 @@ namespace BookingAirline.Models
         public virtual ICollection<ChiTietHD> ChiTietHDs { get; set; }
         public virtual ChuyenBay ChuyenBay { get; set; }
         public virtual HangVe HangVe { get; set; }
-        public virtual Phi Phi { get; set; }
+        public virtual KhachHang KhachHang { get; set; }
     }
 }

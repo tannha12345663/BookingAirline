@@ -1,6 +1,13 @@
 ﻿@model IEnumerable<BookingAirline.Models.Ve>
 @using BookingAirline.Models
 @{var cal = 0;}
+
+@{
+    ViewBag.Title = "ThanhToan";
+    //Layout = "~/Views/KhachHangHA/Shared/_LayoutPayment.cshtml";
+
+}
+
 <!DOCTYPE html>
 
 <html>
@@ -13,6 +20,7 @@
 
     <link href="~/Style/Css/Payment.css" rel="stylesheet" />
 </head>
+
 <body>
 
     <main class="page payment-page">
@@ -34,7 +42,7 @@
                                 <span class="price">@ThanhTien</span>
                                 <p class="item-name">@item.MaVe</p>
                                 <p class="item-description">Số hiệu : @item.MaCB</p>
-                                <p class="item-description">Phí: @item.MaPhi</p>
+                                @*<p class="item-description">Phí: @item.MaPhi</p>*@
                                 <p class="item-description">Status: @item.TinhTrang</p>
                                 <p class="item-description">Name: @item.IDKH</p>
                                 @{ cal += Convert.ToInt32(item.GiaVe); }

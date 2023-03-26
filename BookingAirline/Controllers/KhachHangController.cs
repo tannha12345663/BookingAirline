@@ -56,6 +56,7 @@ namespace BookingAirline.Controllers
                 order.MaCBdi = id;
                 database.OrderStatus.Add(order);
                 database.SaveChanges();
+
                 //Kiểm tra và xuất dữ liệu vé theo trước
                 var to = Session["To"].ToString();
                 var chuyenve = database.TuyenBays.Where(s => s.SanBayDi == to).FirstOrDefault();
@@ -90,7 +91,7 @@ namespace BookingAirline.Controllers
             ve.MaVe = mave;
             ve.MaCB = dsorder.MaCBdi;
             ve.TinhTrang = "Chưa thanh toán";
-            ve.MaPhi = "PS01";
+            //ve.MaPhi = "PS01";
             ve.GiaVe = 500000;
             ve.CCCD = Request["cccd"];
             ve.IDKH = "Vang Lai";
@@ -109,7 +110,7 @@ namespace BookingAirline.Controllers
                 ve.MaVe = mave;
                 ve.MaCB = dsorder.MaCBve;
                 ve.TinhTrang = "Chưa thanh toán";
-                ve.MaPhi = "PS01";
+                //ve.MaPhi = "PS01";
                 ve.GiaVe = 500000;
                 ve.CCCD = Request["cccd"];
                 ve.IDKH = "Vang Lai";

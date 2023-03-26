@@ -1,8 +1,25 @@
 ﻿
 @{
     ViewBag.Title = "ThongTinKH";
-    Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
+    //Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
 }
+
+<link href="~/Style/Css/Admin/footerStyle.css" rel="stylesheet" />
+<link rel="apple-touch-icon" href="~/Style/apple-touch-icon.html">
+<link rel="stylesheet" href="~/Style/Css/bootstrap.min.css">
+<link rel="stylesheet" href="~/Style/Css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="~/Style/Css/fontAwesome.css">
+<link rel="stylesheet" href="~/Style/Css/hero-slider.css">
+<link rel="stylesheet" href="~/Style/Css/owl-carousel.css">
+<link rel="stylesheet" href="~/Style/Css/datepicker.css">
+<link rel="stylesheet" href="~/Style/Css/tooplate-style.css">
+<link rel="Shortcut Icon" href="~/hinh/logo-i.png" type="image/x-icon" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/Style/Css/myStyle.css">
+
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+<script src="~/Style/Js/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
@@ -15,6 +32,30 @@
 <link href="~/Content/CSS_01/style.css" rel="stylesheet" />
 <link href="~/Content/CSS_01/orange.css" rel="stylesheet" />
 <link href="~/Content/CSS_01/responsive.css" rel="stylesheet" />
+
+<div class="navbar navbar-inverse navbar-fixed-top" style="opacity:80%;">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @*@Html.ActionLink("Home","Home",new {area = ""}, new {@class = "navbar-brand"})*@
+        </div>
+        <div class="navbar-collapse collapse" style="font-size:16px;">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "TrangChu", "KhachHang")</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="~/LoginUser/Login"><span class="fa fa-user"></span> Login</a></li>
+                <li><a href="@Url.Action("LogOut","LoginUser")">Log Out</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 <!--===== INNERPAGE-WRAPPER ====-->
 <section class="innerpage-wrapper">
@@ -80,48 +121,8 @@
                                             <p>Trips</p>
                                         </div><!-- end stat-block -->
                                     </div><!-- end columns -->
-
                                 </div><!-- end row -->
-
-                                <div class="dashboard-listing recent-activity">
-                                    <h3 class="dash-listing-heading">Recent Activites</h3>
-                                    <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="dash-list-icon recent-ac-icon"><i class="fa fa-bars"></i></td>
-                                                    <td class="dash-list-text recent-ac-text">Your listing <span>The Star Travel</span> has been approved!</td>
-                                                    <td class="dash-list-btn del-field"><button class="btn">X</button></td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td class="dash-list-icon recent-ac-icon"><i class="fa fa-star"></i></td>
-                                                    <td class="dash-list-text recent-ac-text">Kathy Brown left a review on <span>The Star Travel</span></td>
-                                                    <td class="dash-list-btn del-field"><button class="btn">X</button></td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td class="dash-list-icon recent-ac-icon"><i class="fa fa-bookmark"></i></td>
-                                                    <td class="dash-list-text recent-ac-text">Someone bookmarked your Norma <span>Spa Center</span> listing!</td>
-                                                    <td class="dash-list-btn del-field"><button class="btn">X</button></td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td class="dash-list-icon recent-ac-icon"><i class="fa fa-star"></i></td>
-                                                    <td class="dash-list-text recent-ac-text">Kathy Brown left a review on <span>Auto Repair Shop</span></td>
-                                                    <td class="dash-list-btn del-field"><button class="btn">X</button></td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td class="dash-list-icon recent-ac-icon"><i class="fa fa-bookmark"></i></td>
-                                                    <td class="dash-list-text recent-ac-text">Someone bookmarked your <span>The Star Apartment</span> listing!</td>
-                                                    <td class="dash-list-btn del-field"><button class="btn">X</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div><!-- end table-responsive -->
-                                </div><!-- end recent-activity -->
-
+                                
                                 <div class="dashboard-listing invoices">
                                     <h3 class="dash-listing-heading">Invoices</h3>
                                     <div class="table-responsive">

@@ -18,6 +18,7 @@ namespace BookingAirline.Models
         public SanBay()
         {
             this.TuyenBays = new HashSet<TuyenBay>();
+            this.TuyenBays1 = new HashSet<TuyenBay>();
         }
     
         public string MaSB { get; set; }
@@ -25,5 +26,7 @@ namespace BookingAirline.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TuyenBay> TuyenBays { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TuyenBay> TuyenBays1 { get; set; }
     }
 }

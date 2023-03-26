@@ -13,8 +13,8 @@
 
     <link href="~/Style/Css/Payment.css" rel="stylesheet" />
 </head>
-<body>
 
+<body>
     <main class="page payment-page">
         <section class="payment-form dark">
             <div class="container">
@@ -34,7 +34,7 @@
                                 <span class="price">@ThanhTien</span>
                                 <p class="item-name">@item.MaVe</p>
                                 <p class="item-description">Số hiệu : @item.MaCB</p>
-                                <p class="item-description">Phí: @item.MaPhi</p>
+                                @*<p class="item-description">Phí: @item.MaPhi</p>*@
                                 <p class="item-description">Status: @item.TinhTrang</p>
                                 <p class="item-description">Name: @item.IDKH</p>
                                 @{  cal += Convert.ToInt32(item.GiaVe); }

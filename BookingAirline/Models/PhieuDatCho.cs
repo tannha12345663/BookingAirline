@@ -17,10 +17,10 @@ namespace BookingAirline.Models
         public string MaPhieu { get; set; }
         public string MaCB { get; set; }
         public string IDKH { get; set; }
+        public string CCCD { get; set; }
         public Nullable<System.DateTime> NgayDat { get; set; }
         public string SoGhe { get; set; }
     
         public virtual ChuyenBay ChuyenBay { get; set; }
-        public virtual KhachHang KhachHang { get; set; }
     }
 }
