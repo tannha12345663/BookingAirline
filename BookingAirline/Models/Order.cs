@@ -11,6 +11,7 @@ namespace BookingAirline.Models
         public string NumberPhone { get; set; }
         public string ShipName { get; set; }
         public string ShipEmail { get; set; }
+        public string CCCD { get; set; }
         public double Total { get; set; }
     }
 }

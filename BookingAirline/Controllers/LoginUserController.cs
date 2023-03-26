@@ -27,7 +27,7 @@ namespace BookingAirline.Controllers
                 TempData["error"] = "Tài khoản đăng nhập không đúng";
                 return View("Login");
             }
-            else if (taikhoan != null)
+            else if (data != null)
             {
                 //add session
                 database.Configuration.ValidateOnSaveEnabled = false;
@@ -41,10 +41,10 @@ namespace BookingAirline.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult SignUp(string user, string email, string password, string confirm)
+        public ActionResult SignUp([Bind(Include = "UserName,Email,Password")] KhachHang kh, string password, string confirm)
         {
-            var checkuser = database.KhachHangs.FirstOrDefault(s => s.UserName == user);
-            var checkemail = database.KhachHangs.FirstOrDefault(s => s.Email == email);
+            var checkuser = database.KhachHangs.FirstOrDefault(s => s.UserName == kh.UserName);
+            var checkemail = database.KhachHangs.FirstOrDefault(s => s.Email == kh.Email);
             if (checkuser != null)
             {
                 TempData["error01"] = "User này đã có vui lòng đổi user khác !";
@@ -62,23 +62,24 @@ namespace BookingAirline.Controllers
             }
             else if (password == confirm)
             {
-                Random rd = new Random();
-                var makh = "KH" + rd.Next(1, 1000);
-                KhachHang kh = new KhachHang();
-                kh.IDKH = makh;
-                kh.MaLKH = "Normal";
-                kh.UserName = user;
-                kh.Password = password;
-                kh.Email = email;
-                database.KhachHangs.Add(kh);
-                database.SaveChanges();
-                return RedirectToAction("TrangChu", "KhachHang");
+                if (ModelState.IsValid)
+                {
+                    Random rd = new Random();
+                    var makh = "KH" + rd.Next(1, 1000);
+                    kh.IDKH = makh;
+                    kh.MaLKH = "Normal";
+                    database.KhachHangs.Add(kh);
+                    database.SaveChanges();
+
+                    return RedirectToAction("TrangChu", "KhachHang");
+                }
+                    
+               
             }    
             return View();
         }
         public ActionResult ForgotPassword()
         {
-
             return View();
         }
         [HttpPost]

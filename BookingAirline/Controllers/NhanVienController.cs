@@ -28,11 +28,13 @@ namespace BookingAirline.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddSchulea(ChuyenBay cb)
         {
+            //Kiểm tra chuyến bay 
             if (cb == null)
             {
                 TempData["error"] = "Error";
                 return RedirectToAction("Scheduleaflight");
             }
+            //Thêm chuyến bay
             else
             {
                 Random rd = new Random();
@@ -49,9 +51,65 @@ namespace BookingAirline.Controllers
                 }
                 TempData["machuyenbay"] = cb.MaCB;
                 TempData["messageAlert"] = "success";
+                //Sinh ra vé tự động dựa vào số ghế của chuyến bay
+                ThemVe((int)cb.SoLuongGheHang1, (int)cb.SoLuongGheHang2, (int)cb.SoLuongGheHang3, cb);
                 return RedirectToAction("Scheduleaflight");
             }
 
+        }
+        public void ThemVe(int id1,int id2,int id3, ChuyenBay cb)
+        {
+            Ve ticket = new Ve();
+            //Kiểm tra nếu số lượng
+            if (id1 ==0 && id2 == 0 && id3==0)
+            {
+                return ;
+            }
+            else
+            {
+                int stt = 0;
+                //RAndom ghế hạng 1
+                for (int i = 1; i <= id1; i++)
+                {
+                    ticket = new Ve();
+                    stt++;
+                    ticket.MaVe = "VE" + stt;
+                    ticket.MaCB = cb.MaCB;
+                    ticket.MaHV = "HV01";
+                    ticket.TinhTrang = "Chưa đặt chỗ";
+                    ticket.GiaVe = Convert.ToDouble( Request["dongiaG1"]);
+                    ticket.CCCD = "null";
+                    database.Ves.Add(ticket);
+                    database.SaveChanges();
+                }
+                for (int i = 1; i <= id2; i++)
+                {
+                    ticket = new Ve();
+                    stt++;
+                    ticket.MaVe = "VE" + stt;
+                    ticket.MaCB = cb.MaCB;
+                    ticket.MaHV = "HV02";
+                    ticket.TinhTrang = "Chưa đặt chỗ";
+                    ticket.GiaVe = Convert.ToDouble(Request["dongiaG2"]);
+                    ticket.CCCD = "null";
+                    database.Ves.Add(ticket);
+                    database.SaveChanges();
+                }
+                for (int i = 1; i <= id3; i++)
+                {
+                    ticket = new Ve();
+                    stt++;
+                    ticket.MaVe = "VE" + stt;
+                    ticket.MaCB = cb.MaCB;
+                    ticket.MaHV = "HV03";
+                    ticket.TinhTrang = "Chưa đặt chỗ";
+                    ticket.GiaVe = Convert.ToDouble(Request["dongiaG3"]);
+                    ticket.CCCD = "null";
+                    database.Ves.Add(ticket);
+                    database.SaveChanges();
+                }
+            }
+            
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -214,6 +272,11 @@ namespace BookingAirline.Controllers
             }
             else
             {
+                if (tb.SanBayDi == tb.SanBayDen)
+                {
+                    TempData["messageAlert"] = "Error01";
+                    return RedirectToAction("FlightRoute");
+                }
                 Random rd = new Random();
                 var matb = "TB" + rd.Next(1, 1000);
                 tb.MaTBay = matb;
@@ -256,8 +319,14 @@ namespace BookingAirline.Controllers
         {
             return View();
         }
-        public ActionResult TicketList()
+        //Thêm vé máy bay sau khi đã có chuyến bay
+        public ActionResult TicketManagement()
         {
+            var dsticket = database.Ves.ToList();
+            return View(dsticket);
+        }
+        public ActionResult TicketList()
+        {     
             return View();
         }
         public ActionResult TotalRevenue()
