@@ -62,16 +62,24 @@ namespace BookingAirline.Controllers
             }
             else if (password == confirm)
             {
-                Random rd = new Random();
-                var makh = "KH" + rd.Next(1, 1000);
-                KhachHang kh = new KhachHang();
-                kh.IDKH = makh;
-                kh.MaLKH = "Normal";
-                kh.UserName = user;
-                kh.Password = password;
-                kh.Email = email;
-                database.KhachHangs.Add(kh);
-                database.SaveChanges();
+                try
+                {
+                    Random rd = new Random();
+                    var makh = "KH" + rd.Next(1, 1000);
+                    KhachHang kh = new KhachHang();
+                    kh.IDKH = makh;
+                    kh.MaLKH = "Normal";
+                    kh.UserName = user;
+                    kh.Password = password;
+                    kh.Email = email;
+                    database.KhachHangs.Add(kh);
+                    database.SaveChanges();
+                }
+                catch
+                {
+                    return View();
+                }
+                
                 return RedirectToAction("TrangChu", "KhachHang");
             }    
             return View();

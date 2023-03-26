@@ -12,6 +12,9 @@ html {
     margin: 20px auto;
     max-width: 300px;
 }
+.container {
+    
+}
 
 .cockpit {
     height: 280px;
