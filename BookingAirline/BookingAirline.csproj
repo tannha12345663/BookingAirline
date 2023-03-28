@@ -266,6 +266,7 @@
     <Content Include="Content\images\Vietjet-Air-Logo-PNG-3.png" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Template\HtmlPage1.html" />
+    <Content Include="Content\UploadAnh\UploadAnh.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont3e6e.html" />
     <Content Include="fonts\fontawesome-webfont3e6e.svg" />
@@ -522,6 +523,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Data\Avatar\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

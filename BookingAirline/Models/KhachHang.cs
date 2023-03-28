@@ -31,6 +31,7 @@ namespace BookingAirline.Models
         public string Email { get; set; }
         public string GioiTinh { get; set; }
         public string NgaySinh { get; set; }
+        public string HinhAnh { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }

@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using BookingAirline.App_Start;
 using System.Web.Helpers;
+using System.IO;
+using System.Data.SqlClient;
 
 namespace BookingAirline.Controllers
 {
@@ -28,6 +30,33 @@ namespace BookingAirline.Controllers
             var data = database.KhachHangs.Where(s => s.IDKH == user.IDKH).FirstOrDefault();
             return View(data);
         }
+        public void LuuAnh(KhachHang kh, HttpPostedFileBase HinhAnh)
+        {
+            #region Hình ảnh
+            //Xác định đường dẫn lưu file : Url tương đói => tuyệt đói
+            var urlTuongdoi = "/Data/Avatar/";
+            var urlTuyetDoi = Server.MapPath(urlTuongdoi);// Lấy đường dẫn lưu file trên server
+
+            //Check trùng tên file => Đổi tên file  = tên file cũ (ko kèm đuôi)
+            //Ảnh.jpg = > ảnh + "-" + 1 + ".jpg" => ảnh-1.jpg
+
+            string fullDuongDan = urlTuyetDoi + HinhAnh.FileName;
+            int i = 1;
+            while (System.IO.File.Exists(fullDuongDan) == true)
+            {
+                // 1. Tách tên và đuôi 
+                var ten = Path.GetFileNameWithoutExtension(HinhAnh.FileName);
+                var duoi = Path.GetExtension(HinhAnh.FileName);
+                // 2. Sử dụng biến i để chạy và cộng vào tên file mới
+                fullDuongDan = urlTuyetDoi + ten + "-" + i + duoi;
+                i++;
+                // 3. Check lại 
+            }
+            #endregion
+            //Lưu file (Kiểm tra trùng file)
+            HinhAnh.SaveAs(fullDuongDan);
+            kh.HinhAnh = urlTuongdoi + Path.GetFileName(fullDuongDan);
+        }
         [HttpGet]
         public ActionResult EditProfile(string id)
         {
@@ -38,13 +67,14 @@ namespace BookingAirline.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProfile([Bind(Include = "IDKH,MaLKH,UserName,Password,TenKH,SDT,Email,GioiTinh,NgaySinh")] KhachHang kh )
+        public ActionResult EditProfile([Bind(Include = "IDKH,MaLKH,UserName,Password,TenKH,SDT,Email,GioiTinh,NgaySinh,HinhAnh")] KhachHang kh, HttpPostedFileBase HinhAnh)
         {
             //database.Entry(kh).State = System.Data.Entity.EntityState.Modified;
             //database.SaveChanges();
             //return RedirectToAction("ThongtinCaNhan");
             if (ModelState.IsValid)
             {
+                LuuAnh(kh, HinhAnh);
                 database.Entry(database.KhachHangs.Find(kh.IDKH)).CurrentValues.SetValues(kh);
                 database.SaveChanges();
                 return View("ThongTinKH");
@@ -79,13 +109,22 @@ namespace BookingAirline.Controllers
             Session["From"] = Request["from"];
             Session["To"] = Request["to"];
             Session["Trip"] = Request["trip"];
-
+            DateTime ngaykh = Convert.ToDateTime(Request["deparure"]);
+            var month = ngaykh.ToString("MM");
+            var Day = ngaykh.ToString("dd");
+            var year = ngaykh.ToString("yyyy");
             //Lọc tìm kiếm chuyến bay
             var di = Request["From"].ToString();
             var chuyendi = database.TuyenBays.Where(s => s.SanBayDi == di).FirstOrDefault();
-            var listdi = database.ChuyenBays.Where(s => s.MaTBay == chuyendi.MaTBay).ToList();
+            //var listdi = database.ChuyenBays.Where(s => s.MaTBay == chuyendi.MaTBay && Convert.ToDateTime(s.NgayGio).ToString("dd")== Day ).ToList();
+            var test = database.ChuyenBays.SqlQuery
+                ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month and MaTBay = @chuyendi ",
+                new SqlParameter("@year", year),
+                new SqlParameter("@day", Day),
+                new SqlParameter("@month", month),
+                new SqlParameter("@chuyendi", chuyendi.MaTBay)).ToList();
             //Hiển thị danh sách các chuyến bay
-            return View(listdi);
+            return View(test);
         }
         public ActionResult DSachCBVe(string id)
         {
@@ -206,6 +245,7 @@ namespace BookingAirline.Controllers
             var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
             var dsorder = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
             var dsve = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi).ToList();
+            ViewData["MaCB"] = dsorder.MaCBdi;
             return View(dsve);
         }
         [HttpPost]
@@ -296,9 +336,6 @@ namespace BookingAirline.Controllers
 
         public ActionResult ThanhToan()
         {
-            var stt = "Chưa thanh toán";
-            var uid = "Vang Lai";
-            var dsve = database.Ves.Where(s => s.IDKH == uid && s.TinhTrang == stt).ToList();
             if (Session["Cart"] == null)
             {
                 return View();
