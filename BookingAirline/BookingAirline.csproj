@@ -520,6 +520,7 @@
     <Content Include="Views\KhachHangHA\About.cshtml" />
     <Content Include="Views\KhachHangHA\Contact.cshtml" />
     <Content Include="Views\KhachHang\Shared\_LayoutContact.cshtml" />
+    <Content Include="Views\KhachHangHA\Shared\_LayoutContact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
