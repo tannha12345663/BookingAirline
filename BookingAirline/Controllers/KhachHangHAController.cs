@@ -74,9 +74,18 @@ namespace BookingAirline.Controllers
             //return RedirectToAction("ThongtinCaNhan");
             if (ModelState.IsValid)
             {
-                LuuAnh(kh, HinhAnh);
-                database.Entry(database.KhachHangs.Find(kh.IDKH)).CurrentValues.SetValues(kh);
-                database.SaveChanges();
+                if(HinhAnh != null)
+                {
+                    LuuAnh(kh, HinhAnh);
+                    database.Entry(database.KhachHangs.Find(kh.IDKH)).CurrentValues.SetValues(kh);
+                    database.SaveChanges();
+                }
+                else
+                {
+                    kh.HinhAnh = kh.HinhAnh;
+                    database.Entry(database.KhachHangs.Find(kh.IDKH)).CurrentValues.SetValues(kh);
+                    database.SaveChanges();
+                }
                 return View("ThongTinKH");
             }
             return View(kh);
@@ -109,6 +118,7 @@ namespace BookingAirline.Controllers
             Session["From"] = Request["from"];
             Session["To"] = Request["to"];
             Session["Trip"] = Request["trip"];
+            Session["Return"] = Request["return"];
             DateTime ngaykh = Convert.ToDateTime(Request["deparure"]);
             var month = ngaykh.ToString("MM");
             var Day = ngaykh.ToString("dd");
@@ -156,11 +166,22 @@ namespace BookingAirline.Controllers
                 order.MaCBdi = id;
                 database.OrderStatus.Add(order);
                 database.SaveChanges();
+                DateTime ngaykh = Convert.ToDateTime(Session["Return"]);
+                var month = ngaykh.ToString("MM");
+                var Day = ngaykh.ToString("dd");
+                var year = ngaykh.ToString("yyyy");
+
                 //Kiểm tra và xuất dữ liệu vé theo trước
                 var to = Session["To"].ToString();
                 var chuyenve = database.TuyenBays.Where(s => s.SanBayDi == to).FirstOrDefault();
-                var listcv = database.ChuyenBays.Where(s => s.MaTBay == chuyenve.MaTBay).ToList();
-                return View(listcv);
+                //var listcv = database.ChuyenBays.Where(s => s.MaTBay == chuyenve.MaTBay).ToList();
+                var test = database.ChuyenBays.SqlQuery
+                    ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month and MaTBay = @chuyenve ",
+                        new SqlParameter("@year", year),
+                        new SqlParameter("@day", Day),
+                        new SqlParameter("@month", month),
+                        new SqlParameter("@chuyenve", chuyenve.MaTBay)).ToList();
+                return View(test);
             }
 
         }

@@ -238,6 +238,21 @@ p {
 	display: inline-block;
 }
 
+.submit-form .date01 {
+	margin-bottom: 10px;
+	width: 100%;
+	height: 36px;
+	border: none;
+	background-color: #e7e7e7;
+	font-size: 11px;
+	color: #9a9a9a;
+	outline: none;
+	padding-left: 15px;
+	margin-left: 0px;
+	display: inline-block;
+	box-shadow: none;
+	border-radius: 0px;
+}
 .submit-form .date {
 	margin-bottom: 10px;
 	width: 100%;
@@ -253,7 +268,6 @@ p {
 	box-shadow: none;
 	border-radius: 0px;
 }
-
 .submit-form input {
 	margin-top: 12px;
 	margin-left: 5px;
