@@ -1,6 +1,14 @@
 ﻿@model BookingAirline.Models.Cart
 @using BookingAirline.Models
-@{var cal = 0;}
+@{var cal = 0;
+    BookingAirLightEntities db = new BookingAirLightEntities();}
+
+@{
+    ViewBag.Title = "ThanhToan";
+    //Layout = "~/Views/KhachHangHA/Shared/_LayoutPayment.cshtml";
+
+}
+
 <!DOCTYPE html>
 
 <html>
@@ -13,6 +21,7 @@
 
     <link href="~/Style/Css/Payment.css" rel="stylesheet" />
 </head>
+
 <body>
 
     <main class="page payment-page">
@@ -34,7 +43,13 @@
                                 <span class="price">@ThanhTien</span>
                                 <p class="item-name">@item.idVe.MaVe</p>
                                 <p class="item-description">Số hiệu : @item.idVe.MaCB</p>
-                                <p class="item-description">Status: @item.idVe.CCCD</p>
+                                @{ var macb = db.ChuyenBays.Where(s => s.MaCB == item.idVe.MaCB).FirstOrDefault();
+                                    var tenmb = db.MayBays.Where(s => s.MaMB == macb.MaMB).FirstOrDefault();
+                                    var matbay = db.TuyenBays.Where(s => s.MaTBay == macb.MaTBay).FirstOrDefault();
+                                    }
+                                <p class="item-description">FROM: @matbay.SanBayDi - TO: @matbay.SanBayDen</p>
+                                 <p class="item-description">AIRCRAFT: @tenmb.LoaiMayBay</p>
+                                <p class="item-description">Status: Paying</p>
                                 <p class="item-description">Name: @item.idVe.IDKH</p>
                                 @{ cal += Convert.ToInt32(item.idVe.GiaVe); }
                             </div>

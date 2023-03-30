@@ -9,19 +9,17 @@
         <div class="row">
             <div class="col-md-5">
                 <div class="left-side">
-                    <div class="logo">
-                        <img src="~/hinh/logo.png" alt="Flight Template">
-                    </div>
+                    @*<div class="logo">
+                            <img src="~/hinh/logo.png" alt="Flight Template">
+                        </div>*@
                     <div class="tabs-content">
                         <h4>Choose Your Direction:</h4>
                         <ul class="social-links">
                             <li><a href="#">Find us on <em>Facebook</em><i class="fa fa-facebook"></i></a></li>
                             <li><a href="#">Our <em>YouTube</em> Channel<i class="fa fa-youtube"></i></a></li>
                             <li><a href="#">Follow our <em>instagram</em><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="~/Home/Contact">Contact our <em>Infomations</em><i class="fa fa-phone"></i></a></li>
                         </ul>
-                    </div>
-                    <div class="page-direction-button">
-                        <a href="/Home/Contact"><i class="fa fa-phone"></i>Contact Us Now</a>
                     </div>
                 </div>
             </div>
@@ -71,41 +69,43 @@
                                     <div class="col-md-6">
                                         <fieldset>
                                             <label for="departure">Departure date:</label>
-                                            <input name="deparure" type="text" class="form-control date" id="deparure" placeholder="Select date..." required="" onchange='this.form()'>
+                                            <input name="deparure" type="date" class="form-control date01" min=@DateTime.Now.ToString("yyyy-MM-dd") id="deparure" placeholder="Select date..." required>
                                         </fieldset>
                                     </div>
                                     <div class="col-md-6">
                                         <fieldset>
                                             <label for="return">Return date:</label>
-                                            <input name="return" type="text" class="form-control date" id="return" placeholder="Select date..." required="" onchange='this.form()'>
+                                            <input name="return" type="date" class="form-control date01" min=@DateTime.Now.ToString("yyyy-MM-dd") id="return" placeholder="Select date..." required>
                                         </fieldset>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <label for="to">Class:</label>
+                                            <select required name='Class' onchange='this.form()'>
+                                                <option value="" disabled="disabled">Select a location...</option>
+                                                <option value="HV01">Business class</option>
+                                                <option value="HV02">Vip class</option>
+                                                <option value="HV03">Economy class</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+
                                     <div class="col-md-6">
                                         <div class="radio-select">
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                                     <label for="round">Round</label>
-                                                    <input type="radio" name="trip" id="round" value="round" required="required" onchange='this.form.()'>
+                                                    <input type="radio" name="trip" id="round" value="round" required="required" onchange='this.form()'>
                                                 </div>
                                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                                     <label for="oneway">Oneway</label>
-                                                    <input type="radio" name="trip" id="oneway" value="one-way" required="required" onchange='this.form.()'>
+                                                    <input type="radio" name="trip" id="oneway" value="one-way" required="required" onchange='this.form()'>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                            <fieldset>
-                                                <label for="to">Class:</label>
-                                                <select required name='Class' onchange='this.form()'>
-                                                    <option value="" disabled="disabled">Select a location...</option>
-                                                    <option value="HV01">Business class</option>
-                                                    <option value="HV02">Vip class</option>
-                                                    <option value="HV03">Economy class</option>
-                                                </select>
-                                            </fieldset>
-                                        </div>
-                                    <div class="col-md-6 pull-right">
                                         <fieldset>
                                             <button type="submit" id="form-submit" class="btn">Order Ticket Now</button>
                                         </fieldset>
@@ -119,6 +119,7 @@
         </div>
     </div>
 </section>
+
 <div class="tabs-content" id="weather">
     <div class="container">
         <div class="row">
@@ -504,26 +505,3 @@
     </div>
 </section>
 
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="primary-button">
-                    <a href="#" class="scroll-top">Back To Top</a>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <ul class="social-icons">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                </ul>
-            </div>
-            <div class="col-md-12">
-                <p>By Team 30 </p>
-            </div>
-        </div>
-    </div>
-</footer>

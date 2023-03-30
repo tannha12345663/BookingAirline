@@ -141,7 +141,10 @@
                                 </div>
                                 <div class="item">
                                     <h1>@Html.DisplayFor(modelItem => MaSBdi.SanBayDen)</h1>
-                                    <p>12:00PM JULY. 11 2019</p>
+                                    @{ DateTime timeto = (DateTime)item.NgayGio;}
+                                    <p>
+                                        @timeto.AddHours(2)
+                                    </p>
                                 </div>
                             </div>
 
@@ -157,7 +160,12 @@
                                     <p>@Html.DisplayFor(modelItem => item.MaMB)</p>
                                 </div>
                                 <div class="item">
-                                    <h4>Slot</h4>
+                                    <h4>remaining seats</h4>
+                                    @{ var checkdsve = db.Ves.Where(s => s.MaCB == item.MaCB && s.TinhTrang == "Chưa đặt chỗ").Count();}
+                                    <p>@checkdsve</p>
+                                </div>
+                                <div class="item">
+                                    <h4>Total Slot</h4>
                                     @{ var soghe = item.SoLuongGheHang1 + item.SoLuongGheHang2 + item.SoLuongGheHang3;}
                                     <p>@Html.DisplayFor(modelItem => soghe)</p>
                                 </div>
@@ -166,8 +174,8 @@
                                     <p>18W</p>
                                 </div>
                                 <div class="item">
-                                    <h4>terminal</h4>
-                                    <p>P4</p>
+                                    <h4>Price</h4>
+                                    <p> 70$</p>
                                 </div>
                             </div>
                         </div>
@@ -284,29 +292,6 @@
         </div>
     </div>
 </section>
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="primary-button">
-                    <a href="#" class="scroll-top">Back To Top</a>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <ul class="social-icons">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                </ul>
-            </div>
-            <div class="col-md-12">
-                <p>By Team 30 </p>
-            </div>
-        </div>
-    </div>
-</footer>
 
 <script src="https://unpkg.com/ionicons@4.2.2/dist/ionicons.js"></script>
 

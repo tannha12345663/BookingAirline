@@ -12,12 +12,114 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--Icon-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
 <h2 style="text-align:center">ChooseSeat @macb</h2>
 <link href="~/Style/Css/style.css" rel="stylesheet" />
 <div class="container">
     <form action="/KhachHang/ChooseSeat" method="post" id="submit">
         <div class="col">
-            <div class="col-lg-6">
+            <div class="col-lg-5">
+                <h2 style="text-align:center">
+                    Flight Summary
+                </h2>
+                @{
+                    var checkmacb = database.ChuyenBays.Where(s => s.MaCB == macb).FirstOrDefault();
+                    var matb = database.TuyenBays.Where(s => s.MaTBay == checkmacb.MaTBay).FirstOrDefault();
+                    var sanbaydi = database.SanBays.Where(s => s.MaSB == matb.SanBayDi).FirstOrDefault();
+                    var sanbayden = database.SanBays.Where(s => s.MaSB == matb.SanBayDen).FirstOrDefault();
+                }
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h5 style="font-weight:bold">
+                            @sanbaydi.TenSB (@sanbaydi.MaSB) : @checkmacb.NgayGio
+                        </h5>
+                    </div>
+                    <div class="col-lg-8">
+                        <div style="padding-left:70px">
+                            <i class="material-icons">flight_takeoff</i>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div>
+                            <i class="material-icons" style="font-size:30px;color:red">report_problem</i>
+                        </div>
+                    </div>
+                    <div class="col-lg-2" style="justify-content:center">
+                    </div>
+                    <div class="col-lg-1" style="justify-content:center">
+                        <div style="height: 100px; width: 4px; background-color: rgb(1, 148, 243);">
+                        </div>
+                    </div>
+                    <div class="col-lg-3" style="padding-top:30px">
+                        <h4>
+                            <i class="material-icons">schedule</i>
+                            @checkmacb.ThoiGianBay
+                        </h4>
+                    </div>
+                    <div class="col-lg-6">
+
+                        <h3 style="text-align:center;color:red">
+                            The schedule can be changed !
+                        </h3>
+                    </div>
+                    <div class="col-lg-12">
+                        <div style="padding-left: 70px">
+                            <i class="material-icons">flight_land</i>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <h5 style="font-weight:bold">
+                            @{
+                                DateTime timeto = (DateTime)checkmacb.NgayGio;
+                            }
+                            @sanbayden.TenSB (@sanbayden.MaSB): @timeto.AddHours(2)
+                        </h5>
+                    </div>
+                </div>
+                <br />
+                <div class="FD_box">
+
+                    <h3 style="text-align:center;font-weight:bold;">
+                        Flight details
+                    </h3>
+                    <div class="row">
+                        <div class="col-lg-1" style="padding-top:6px;">
+                            <i class="material-icons">work</i>
+                        </div>
+                        <div class="col-lg-11">
+                            <h4>
+                                Baggage 0kg (buy at booking)
+                            </h4>
+                        </div>
+                        <div class="col-lg-1" style="padding-top:6px;">
+                            <i class="material-icons">event_seat</i>
+                        </div>
+                        <div class="col-lg-11">
+                            <h4>
+                                Cabin baggage 7 kg
+                            </h4>
+                        </div>
+                        <div class="col-lg-1" style="padding-top:6px">
+                            <i class="material-icons">info</i>
+                        </div>
+                        @{
+                            var maybay = database.MayBays.Find(checkmacb.MaMB);
+                        }
+                        <div class="col-lg-11" style="padding-top:5px">
+                            <span style="font-weight:bold;font-size:18px">Aircraft: </span> @maybay.LoaiMayBay
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4">
                 <div class="plane">
                     <div class="cockpit">
                         <h1>
@@ -41,7 +143,7 @@
                                             @{
                                                 for (int y = stt2; y <= 6 * stt; y++)
                                                 {
-                                                    var slot = database.Ves.Where(s => s.MaVe == "VE" + stt2).FirstOrDefault();
+                                                    var slot = database.Ves.Where(s => s.MaVe == "VE" + stt2 && s.MaCB == macb).FirstOrDefault();
                                                     if (slot != null)
                                                     {
                                                         if (slot.TinhTrang == "Chưa đặt chỗ")
@@ -76,11 +178,13 @@
 
                     </div>
                 </div>
+
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-3">
                 <div class="booking-details">
                     <h2>Booking Details</h2>
-                    <h3> Selected Seats (<span id="counter">0</span>):</h3>
+
+                    <h4> Selected Seats (<span id="counter">0</span>):</h4>
                     <ul id="selected-seats">
                     </ul>
                     <button type="submit" class="btn btn-success" value="">Next</button>
@@ -107,7 +211,7 @@
             quantity++;
             html = `<div id="${$this.val()}">
                         <p style="font-size:20px">
-                            Bạn đã chọn vé:  ${$this.val()}
+                            Choosed:  ${$this.val()}
                         </p>
                     </div>`;
             $('#selected-seats').append(html);

@@ -54,9 +54,6 @@ html,body{
 	position:relative;
 }
 
-p,ul,a,.btn,span,input,select,textarea,label, table, .meta h2, blockquote, small, .newsletter h2, .cruise-offer-text h3, .package h2, .welcome-message h2, #hot-tour h3, #hot-tour h2, #message-banner h2, .member-name h3, #error-text h2, .company-name, #coming-soon-text h2, .booking-form-block .selected-price, #dashboard h2, #dashboard h3, #dashboard h4, #web-name, .tvl-insurance-info .innerpage-heading h1, .big-heading h2, .traveler-info h3, .list-group-heading{
-	font-family: 'Lato', sans-serif;
-}
 
 p,ul{
 	line-height:1.5em;

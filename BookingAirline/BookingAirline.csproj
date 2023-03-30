@@ -48,10 +48,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -137,7 +137,6 @@
     <Compile Include="Controllers\LoginAdminController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\NhanVienController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Global.asax.cs">
@@ -268,15 +267,17 @@
     <Content Include="Content\images\Vietjet-Air-Logo-PNG-3.png" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Template\HtmlPage1.html" />
+    <Content Include="Content\UploadAnh\UploadAnh.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont3e6e.html" />
     <Content Include="fonts\fontawesome-webfont3e6e.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="hinh\background-contact.jpg" />
-    <Content Include="hinh\contact_bgrbright.jpg" />
+    <Content Include="hinh\135017829_1026004181228801_2637032699560275_n.jpg" />
+    <Content Include="hinh\AboutUs.jpg" />
     <Content Include="hinh\banner-bg.jpg" />
+    <Content Include="hinh\card.png" />
     <Content Include="hinh\contact-01.jpg" />
     <Content Include="hinh\contact-02.jpg" />
     <Content Include="hinh\contact-bg.jpg" />
@@ -292,7 +293,7 @@
     <Content Include="hinh\logo.png" />
     <Content Include="hinh\massage-service.jpg" />
     <Content Include="hinh\neo-img.jpg" />
-    <Content Include="hinh\pexels-pixabay-62623.jpg" />
+    <Content Include="hinh\neo.jpg" />
     <Content Include="hinh\place-01.jpg" />
     <Content Include="hinh\place-02.jpg" />
     <Content Include="hinh\place-03.jpg" />
@@ -360,8 +361,8 @@
     <Content Include="lib\font-awesome\sprites\solid.svg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -415,9 +416,11 @@
     <Content Include="Style\Admin\js\jquery-confirm.js" />
     <Content Include="Style\Admin\js\scripts.js" />
     <Content Include="Style\apple-touch-icon.html" />
-    <Content Include="Style\Css\aboutStyle.css" />
+    <Content Include="Style\Css\AboutUsStyle.css" />
     <Content Include="Style\Css\Admin\adminlte.min.css" />
     <Content Include="Style\Css\Admin\all.min.css" />
+    <Content Include="Style\Css\Admin\contactStyle.css" />
+    <Content Include="Style\Css\Admin\footerStyle.css" />
     <Content Include="Style\Css\Admin\icheck-bootstrap.min.css" />
     <Content Include="Style\Css\Admin\icon.css" />
     <Content Include="Style\Css\Admin\js\adminlte.min.js" />
@@ -462,14 +465,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\KhachHang\About.cshtml" />
+    <Content Include="Views\KhachHang\Contact.cshtml" />
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\Create.cshtml" />
     <Content Include="Views\LoginAdmin\Register.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\ShoppingCart\ShowCart.cshtml" />
     <Content Include="Views\ShoppingCart\BagCart.cshtml" />
     <Content Include="Views\KhachHang\Shared\_LayoutPage1.cshtml" />
@@ -518,10 +518,15 @@
     <Content Include="Views\KhachHang\ChooseSeatVe.cshtml" />
     <Content Include="Views\KhachHangHA\ChooseSeatVe.cshtml" />
     <Content Include="Views\KhachHang\DSChuyenBayTest.cshtml" />
-    <Content Include="Views\NhanVien\CustomerManagement.cshtml" />
+    <Content Include="Views\Home\Shared\_LayoutContact.cshtml" />
+    <Content Include="Views\KhachHangHA\About.cshtml" />
+    <Content Include="Views\KhachHangHA\Contact.cshtml" />
+    <Content Include="Views\KhachHang\Shared\_LayoutContact.cshtml" />
+    <Content Include="Views\KhachHangHA\Shared\_LayoutContact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Data\Avatar\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
