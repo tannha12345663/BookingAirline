@@ -344,5 +344,10 @@ namespace BookingAirline.Controllers
         {
             return View();
         }
+
+        public ActionResult CustomerManagement()
+        {
+            return View();
+        }
     }
 }

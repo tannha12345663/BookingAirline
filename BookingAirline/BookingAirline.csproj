@@ -260,6 +260,7 @@
     <Content Include="Content\CSS_01\slick-theme.css" />
     <Content Include="Content\CSS_01\slick.css" />
     <Content Include="Content\CSS_01\style.css" />
+    <Content Include="Content\CSS_remake\detailbook.css" />
     <Content Include="Content\CSS_remake\main.css" />
     <Content Include="Content\CSS_remake\Style01.css" />
     <Content Include="Content\images\logo-jetstar.jpg" />
@@ -426,6 +427,7 @@
     <Content Include="Style\Css\bootstrap.min.css" />
     <Content Include="Style\Css\Contact.css" />
     <Content Include="Style\Css\contactStyle.css" />
+    <Content Include="Style\Css\CustomerMangaAdmin.css" />
     <Content Include="Style\Css\datepicker.css" />
     <Content Include="Style\Css\fontAwesome.css" />
     <Content Include="Style\Css\hero-slider.css" />
@@ -516,6 +518,7 @@
     <Content Include="Views\KhachHang\ChooseSeatVe.cshtml" />
     <Content Include="Views\KhachHangHA\ChooseSeatVe.cshtml" />
     <Content Include="Views\KhachHang\DSChuyenBayTest.cshtml" />
+    <Content Include="Views\NhanVien\CustomerManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
