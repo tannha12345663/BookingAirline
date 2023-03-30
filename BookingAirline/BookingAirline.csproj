@@ -133,6 +133,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
     <Compile Include="Controllers\KhachHangHAController.cs" />
+    <Compile Include="Controllers\KhachHangsController.cs" />
     <Compile Include="Controllers\LoginAdminController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\NhanVienController.cs" />
@@ -512,6 +513,9 @@
     <Content Include="Views\NhanVien\TicketManagement.cshtml" />
     <Content Include="Views\KhachHang\ChooseSeat.cshtml" />
     <Content Include="Views\KhachHangHA\ChooseSeat.cshtml" />
+    <Content Include="Views\KhachHang\ChooseSeatVe.cshtml" />
+    <Content Include="Views\KhachHangHA\ChooseSeatVe.cshtml" />
+    <Content Include="Views\KhachHang\DSChuyenBayTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
