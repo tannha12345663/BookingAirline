@@ -266,6 +266,7 @@
     <Content Include="Content\images\Vietjet-Air-Logo-PNG-3.png" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Template\HtmlPage1.html" />
+    <Content Include="Content\UploadAnh\UploadAnh.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont3e6e.html" />
     <Content Include="fonts\fontawesome-webfont3e6e.svg" />
@@ -462,8 +463,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\KhachHang\About.cshtml" />
+    <Content Include="Views\KhachHang\Contact.cshtml" />
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\Create.cshtml" />
     <Content Include="Views\LoginAdmin\Register.cshtml" />
@@ -516,9 +517,14 @@
     <Content Include="Views\KhachHangHA\ChooseSeatVe.cshtml" />
     <Content Include="Views\KhachHang\DSChuyenBayTest.cshtml" />
     <Content Include="Views\Home\Shared\_LayoutContact.cshtml" />
+    <Content Include="Views\KhachHangHA\About.cshtml" />
+    <Content Include="Views\KhachHangHA\Contact.cshtml" />
+    <Content Include="Views\KhachHang\Shared\_LayoutContact.cshtml" />
+    <Content Include="Views\KhachHangHA\Shared\_LayoutContact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Data\Avatar\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

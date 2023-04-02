@@ -1,5 +1,6 @@
 ﻿using BookingAirline.Models;
 using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -19,13 +20,23 @@ namespace BookingAirline.Controllers
             Session["From"] = Request["from"];
             Session["To"] = Request["to"];
             Session["Trip"] = Request["trip"];
-
+            Session["Return"] = Request["return"];
+            DateTime ngaykh =  Convert.ToDateTime( Request["deparure"]);
+            var month = ngaykh.ToString("MM");
+            var Day = ngaykh.ToString("dd");
+            var year = ngaykh.ToString("yyyy");
             //Lọc tìm kiếm chuyến bay
             var di = Request["From"].ToString();
             var chuyendi = database.TuyenBays.Where(s => s.SanBayDi == di).FirstOrDefault();
-            var listdi = database.ChuyenBays.Where(s => s.MaTBay == chuyendi.MaTBay).ToList();
+            //var listdi = database.ChuyenBays.Where(s => s.MaTBay == chuyendi.MaTBay && Convert.ToDateTime(s.NgayGio).ToString("dd")== Day ).ToList();
+            var test = database.ChuyenBays.SqlQuery
+                ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month and MaTBay = @chuyendi ", 
+                new SqlParameter("@year",year),
+                new SqlParameter("@day", Day),
+                new SqlParameter("@month", month),
+                new SqlParameter("@chuyendi", chuyendi.MaTBay)).ToList();
             //Hiển thị danh sách các chuyến bay
-            return View(listdi);
+            return View(test);
         }
 
         public ActionResult DSachCBVe(string id)
@@ -58,11 +69,22 @@ namespace BookingAirline.Controllers
                 database.OrderStatus.Add(order);
                 database.SaveChanges();
 
+                DateTime ngaykh = Convert.ToDateTime(Session["Return"]);
+                var month = ngaykh.ToString("MM");
+                var Day = ngaykh.ToString("dd");
+                var year = ngaykh.ToString("yyyy");
+
                 //Kiểm tra và xuất dữ liệu vé theo trước
                 var to = Session["To"].ToString();
                 var chuyenve = database.TuyenBays.Where(s => s.SanBayDi == to).FirstOrDefault();
-                var listcv = database.ChuyenBays.Where(s => s.MaTBay == chuyenve.MaTBay).ToList();
-                return View(listcv);
+                //var listcv = database.ChuyenBays.Where(s => s.MaTBay == chuyenve.MaTBay).ToList();
+                var test = database.ChuyenBays.SqlQuery
+                    ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month and MaTBay = @chuyenve ",
+                        new SqlParameter("@year", year),
+                        new SqlParameter("@day", Day),
+                        new SqlParameter("@month", month),
+                        new SqlParameter("@chuyenve", chuyenve.MaTBay)).ToList();
+                return View(test);
             }
 
         }
@@ -329,6 +351,19 @@ namespace BookingAirline.Controllers
         }
         public ActionResult DSChuyenBayTest()
         {
+            return View();
+        }
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
             return View();
         }
     }

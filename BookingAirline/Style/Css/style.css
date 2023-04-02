@@ -282,3 +282,16 @@ ol {
     margin-left: 0px;
     margin-right: 0px;
 }
+.FD_box {
+    width: auto;
+    height: auto;
+    padding-left: 30px;
+    padding-bottom: 20px;
+    border: 1px solid;
+    border-color: rgb(205, 208, 209);
+    border-radius:30px;
+    
+}
+    .FD_box:hover {
+        border-color: black;
+    }

@@ -35,12 +35,12 @@
             <div class="navbar-collapse collapse" style="font-size:16px;">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "TrangChu", "KhachHang")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "KhachHang")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "KhachHang")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="~/LoginUser/Login"><span class="fa fa-user"></span> Login</a></li>
-                    <li><a href="@Url.Action("LogOut","LoginUser")">Log Out</a></li>
+                    <li><a href="@Url.Action("SignUp","LoginUser")">Register</a></li>
                 </ul>
             </div>
         </div>
@@ -110,13 +110,14 @@
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <label for="departure">Departure date:</label>
-                                                <input name="deparure" type="text" class="form-control date" id="deparure" placeholder="Select date..." required="" onchange='this.form()'>
+                                                <input name="deparure" type="date" class="form-control date01"  min=@DateTime.Now.ToString("yyyy-MM-dd") placeholder="Select date..." required="" >
+                                                
                                             </fieldset>
                                         </div>
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <label for="return">Return date:</label>
-                                                <input name="return" type="text" class="form-control date" id="return" placeholder="Select date..." required="" onchange='this.form()'>
+                                                <input name="return" type="date" class="form-control date01"  min=@DateTime.Now.ToString("yyyy-MM-dd") placeholder="Select date..." required="" >
                                             </fieldset>
                                         </div>
 
@@ -137,16 +138,16 @@
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-6 col-xs-6">
                                                         <label for="round">Round</label>
-                                                        <input type="radio" name="trip" id="round" value="round" required="required" onchange='this.form.()'>
+                                                        <input type="radio" name="trip" id="round" value="round" required="required" onchange='this.form()'>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-6">
                                                         <label for="oneway">Oneway</label>
-                                                        <input type="radio" name="trip" id="oneway" value="oneway" required="required" onchange='this.form.()'>
+                                                        <input type="radio" name="trip" id="oneway" value="oneway" required="required" onchange='this.form()'>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                       
+
                                         <div class="col-md-6 pull-right">
                                             <fieldset>
                                                 <button type="submit" id="form-submit" class="btn">Order Ticket Now</button>
@@ -166,25 +167,25 @@
 
 
 <footer>
-    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="primary-button">
-                <a href="#" class="scroll-top">Back To Top</a>
+                    <a href="#" class="scroll-top">Back To Top</a>
                 </div>
             </div>
-    <div class="col-md-12">
-        <ul class="social-icons">
-            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-            <li><a href="#"><i class="fa fa-rss"></i></a></li>
-            <li><a href="#"><i class="fa fa-behance"></i></a></li>
-        </ul>
-        </div
+            <div class="col-md-12">
+                <ul class="social-icons">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-    </div>
+
 </footer>
 
 </html>
