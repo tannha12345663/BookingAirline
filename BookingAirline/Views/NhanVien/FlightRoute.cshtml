@@ -66,7 +66,7 @@
                 button: "OK",
             });
         </script>
-    }; ;
+    };
 
 }
 
@@ -167,11 +167,12 @@
                     @Html.AntiForgeryToken()
                     <div class="modal-body">
                         <div class="row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label class="control-label">Nhập mã sân bay</label>
                                 <input class="form-control text-box single-line" id="InputMaSB" name="MaSB" type="text" required>
+                                <span id="error"></span>
                             </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label class="control-label">Nhập tên sân bay</label>
                                 <input class="form-control" id="InputTenSB" name="TenSB" type="text" required>
                             </div>
@@ -210,24 +211,24 @@
                         <div class="row">
                             <div class="form-group col-md-12">
                                 <label class="control-label">Chọn mã sân bay đi</label>
-                                <select class="form-control" id="MaSB" name="SanBayDi" type="text" required>
-                                    <option selected="true" disabled="disabled">--Please choose an option--</option>
+                                <select class="form-control col-md-8" id="MaSB" name="SanBayDi" type="text" required>
+                                    <option selected disabled="disabled">--Please choose an option--</option>
                                     @{ var masb = database.SanBays.ToList();
                                         foreach (var item in masb)
                                         {
-                                            <option value="@item.MaSB">@item.MaSB (@item.TenSB)</option>
+                                            <option value="@item.MaSB">@item.MaSB - (@item.TenSB)</option>
                                         }
                                     }
                                 </select>
                             </div>
                             <div class="form-group col-md-12">
-                                <label class="control-label">Chọn mã sân bay đến</label>
-                                <select class="form-control " id="MaSB" name="SanBayDen" type="text" required>
-                                    <option selected="true" disabled="disabled">--Please choose an option--</option>
+                                <label class="control-label ">Chọn mã sân bay đến</label>
+                                <select class="form-control col-md-8 " id="MaSB" name="SanBayDen" type="text" required>
+                                    <option selected disabled="disabled">--Please choose an option--</option>
                                     @{
                                         foreach (var item01 in masb)
                                         {
-                                            <option value="@item01.MaSB">@item01.MaSB  (@item01.TenSB)</option>
+                                            <option value="@item01.MaSB">@item01.MaSB - (@item01.TenSB)</option>
                                         }
                                     }
                                 </select>
@@ -317,7 +318,9 @@
         </div>
     </div>
 </div>
+
 @section script{
+
     <script>
         LoadData();
         $(document).ready(function () {
@@ -406,5 +409,62 @@
                 }
             })
         }
+
+        function checkInput() {
+            var input = $('#InputMaSB').val();
+            if (input === '') {
+                $('#error').html('Bạn phải nhập thông tin');
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/NhanVien/KTtenSB",
+                    data: { input: input },
+                    success: function (result) {
+                        if (result.isValid) {
+                            $('#error').html('');
+                        } else {
+                            $('#error').html('Sân bay này đã có sẵn');
+                        }
+                    }
+                });
+            }
+        }
+
+    </script>
+    <script>
+        //Kiểm tra mã sân bay có bị trùng
+        $("#InputMaSB").on('input', function () {
+            var inputval = $(this).val();
+            var isDuplicate = false;
+            
+            //Tạo một Ajax request với controller và action tương ứng
+            $.ajax({
+                url: '@Url.Action("KTtenSB","NhanVien")',
+                type: 'POST',
+                data: {
+                    input:inputval
+                },
+                success: function (response) {
+                    if (response) {
+                        //Nếu dữ liệu đã tồn tại, hiển thị thông báo
+                        isDuplicate = true;
+                        var html = '<p> Dữ liệu đã tồn tại</p>'
+                        $('#error').html(html);
+                        $("#btnSave").attr("disabled", "disabled");
+                    } else {
+                        if (inputval.length == 0) {
+                            var html1 = ''
+                            $('#error').html(html1);
+                            $("#btnSave").prop("disabled", false);
+                        } else {
+                            var html1 = 'Checking...'
+                            $('#error').html(html1);
+                            $("#btnSave").prop("disabled", false);
+                        }
+                        
+                    }
+                }
+            })
+        })
     </script>
 }

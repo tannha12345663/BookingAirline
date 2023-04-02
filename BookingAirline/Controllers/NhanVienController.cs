@@ -201,6 +201,19 @@ namespace BookingAirline.Controllers
 
             return View();
         }
+        [HttpPost]
+        public JsonResult KTtenSB(string input)
+        {
+            bool isDuplicate = false;
+            var check = database.SanBays.Where(s => s.MaSB == input).FirstOrDefault();
+            if (check!=null)
+            {
+                isDuplicate = true;
+                return Json(isDuplicate,JsonRequestBehavior.AllowGet);
+            }
+            return Json(isDuplicate, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public JsonResult GetData()
         {
@@ -246,6 +259,7 @@ namespace BookingAirline.Controllers
             if (sb != null)
             {
                 database.SanBays.Add(sb);
+
                 try
                 {
                     database.SaveChanges();

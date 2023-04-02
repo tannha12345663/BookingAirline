@@ -126,9 +126,12 @@
                             <td>@item01.SoLuongGheHang1</td>
                             <td>@item01.SoLuongGheHang2</td>
                             <td>@item01.SoLuongGheHang3</td>
-                            @{ var slgh = item01.SoLuongGheHang1 + item01.SoLuongGheHang2 + item01.SoLuongGheHang3;}
+                            @{ 
+                                var checkdsve = database.Ves.Where(s => s.MaCB == item01.MaCB && s.TinhTrang == "Đã thanh toán").Count();
+                                var slgh = item01.SoLuongGheHang1 + item01.SoLuongGheHang2 + item01.SoLuongGheHang3;
+                                var slveconlai = slgh - checkdsve;}
                             <td>
-                                @slgh
+                                @slveconlai
                             </td>
                             <td>
                                 @{ var ctcb = database.ChiTietChuyenBays.Where(s => s.MaCTCB == item01.MaCB).FirstOrDefault();

@@ -302,6 +302,9 @@ namespace BookingAirline.Controllers
             database.HoaDons.Add(themhd);
             database.SaveChanges();
 
+            
+            
+
             //Thêm chi tiết hóa đơn
             ChiTietHD cthd = new ChiTietHD();
             cthd.MaHD = themhd.MaHD;
@@ -323,6 +326,16 @@ namespace BookingAirline.Controllers
                 cthd.TongTien = (item.soLuong) * (item.idVe.GiaVe);
                 database.ChiTietHDs.Add(cthd);
                 database.SaveChanges();
+
+                //Tiến hành thiết lập tạo phiếu đặt chỗ cho khách hàng
+                PhieuDatCho pdc = new PhieuDatCho();
+                pdc.MaPhieu = "PDC" + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9);
+                pdc.MaCB = cthd.MaCB;
+                pdc.CCCD = themhd.CCCD;
+                pdc.NgayDat = System.DateTime.Now;
+                pdc.SoGhe = cthd.MaVe;
+                database.PhieuDatChoes.Add(pdc);
+                database.SaveChanges();
             }
             if (maveve != null)
             {
@@ -330,7 +343,9 @@ namespace BookingAirline.Controllers
                 database.Entry(maveve).State = System.Data.Entity.EntityState.Modified;
                 database.SaveChanges();
             };
+            
 
+            //Render form gửi email về cho khách hàng
             string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/Template/HtmlPage1.html"));
             content = content.Replace("{{CustomerName}}", ttkh.ShipName);
             content = content.Replace("{{Phone}}", ttkh.NumberPhone);
