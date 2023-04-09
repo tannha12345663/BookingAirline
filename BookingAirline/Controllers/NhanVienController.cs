@@ -198,7 +198,6 @@ namespace BookingAirline.Controllers
 
         public ActionResult FlightRoute()
         {
-
             return View();
         }
         [HttpGet]
@@ -239,6 +238,7 @@ namespace BookingAirline.Controllers
         //    }
             
         //}
+
         //Áp dụng Ajax vào chức năng thêm mới sân bay
         [HttpPost]
         public ActionResult AddAirport(SanBay sb)
