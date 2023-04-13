@@ -115,7 +115,7 @@ namespace BookingAirline.Controllers
         }
         public ActionResult DSachCB()
         {
-            Session["From"] = Request["from"];
+            Session["From"] = Request["from"];  
             Session["To"] = Request["to"];
             Session["Trip"] = Request["trip"];
             Session["Return"] = Request["return"];
