@@ -195,10 +195,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\OrderStatu.cs">
+    <Compile Include="Models\OrderStatus.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\Phi.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -291,6 +290,7 @@
     <Content Include="Content\images\logo-vietnamAL.png" />
     <Content Include="Content\images\Vietjet-Air-Logo-PNG-3.png" />
     <Content Include="Content\index.css" />
+    <Content Include="Content\resetpass.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Template\HtmlPage1.html" />
     <Content Include="favicon.ico" />
@@ -313,6 +313,7 @@
     <Content Include="hinh\Cooplogo\thai-airway-logo.png" />
     <Content Include="hinh\Cooplogo\VJ.png" />
     <Content Include="hinh\Cooplogo\VNEl.png" />
+    <Content Include="hinh\detailCus01.jpg" />
     <Content Include="hinh\evening-event.jpg" />
     <Content Include="hinh\fitness-service.jpg" />
     <Content Include="hinh\Fly.jpg" />
@@ -361,23 +362,6 @@
     <Content Include="fonts\fontawesome-webfontd41d.eot" />
     <Content Include="fonts\glyphicons-halflings-regulard41d.eot" />
     <Content Include="hinh\weather-main1.jpg" />
-    <Content Include="Models\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\admin\css\.DS_Store" />
     <Content Include="Content\admin\fonts\LineIcons.eot" />
     <Content Include="Content\admin\fonts\LineIcons.ttf" />
@@ -417,6 +401,16 @@
     <Content Include="Content\admin\scss\_mixin.scss" />
     <Content Include="Content\admin\scss\_sidebar.scss" />
     <Content Include="Content\admin\scss\_variables.scss" />
+    <Content Include="Models\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -445,6 +439,13 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.6.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.1.js" />
     <Content Include="Scripts\jquery-3.6.1.min.js" />
@@ -474,6 +475,7 @@
     <Content Include="Style\Css\aboutStyle.css" />
     <Content Include="Style\Css\Admin\adminlte.min.css" />
     <Content Include="Style\Css\Admin\all.min.css" />
+    <Content Include="Style\Css\Admin\DetailCus.css" />
     <Content Include="Style\Css\Admin\icheck-bootstrap.min.css" />
     <Content Include="Style\Css\Admin\icon.css" />
     <Content Include="Style\Css\Admin\js\adminlte.min.js" />
@@ -570,8 +572,13 @@
     <Content Include="Views\NhanVien\TicketManagement.cshtml" />
     <Content Include="Views\KhachHang\ChooseSeat.cshtml" />
     <Content Include="Views\KhachHangHA\ChooseSeat.cshtml" />
-    <Content Include="Views\NhanVien\Setting.cshtml" />
     <Content Include="Views\NhanVien\Staff.cshtml" />
+    <Content Include="Views\NhanVien\EditMyinfor.cshtml" />
+    <Content Include="Views\NhanVien\Myinfor.cshtml" />
+    <Content Include="Views\NhanVien\CustomerManagement.cshtml" />
+    <Content Include="Views\NhanVien\DetailCus.cshtml" />
+    <Content Include="Views\LoginUser\ResetPass.cshtml" />
+    <Content Include="Views\NhanVien\DetailStaff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

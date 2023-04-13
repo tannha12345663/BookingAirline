@@ -25,23 +25,23 @@ namespace BookingAirline.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ChiTietChuyenBay> ChiTietChuyenBays { get; set; }
-        public virtual DbSet<ChiTietHD> ChiTietHDs { get; set; }
-        public virtual DbSet<ChucVu> ChucVus { get; set; }
-        public virtual DbSet<ChuyenBay> ChuyenBays { get; set; }
-        public virtual DbSet<DoanhThuNam> DoanhThuNams { get; set; }
-        public virtual DbSet<DoanhThuThang> DoanhThuThangs { get; set; }
-        public virtual DbSet<HangVe> HangVes { get; set; }
-        public virtual DbSet<HoaDon> HoaDons { get; set; }
-        public virtual DbSet<KhachHang> KhachHangs { get; set; }
-        public virtual DbSet<LoaiKH> LoaiKHs { get; set; }
-        public virtual DbSet<MayBay> MayBays { get; set; }
-        public virtual DbSet<NhanVien> NhanViens { get; set; }
-        public virtual DbSet<OrderStatu> OrderStatus { get; set; }
-        public virtual DbSet<Phi> Phis { get; set; }
-        public virtual DbSet<PhieuDatCho> PhieuDatChoes { get; set; }
-        public virtual DbSet<SanBay> SanBays { get; set; }
-        public virtual DbSet<TuyenBay> TuyenBays { get; set; }
-        public virtual DbSet<Ve> Ves { get; set; }
+        public virtual DbSet<ChiTietChuyenBay> ChiTietChuyenBay { get; set; }
+        public virtual DbSet<ChiTietHD> ChiTietHD { get; set; }
+        public virtual DbSet<ChucVu> ChucVu { get; set; }
+        public virtual DbSet<ChuyenBay> ChuyenBay { get; set; }
+        public virtual DbSet<DoanhThuNam> DoanhThuNam { get; set; }
+        public virtual DbSet<DoanhThuThang> DoanhThuThang { get; set; }
+        public virtual DbSet<HangVe> HangVe { get; set; }
+        public virtual DbSet<HoaDon> HoaDon { get; set; }
+        public virtual DbSet<KhachHang> KhachHang { get; set; }
+        public virtual DbSet<LoaiKH> LoaiKH { get; set; }
+        public virtual DbSet<MayBay> MayBay { get; set; }
+        public virtual DbSet<NhanVien> NhanVien { get; set; }
+        public virtual DbSet<OrderStatus> OrderStatus { get; set; }
+        public virtual DbSet<Phi> Phi { get; set; }
+        public virtual DbSet<PhieuDatCho> PhieuDatCho { get; set; }
+        public virtual DbSet<SanBay> SanBay { get; set; }
+        public virtual DbSet<TuyenBay> TuyenBay { get; set; }
+        public virtual DbSet<Ve> Ve { get; set; }
     }
 }

@@ -42,11 +42,11 @@
                     </div>
                 </div>
 
-                @{ var ctcb = database.ChiTietChuyenBays.Where(m => m.MaCTCB == Model.MaCB).FirstOrDefault();}
+                @{ var ctcb = database.ChiTietChuyenBay.Where(m => m.MaCTCB == Model.MaCB).FirstOrDefault();}
                 <div class="form-group col-md-3">
                     <label class="control-label">Sân bay trung gian:</label>
                     <select class="form-control " name="SanBayTrungGian" type="text" required>
-                        @{ var sb = database.SanBays.ToList();
+                        @{ var sb = database.SanBay.ToList();
                             <option value="@ctcb.SanBayTrungGian">@ctcb.SanBayTrungGian</option>
                             foreach (var item in sb)
                             {

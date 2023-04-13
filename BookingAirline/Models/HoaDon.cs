@@ -17,8 +17,8 @@ namespace BookingAirline.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HoaDon()
         {
-            this.ChiTietHDs = new HashSet<ChiTietHD>();
-            this.DoanhThuThangs = new HashSet<DoanhThuThang>();
+            this.ChiTietHD = new HashSet<ChiTietHD>();
+            this.DoanhThuThang = new HashSet<DoanhThuThang>();
         }
     
         public string MaHD { get; set; }
@@ -31,9 +31,9 @@ namespace BookingAirline.Models
         public string CCCD { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietHD> ChiTietHDs { get; set; }
+        public virtual ICollection<ChiTietHD> ChiTietHD { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DoanhThuThang> DoanhThuThangs { get; set; }
+        public virtual ICollection<DoanhThuThang> DoanhThuThang { get; set; }
         public virtual KhachHang KhachHang { get; set; }
         public virtual NhanVien NhanVien { get; set; }
         public virtual Phi Phi { get; set; }

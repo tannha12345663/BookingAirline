@@ -17,16 +17,16 @@ namespace BookingAirline.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SanBay()
         {
-            this.TuyenBays = new HashSet<TuyenBay>();
-            this.TuyenBays1 = new HashSet<TuyenBay>();
+            this.TuyenBay = new HashSet<TuyenBay>();
+            this.TuyenBay1 = new HashSet<TuyenBay>();
         }
     
         public string MaSB { get; set; }
         public string TenSB { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TuyenBay> TuyenBays { get; set; }
+        public virtual ICollection<TuyenBay> TuyenBay { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TuyenBay> TuyenBays1 { get; set; }
+        public virtual ICollection<TuyenBay> TuyenBay1 { get; set; }
     }
 }

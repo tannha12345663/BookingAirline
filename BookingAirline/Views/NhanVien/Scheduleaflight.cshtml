@@ -103,7 +103,7 @@
                 </tr>
             </thead>
             <tbody>
-                @{ var ttcb = database.ChuyenBays.ToList();
+                @{ var ttcb = database.ChuyenBay.ToList();
                     foreach (var item01 in ttcb)
                     {
                         <tr>
@@ -124,7 +124,7 @@
                                 @slgh
                             </td>
                             <td>
-                                @{ var ctcb = database.ChiTietChuyenBays.Where(s => s.MaCTCB == item01.MaCB).FirstOrDefault();
+                                @{ var ctcb = database.ChiTietChuyenBay.Where(s => s.MaCTCB == item01.MaCB).FirstOrDefault();
                                     if (ctcb != null)
                                     {
                                         <a href="~/NhanVien/DetailFlight/@item01.MaCB" class="btn btn-info btn-sm edit">
@@ -215,7 +215,7 @@
                             <div class="form-group col-md-6">
                                 <label class="control-label">Chọn mã máy bay</label>
                                 <select class="form-control " name="MaMB" type="text" required>
-                                    @{ var mb = database.MayBays.ToList();
+                                    @{ var mb = database.MayBay.ToList();
                                         foreach (var item in mb)
                                         {
                                             <option value="@item.MaMB">@item.MaMB</option>
@@ -226,7 +226,7 @@
                             <div class="form-group col-md-6">
                                 <label class="control-label">Chọn mã tuyến bay</label>
                                 <select class="form-control " name="MaTBay" type="text" required>
-                                    @{ var tb = database.TuyenBays.ToList();
+                                    @{ var tb = database.TuyenBay.ToList();
                                         foreach (var item in tb)
                                         {
                                             <option value="@item.MaTBay">@item.MaTBay</option>

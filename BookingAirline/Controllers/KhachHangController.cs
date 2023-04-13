@@ -22,8 +22,8 @@ namespace BookingAirline.Controllers
 
             //Lọc tìm kiếm chuyến bay
             var di = Request["From"].ToString();
-            var chuyendi = database.TuyenBays.Where(s => s.SanBayDi == di).FirstOrDefault();
-            var listdi = database.ChuyenBays.Where(s => s.MaTBay == chuyendi.MaTBay).ToList();
+            var chuyendi = database.TuyenBay.Where(s => s.SanBayDi == di).FirstOrDefault();
+            var listdi = database.ChuyenBay.Where(s => s.MaTBay == chuyendi.MaTBay).ToList();
             //Hiển thị danh sách các chuyến bay
             return View(listdi);
         }
@@ -31,7 +31,7 @@ namespace BookingAirline.Controllers
         public ActionResult DSachCBVe(string id)
         {
             var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
-            OrderStatu order = new OrderStatu();
+            OrderStatus order = new OrderStatus();
             order.IDUser = uid;
             var count = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
             //Kiểm tra nếu là khứ hồi
@@ -64,8 +64,8 @@ namespace BookingAirline.Controllers
                 database.SaveChanges();
                 //Kiểm tra và xuất dữ liệu vé theo trước
                 var to = Session["To"].ToString();
-                var chuyenve = database.TuyenBays.Where(s => s.SanBayDi == to).FirstOrDefault();
-                var listcv = database.ChuyenBays.Where(s => s.MaTBay == chuyenve.MaTBay).ToList();
+                var chuyenve = database.TuyenBay.Where(s => s.SanBayDi == to).FirstOrDefault();
+                var listcv = database.ChuyenBay.Where(s => s.MaTBay == chuyenve.MaTBay).ToList();
                 return View(listcv);
             }
 
@@ -77,7 +77,7 @@ namespace BookingAirline.Controllers
             if (check == "round")
             {
                 var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
-                OrderStatu order = new OrderStatu();
+                OrderStatus order = new OrderStatus();
                 order = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
                 order.MaCBve = id;
                 database.Entry(order).State = System.Data.Entity.EntityState.Modified;
@@ -148,7 +148,7 @@ namespace BookingAirline.Controllers
         {
             var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
             var dsorder = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
-            var dsve = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi).ToList();
+            var dsve = database.Ve.Where(s => s.MaCB == dsorder.MaCBdi).ToList();
             return View(dsve);
         }
         [HttpPost]
@@ -162,7 +162,7 @@ namespace BookingAirline.Controllers
             int check = 0;
             var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
             var dsorder = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
-            var dsve = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi).ToList();
+            var dsve = database.Ve.Where(s => s.MaCB == dsorder.MaCBdi).ToList();
             for(int i =1; i <= dsve.Count(); i++)
             {
                 if( Request["Ma" + i] != null)
@@ -170,7 +170,7 @@ namespace BookingAirline.Controllers
                     //14/03/2023 Suy nghĩ làm thêm luồn xử lý dữ liệu
                     //Add thông tin vé vào giỏ hàng
                     var ticket = Request["Ma" + i];
-                    var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi && s.MaVe == ticket).FirstOrDefault();
+                    var detailtic = database.Ve.Where(s => s.MaCB == dsorder.MaCBdi && s.MaVe == ticket).FirstOrDefault();
                     GetCart().Add(detailtic,1);
                     
                     check++;
@@ -214,7 +214,7 @@ namespace BookingAirline.Controllers
             var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
             var kh = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
             
-            var maveve = database.Ves.Where(s => s.MaCB == kh.MaCBve).FirstOrDefault();
+            var maveve = database.Ve.Where(s => s.MaCB == kh.MaCBve).FirstOrDefault();
             var ttkh = (Order)Session["contacKH"]; // Thông tin liên lạc của KH
             var tongtien = string.Format("{0:0,0 vnđ}", ttkh.Total);
             //mavedi.TinhTrang = "Đã thanh toán";
@@ -229,7 +229,7 @@ namespace BookingAirline.Controllers
             themhd.NgayLap = System.DateTime.Now;
             themhd.ThanhTien = ttkh.Total;
             themhd.CCCD = ttkh.CCCD;
-            database.HoaDons.Add(themhd);
+            database.HoaDon.Add(themhd);
             database.SaveChanges();
 
             //Thêm chi tiết hóa đơn
@@ -240,7 +240,7 @@ namespace BookingAirline.Controllers
             var dsorder = cart.Items;
             foreach (var item in dsorder)
             {
-                var mavedi = database.Ves.Where(s => s.MaVe == item.idVe.MaVe && s.MaCB == item.idVe.MaCB).FirstOrDefault();
+                var mavedi = database.Ve.Where(s => s.MaVe == item.idVe.MaVe && s.MaCB == item.idVe.MaCB).FirstOrDefault();
                 mavedi.TinhTrang = "Đã thanh toán";
                 mavedi.CCCD = ttkh.CCCD;
                 database.Entry(mavedi).State = System.Data.Entity.EntityState.Modified;
@@ -251,7 +251,7 @@ namespace BookingAirline.Controllers
                 cthd.DonGia = item.idVe.GiaVe;
                 cthd.MaCB = item.idVe.MaCB;
                 cthd.TongTien = (item.soLuong) * (item.idVe.GiaVe);
-                database.ChiTietHDs.Add(cthd);
+                database.ChiTietHD.Add(cthd);
                 database.SaveChanges();
             }
             if (maveve != null)

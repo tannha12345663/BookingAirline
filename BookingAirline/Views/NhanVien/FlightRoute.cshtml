@@ -112,13 +112,13 @@
             </thead>
             <tbody>
                 @{
-                    var dstb = database.TuyenBays.ToList();
+                    var dstb = database.TuyenBay.ToList();
 
                     foreach (var item01 in dstb)
                     {
                         <tr>
-                            @{ var tensbdi = database.SanBays.Find(item01.SanBayDi);
-                                var tensbden = database.SanBays.Find(item01.SanBayDen);}
+                            @{ var tensbdi = database.SanBay.Find(item01.SanBayDi);
+                                var tensbden = database.SanBay.Find(item01.SanBayDen);}
                             <td>@item01.MaTBay</td>
                             <td>@item01.SanBayDi</td>
                             <td>@tensbdi.TenSB</td>
@@ -206,7 +206,7 @@
                                 <label class="control-label">Chọn mã sân bay đi</label>
                                 <select class="form-control" id="MaSB" name="SanBayDi" type="text" required>
                                     <option selected="true" disabled="disabled">--Please choose an option--</option>
-                                    @{ var masb = database.SanBays.ToList();
+                                    @{ var masb = database.SanBay.ToList();
                                         foreach (var item in masb)
                                         {
                                             <option value="@item.MaSB">@item.MaSB (@item.TenSB)</option>
@@ -260,7 +260,7 @@
                             <div class="form-group col-md-12">
                                 <label class="control-label">Chọn mã sân bay</label>
                                 <select class="form-control " name="MaSB" type="text" required>
-                                    @{ var masb01 = database.SanBays.ToList();
+                                    @{ var masb01 = database.SanBay.ToList();
                                         foreach (var item in masb01)
                                         {
                                             <option value="@item.MaSB">@item.MaSB</option>

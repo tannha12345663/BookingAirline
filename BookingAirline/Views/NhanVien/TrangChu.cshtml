@@ -1,7 +1,9 @@
-﻿
+﻿@model IEnumerable<BookingAirline.Models.NhanVien>
+@using BookingAirline.Models
 @{
     ViewBag.Title = "TrangChu";
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
+    BookingAirLightEntities db = new BookingAirLightEntities();
 }
 <head>
     <meta charset="UTF-8" />
@@ -176,267 +178,53 @@
                             </div>
                         </div>
                         @*End Title*@
-                        <div class="table-responsive">
-                            <table class="table top-selling-table">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <h6 class="text-sm text-medium">Mã vé</h6>
-                                        </th>
-                                        <th class="min-width">
-                                            <h6 class="text-sm text-medium">
-                                                Hạng vé <i class="lni lni-arrows-vertical"></i>
-                                            </h6>
-                                        </th>
-                                        <th class="min-width">
-                                            <h6 class="text-sm text-medium">
-                                                Giá vé <i class="lni lni-arrows-vertical"></i>
-                                            </h6>
-                                        </th>
-                                        <th class="min-width">
-                                            <h6 class="text-sm text-medium">
-                                            </h6>
-                                        </th>
+                        <div class="card mb-4">
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="product">
-                                                <p class="text-sm">VE1</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm">HV01</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm">1550000</p>
-                                        </td>
 
-                                        <td>
-                                            <div class="action justify-content-end">
-                                                <button class="edit">
-                                                    <i class="lni lni-pencil"></i>
-                                                </button>
-                                                <button class="more-btn ml-10 dropdown-toggle"
-                                                        id="moreAction1"
-                                                        data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                    <i class="lni lni-more-alt"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="moreAction1">
-                                                    <li class="dropdown-item">
-                                                        <a href="#0" class="text-gray">Remove</a>
-                                                    </li>
-                                                    <li class="dropdown-item">
-                                                        <a href="#0" class="text-gray">Edit</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="product">
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        @*//Phần render*@
+                                        <tr>
+                                            <th>Mã chuyến bay</th>
+                                            <th>Mã vé</th>
+                                            <th>Số lượng</th>
+                                            <th>Tổng tiền</th>
 
-                                                <p class="text-sm">VE10</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm">HV01</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm">1550000</p>
-                                        </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{ var ttkh = db.ChiTietHD.ToList();
+                                            foreach (var item in ttkh)
+                                            {
+                                                <tr>
+                                                    <td>@item.MaCB</td>
+                                                    <td>@item.MaVe</td>
+                                                    <td>@item.SoLuong</td>
+                                                    <td>@item.TongTien</td>
 
-                                        <td>
-                                            <div class="action justify-content-end">
-                                                <button class="edit">
-                                                    <i class="lni lni-pencil"></i>
-                                                </button>
-                                                <button class="more-btn ml-10 dropdown-toggle"
-                                                        id="moreAction1"
-                                                        data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                    <i class="lni lni-more-alt"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="moreAction1">
-                                                    <li class="dropdown-item">
-                                                        <a href="#0" class="text-gray">Remove</a>
-                                                    </li>
-                                                    <li class="dropdown-item">
-                                                        <a href="#0" class="text-gray">Edit</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="product">
 
-                                                <p class="text-sm">VE11</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm">HV02</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm">1230000</p>
-                                        </td>
+                                                </tr>
+                                            }
+                                        }
 
-                                        <td>
-                                            <div class="action justify-content-end">
-                                                <button class="edit">
-                                                    <i class="lni lni-pencil"></i>
-                                                </button>
-                                                <button class="more-btn ml-10 dropdown-toggle"
-                                                        id="moreAction1"
-                                                        data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                    <i class="lni lni-more-alt"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="moreAction1">
-                                                    <li class="dropdown-item">
-                                                        <a href="#0" class="text-gray">Remove</a>
-                                                    </li>
-                                                    <li class="dropdown-item">
-                                                        <a href="#0" class="text-gray">Edit</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="product">
-
-                                                <p class="text-sm">VE12</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm">HV02</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm">1230000</p>
-                                        </td>
-
-                                        <td>
-                                            <div class="action justify-content-end">
-                                                <button class="edit">
-                                                    <i class="lni lni-pencil"></i>
-                                                </button>
-                                                <button class="more-btn ml-10 dropdown-toggle"
-                                                        id="moreAction1"
-                                                        data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                    <i class="lni lni-more-alt"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="moreAction1">
-                                                    <li class="dropdown-item">
-                                                        <a href="#0" class="text-gray">Remove</a>
-                                                    </li>
-                                                    <li class="dropdown-item">
-                                                        <a href="#0" class="text-gray">Edit</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="product">
-
-                                                <p class="text-sm">VE13</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm">HV02</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm">1230000</p>
-                                        </td>
-
-                                        <td>
-                                            <div class="action justify-content-end">
-                                                <button class="edit">
-                                                    <i class="lni lni-pencil"></i>
-                                                </button>
-                                                <button class="more-btn ml-10 dropdown-toggle"
-                                                        id="moreAction1"
-                                                        data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                    <i class="lni lni-more-alt"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="moreAction1">
-                                                    <li class="dropdown-item">
-                                                        <a href="#0" class="text-gray">Remove</a>
-                                                    </li>
-                                                    <li class="dropdown-item">
-                                                        <a href="#0" class="text-gray">Edit</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="product">
-
-                                                <p class="text-sm">VE15</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm">HV02</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm">1230000</p>
-                                        </td>
-
-                                        <td>
-                                            <div class="action justify-content-end">
-                                                <button class="edit">
-                                                    <i class="lni lni-pencil"></i>
-                                                </button>
-                                                <button class="more-btn ml-10 dropdown-toggle"
-                                                        id="moreAction1"
-                                                        data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                    <i class="lni lni-more-alt"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="moreAction1">
-                                                    <li class="dropdown-item">
-                                                        <a href="#0" class="text-gray">Remove</a>
-                                                    </li>
-                                                    <li class="dropdown-item">
-                                                        <a href="#0" class="text-gray">Edit</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- End Table -->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
-                <!-- End Col -->
             </div>
-            <!-- End Row -->
+            <!-- End Col -->
+        </div>
+        <!-- End Row -->
         </div>
         <!-- end container -->
     </section>
     <!-- ========== section end ========== -->
     <!-- ======== main-wrapper end =========== -->
-    
+
 
     <script>
 

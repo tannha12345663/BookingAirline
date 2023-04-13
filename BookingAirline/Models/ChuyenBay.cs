@@ -17,9 +17,9 @@ namespace BookingAirline.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ChuyenBay()
         {
-            this.ChiTietChuyenBays = new HashSet<ChiTietChuyenBay>();
-            this.PhieuDatChoes = new HashSet<PhieuDatCho>();
-            this.Ves = new HashSet<Ve>();
+            this.ChiTietChuyenBay = new HashSet<ChiTietChuyenBay>();
+            this.PhieuDatCho = new HashSet<PhieuDatCho>();
+            this.Ve = new HashSet<Ve>();
         }
     
         public string MaCB { get; set; }
@@ -32,12 +32,12 @@ namespace BookingAirline.Models
         public Nullable<int> SoLuongGheHang3 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietChuyenBay> ChiTietChuyenBays { get; set; }
+        public virtual ICollection<ChiTietChuyenBay> ChiTietChuyenBay { get; set; }
         public virtual MayBay MayBay { get; set; }
         public virtual TuyenBay TuyenBay { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuDatCho> PhieuDatChoes { get; set; }
+        public virtual ICollection<PhieuDatCho> PhieuDatCho { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ve> Ves { get; set; }
+        public virtual ICollection<Ve> Ve { get; set; }
     }
 }

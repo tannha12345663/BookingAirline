@@ -15,7 +15,7 @@ namespace BookingAirline.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            return View(database.ChuyenBays.ToList());
+            return View(database.ChuyenBay.ToList());
         }
         #region Thêm vé
         //public ActionResult Create() 

@@ -13,7 +13,7 @@ namespace BookingAirline.Controllers
         // GET: Ticket
         public ActionResult Index()
         {
-            return View(database.Ves.ToList());
+            return View(database.Ve.ToList());
         }
 
         //  CREATE TICKET
@@ -26,7 +26,7 @@ namespace BookingAirline.Controllers
         {
             try
             {
-                database.Ves.Add(ve);
+                database.Ve.Add(ve);
                 database.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -39,14 +39,14 @@ namespace BookingAirline.Controllers
         //DETAIL TICKET
         public ActionResult Details(string maVe)
         {
-            return View(database.Ves.Where(s => s.MaVe.Contains(maVe)).ToList());
+            return View(database.Ve.Where(s => s.MaVe.Contains(maVe)).ToList());
         }
 
 
         //EDIT TICKET
         public ActionResult Edit(string maVe)
         {
-            return View(database.Ves.Where(s => s.MaVe.Contains(maVe)).ToList());
+            return View(database.Ve.Where(s => s.MaVe.Contains(maVe)).ToList());
         }
 
         [HttpPost]
@@ -60,7 +60,7 @@ namespace BookingAirline.Controllers
         //DELETE TICKET
         public ActionResult Delete(string maVe)
         {
-            return View(database.Ves.Where(s => s.MaVe.Contains(maVe)).ToList());
+            return View(database.Ve.Where(s => s.MaVe.Contains(maVe)).ToList());
         }
 
 

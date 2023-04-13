@@ -1,7 +1,9 @@
-﻿
+﻿@model BookingAirline.Models.ChuyenBay
+@using BookingAirline.Models
 @{
     ViewBag.Title = "Whishlist";
     Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
+    BookingAirLightEntities database = new BookingAirLightEntities();
 }
 
 <!-- Google Fonts -->
@@ -35,7 +37,7 @@
 
                             <div class="col-xs-12 col-sm-2 col-md-2 dashboard-nav">
                                 <ul class="nav nav-tabs nav-stacked text-center">
-                                    <li ><a href="~/KhachHangHA/ThongTinKH"><span><i class="fa fa-cogs"></i></span>Dashboard</a></li>
+                                    <li><a href="~/KhachHangHA/ThongTinKH"><span><i class="fa fa-cogs"></i></span>Dashboard</a></li>
                                     <li><a href="~/KhachHangHA/ThongtinCaNhan"><span><i class="fa fa-user"></i></span>Profile</a></li>
                                     <li><a href="~/KhachHangHA/Booking"><span><i class="fa fa-briefcase"></i></span>Booking</a></li>
                                     <li class="active"><a href="~/KhachHangHA/Whishlist"><span><i class="fa fa-heart"></i></span>Wishlist</a></li>
@@ -47,90 +49,130 @@
                                 <h2 class="dash-content-title">Your Wish List</h2>
                                 <div class="table-responsive">
                                     <table class="table table-hover">
+                                        
                                         <tbody>
-                                            <tr class="list-content">
-                                                <td class="list-img wishlist-img"><img src="images/wishlist.jpg" class="img-responsive" alt="wishlist-img" /></td>
-                                                <td class="list-text wishlist-text">
-                                                    <h3>
-                                                        Grand Lilly
-                                                        <span class="rating">
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star lightgrey"></i>
-                                                        </span>
-                                                    </h3>
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                                                    <p class="order"><span>Order Total:</span> $548</p>
-                                                    <button class="btn btn-orange">Book Now</button>
-                                                    <button class="btn btn-lightgrey visible-sm pull-right">Remove</button>
-                                                </td>
-                                                <td class="wishlist-btn hidden-sm"><button class="btn btn-lightgrey">Remove</button></td>
-                                            </tr>
+                                            @{ var ttcb = database.ChuyenBay.ToList();
+                                                foreach (var item01 in ttcb)
+                                                {
+                                                    <tr>
+                                                        <td>@item01.MaCB</td>
+                                                        <td>@item01.MaMB</td>
+                                                        <td>@item01.MaTBay</td>
+                                                        <td>@item01.NgayGio</td>
+                                                        <td>@item01.ThoiGianBay</td>
+                                                        @{ var tongghe = item01.SoLuongGheHang1 + item01.SoLuongGheHang2 + item01.SoLuongGheHang3;}
+                                                        <td>
+                                                            @tongghe
+                                                        </td>
+                                                        <td>@item01.SoLuongGheHang1</td>
+                                                        <td>@item01.SoLuongGheHang2</td>
+                                                        <td>@item01.SoLuongGheHang3</td>
+                                                        @{ var slgh = item01.SoLuongGheHang1 + item01.SoLuongGheHang2 + item01.SoLuongGheHang3;}
+                                                        <td>
+                                                            @slgh
+                                                        </td>
+                                                        <td>
+                                                            @{ var ctcb = database.ChiTietChuyenBay.Where(s => s.MaCTCB == item01.MaCB).FirstOrDefault();
+                                                                if (ctcb != null)
+                                                                {
+                                                                    <a href="~/NhanVien/DetailFlight/@item01.MaCB" class="btn btn-info btn-sm edit">
+                                                                        <i class="fa fa-edit"></i>
+                                                                    </a>
+                                                                }
+                                                            }
 
-                                            <tr class="list-content">
-                                                <td class="list-img wishlist-img"><img src="images/wishlist.jpg" class="img-responsive" alt="wishlist-img" /></td>
-                                                <td class="list-text wishlist-text">
-                                                    <h3>
-                                                        Grand Lilly
-                                                        <span class="rating">
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star lightgrey"></i>
-                                                        </span>
-                                                    </h3>
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                                                    <p class="order"><span>Order Total:</span> $548</p>
-                                                    <button class="btn btn-orange">Book Now</button>
-                                                    <button class="btn btn-lightgrey visible-sm pull-right">Remove</button>
-                                                </td>
-                                                <td class="wishlist-btn hidden-sm"><button class="btn btn-lightgrey">Remove</button></td>
-                                            </tr>
+                                                           
+                                                            <button value="@item01.MaCB" id="MaCbay" data-toggle="modal" data-target="#myModal03" class="btn btn-danger btn-sm edit">
+                                                                <i class="fa fa-remove"></i>
+                                                            </button>
+                                                        
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            @*<tr class="list-content">
+                                                    <td class="list-img wishlist-img"><img src="images/wishlist.jpg" class="img-responsive" alt="wishlist-img" /></td>
+                                                    <td class="list-text wishlist-text">
+                                                        <h3>
+                                                            Grand Lilly
+                                                            <span class="rating">
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star lightgrey"></i>
+                                                            </span>
+                                                        </h3>
+                                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                                        <p class="order"><span>Order Total:</span> $548</p>
+                                                        <button class="btn btn-orange">Book Now</button>
+                                                        <button class="btn btn-lightgrey visible-sm pull-right">Remove</button>
+                                                    </td>
+                                                    <td class="wishlist-btn hidden-sm"><button class="btn btn-lightgrey">Remove</button></td>
+                                                </tr>
 
-                                            <tr class="list-content">
-                                                <td class="list-img wishlist-img"><img src="images/wishlist.jpg" class="img-responsive" alt="wishlist-img" /></td>
-                                                <td class="list-text wishlist-text">
-                                                    <h3>
-                                                        Grand Lilly
-                                                        <span class="rating">
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star lightgrey"></i>
-                                                        </span>
-                                                    </h3>
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                                                    <p class="order"><span>Order Total:</span> $548</p>
-                                                    <button class="btn btn-orange">Book Now</button>
-                                                    <button class="btn btn-lightgrey visible-sm pull-right">Remove</button>
-                                                </td>
-                                                <td class="wishlist-btn hidden-sm"><button class="btn btn-lightgrey">Remove</button></td>
-                                            </tr>
+                                                <tr class="list-content">
+                                                    <td class="list-img wishlist-img"><img src="images/wishlist.jpg" class="img-responsive" alt="wishlist-img" /></td>
+                                                    <td class="list-text wishlist-text">
+                                                        <h3>
+                                                            Grand Lilly
+                                                            <span class="rating">
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star lightgrey"></i>
+                                                            </span>
+                                                        </h3>
+                                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                                        <p class="order"><span>Order Total:</span> $548</p>
+                                                        <button class="btn btn-orange">Book Now</button>
+                                                        <button class="btn btn-lightgrey visible-sm pull-right">Remove</button>
+                                                    </td>
+                                                    <td class="wishlist-btn hidden-sm"><button class="btn btn-lightgrey">Remove</button></td>
+                                                </tr>
 
-                                            <tr class="list-content">
-                                                <td class="list-img wishlist-img"><img src="images/wishlist.jpg" class="img-responsive" alt="wishlist-img" /></td>
-                                                <td class="list-text wishlist-text">
-                                                    <h3>
-                                                        Grand Lilly
-                                                        <span class="rating">
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star orange"></i>
-                                                            <i class="fa fa-star lightgrey"></i>
-                                                        </span>
-                                                    </h3>
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                                                    <p class="order"><span>Order Total:</span> $548</p>
-                                                    <button class="btn btn-orange">Book Now</button>
-                                                    <button class="btn btn-lightgrey visible-sm pull-right">Remove</button>
-                                                </td>
-                                                <td class="wishlist-btn hidden-sm"><button class="btn btn-lightgrey">Remove</button></td>
-                                            </tr>
+                                                <tr class="list-content">
+                                                    <td class="list-img wishlist-img"><img src="images/wishlist.jpg" class="img-responsive" alt="wishlist-img" /></td>
+                                                    <td class="list-text wishlist-text">
+                                                        <h3>
+                                                            Grand Lilly
+                                                            <span class="rating">
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star lightgrey"></i>
+                                                            </span>
+                                                        </h3>
+                                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                                        <p class="order"><span>Order Total:</span> $548</p>
+                                                        <button class="btn btn-orange">Book Now</button>
+                                                        <button class="btn btn-lightgrey visible-sm pull-right">Remove</button>
+                                                    </td>
+                                                    <td class="wishlist-btn hidden-sm"><button class="btn btn-lightgrey">Remove</button></td>
+                                                </tr>
+
+                                                <tr class="list-content">
+                                                    <td class="list-img wishlist-img"><img src="images/wishlist.jpg" class="img-responsive" alt="wishlist-img" /></td>
+                                                    <td class="list-text wishlist-text">
+                                                        <h3>
+                                                            Grand Lilly
+                                                            <span class="rating">
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star orange"></i>
+                                                                <i class="fa fa-star lightgrey"></i>
+                                                            </span>
+                                                        </h3>
+                                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                                        <p class="order"><span>Order Total:</span> $548</p>
+                                                        <button class="btn btn-orange">Book Now</button>
+                                                        <button class="btn btn-lightgrey visible-sm pull-right">Remove</button>
+                                                    </td>
+                                                    <td class="wishlist-btn hidden-sm"><button class="btn btn-lightgrey">Remove</button></td>
+                                                </tr>*@
                                         </tbody>
                                     </table>
                                 </div><!-- end table-responsive -->

@@ -17,7 +17,7 @@ namespace BookingAirline.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LoaiKH()
         {
-            this.KhachHangs = new HashSet<KhachHang>();
+            this.KhachHang = new HashSet<KhachHang>();
         }
     
         public string MaLKH { get; set; }
@@ -25,6 +25,6 @@ namespace BookingAirline.Models
         public Nullable<double> ChietKhau { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KhachHang> KhachHangs { get; set; }
+        public virtual ICollection<KhachHang> KhachHang { get; set; }
     }
 }

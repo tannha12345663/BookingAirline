@@ -14,11 +14,12 @@ namespace BookingAirline.Models
     
     public partial class KhachHang
     {
+        BookingAirLightEntities db = new BookingAirLightEntities();
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KhachHang()
         {
-            this.HoaDons = new HashSet<HoaDon>();
-            this.Ves = new HashSet<Ve>();
+            this.HoaDon = new HashSet<HoaDon>();
+            this.Ve = new HashSet<Ve>();
         }
     
         public string IDKH { get; set; }
@@ -31,11 +32,15 @@ namespace BookingAirline.Models
         public string Email { get; set; }
         public string GioiTinh { get; set; }
         public string NgaySinh { get; set; }
+        public string HinhAnh { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HoaDon> HoaDons { get; set; }
+        public virtual ICollection<HoaDon> HoaDon { get; set; }
         public virtual LoaiKH LoaiKH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ve> Ves { get; set; }
+        public virtual ICollection<Ve> Ve { get; set; }
+
+        
     }
+
 }

@@ -17,7 +17,7 @@ namespace BookingAirline.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Ve()
         {
-            this.ChiTietHDs = new HashSet<ChiTietHD>();
+            this.ChiTietHD = new HashSet<ChiTietHD>();
         }
     
         public string MaVe { get; set; }
@@ -29,7 +29,7 @@ namespace BookingAirline.Models
         public string CCCD { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietHD> ChiTietHDs { get; set; }
+        public virtual ICollection<ChiTietHD> ChiTietHD { get; set; }
         public virtual ChuyenBay ChuyenBay { get; set; }
         public virtual HangVe HangVe { get; set; }
         public virtual KhachHang KhachHang { get; set; }

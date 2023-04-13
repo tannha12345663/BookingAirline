@@ -1,75 +1,41 @@
-﻿@using BookingAirline.Models
+﻿@model IEnumerable<BookingAirline.Models.NhanVien>
+@using BookingAirline.Models
 @{
     ViewBag.Title = "Staff";
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
     BookingAirLightEntities db = new BookingAirLightEntities();
 }
 
-
-
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="jquery-3.6.3.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
 @{
     var checkmess = (string)TempData["messageAlert"];
-    var idnv = (string)TempData["idnv"];
-    if (checkmess == "success")
+    var makh = (string)TempData["manhanvien"];
+    if (checkmess == "SuaNV")
     {
         <script>
             swal({
-                title: "Thêm thành công",
-                text: "Nhân viên  @idnv đã được thêm mới",
+                title: "Đã sửa thông tin nhân viên thành công",
+                text: "Thông tin hân viên đã được sửa đổi",
                 icon: "success",
                 button: "OK",
             });
         </script>
     }
-    else if (checkmess == "SuaThanhCong")
-    {
-        <script>
-            swal({
-                title: "Đã sửa thành công",
-                text: "Nhân viên  @idnv đã được sửa đổi mới",
-                icon: "success",
-                button: "OK",
-            });
-        </script>
-    }
-    else if (checkmess == "XoaThanhCong")
-    {
-        <script>
-            swal({
-                title: "Đã xóa thành công",
-                text: "Nhân viên @idnv đã được xóa",
-                icon: "success",
-                button: "OK",
-            });
-        </script>
-    };
-
-
 }
-
-<h2>Staff</h2>
-
-<br />
-<div class="row">
-    <div class="col-md-2 mb-2">
-        <div class="btn btn-secondary text-white">
-            <a data-toggle="modal" data-target="#myModal01">Add </a>
-            
-        </div>
-    </div>
-
-
-
-</div>
-<br />
-<br />
+<h2>Staff Management</h2>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+        <a href="~/NhanVien/TrangChu" style="text-decoration: none; color: #6c757d">
+            Dashboard
+        </a>
+    </li>
+    <li class="breadcrumb-item active">Staff Management</li>
+</ol>
 <div class="card mb-4">
 
 
@@ -89,7 +55,7 @@
                 </tr>
             </thead>
             <tbody>
-                @{ var dsstaff = db.NhanViens.ToList();
+                @{ var dsstaff = db.NhanVien.ToList();
                     foreach (var item01 in dsstaff)
                     {
                         <tr>
@@ -98,7 +64,11 @@
                             <td>@item01.UserName</td>
                             <td>@item01.Password</td>
                             <td>@item01.Email_NV</td>
-                            <td>Chỉnh sửa || Xóa</td>
+                            <td>
+                                <a href="~/NhanVien/DetailStaff/@item01.IDNV" class="btn btn-info btn-sm edit">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
                         </tr>
                     }
                 }
