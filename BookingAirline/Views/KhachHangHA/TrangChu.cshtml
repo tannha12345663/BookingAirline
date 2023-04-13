@@ -33,7 +33,7 @@
                                     <div class="col-md-6">
                                         <fieldset>
                                             <label for="from">From:</label>
-                                            <select required name='from' onchange='this.form()'>
+                                            <select required name='from'>
                                                 <option value="">Select a location...</option>
                                                 <option value="SGN">Hồ Chí Minh (SGN)</option>
                                                 <option value="Hong Kong">Hong Kong</option>
@@ -51,7 +51,7 @@
                                     <div class="col-md-6">
                                         <fieldset>
                                             <label for="to">To:</label>
-                                            <select required name='to' onchange='this.form()'>
+                                            <select required name='to'>
                                                 <option value="">Select a location...</option>
                                                 <option value="HAN">Hà Nội (HAN)</option>
                                                 <option value="Hong Kong">Hong Kong</option>
@@ -75,32 +75,21 @@
                                     <div class="col-md-6">
                                         <fieldset>
                                             <label for="return">Return date:</label>
-                                            <input name="return" type="date" class="form-control date01" min=@DateTime.Now.ToString("yyyy-MM-dd") id="return" placeholder="Select date..." required>
+                                            <input name="return" type="date" disabled class="form-control date01" min=@DateTime.Now.ToString("yyyy-MM-dd") id="return" placeholder="Select date..." required>
                                         </fieldset>
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <fieldset>
-                                            <label for="to">Class:</label>
-                                            <select required name='Class' onchange='this.form()'>
-                                                <option value="" disabled="disabled">Select a location...</option>
-                                                <option value="HV01">Business class</option>
-                                                <option value="HV02">Vip class</option>
-                                                <option value="HV03">Economy class</option>
-                                            </select>
-                                        </fieldset>
-                                    </div>
 
                                     <div class="col-md-6">
                                         <div class="radio-select">
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                                     <label for="round">Round</label>
-                                                    <input type="radio" name="trip" id="round" value="round" required="required" onchange='this.form()'>
+                                                    <input type="radio" name="trip" id="round" value="round" required="required">
                                                 </div>
                                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                                     <label for="oneway">Oneway</label>
-                                                    <input type="radio" name="trip" id="oneway" value="one-way" required="required" onchange='this.form()'>
+                                                    <input type="radio" name="trip" id="oneway" value="one-way" required="required">
                                                 </div>
                                             </div>
                                         </div>
@@ -505,3 +494,18 @@
     </div>
 </section>
 
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+<script src="~/Style/Js/script.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#round").change(function () {
+            var check = $("#round").val();
+            $("#return").prop("disabled", false);
+
+        });
+        $("#oneway").change(function () {
+            $("#return").attr("disabled",true);
+        })
+    });
+</script>

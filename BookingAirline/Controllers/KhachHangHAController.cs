@@ -427,6 +427,7 @@ namespace BookingAirline.Controllers
             content = content.Replace("{{Email}}", ttkh.ShipEmail);
             content = content.Replace("{{Total}}", tongtien);
             content = content.Replace("{{Thoigian}}", Convert.ToString(ttkh.CreateDate));
+            content = content.Replace("{{Invoice}}", themhd.MaHD);
             string subject = "Đây là tin nhắn tự động từ hệ thống POS";
             WebMail.Send(ttkh.ShipEmail, subject, content, null, null, null, true, null, null, null, null, null, null);
             return RedirectToAction("ThankYou");
