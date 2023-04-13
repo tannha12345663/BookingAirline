@@ -291,15 +291,25 @@ namespace BookingAirline.Controllers
                     TempData["messageAlert"] = "Error01";
                     return RedirectToAction("FlightRoute");
                 }
-                Random rd = new Random();
-                var matb = "TB" + rd.Next(1, 1000);
-                tb.MaTBay = matb;
-                database.TuyenBays.Add(tb);
-                database.SaveChanges();
-                TempData["matuyenbay"] = tb.MaTBay;
-                TempData["messageAlert"] = "success";
-                //return RedirectToAction("FlightRoute");
-                return Json(new { success = true });
+                //Check thông tin sân bay đi và sân bay đến có tồn tại sẵn trong hệ thống hay không 
+                var check = database.TuyenBays.Where(s => s.SanBayDi == tb.SanBayDi && s.SanBayDen == tb.SanBayDen).FirstOrDefault();
+                if(check != null)
+                {
+                    TempData["messageAlert"] = "Error02";
+                    return RedirectToAction("FlightRoute");
+                }
+                else
+                {
+                    Random rd = new Random();
+                    var matb = "TB" + rd.Next(1, 1000);
+                    tb.MaTBay = matb;
+                    database.TuyenBays.Add(tb);
+                    database.SaveChanges();
+                    TempData["matuyenbay"] = tb.MaTBay;
+                    TempData["messageAlert"] = "success";
+                    return RedirectToAction("FlightRoute");
+                }
+                //return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
 
         }
@@ -321,7 +331,7 @@ namespace BookingAirline.Controllers
         [HttpPost]
         public ActionResult DeleteFR(string id)
         {
-            var tb = database.TuyenBays.Find(id);
+            var tb = database.TuyenBays.Where(s => s.MaTBay == id).FirstOrDefault() ;
             database.TuyenBays.Remove(tb);
             database.SaveChanges();
             TempData["matuyenbay"] = tb.MaTBay;
