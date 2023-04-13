@@ -168,6 +168,16 @@
           <Property Name="MaSB" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="TenSB" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="TuyenBay">
           <Key>
             <PropertyRef Name="MaTBay" />
@@ -188,6 +198,15 @@
           <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
           <Property Name="GiaVe" Type="float" />
           <Property Name="CCCD" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="MaWL" />
+          </Key>
+          <Property Name="MaWL" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaCB" Type="varchar" MaxLength="10" />
+          <Property Name="MaKH" Type="varchar" MaxLength="10" />
+          <Property Name="NgayThem" Type="datetime" />
         </EntityType>
         <Association Name="FK_ChiTietChuyenBay_ChuyenBay">
           <End Role="ChuyenBay" Type="Self.ChuyenBay" Multiplicity="0..1">
@@ -452,8 +471,10 @@
           <EntitySet Name="Phi" EntityType="Self.Phi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhieuDatCho" EntityType="Self.PhieuDatCho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanBay" EntityType="Self.SanBay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TuyenBay" EntityType="Self.TuyenBay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ve" EntityType="Self.Ve" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ChiTietChuyenBay_ChuyenBay" Association="Self.FK_ChiTietChuyenBay_ChuyenBay">
             <End Role="ChuyenBay" EntitySet="ChuyenBay" />
             <End Role="ChiTietChuyenBay" EntitySet="ChiTietChuyenBay" />
@@ -724,6 +745,16 @@
           <NavigationProperty Name="TuyenBays" Relationship="Self.FK_TuyenBay_SanBay1" FromRole="SanBay" ToRole="TuyenBay" />
           <NavigationProperty Name="TuyenBays1" Relationship="Self.FK_TuyenBay_SanBay2" FromRole="SanBay" ToRole="TuyenBay" />
         </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="TuyenBay">
           <Key>
             <PropertyRef Name="MaTBay" />
@@ -751,6 +782,15 @@
           <NavigationProperty Name="ChuyenBay" Relationship="Self.FK_Ve_ChuyenBay" FromRole="Ve" ToRole="ChuyenBay" />
           <NavigationProperty Name="HangVe" Relationship="Self.FK_Ve_HangVe" FromRole="Ve" ToRole="HangVe" />
           <NavigationProperty Name="KhachHang" Relationship="Self.FK_Ve_KhachHang" FromRole="Ve" ToRole="KhachHang" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="MaWL" />
+          </Key>
+          <Property Name="MaWL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaCB" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MaKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NgayThem" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_ChiTietChuyenBay_ChuyenBay">
           <End Role="ChuyenBay" Type="Self.ChuyenBay" Multiplicity="0..1">
@@ -1015,8 +1055,10 @@
           <EntitySet Name="Phis" EntityType="Self.Phi" />
           <EntitySet Name="PhieuDatChoes" EntityType="Self.PhieuDatCho" />
           <EntitySet Name="SanBays" EntityType="Self.SanBay" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TuyenBays" EntityType="Self.TuyenBay" />
           <EntitySet Name="Ves" EntityType="Self.Ve" />
+          <EntitySet Name="Wishlists" EntityType="Self.Wishlist" />
           <AssociationSet Name="FK_ChiTietChuyenBay_ChuyenBay" Association="Self.FK_ChiTietChuyenBay_ChuyenBay">
             <End Role="ChuyenBay" EntitySet="ChuyenBays" />
             <End Role="ChiTietChuyenBay" EntitySet="ChiTietChuyenBays" />
@@ -1275,6 +1317,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BookingAirLightModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TuyenBays">
             <EntityTypeMapping TypeName="BookingAirLightModel.TuyenBay">
               <MappingFragment StoreEntitySet="TuyenBay">
@@ -1294,6 +1347,16 @@
                 <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
                 <ScalarProperty Name="GiaVe" ColumnName="GiaVe" />
                 <ScalarProperty Name="CCCD" ColumnName="CCCD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wishlists">
+            <EntityTypeMapping TypeName="BookingAirLightModel.Wishlist">
+              <MappingFragment StoreEntitySet="Wishlist">
+                <ScalarProperty Name="MaWL" ColumnName="MaWL" />
+                <ScalarProperty Name="MaCB" ColumnName="MaCB" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="NgayThem" ColumnName="NgayThem" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

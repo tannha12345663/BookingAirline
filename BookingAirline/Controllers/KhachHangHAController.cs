@@ -128,11 +128,10 @@ namespace BookingAirline.Controllers
             var chuyendi = database.TuyenBays.Where(s => s.SanBayDi == di).FirstOrDefault();
             //var listdi = database.ChuyenBays.Where(s => s.MaTBay == chuyendi.MaTBay && Convert.ToDateTime(s.NgayGio).ToString("dd")== Day ).ToList();
             var test = database.ChuyenBays.SqlQuery
-                ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month and MaTBay = @chuyendi ",
+                ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month",
                 new SqlParameter("@year", year),
                 new SqlParameter("@day", Day),
-                new SqlParameter("@month", month),
-                new SqlParameter("@chuyendi", chuyendi.MaTBay)).ToList();
+                new SqlParameter("@month", month)).ToList();
             //Hiển thị danh sách các chuyến bay
             return View(test);
         }
@@ -176,11 +175,10 @@ namespace BookingAirline.Controllers
                 var chuyenve = database.TuyenBays.Where(s => s.SanBayDi == to).FirstOrDefault();
                 //var listcv = database.ChuyenBays.Where(s => s.MaTBay == chuyenve.MaTBay).ToList();
                 var test = database.ChuyenBays.SqlQuery
-                    ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month and MaTBay = @chuyenve ",
+                    ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month",
                         new SqlParameter("@year", year),
                         new SqlParameter("@day", Day),
-                        new SqlParameter("@month", month),
-                        new SqlParameter("@chuyenve", chuyenve.MaTBay)).ToList();
+                        new SqlParameter("@month", month)).ToList();
                 return View(test);
             }
 
