@@ -441,6 +441,7 @@
     <Content Include="Style\Css\style.css" />
     <Content Include="Style\Css\ticketStyle.css" />
     <Content Include="Style\Css\tooplate-style.css" />
+    <Content Include="Style\Css\VeMB.css" />
     <Content Include="Style\Js\bootstrap.min.js" />
     <Content Include="Style\Js\custom-navigation.js" />
     <Content Include="Style\Js\datepicker.js" />
@@ -521,6 +522,7 @@
     <Content Include="Views\KhachHangHA\Contact.cshtml" />
     <Content Include="Views\KhachHang\Shared\_LayoutContact.cshtml" />
     <Content Include="Views\KhachHangHA\Shared\_LayoutContact.cshtml" />
+    <Content Include="Views\KhachHangHA\Shared\_LayoutPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

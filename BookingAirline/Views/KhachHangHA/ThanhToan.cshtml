@@ -5,7 +5,22 @@
 
 @{
     ViewBag.Title = "ThanhToan";
-    Layout = "~/Views/KhachHangHA/Shared/_LayoutContact.cshtml";
+    Layout = "~/Views/KhachHangHA/Shared/_LayoutPayment.cshtml";
+}
+
+
+@{ var checkmess = (string)TempData["messageAlert"];
+    if (checkmess == "Error")
+    {
+        <script>
+            swal({
+                title: "Thêm tuyến bay không thành công",
+                text: "Vui lòng kiểm tra lại thông tin và nhập lại! ",
+                icon: "error",
+                button: "OK",
+            });
+        </script>
+    }
 }
 
 <head>
@@ -17,7 +32,16 @@
 </head>
 
 
-<p id="countdown">5:00</p>
+<div class="container-payment" style="padding-top:100px">
+    <h1 id="headline">Remaining payment time</h1>
+    <div class="cd-di">
+        <ul class="cd-ul">
+            <li class="cd-li"><span class="cd-sp" id="countdown"></span> minutes</li>
+            @*<li class="cd-li"><span class="cd-sp" id="seconds"></span>Seconds</li>*@
+        </ul>
+    </div>
+</div>
+
 
 <body>
     <div class="container-fluid">
@@ -42,7 +66,7 @@
                                         <div class="col-lg-5 col-4 mt-5">
                                             <p class="item-description" style="color:#ffffff">AIRCRAFT: @tenmb.LoaiMayBay</p>
                                             <h2 class="bill-head px-xl-5 px-lg-4">@item.idVe.MaCB</h2>
-                                            <p class="item-description" style="color:#ffffff">TICKET CODE: </p>
+                                            <p class="item-description" style="color:#ffffff">TICKET CODE: @item.idVe.MaVe</p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -174,7 +198,9 @@
 
     })
 
+</script>
 
+<script>
     // Tính toán thời gian còn lại
     var timeLeft = 300;
     // Cập nhật đồng hồ mỗi giây

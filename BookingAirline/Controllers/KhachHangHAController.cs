@@ -368,6 +368,7 @@ namespace BookingAirline.Controllers
             Session["contacKH"] = contact;
             return View(cart);
         }
+
         [HttpPost]
         public ActionResult ThanhToan01()
         {
