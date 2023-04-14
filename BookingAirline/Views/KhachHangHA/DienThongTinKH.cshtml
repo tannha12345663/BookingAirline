@@ -1,4 +1,5 @@
-﻿
+﻿@model BookingAirline.Models.Cart
+@using BookingAirline.Models
 @{
     ViewBag.Title = "DienThongTinKH";
     Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
@@ -64,51 +65,61 @@
                             <i class="uil uil-navigator"></i>
                         </button>*@
                 </div>
+                <hr />
+                @{
+                    
+                    foreach(var item01 in Model.Items)
+                    {
 
-                <div class="details ID">
-                    <span class="title">Book Tickets For Relatives</span>
+                        <div class="details ID" id="@item01.idVe.MaVe">
+                            <span class="title">Book Tickets For Relatives for Perseron </span>
 
-                    <div class="fields">
-                        <div class="input-field">
-                            <label>Full Name</label>
-                            <input type="text" placeholder="Enter ID type">
+                            <div class="fields">
+                                <div class="input-field">
+                                    <label>Full Name</label>
+                                    <input type="text" placeholder="Enter ID type">
+                                </div>
+
+                                <div class="input-field">
+                                    <label>Date of Birth</label>
+                                    <input type="date" placeholder="Enter birth date">
+                                </div>
+
+                                <div class="input-field">
+                                    <label>Email</label>
+                                    <input type="text" placeholder="Enter your email">
+                                </div>
+
+                                <div class="input-field">
+                                    <label>Mobile Number</label>
+                                    <input type="number" placeholder="Enter mobile number">
+                                </div>
+
+                                <div class="input-field">
+                                    <label>Gender</label>
+                                    <select>
+                                        <option disabled selected>Select gender</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Others</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label>CCCD</label>
+                                    <input type="text" placeholder="Enter your CCCD" name="cccd_@item01.idVe.MaVe">
+                                </div>
+                            </div>
+
+
                         </div>
-
-                        <div class="input-field">
-                            <label>Date of Birth</label>
-                            <input type="date" placeholder="Enter birth date">
-                        </div>
-
-                        <div class="input-field">
-                            <label>Email</label>
-                            <input type="text" placeholder="Enter your email">
-                        </div>
-
-                        <div class="input-field">
-                            <label>Mobile Number</label>
-                            <input type="number" placeholder="Enter mobile number">
-                        </div>
-
-                        <div class="input-field">
-                            <label>Gender</label>
-                            <select>
-                                <option disabled selected>Select gender</option>
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Others</option>
-                            </select>
-                        </div>
-                        <div class="input-field">
-                            <label>CCCD</label>
-                            <input type="text" placeholder="Enter your CCCD">
-                        </div>
-                    </div>
-
+                        <hr />
+                    }
                     <button class="nextBtn">
                         <span class="btnText">Payment</span>
                         <i class="uil uil-navigator"></i>
                     </button>
-                </div>
+                }
+
             </div>
         </div>
 
@@ -200,28 +211,28 @@
     </form>
 </div>
 @*<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="primary-button">
-                    <a href="#" class="scroll-top">Back To Top</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="primary-button">
+                        <a href="#" class="scroll-top">Back To Top</a>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <ul class="social-icons">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                        <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    <p>By Team 30 </p>
                 </div>
             </div>
-            <div class="col-md-12">
-                <ul class="social-icons">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                </ul>
-            </div>
-            <div class="col-md-12">
-                <p>By Team 30 </p>
-            </div>
         </div>
-    </div>
-</footer>*@
+    </footer>*@
 
 
 

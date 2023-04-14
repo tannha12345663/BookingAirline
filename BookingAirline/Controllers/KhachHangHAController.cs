@@ -204,7 +204,8 @@ namespace BookingAirline.Controllers
 
         public ActionResult DienThongTinKH(string id)
         {
-            return View();
+            Cart cart = Session["Cart"] as Cart;
+            return View(cart);
         }
 
         [HttpPost]
@@ -212,6 +213,15 @@ namespace BookingAirline.Controllers
         {
             var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
             var dsorder = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
+            //Lấy thông tin khách hàng khi có nhiều vé
+            Cart cart = Session["Cart"] as Cart;
+            foreach(var item01 in cart.Items)
+            {
+                var mave1 = item01.idVe.MaVe;
+                var cccd = Request["cccd_" + mave1];
+                cart.CapNhatCCCD(mave1, cccd);
+            }
+
             Random rd = new Random();
             var total = 0;
             #region Ban cu
@@ -287,7 +297,7 @@ namespace BookingAirline.Controllers
                     //Add thông tin vé vào giỏ hàng
                     var ticket = Request["Ma" + i];
                     var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi && s.MaVe == ticket).FirstOrDefault();
-                    GetCart().Add(detailtic, 1);
+                    GetCart().Add(detailtic, 1,null);
 
                     check++;
                     if (check == id)
@@ -328,7 +338,7 @@ namespace BookingAirline.Controllers
                     //Add thông tin vé vào giỏ hàng
                     var ticket = Request["Ma" + i];
                     var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBve && s.MaVe == ticket).FirstOrDefault();
-                    GetCart().Add(detailtic, 1);
+                    GetCart().Add(detailtic, 1,null);
 
                     check++;
                     if (check == id)
@@ -351,7 +361,17 @@ namespace BookingAirline.Controllers
             }
             return cart;
         }
-
+        //Tạo mới thông tin khách hàng
+        public DanhSachKH GetCustomer()
+        {
+            DanhSachKH customer = Session["Customer"] as DanhSachKH;
+            if (customer == null || Session["Customer"] == null)
+            {
+                customer = new DanhSachKH();
+                Session["Customer"] = customer;
+            }
+            return customer;
+        }
 
         public ActionResult ThanhToan()
         {
@@ -366,6 +386,9 @@ namespace BookingAirline.Controllers
             Session["contacKH"] = contact;
             return View(cart);
         }
+
+
+
         [HttpPost]
         public ActionResult ThanhToan01()
         {

@@ -13,6 +13,11 @@ namespace BookingAirline.Controllers
         //GET: KhachHang
         public ActionResult TrangChu()
         {
+            var check = Session["userKH"];
+            if (check != null)
+            {
+                return RedirectToAction("TrangChu", "KhachHangHA");
+            }
             return View();
         }
         public ActionResult DSachCB()
@@ -197,7 +202,7 @@ namespace BookingAirline.Controllers
                     //Add thông tin vé vào giỏ hàng
                     var ticket = Request["Ma" + i];
                     var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi && s.MaVe == ticket).FirstOrDefault();
-                    GetCart().Add(detailtic,1);
+                    GetCart().Add(detailtic,1,null);
                     
                     check++;
                     if(check == id)
@@ -241,7 +246,7 @@ namespace BookingAirline.Controllers
                     //Add thông tin vé vào giỏ hàng
                     var ticket = Request["Ma" + i];
                     var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBve && s.MaVe == ticket).FirstOrDefault();
-                    GetCart().Add(detailtic, 1);
+                    GetCart().Add(detailtic, 1,null);
 
                     check++;
                     if (check == id)
