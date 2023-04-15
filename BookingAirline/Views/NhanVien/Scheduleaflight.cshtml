@@ -150,11 +150,19 @@
                                             {
                                                 <span class="badge bg-secondary">Sắp hết hạn và đặt chỗ</span>
                                             }
-                                            else if (han.Days>0)
+                                            else if (han.Days >0) 
                                             {
                                                 <span class="badge bg-success">Còn hiệu lực</span>
                                             }
-                                            else if (han.Days <= 0)
+                                            else if (han.Days == 0 && han.Minutes >= 30)
+                                            {
+                                                <span class="badge bg-success">Còn hiệu lực</span>
+                                            }
+                                            else if (han.Days == 0 && han.Minutes < 30)
+                                            {
+                                                <span class="badge bg-success">Đã đóng check in</span>
+                                            }
+                                            else if (han.Days < 0)
                                             {
                                                 <span class="badge bg-warning">Hết hiệu lực</span>
                                             }
@@ -169,13 +177,13 @@
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                             }
-                                            if (han.Days > 0)
+                                            if (han.Days >= 0 && han.Minutes >=30)
                                             {
                                                 <button value="@item01.MaCB" id="MaCbay" data-toggle="modal" data-target="#myModal03" class="btn btn-danger btn-sm edit">
                                                     <i class="fa fa-remove"></i>
                                                 </button>
                                             }
-                                            else if (han.Days <= 0)
+                                            else if (han.Days <= 0 && han.Minutes <30 )
                                             {
                                                 <p style="font-weight:bold">None</p>
                                             }

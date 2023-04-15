@@ -183,20 +183,7 @@
                                             <input type="radio" id="radio01" name="radio" checked />
                                             <label for="radio01"><span></span>FLIGHT</label>
                                         </div> 
-                                        <div class="custom-radio">
-                                            <input type="radio" id="radio02" name="radio" />
-                                            <label for="radio02"><span></span>Hotels</label>
-                                        </div>
                                         
-                                        <div class="custom-radio">
-                                            <input type="radio" id="radio03" name="radio" />
-                                            <label for="radio03"><span></span>Flights</label>
-                                        </div>
-                                        
-                                        <div class="custom-radio">
-                                            <input type="radio" id="radio04" name="radio" />
-                                            <label for="radio04"><span></span>Cars</label>
-                                        </div>
                                         
                                     </div>
 
@@ -221,9 +208,13 @@
                                                                 <li><span>To: </span> @matb.SanBayDen </li>
                                                                 <li><span>Quantity:</span> @item.SoLuong</li>
                                                                 @{
-                                                                   var total = string.Format("{0:0,0 vnđ}", item.DonGia);
+                                                                    var total = string.Format("{0:0,0 vnđ}", item.DonGia);
                                                                 }
                                                                 <li><span>Price:</span> @total</li>
+                                                                @{ 
+                                                                    var cccd = db.Ves.Where(s => s.MaVe == item.MaVe&&s.MaCB==item.MaCB).FirstOrDefault();
+                                                                }
+                                                                <li><span>Citizen ID:</span> @cccd.CCCD</li>
                                                             </ul>
                                                         </td>
 
