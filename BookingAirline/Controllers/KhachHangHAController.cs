@@ -249,6 +249,7 @@ namespace BookingAirline.Controllers
                 var cbdi = dsorder.MaCBdi;
                 var cbden = dsorder.MaCBve;
                 var number = 0;
+                var number2 = 0;
                 foreach (var item01 in cart.Items)
                 {
                     
@@ -262,9 +263,11 @@ namespace BookingAirline.Controllers
                     //Chép cccd vào vè lúc về của khách hàng
                     else if (item01.idVe.MaCB == cbden)
                     {
+                        
                         var mave2 = item01.idVe.MaVe;
-                        var cccd2 = Request["cccd_" + number/2];
+                        var cccd2 = Request["cccd_" + number2];
                         cart.CapNhatCCCD(mave2, cccd2);
+                        number2++;
                     }
                     number++;
                 }
