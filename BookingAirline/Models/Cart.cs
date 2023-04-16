@@ -11,6 +11,7 @@ namespace BookingAirline.Models
         public Ve idVe { get; set; }
 
         public int soLuong { get; set; }
+        public string CCCD { get; set; }
     }
     public class Cart
     {
@@ -21,7 +22,7 @@ namespace BookingAirline.Models
         }
 
         //Thêm vé vào giỏ hàng
-        public void Add(Ve mave, int sl)
+        public void Add(Ve mave, int sl, string cccd)
         {
             var item = Items.FirstOrDefault(s => s.idVe.MaVe == mave.MaVe);
             if (item == null)
@@ -29,7 +30,9 @@ namespace BookingAirline.Models
                 items.Add(new CartItem
                 {
                     idVe = mave,
-                    soLuong = sl
+                    soLuong = sl,
+                    CCCD = cccd
+
                 });
             }
             else
@@ -60,7 +63,15 @@ namespace BookingAirline.Models
                 item.soLuong = slmoi;
             }
         }
-
+        //Cập nhật CCCD
+        public void CapNhatCCCD(string id, string cccd)
+        {
+            var item = items.Find(s => s.idVe.MaVe == id);
+            if (item != null)
+            {
+                item.CCCD = cccd;
+            }
+        }
         //Xóa sản phẩm trong giỏ hàng
         public void XoaSP(string id)
         {

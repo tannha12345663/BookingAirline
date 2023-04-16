@@ -155,6 +155,7 @@
     <Compile Include="Models\ChuyenBay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\customer.cs" />
     <Compile Include="Models\DoanhThuNam.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -212,6 +213,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ve.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Wishlist.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -276,6 +280,7 @@
     <Content Include="hinh\135017829_1026004181228801_2637032699560275_n.jpg" />
     <Content Include="hinh\AboutUs.jpg" />
     <Content Include="hinh\banner-bg.jpg" />
+    <Content Include="hinh\beautiful-sight.jpg" />
     <Content Include="hinh\card.png" />
     <Content Include="hinh\contact-01.jpg" />
     <Content Include="hinh\contact-02.jpg" />
@@ -439,9 +444,12 @@
     <Content Include="Style\Css\owl-carousel.css" />
     <Content Include="Style\Css\Payment.css" />
     <Content Include="Style\Css\style.css" />
+    <Content Include="Style\Css\thanhtoan.css" />
+    <Content Include="Style\Css\thankyou.css" />
     <Content Include="Style\Css\ticketStyle.css" />
     <Content Include="Style\Css\tooplate-style.css" />
     <Content Include="Style\Css\VeMB.css" />
+    <Content Include="Style\Css\VeMB1504.css" />
     <Content Include="Style\Js\bootstrap.min.js" />
     <Content Include="Style\Js\custom-navigation.js" />
     <Content Include="Style\Js\datepicker.js" />
@@ -523,6 +531,7 @@
     <Content Include="Views\KhachHang\Shared\_LayoutContact.cshtml" />
     <Content Include="Views\KhachHangHA\Shared\_LayoutContact.cshtml" />
     <Content Include="Views\KhachHangHA\Shared\_LayoutPayment.cshtml" />
+    <Content Include="Views\KhachHangHA\Shared\_LayoutPage2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

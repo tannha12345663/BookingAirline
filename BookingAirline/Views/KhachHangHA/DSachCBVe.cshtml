@@ -1,130 +1,28 @@
 ﻿@model IEnumerable<BookingAirline.Models.ChuyenBay>
 @using BookingAirline.Models
 @{
-    ViewBag.Title = "DSachCBVe";
-    Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
+    ViewBag.Title = "Danh sách chuyến đi";
+    Layout = "~/Views/KhachHang/Shared/_LayoutPage1.cshtml";
     BookingAirLightEntities db = new BookingAirLightEntities();
 }
 
-<link href="~/Content/CSS_remake/Style01.css" rel="stylesheet" />
-<section class="banner" id="top">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-5">
-                <div class="left-side">
-                    <div class="logo">
-                        <img src="~/hinh/logo.png" alt="Flight Template">
-                    </div>
-                    <div class="tabs-content">
-                        <h4>Choose Your Direction:</h4>
-                        <ul class="social-links">
-                            <li><a href="#">Find us on <em>Facebook</em><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#">Our <em>YouTube</em> Channel<i class="fa fa-youtube"></i></a></li>
-                            <li><a href="#">Follow our <em>instagram</em><i class="fa fa-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="page-direction-button">
-                        <a href="/Home/Contact"><i class="fa fa-phone"></i>Contact Us Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5 col-md-offset-1">
-                <section id="first-tab-group" class="tabgroup">
-                    <div id="tab1">
-                        <div class="submit-form">
-                            <h4>Check availability for <em>direction</em>:</h4>
-                            <form id="form-submit" action="~/KhachHangHA/DSachCB" method="get">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <fieldset>
-                                            <label for="from">From:</label>
-                                            <select required name='from' onchange='this.form()'>
-                                                <option value="">Select a location...</option>
-                                                <option value="SGN">Hồ Chí Minh (SGN)</option>
-                                                <option value="Hong Kong">Hong Kong</option>
-                                                <option value="India">India</option>
-                                                <option value="Japan">Japan</option>
-                                                <option value="Korea">Korea</option>
-                                                <option value="Laos">Laos</option>
-                                                <option value="Myanmar">Myanmar</option>
-                                                <option value="Singapore">Singapore</option>
-                                                <option value="Thailand">Thailand</option>
-                                                <option value="Vietnam">Vietnam</option>
-                                            </select>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <fieldset>
-                                            <label for="to">To:</label>
-                                            <select required name='to' onchange='this.form()'>
-                                                <option value="">Select a location...</option>
-                                                <option value="HAN">Hà Nội (HAN)</option>
-                                                <option value="Hong Kong">Hong Kong</option>
-                                                <option value="India">India</option>
-                                                <option value="Japan">Japan</option>
-                                                <option value="Korea">Korea</option>
-                                                <option value="Laos">Laos</option>
-                                                <option value="Myanmar">Myanmar</option>
-                                                <option value="Singapore">Singapore</option>
-                                                <option value="Thailand">Thailand</option>
-                                                <option value="Vietnam">Vietnam</option>
-                                            </select>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <fieldset>
-                                            <label for="departure">Departure date:</label>
-                                            <input name="deparure" type="text" class="form-control date" id="deparure" placeholder="Select date..." required="" onchange='this.form()'>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <fieldset>
-                                            <label for="return">Return date:</label>
-                                            <input name="return" type="text" class="form-control date" id="return" placeholder="Select date..." required="" onchange='this.form()'>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="radio-select">
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    <label for="round">Round</label>
-                                                    <input type="radio" name="trip" id="round" value="round" required="required" onchange='this.form.()'>
-                                                </div>
-                                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    <label for="oneway">Oneway</label>
-                                                    <input type="radio" name="trip" id="oneway" value="one-way" required="required" onchange='this.form.()'>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <fieldset>
-                                            <button type="submit" id="form-submit" class="btn">Order Ticket Now</button>
-                                        </fieldset>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </div>
-</section>
+<link href="~/Style/Css/VeMB1504.css" rel="stylesheet" />
+<link href="~/Style/Css/VeMB.css" rel="stylesheet" />
 </br>
 
-</br>
 
-<div class="section-heading">
-    <h2>Ticket For You For @Session["From"] to @Session["To"] </h2>
+<div style="margin:0%; text-align:center">
+    <h2 style="font-weight:bold">Ticket For You For @Session["To"] to  @Session["From"]</h2>
 </div>
+<br />
+
 <div class="container">
     <table class="table table-hover table-bordered js-copytextarea " cellpadding="0" cellspacing="0" border="0"
            id="sampleTable">
         <tbody>
             @foreach (var item in Model)
             {
-                <a href="~/KhachHangHA/DSachCBVe01/@item.MaCB" style="text-decoration:none">
+                <a href="~/KhachHang/DSachCBVe/@item.MaCB" style="text-decoration:none">
                     <div class="ticket">
                         <div class="qr_code">
                             <img src="~/Content/images/Vietjet-Air-Logo-PNG-3.png" alt="qr_code" />
@@ -134,7 +32,7 @@
                                 <div class="item">
                                     @{ var MaSBdi = db.TuyenBays.Find(item.MaTBay);}
                                     <h1>@Html.DisplayFor(modelItem => MaSBdi.SanBayDi)</h1>
-                                    <p>@item.NgayGio</p>
+                                    <h6>@item.NgayGio</h6>
                                 </div>
                                 <div class="path">
                                     <ion-icon name="airplane"></ion-icon>
@@ -142,9 +40,9 @@
                                 <div class="item">
                                     <h1>@Html.DisplayFor(modelItem => MaSBdi.SanBayDen)</h1>
                                     @{ DateTime timeto = (DateTime)item.NgayGio;}
-                                    <p>
+                                    <h6>
                                         @timeto.AddHours(2)
-                                    </p>
+                                    </h6>
                                 </div>
                             </div>
 
@@ -169,9 +67,10 @@
                                     @{ var soghe = item.SoLuongGheHang1 + item.SoLuongGheHang2 + item.SoLuongGheHang3;}
                                     <p>@Html.DisplayFor(modelItem => soghe)</p>
                                 </div>
+
                                 <div class="item">
-                                    <h4>seat</h4>
-                                    <p>18W</p>
+                                    <h4>terminal</h4>
+                                    <p>P4</p>
                                 </div>
                                 <div class="item">
                                     <h4>Price</h4>
@@ -186,6 +85,9 @@
         </tbody>
     </table>
 </div>
+
+
+
 
 <section id="most-visited">
     <div class="container">
@@ -294,4 +196,3 @@
 </section>
 
 <script src="https://unpkg.com/ionicons@4.2.2/dist/ionicons.js"></script>
-

@@ -62,7 +62,5 @@ namespace BookingAirline.Controllers
         {
             return View(database.Ves.Where(s => s.MaVe.Contains(maVe)).ToList());
         }
-
-
     }
 }

@@ -290,17 +290,19 @@ html, body {
 
 
 .ticket {
-    /*border: 4px solid #b1154a;*/
     margin: 0 auto;
     width: 700px;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex
+    display: flex;
+    border-radius:10px;
+       
 }
 
+
 .qr_code {
-    padding: 20px;
+    padding: 40px;
     width: 30%;
     position: relative;
 }
@@ -310,7 +312,7 @@ html, body {
         height: 115px;
         display: block;
     }
-
+    
     .qr_code::before,
     .qr_code::after {
         content: '';
@@ -331,9 +333,10 @@ html, body {
     }
 
 .content {
-    width: 70%;
+    /*width: 70%;*/
     background-color: #fff;
-    padding: 10px;
+/*    padding: 10px;*/
+    padding-left:60px;
     -webkit-border-top-right-radius: 10px;
     border-top-right-radius: 10px;
     -webkit-border-bottom-right-radius: 10px;
@@ -349,7 +352,9 @@ html, body {
     flex-direction: column;
     -webkit-justify-content: space-around;
     -ms-flex-pack: distribute;
-    justify-content: space-around
+    justify-content: space-around;
+    border-left: dashed rgba(22, 22, 22, 0.5);
+    border-radius:10px;
 }
 
     .content .location {

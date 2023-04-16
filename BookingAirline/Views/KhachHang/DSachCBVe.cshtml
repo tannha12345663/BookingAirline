@@ -1,25 +1,28 @@
 ﻿@model IEnumerable<BookingAirline.Models.ChuyenBay>
 @using BookingAirline.Models
 @{
-    ViewBag.Title = "Danh sách chuyến về";
+    ViewBag.Title = "Danh sách chuyến đi";
     Layout = "~/Views/KhachHang/Shared/_LayoutPage1.cshtml";
     BookingAirLightEntities db = new BookingAirLightEntities();
 }
-<link href="~/Content/CSS_remake/Style01.css" rel="stylesheet" />
+
+<link href="~/Style/Css/VeMB1504.css" rel="stylesheet" />
+<link href="~/Style/Css/VeMB.css" rel="stylesheet" />
 </br>
 
-</br>
 
-<div class="section-heading">
-    <h2>Ticket For You For @Session["To"] to @Session["From"] </h2>
+<div style="margin:0%; text-align:center">
+    <h2 style="font-weight:bold">Ticket For You For @Session["To"] to  @Session["From"]</h2>
 </div>
+<br />
+
 <div class="container">
     <table class="table table-hover table-bordered js-copytextarea " cellpadding="0" cellspacing="0" border="0"
            id="sampleTable">
         <tbody>
             @foreach (var item in Model)
             {
-                <a href="~/KhachHang/DSachCBVe01/@item.MaCB" style="text-decoration:none">
+                <a href="~/KhachHangHA/DSachCBVe/@item.MaCB" style="text-decoration:none">
                     <div class="ticket">
                         <div class="qr_code">
                             <img src="~/Content/images/Vietjet-Air-Logo-PNG-3.png" alt="qr_code" />
@@ -29,7 +32,7 @@
                                 <div class="item">
                                     @{ var MaSBdi = db.TuyenBays.Find(item.MaTBay);}
                                     <h1>@Html.DisplayFor(modelItem => MaSBdi.SanBayDi)</h1>
-                                    <p>@item.NgayGio</p>
+                                    <h6>@item.NgayGio</h6>
                                 </div>
                                 <div class="path">
                                     <ion-icon name="airplane"></ion-icon>
@@ -37,9 +40,9 @@
                                 <div class="item">
                                     <h1>@Html.DisplayFor(modelItem => MaSBdi.SanBayDen)</h1>
                                     @{ DateTime timeto = (DateTime)item.NgayGio;}
-                                    <p>
+                                    <h6>
                                         @timeto.AddHours(2)
-                                    </p>
+                                    </h6>
                                 </div>
                             </div>
 
@@ -64,6 +67,7 @@
                                     @{ var soghe = item.SoLuongGheHang1 + item.SoLuongGheHang2 + item.SoLuongGheHang3;}
                                     <p>@Html.DisplayFor(modelItem => soghe)</p>
                                 </div>
+
                                 <div class="item">
                                     <h4>terminal</h4>
                                     <p>P4</p>
@@ -81,6 +85,9 @@
         </tbody>
     </table>
 </div>
+
+
+
 
 <section id="most-visited">
     <div class="container">
@@ -188,30 +195,4 @@
     </div>
 </section>
 
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="primary-button">
-                    <a href="#" class="scroll-top">Back To Top</a>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <ul class="social-icons">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                </ul>
-            </div>
-            <div class="col-md-12">
-                <p>By Team 30 </p>
-            </div>
-        </div>
-    </div>
-</footer>
-
 <script src="https://unpkg.com/ionicons@4.2.2/dist/ionicons.js"></script>
-
-

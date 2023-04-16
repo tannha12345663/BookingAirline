@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookingAirline.Models.ChiTietHD>
+﻿﻿@model IEnumerable<BookingAirline.Models.ChiTietHD>
 @using BookingAirline.Models
 @{
     ViewBag.Title = "DetailBooking";
@@ -158,7 +158,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="dashboard-heading">
                         <h2>Travel <span>Profile</span></h2>
-                        <p>Hi Lisa, Welcome to Star Travels!</p>
+                        <p>Hi , Welcome to Star Travels!</p>
                         <p>All your trips booked with us will appear here and you'll be able to manage everything!</p>
                     </div> end dashboard-heading
 
@@ -173,7 +173,7 @@
                                     <li><a href="~/KhachHangHA/Whishlist"><span><i class="fa fa-heart"></i></span>Wishlist</a></li>
                                     <li><a href="~/KhachHangHA/MyCard"><span><i class="fa fa-credit-card"></i></span>My Cards</a></li>
                                 </ul>
-                            </div> 
+                            </div>
 
                             <div class="col-xs-12 col-sm-10 col-md-10 dashboard-content booking-trips">
                                 <h2 class="dash-content-title">Detail bill : @TempData["mahd"]!</h2>
@@ -182,22 +182,9 @@
                                         <div class="custom-radio">
                                             <input type="radio" id="radio01" name="radio" checked />
                                             <label for="radio01"><span></span>FLIGHT</label>
-                                        </div> 
-                                        <div class="custom-radio">
-                                            <input type="radio" id="radio02" name="radio" />
-                                            <label for="radio02"><span></span>Hotels</label>
                                         </div>
-                                        
-                                        <div class="custom-radio">
-                                            <input type="radio" id="radio03" name="radio" />
-                                            <label for="radio03"><span></span>Flights</label>
-                                        </div>
-                                        
-                                        <div class="custom-radio">
-                                            <input type="radio" id="radio04" name="radio" />
-                                            <label for="radio04"><span></span>Cars</label>
-                                        </div>
-                                        
+
+
                                     </div>
 
                                     <div class="table-responsive">
@@ -221,29 +208,30 @@
                                                                 <li><span>To: </span> @matb.SanBayDen </li>
                                                                 <li><span>Quantity:</span> @item.SoLuong</li>
                                                                 @{
-                                                                   var total = string.Format("{0:0,0 vnđ}", item.DonGia);
+                                                                    var total = string.Format("{0:0,0 vnđ}", item.DonGia);
                                                                 }
                                                                 <li><span>Price:</span> @total</li>
+                                                                @{
+                                                                    var cccd = db.Ves.Where(s => s.MaVe == item.MaVe && s.MaCB == item.MaCB).FirstOrDefault();
+                                                                }
+                                                                <li><span>Citizen ID:</span> @cccd.CCCD</li>
                                                             </ul>
                                                         </td>
 
                                                     </tr>
-                                                                        stt++;
-                                                                    }
+                                                    stt++;
+                                                }
 
                                             </tbody>
                                         </table>
-                                    </div> <!--end table-responsive -->
-                                </div> <!--end booking-listings -->
-
-                            </div> <!--end columns -->
-
-                        </div><!--end row -->
-                    </div> <!--end dashboard-wrapper -->
-                </div> <!--end columns-->
-            </div> <!--end row -->
-        </div> <!--end container-->
-    </div> <!--end dashboard-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
-<!--end innerpage-wrapper
--->
+

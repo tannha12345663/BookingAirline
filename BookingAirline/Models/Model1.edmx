@@ -47,6 +47,7 @@
           <Property Name="SoLuongGheHang1" Type="int" />
           <Property Name="SoLuongGheHang2" Type="int" />
           <Property Name="SoLuongGheHang3" Type="int" />
+          <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="DoanhThuNam">
           <Key>
@@ -188,6 +189,15 @@
           <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
           <Property Name="GiaVe" Type="float" />
           <Property Name="CCCD" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="MaWL" />
+          </Key>
+          <Property Name="MaWL" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaCB" Type="varchar" MaxLength="10" />
+          <Property Name="MaKH" Type="varchar" MaxLength="10" />
+          <Property Name="NgayThem" Type="datetime" />
         </EntityType>
         <Association Name="FK_ChiTietChuyenBay_ChuyenBay">
           <End Role="ChuyenBay" Type="Self.ChuyenBay" Multiplicity="0..1">
@@ -454,6 +464,7 @@
           <EntitySet Name="SanBay" EntityType="Self.SanBay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TuyenBay" EntityType="Self.TuyenBay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ve" EntityType="Self.Ve" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ChiTietChuyenBay_ChuyenBay" Association="Self.FK_ChiTietChuyenBay_ChuyenBay">
             <End Role="ChuyenBay" EntitySet="ChuyenBay" />
             <End Role="ChiTietChuyenBay" EntitySet="ChiTietChuyenBay" />
@@ -578,6 +589,7 @@
           <Property Name="SoLuongGheHang1" Type="Int32" />
           <Property Name="SoLuongGheHang2" Type="Int32" />
           <Property Name="SoLuongGheHang3" Type="Int32" />
+          <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ChiTietChuyenBays" Relationship="Self.FK_ChiTietChuyenBay_ChuyenBay" FromRole="ChuyenBay" ToRole="ChiTietChuyenBay" />
           <NavigationProperty Name="MayBay" Relationship="Self.FK_ChuyenBay_MayBay" FromRole="ChuyenBay" ToRole="MayBay" />
           <NavigationProperty Name="TuyenBay" Relationship="Self.FK_ChuyenBay_TuyenBay" FromRole="ChuyenBay" ToRole="TuyenBay" />
@@ -751,6 +763,15 @@
           <NavigationProperty Name="ChuyenBay" Relationship="Self.FK_Ve_ChuyenBay" FromRole="Ve" ToRole="ChuyenBay" />
           <NavigationProperty Name="HangVe" Relationship="Self.FK_Ve_HangVe" FromRole="Ve" ToRole="HangVe" />
           <NavigationProperty Name="KhachHang" Relationship="Self.FK_Ve_KhachHang" FromRole="Ve" ToRole="KhachHang" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="MaWL" />
+          </Key>
+          <Property Name="MaWL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaCB" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MaKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NgayThem" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_ChiTietChuyenBay_ChuyenBay">
           <End Role="ChuyenBay" Type="Self.ChuyenBay" Multiplicity="0..1">
@@ -1017,6 +1038,7 @@
           <EntitySet Name="SanBays" EntityType="Self.SanBay" />
           <EntitySet Name="TuyenBays" EntityType="Self.TuyenBay" />
           <EntitySet Name="Ves" EntityType="Self.Ve" />
+          <EntitySet Name="Wishlists" EntityType="Self.Wishlist" />
           <AssociationSet Name="FK_ChiTietChuyenBay_ChuyenBay" Association="Self.FK_ChiTietChuyenBay_ChuyenBay">
             <End Role="ChuyenBay" EntitySet="ChuyenBays" />
             <End Role="ChiTietChuyenBay" EntitySet="ChiTietChuyenBays" />
@@ -1140,6 +1162,7 @@
                 <ScalarProperty Name="SoLuongGheHang1" ColumnName="SoLuongGheHang1" />
                 <ScalarProperty Name="SoLuongGheHang2" ColumnName="SoLuongGheHang2" />
                 <ScalarProperty Name="SoLuongGheHang3" ColumnName="SoLuongGheHang3" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1294,6 +1317,16 @@
                 <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
                 <ScalarProperty Name="GiaVe" ColumnName="GiaVe" />
                 <ScalarProperty Name="CCCD" ColumnName="CCCD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wishlists">
+            <EntityTypeMapping TypeName="BookingAirLightModel.Wishlist">
+              <MappingFragment StoreEntitySet="Wishlist">
+                <ScalarProperty Name="MaWL" ColumnName="MaWL" />
+                <ScalarProperty Name="MaCB" ColumnName="MaCB" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="NgayThem" ColumnName="NgayThem" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,224 +1,90 @@
-﻿@model BookingAirline.Models.Cart
+﻿﻿@model BookingAirline.Models.Cart
 @using BookingAirline.Models
 @{var cal = 0;
     BookingAirLightEntities db = new BookingAirLightEntities();}
 
-@{
-    ViewBag.Title = "ThanhToan";
-    Layout = "~/Views/KhachHangHA/Shared/_LayoutPayment.cshtml";
-}
+@{ ViewBag.Title = "ThanhToan"; }
 
+<!DOCTYPE html>
 
-@{ var checkmess = (string)TempData["messageAlert"];
-    if (checkmess == "Error")
-    {
-        <script>
-            swal({
-                title: "Thêm tuyến bay không thành công",
-                text: "Vui lòng kiểm tra lại thông tin và nhập lại! ",
-                icon: "error",
-                button: "OK",
-            });
-        </script>
-    }
-}
-
+<html>
 <head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Payment</title>
+    <link rel="apple-touch-icon" href="~/Style/apple-touch-icon.html">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
     <link href="~/Style/Css/Payment.css" rel="stylesheet" />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" />
 </head>
 
-
-<div class="container-payment" style="padding-top:100px">
-    <h1 id="headline">Remaining payment time</h1>
-    <div class="cd-di">
-        <ul class="cd-ul">
-            <li class="cd-li"><span class="cd-sp" id="countdown"></span> minutes</li>
-            @*<li class="cd-li"><span class="cd-sp" id="seconds"></span>Seconds</li>*@
-        </ul>
-    </div>
-</div>
-
-
 <body>
-    <div class="container-fluid">
-        <div class="row justify-content-center" style="padding:30px">
-            <div class="col-12 col-lg-11">
-                <div class="card card0 rounded-0">
-                    <div class="row">
-                        <div class="col-md-5 d-md-block d-none p-0 box">
-                            <div class="card rounded-0 border-0 card1" id="bill">
-                                <h3 id="heading1">Booking Details</h3>
-                                @foreach (var item in Model.Items)
-                                {
-                                    <div class="row">
-                                        @{ var ThanhTien = string.Format("{0:0,0 vnđ}", item.idVe.GiaVe);}
-                                        <div class="col-lg-7 col-8 mt-4 line pl-4">
-                                            @{ var macb = db.ChuyenBays.Where(s => s.MaCB == item.idVe.MaCB).FirstOrDefault();
-                                                var tenmb = db.MayBays.Where(s => s.MaMB == macb.MaMB).FirstOrDefault();
-                                                var matbay = db.TuyenBays.Where(s => s.MaTBay == macb.MaTBay).FirstOrDefault();
-                                            }
-                                            <h3 style="color:#ffffff; font-weight:bold">FROM: @matbay.SanBayDi - TO: @matbay.SanBayDen</h3>
-                                        </div>
-                                        <div class="col-lg-5 col-4 mt-5">
-                                            <p class="item-description" style="color:#ffffff">AIRCRAFT: @tenmb.LoaiMayBay</p>
-                                            <h2 class="bill-head px-xl-5 px-lg-4">@item.idVe.MaCB</h2>
-                                            <p class="item-description" style="color:#ffffff">TICKET CODE: @item.idVe.MaVe</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-7 col-8 mt-4 line pl-4">
-                                            <small class="bill-date">@macb.NgayGio</small>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-7 col-8 mt-4 line pl-4" style="color:#ffffff">
-                                            <p class="item-description">Price: @ThanhTien</p>
-                                            <p class="item-description">Name: @item.idVe.IDKH</p>
-                                            @{ cal += Convert.ToInt32(item.idVe.GiaVe); }
-                                        </div>
-                                    </div>
-                                    <hr />
-                                }
-                                <div class="row">
-                                    <div class="col-md-12 red-bg">
-                                        <p class="bill-date" id="total-label">Total Price</p>
-                                        @{ var total1 = string.Format("{0:0,0 vnđ}", cal);}
-                                        <h2 class="bill-head" id="total">@total1</h2>
-                                        <small class="bill-date" id="total-label">Price includes all taxes</small>
-                                    </div>
+
+    <main class="page payment-page">
+        <section class="payment-form dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2>Payment</h2>
+                    <p>
+                        Please pay within 5 minutes.
+                    </p>
+                </div>
+                <form method="post" action="~/KhachHangHA/ThanhToan01">
+                    <div class="products">
+                        <h3 class="title">Checkout</h3>
+                        @foreach (var item in Model.Items)
+                        {
+                            <div class="item">
+                                @{ var ThanhTien = string.Format("{0:0,0 vnđ}", item.idVe.GiaVe);}
+                                <span class="price">@ThanhTien</span>
+                                <p class="item-name">@item.idVe.MaVe</p>
+                                <p class="item-description">Số hiệu : @item.idVe.MaCB</p>
+                                @{ var macb = db.ChuyenBays.Where(s => s.MaCB == item.idVe.MaCB).FirstOrDefault();
+                                    var tenmb = db.MayBays.Where(s => s.MaMB == macb.MaMB).FirstOrDefault();
+                                    var matbay = db.TuyenBays.Where(s => s.MaTBay == macb.MaTBay).FirstOrDefault(); }
+                                <p class="item-description">FROM: @matbay.SanBayDi - TO: @matbay.SanBayDen</p>
+                                <p class="item-description">AIRCRAFT: @tenmb.LoaiMayBay</p>
+                                <p class="item-description">Status: Paying</p>
+                                <p class="item-description">Name: @item.idVe.IDKH</p>
+                                <p class="item-description">Citizen ID: @item.CCCD</p>
+                                @{ cal += Convert.ToInt32(item.idVe.GiaVe); }
+                            </div>}
+                        @{ var total = string.Format("{0:0,0 vnđ}", cal);}
+                        <div class="total">Total<span class="price">@total</span></div>
+                    </div>
+                    <div class="card-details">
+                        <h3 class="title">Credit Card Details</h3>
+                        <div class="row">
+                            <div class="form-group col-sm-7">
+                                <label for="card-holder">Card Holder</label>
+                                <input id="card-holder" type="text" class="form-control" placeholder="Card Holder" aria-label="Card Holder" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <label for="">Expiration Date</label>
+                                <div class="input-group expiration-date">
+                                    <input type="text" class="form-control" placeholder="MM" aria-label="MM" aria-describedby="basic-addon1">
+                                    <span class="date-separator">/</span>
+                                    <input type="text" class="form-control" placeholder="YY" aria-label="YY" aria-describedby="basic-addon1">
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-7 col-sm-12 p-0 box">
-                            <div class="card rounded-0 border-0 card2" id="paypage">
-                                <div class="form-card">
-                                    <h2 id="heading2" class="text-danger">Payment Method</h2>
-                                    <div class="radio-group">
-                                        <div class='radio' data-value="credit"><img src="https://i.imgur.com/28akQFX.jpg" width="200px" height="60px"></div>
-                                        <div class='radio' data-value="paypal"><img src="https://i.imgur.com/5QFsx7K.jpg" width="200px" height="60px"></div>
-                                        <br>
-                                    </div>
-                                    <label class="pay">Name on Card</label>
-                                    <input type="text" name="holdername" placeholder="---Name---">
-                                    <div class="row">
-                                        <div class="col-8 col-md-6">
-                                            <label class="pay">Card Number</label>
-                                            <input type="text" name="cardno" id="cr_no" placeholder="0000-0000-0000-0000" minlength="19" maxlength="19">
-                                        </div>
-                                        <div class="col-4 col-md-6">
-                                            <label class="pay">CVV</label>
-                                            <input type="password" name="cvcpwd" placeholder="&#9679;&#9679;&#9679;" class="placeicon" minlength="3" maxlength="3">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <label class="pay">Expiration Date</label>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <input type="text" name="exp" id="exp" placeholder="MM/YY" minlength="5" maxlength="5">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <a class="btn btn-info placeicon" href="~/KhachHangHA/ThankYou" data-target="#edit-profile" style="width:200px">Payment</a>
-                                            @*<input type="submit" value="MAKE A PAYMENT &nbsp; &#xf178;" class="btn btn-info placeicon" href="~/KhachHangHA/ThankYou">*@
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="form-group col-sm-8">
+                                <label for="card-number">Card Number</label>
+                                <input id="card-number" type="text" class="form-control" placeholder="Card Number" aria-label="Card Holder" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="cvc">CVC</label>
+                                <input id="cvc" type="text" class="form-control" placeholder="CVC" aria-label="Card Holder" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <input type="submit" class="btn btn-primary btn-block" value="Process">
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
-
-
-<script>
-    $(document).ready(function () {
-
-        //For Card Number formatted input
-        var cardNum = document.getElementById('cr_no');
-        cardNum.onkeyup = function (e) {
-            if (this.value == this.lastValue) return;
-            var caretPosition = this.selectionStart;
-            var sanitizedValue = this.value.replace(/[^0-9]/gi, '');
-            var parts = [];
-
-            for (var i = 0, len = sanitizedValue.length; i < len; i += 4) {
-                parts.push(sanitizedValue.substring(i, i + 4));
-            }
-
-            for (var i = caretPosition - 1; i >= 0; i--) {
-                var c = this.value[i];
-                if (c < '0' || c > '9') {
-                    caretPosition--;
-                }
-            }
-            caretPosition += Math.floor(caretPosition / 4);
-
-            this.value = this.lastValue = parts.join('-');
-            this.selectionStart = this.selectionEnd = caretPosition;
-        }
-
-        //For Date formatted input
-        var expDate = document.getElementById('exp');
-        expDate.onkeyup = function (e) {
-            if (this.value == this.lastValue) return;
-            var caretPosition = this.selectionStart;
-            var sanitizedValue = this.value.replace(/[^0-9]/gi, '');
-            var parts = [];
-
-            for (var i = 0, len = sanitizedValue.length; i < len; i += 2) {
-                parts.push(sanitizedValue.substring(i, i + 2));
-            }
-
-            for (var i = caretPosition - 1; i >= 0; i--) {
-                var c = this.value[i];
-                if (c < '0' || c > '9') {
-                    caretPosition--;
-                }
-            }
-            caretPosition += Math.floor(caretPosition / 2);
-
-            this.value = this.lastValue = parts.join('/');
-            this.selectionStart = this.selectionEnd = caretPosition;
-        }
-
-        // Radio button
-        $('.radio-group .radio').click(function () {
-            $(this).parent().find('.radio').removeClass('selected');
-            $(this).addClass('selected');
-        });
-
-    })
-
-</script>
-
-<script>
-    // Tính toán thời gian còn lại
-    var timeLeft = 300;
-    // Cập nhật đồng hồ mỗi giây
-    var downloadTimer = setInterval(function () {
-        timeLeft--;
-        // Tính phút, giây còn lại
-        var minutes = Math.floor(timeLeft / 60);
-        var seconds = timeLeft % 60;
-        if (seconds < 10) {
-            seconds = "0" + seconds; // Thêm số 0 vào đầu giây nếu số giây < 10
-        }
-        // Hiển thị thời gian còn lại
-        document.getElementById("countdown").innerHTML = minutes + ":" + seconds;
-        // Khi đến thời gian đích
-        if (timeLeft < 0) {
-            clearInterval(countdown);
-            document.getElementById("countdown").innerHTML = "Hết thời gian thanh toán";
-            window.location.href = '/KhachHangHA/TrangChu'
-        }
-    }, 1000);
-</script>
+</html>
