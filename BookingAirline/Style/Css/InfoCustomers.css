@@ -9,19 +9,19 @@
     font-family: 'Poppins', sans-serif;
 }
 
-body {    
+body {
     min-height: 100vh;
-    /* display: flex;*/
+    /*background-image: url('../../hinh/beautiful-sight.jpg');*/
     align-items: center;
     justify-content: center;
-    background: #E8E2E2;
+    background-color:#fff;
 }
 
 h2{
     text-align:center;
 }
 
-.container_infcustomer {
+.container_infcustomer {   
     position: relative;
     max-width: 900px;
     width: 100%;
@@ -53,7 +53,7 @@ h2{
     .container_infcustomer form {
         position: relative;
         margin-top: 16px;
-        min-height: 490px;
+        min-height: 300px;
         background-color: #fff;
         overflow: hidden;
     }

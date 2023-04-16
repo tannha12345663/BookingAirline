@@ -1,4 +1,4 @@
-﻿@model BookingAirline.Models.ChuyenBay
+﻿﻿@model BookingAirline.Models.ChuyenBay
 @using BookingAirline.Models
 @{
     ViewBag.Title = "DetailFlight";
@@ -72,7 +72,7 @@
                         <label class="control-label">Ghi chú (nếu có):</label>
                         <textarea class="form-control" name="GhiChu">@ctcb.GhiChu</textarea>
                     </div>
-                    
+
                 </div>
                 <div class="row ">
                     <div><input type="submit" value="Lưu chi tiết đơn hàng @Model.MaCB" class="btn btn-primary" /></div>
@@ -81,6 +81,6 @@
             </div>
 
         </div>
-        
+
     </form>
 </div>

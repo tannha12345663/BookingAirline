@@ -110,6 +110,7 @@
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <label for="departure">Departure date:</label>
+
                                                 <input name="deparure" id="deparure" type="date" class="form-control date01" min=@DateTime.Now.ToString("yyyy-MM-dd") placeholder="Select date..." required="">
 
                                             </fieldset>
@@ -117,11 +118,10 @@
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <label for="return">Return date:</label>
+
                                                 <input name="return" id="return" disabled type="date" class="form-control date01" min=@DateTime.Now.ToString("yyyy-MM-dd") placeholder="Select date..." required="">
                                             </fieldset>
-                                        </div>
-
-
+                                        </div>                               
                                         <div class="col-md-6">
                                             <div class="radio-select">
                                                 <div class="row">
@@ -153,7 +153,7 @@
     </section>
     @RenderBody()
 </body>
-
+</html>
 
 <footer>
     <div class="container">
@@ -174,13 +174,11 @@
             </div>
         </div>
     </div>
-
 </footer>
 
-</html>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="~/Style/Js/jquery-1.11.2.min.js"><\/script>')</script>
-
 <script src="~/Style/Js/bootstrap.min.js"></script>
 
 <script src="~/Style/Js/datepicker.js"></script>

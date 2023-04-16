@@ -25,6 +25,7 @@
         <EntityTypeShape EntityType="BookingAirLightModel.Ve" Width="1.5" PointX="8.25" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingAirLightModel.Voucher" Width="1.5" PointX="3" PointY="13.375" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingAirLightModel.Wishlist" Width="1.5" PointX="7.75" PointY="1.75" IsExpanded="true" />
+     
         <AssociationConnector Association="BookingAirLightModel.FK_ChiTietChuyenBay_ChuyenBay" ManuallyRouted="false" />
         <AssociationConnector Association="BookingAirLightModel.FK_ChiTietHD_HoaDon" ManuallyRouted="false" />
         <AssociationConnector Association="BookingAirLightModel.FK_ChiTietHD_Ve1" ManuallyRouted="false" />

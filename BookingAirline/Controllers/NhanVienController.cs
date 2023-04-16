@@ -19,7 +19,7 @@ namespace BookingAirline.Controllers
         {
             return View();
         }
-        
+
         public ActionResult Scheduleaflight()
         {
             return View();
@@ -42,8 +42,8 @@ namespace BookingAirline.Controllers
                 cb.MaCB = macb;
                 database.ChuyenBays.Add(cb);
                 database.SaveChanges();
-                var check = Convert.ToInt32(Request["checkbox01"]) ;
-                if ( check == 1)
+                var check = Convert.ToInt32(Request["checkbox01"]);
+                if (check == 1)
                 {
                     Session["mcb"] = cb.MaCB;
                     TempData["themthongtin"] = check;
@@ -57,13 +57,13 @@ namespace BookingAirline.Controllers
             }
 
         }
-        public void ThemVe(int id1,int id2,int id3, ChuyenBay cb)
+        public void ThemVe(int id1, int id2, int id3, ChuyenBay cb)
         {
             Ve ticket = new Ve();
             //Kiểm tra nếu số lượng
-            if (id1 ==0 && id2 == 0 && id3==0)
+            if (id1 == 0 && id2 == 0 && id3 == 0)
             {
-                return ;
+                return;
             }
             else
             {
@@ -77,7 +77,7 @@ namespace BookingAirline.Controllers
                     ticket.MaCB = cb.MaCB;
                     ticket.MaHV = "HV01";
                     ticket.TinhTrang = "Chưa đặt chỗ";
-                    ticket.GiaVe = Convert.ToDouble( Request["dongiaG1"]);
+                    ticket.GiaVe = Convert.ToDouble(Request["dongiaG1"]);
                     ticket.CCCD = "null";
                     database.Ves.Add(ticket);
                     database.SaveChanges();
@@ -109,11 +109,11 @@ namespace BookingAirline.Controllers
                     database.SaveChanges();
                 }
             }
-            
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddPlan ([Bind(Include = "MaMB,LoaiMayBay")] MayBay mb)
+        public ActionResult AddPlan([Bind(Include = "MaMB,LoaiMayBay")] MayBay mb)
         {
             if (mb == null)
             {
@@ -157,7 +157,7 @@ namespace BookingAirline.Controllers
                 TempData["themthongtin"] = 2;
                 return View(thongtincb);
             }
-            else if(id == null)
+            else if (id == null)
             {
                 return HttpNotFound();
             }
@@ -205,10 +205,10 @@ namespace BookingAirline.Controllers
         {
             bool isDuplicate = false;
             var check = database.SanBays.Where(s => s.MaSB == input).FirstOrDefault();
-            if (check!=null)
+            if (check != null)
             {
                 isDuplicate = true;
-                return Json(isDuplicate,JsonRequestBehavior.AllowGet);
+                return Json(isDuplicate, JsonRequestBehavior.AllowGet);
             }
             return Json(isDuplicate, JsonRequestBehavior.AllowGet);
         }
@@ -221,8 +221,9 @@ namespace BookingAirline.Controllers
             {
                 database.Configuration.ProxyCreationEnabled = false;
                 var dstb = database.TuyenBays.ToList();
-                return Json(new { Data=dstb,TotalItems=dstb.Count}, JsonRequestBehavior.AllowGet);
-            }catch(Exception ex)
+                return Json(new { Data = dstb, TotalItems = dstb.Count }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(ex.Message);
@@ -249,7 +250,7 @@ namespace BookingAirline.Controllers
         //        database.SaveChanges();
         //        return RedirectToAction("FlightRoute");
         //    }
-            
+
         //}
 
         //Áp dụng Ajax vào chức năng thêm mới sân bay
@@ -273,7 +274,7 @@ namespace BookingAirline.Controllers
                 }
             }
             TempData["error"] = "Error";
-            return Json(new { success = false}); // Khai báo trả lại status của json
+            return Json(new { success = false }); // Khai báo trả lại status của json
         }
 
         [HttpPost]
@@ -350,7 +351,7 @@ namespace BookingAirline.Controllers
             return View(dsticket);
         }
         public ActionResult TicketList()
-        {     
+        {
             return View();
         }
         public ActionResult TotalRevenue()
@@ -365,6 +366,10 @@ namespace BookingAirline.Controllers
             return View(cthd);
         }
         public ActionResult Reports()
+        {
+            return View();
+        }
+        public ActionResult ReportManagement()
         {
             return View();
         }
