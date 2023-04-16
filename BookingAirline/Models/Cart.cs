@@ -32,7 +32,6 @@ namespace BookingAirline.Models
                     idVe = mave,
                     soLuong = sl,
                     CCCD=cccd
-
                 });
             }
             else

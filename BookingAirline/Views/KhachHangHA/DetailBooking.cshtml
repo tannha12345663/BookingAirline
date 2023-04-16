@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookingAirline.Models.ChiTietHD>
+﻿﻿@model IEnumerable<BookingAirline.Models.ChiTietHD>
 @using BookingAirline.Models
 @{
     ViewBag.Title = "DetailBooking";
@@ -173,7 +173,7 @@
                                     <li><a href="~/KhachHangHA/Whishlist"><span><i class="fa fa-heart"></i></span>Wishlist</a></li>
                                     <li><a href="~/KhachHangHA/MyCard"><span><i class="fa fa-credit-card"></i></span>My Cards</a></li>
                                 </ul>
-                            </div> 
+                            </div>
 
                             <div class="col-xs-12 col-sm-10 col-md-10 dashboard-content booking-trips">
                                 <h2 class="dash-content-title">Detail bill : @TempData["mahd"]!</h2>
@@ -182,9 +182,7 @@
                                         <div class="custom-radio">
                                             <input type="radio" id="radio01" name="radio" checked />
                                             <label for="radio01"><span></span>FLIGHT</label>
-                                        </div> 
-                                        
-                                        
+                                        </div>                                                                                
                                     </div>
 
                                     <div class="table-responsive">
@@ -217,24 +215,19 @@
                                                                 <li><span>Citizen ID:</span> @cccd.CCCD</li>
                                                             </ul>
                                                         </td>
-
                                                     </tr>
-                                                                        stt++;
-                                                                    }
-
+                                                    stt++;
+                                                }
                                             </tbody>
                                         </table>
-                                    </div> <!--end table-responsive -->
-                                </div> <!--end booking-listings -->
-
-                            </div> <!--end columns -->
-
-                        </div><!--end row -->
-                    </div> <!--end dashboard-wrapper -->
-                </div> <!--end columns-->
-            </div> <!--end row -->
-        </div> <!--end container-->
-    </div> <!--end dashboard-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
-<!--end innerpage-wrapper
--->
+

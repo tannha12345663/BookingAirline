@@ -26,7 +26,7 @@ namespace BookingAirline.Controllers
             Session["To"] = Request["to"];
             Session["Trip"] = Request["trip"];
             Session["Return"] = Request["return"];
-            DateTime ngaykh =  Convert.ToDateTime( Request["deparure"]);
+            DateTime ngaykh = Convert.ToDateTime(Request["deparure"]);
             var month = ngaykh.ToString("MM");
             var Day = ngaykh.ToString("dd");
             var year = ngaykh.ToString("yyyy");
@@ -60,7 +60,7 @@ namespace BookingAirline.Controllers
                 return RedirectToAction("TrangChu");
             }
             var check = Session["trip"].ToString();
-            if  (check == "oneway")
+            if (check == "oneway")
             {
                 order.MaCBdi = id;
                 database.OrderStatus.Add(order);
@@ -112,10 +112,10 @@ namespace BookingAirline.Controllers
         //Version 1.0
         public ActionResult DienThongTinKH(string id)
         {
-            
+
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult DienThongTinKH()
         {
@@ -194,23 +194,22 @@ namespace BookingAirline.Controllers
             var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
             var dsorder = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
             var dsve = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi).ToList();
-            for(int i =1; i <= dsve.Count(); i++)
+            for (int i = 1; i <= dsve.Count(); i++)
             {
-                if( Request["Ma" + i] != null)
+                if (Request["Ma" + i] != null)
                 {
                     //14/03/2023 Suy nghĩ làm thêm luồn xử lý dữ liệu
                     //Add thông tin vé vào giỏ hàng
                     var ticket = Request["Ma" + i];
                     var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi && s.MaVe == ticket).FirstOrDefault();
-                    GetCart().Add(detailtic,1,null);
-                    
+                    GetCart().Add(detailtic,1,null);                 
                     check++;
-                    if(check == id)
+                    if (check == id)
                     {
                         break;
                     }
                 }
-                
+
             }
             var ktkh = Session["trip"].ToString();
             if (ktkh == "round")
@@ -218,7 +217,7 @@ namespace BookingAirline.Controllers
                 return RedirectToAction("ChooseSeatVe");
             }
             return RedirectToAction("DienThongTinKH");
-                
+
         }
 
         //Chọn chỗ ngồi lúc về
@@ -247,7 +246,6 @@ namespace BookingAirline.Controllers
                     var ticket = Request["Ma" + i];
                     var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBve && s.MaVe == ticket).FirstOrDefault();
                     GetCart().Add(detailtic, 1,null);
-
                     check++;
                     if (check == id)
                     {
@@ -272,7 +270,7 @@ namespace BookingAirline.Controllers
         [HttpGet]
         public ActionResult ThanhToan()
         {
-            if(Session["Cart"] == null)
+            if (Session["Cart"] == null)
             {
                 return View();
             }
@@ -287,7 +285,7 @@ namespace BookingAirline.Controllers
         {
             var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
             var kh = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
-            
+
             var maveve = database.Ves.Where(s => s.MaCB == kh.MaCBve).FirstOrDefault();
             var ttkh = (Order)Session["contacKH"]; // Thông tin liên lạc của KH
             var tongtien = string.Format("{0:0,0 vnđ}", ttkh.Total);
@@ -306,8 +304,8 @@ namespace BookingAirline.Controllers
             database.HoaDons.Add(themhd);
             database.SaveChanges();
 
-            
-            
+
+
 
             //Thêm chi tiết hóa đơn
             ChiTietHD cthd = new ChiTietHD();
@@ -347,7 +345,7 @@ namespace BookingAirline.Controllers
                 database.Entry(maveve).State = System.Data.Entity.EntityState.Modified;
                 database.SaveChanges();
             };
-            
+
 
             //Render form gửi email về cho khách hàng
             string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/Template/HtmlPage1.html"));

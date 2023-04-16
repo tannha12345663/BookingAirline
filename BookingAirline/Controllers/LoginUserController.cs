@@ -18,10 +18,10 @@ namespace BookingAirline.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(string user , string password)
+        public ActionResult Login(string user, string password)
         {
             var data = database.KhachHangs.Where(s => s.UserName == user && s.Password == password).FirstOrDefault();
-            var taikhoan = database.KhachHangs.SingleOrDefault(s => s.UserName ==  user && s.Password == password);
+            var taikhoan = database.KhachHangs.SingleOrDefault(s => s.UserName == user && s.Password == password);
             if (data == null)
             {
                 TempData["error"] = "Tài khoản đăng nhập không đúng";
@@ -50,12 +50,12 @@ namespace BookingAirline.Controllers
                 TempData["error01"] = "User này đã có vui lòng đổi user khác !";
                 return View("SignUp");
             }
-            else if (checkemail !=null)
+            else if (checkemail != null)
             {
                 TempData["error02"] = "Email này đã tồn tại! ";
                 return View("SignUp");
             }
-            else if (password !=  confirm)
+            else if (password != confirm)
             {
                 TempData["error03"] = "Vui lòng nhập lại xác nhận password ";
                 return View("SignUp");
@@ -73,9 +73,9 @@ namespace BookingAirline.Controllers
 
                     return RedirectToAction("TrangChu", "KhachHang");
                 }
-                    
-               
-            }    
+
+
+            }
             return View();
         }
         public ActionResult ForgotPassword()
@@ -90,7 +90,7 @@ namespace BookingAirline.Controllers
             {
                 TempData["error04"] = "Không tồn tại email này !";
                 return View();
-                
+
             }
             else
             {
