@@ -212,15 +212,6 @@
           <Property Name="MaKH" Type="varchar" MaxLength="10" />
           <Property Name="NgayThem" Type="datetime" />
         </EntityType>
-        <EntityType Name="Wishlist">
-          <Key>
-            <PropertyRef Name="MaWL" />
-          </Key>
-          <Property Name="MaWL" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="MaCB" Type="varchar" MaxLength="10" />
-          <Property Name="MaKH" Type="varchar" MaxLength="10" />
-          <Property Name="NgayThem" Type="datetime" />
-        </EntityType>
         <Association Name="FK_ChiTietChuyenBay_ChuyenBay">
           <End Role="ChuyenBay" Type="Self.ChuyenBay" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -1406,16 +1397,6 @@
                 <ScalarProperty Name="NgayApDung" ColumnName="NgayApDung" />
                 <ScalarProperty Name="NgayHetHan" ColumnName="NgayHetHan" />
                 <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Wishlists">
-            <EntityTypeMapping TypeName="BookingAirLightModel.Wishlist">
-              <MappingFragment StoreEntitySet="Wishlist">
-                <ScalarProperty Name="MaWL" ColumnName="MaWL" />
-                <ScalarProperty Name="MaCB" ColumnName="MaCB" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="NgayThem" ColumnName="NgayThem" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
