@@ -18,10 +18,10 @@ namespace BookingAirline.Controllers
         public ActionResult TrangChu()
         {
             return View();
-           
-            
+
+
         }
-        
+
         public ActionResult Scheduleaflight()
         {
             return View();
@@ -44,8 +44,8 @@ namespace BookingAirline.Controllers
                 cb.MaCB = macb;
                 database.ChuyenBay.Add(cb);
                 database.SaveChanges();
-                var check = Convert.ToInt32(Request["checkbox01"]) ;
-                if ( check == 1)
+                var check = Convert.ToInt32(Request["checkbox01"]);
+                if (check == 1)
                 {
                     Session["mcb"] = cb.MaCB;
                     TempData["themthongtin"] = check;
@@ -59,13 +59,13 @@ namespace BookingAirline.Controllers
             }
 
         }
-        public void ThemVe(int id1,int id2,int id3, ChuyenBay cb)
+        public void ThemVe(int id1, int id2, int id3, ChuyenBay cb)
         {
             Ve ticket = new Ve();
             //Kiểm tra nếu số lượng
-            if (id1 ==0 && id2 == 0 && id3==0)
+            if (id1 == 0 && id2 == 0 && id3 == 0)
             {
-                return ;
+                return;
             }
             else
             {
@@ -79,7 +79,7 @@ namespace BookingAirline.Controllers
                     ticket.MaCB = cb.MaCB;
                     ticket.MaHV = "HV01";
                     ticket.TinhTrang = "Chưa đặt chỗ";
-                    ticket.GiaVe = Convert.ToDouble( Request["dongiaG1"]);
+                    ticket.GiaVe = Convert.ToDouble(Request["dongiaG1"]);
                     ticket.CCCD = "null";
                     database.Ve.Add(ticket);
                     database.SaveChanges();
@@ -111,11 +111,11 @@ namespace BookingAirline.Controllers
                     database.SaveChanges();
                 }
             }
-            
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddPlan ([Bind(Include = "MaMB,LoaiMayBay")] MayBay mb)
+        public ActionResult AddPlan([Bind(Include = "MaMB,LoaiMayBay")] MayBay mb)
         {
             if (mb == null)
             {
@@ -159,7 +159,7 @@ namespace BookingAirline.Controllers
                 TempData["themthongtin"] = 2;
                 return View(thongtincb);
             }
-            else if(id == null)
+            else if (id == null)
             {
                 return HttpNotFound();
             }
@@ -211,8 +211,8 @@ namespace BookingAirline.Controllers
             {
                 database.Configuration.ProxyCreationEnabled = false;
                 var dstb = database.TuyenBay.ToList();
-                return Json(new { Data=dstb,TotalItem=dstb.Count}, JsonRequestBehavior.AllowGet);
-            }catch(Exception ex)
+                return Json(new { Data = dstb, TotalItem = dstb.Count }, JsonRequestBehavior.AllowGet);
+            } catch (Exception ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(ex.Message);
@@ -239,7 +239,7 @@ namespace BookingAirline.Controllers
         //        database.SaveChanges();
         //        return RedirectToAction("FlightRoute");
         //    }
-            
+
         //}
         //Áp dụng Ajax vào chức năng thêm mới sân bay
         [HttpPost]
@@ -261,7 +261,7 @@ namespace BookingAirline.Controllers
                 }
             }
             TempData["error"] = "Error";
-            return Json(new { success = false}); // Khai báo trả lại status của json
+            return Json(new { success = false }); // Khai báo trả lại status của json
         }
 
         [HttpPost]
@@ -328,7 +328,7 @@ namespace BookingAirline.Controllers
             return View(dsticket);
         }
         public ActionResult TicketList()
-        {     
+        {
             return View();
         }
         public ActionResult TotalRevenue()
@@ -354,15 +354,15 @@ namespace BookingAirline.Controllers
         [HttpGet]
         public ActionResult EditMyinfor(string id)
         {
-            
+
             var nhanvien = new NhanVien().ViewDetail(id);
-            
+
             return View(nhanvien);
         }
 
         [HttpPost]
-        
-        public ActionResult EditMyinfor( NhanVien nhanvien)
+
+        public ActionResult EditMyinfor(NhanVien nhanvien)
         {
             if (ModelState.IsValid)
             {
@@ -376,16 +376,16 @@ namespace BookingAirline.Controllers
                 //{
                 //    ModelState.AddModelError("", "Success");
                 //}
-                
+
 
                 database.SaveChanges();
-                
+
 
             }
-           
+
             return View("TrangChu");
         }
-        
+
 
         public ActionResult Staff()
         {
@@ -432,6 +432,63 @@ namespace BookingAirline.Controllers
 
         }
 
+        public ActionResult Promotion()
+        {
+            return View();
+        }
+        
+        public ActionResult CreatePromotion()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreatePromotion(Voucher vc)
+        {
+            database.Entry(vc).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+            database.Voucher.Add(vc);
+            database.SaveChanges();
+            TempData["macv"] = vc.MaVC;
+            TempData["MessageAlert"] = "success";
+            return RedirectToAction("Promotion");
+
+        }
+        [HttpGet]
+        public ActionResult EditPro(string id)
+        {
+
+            var voucher = new Voucher().ViewDetail(id);
+
+            return View(voucher);
+        }
+
+        [HttpPost]
+
+        public ActionResult EditPro(Voucher voucher)
+        {
+            if (ModelState.IsValid)
+            {
+                var vc = new Voucher();
+                var result = vc.Update(voucher);
+                
+
+
+            }
+
+            return View("Promotion");
+        }
+
+        public ActionResult DeletePro(string id)
+        {
+            var tb = database.Voucher.Find(id);
+            database.Voucher.Remove(tb);
+            database.SaveChanges();
+            TempData["mavc"] = tb.MaVC;
+            TempData["messageAlert"] = "XoaThanhCong";
+            //return RedirectToAction("FlightRoute");
+            return Json(new { success = true });
+        }
 
     }
 }

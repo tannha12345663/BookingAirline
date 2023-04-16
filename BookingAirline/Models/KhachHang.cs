@@ -14,7 +14,6 @@ namespace BookingAirline.Models
     
     public partial class KhachHang
     {
-        BookingAirLightEntities db = new BookingAirLightEntities();
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KhachHang()
         {
@@ -39,8 +38,5 @@ namespace BookingAirline.Models
         public virtual LoaiKH LoaiKH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ve> Ve { get; set; }
-
-        
     }
-
 }

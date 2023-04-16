@@ -12,6 +12,7 @@
 <script src="jquery-3.6.3.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
+<br />
 @{
     var checkmess = (string)TempData["messageAlert"];
     var makh = (string)TempData["manhanvien"];
@@ -28,51 +29,46 @@
     }
 }
 <h2>Staff Management</h2>
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item">
-        <a href="~/NhanVien/TrangChu" style="text-decoration: none; color: #6c757d">
-            Dashboard
-        </a>
-    </li>
-    <li class="breadcrumb-item active">Staff Management</li>
-</ol>
+
+
+<br />
 <div class="card mb-4">
-
-
-    <div class="card-body">
-        <table id="datatablesSimple">
-            <thead>
-                @*//Phần render*@
-                <tr>
-                    <th>ID</th>
-
-                    <th>Full name</th>
-                    <th>User name</th>
-                    <th>Password</th>
-                    <th>Email</th>
-
-
-                </tr>
-            </thead>
-            <tbody>
-                @{ var dsstaff = db.NhanVien.ToList();
-                    foreach (var item01 in dsstaff)
-                    {
-                        <tr>
-                            <td>@item01.IDNV</td>
-                            <td>@item01.TenNV</td>
-                            <td>@item01.UserName</td>
-                            <td>@item01.Password</td>
-                            <td>@item01.Email_NV</td>
-                            <td>
-                                <a href="~/NhanVien/DetailStaff/@item01.IDNV" class="btn btn-info btn-sm edit">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        DataTable Flight
     </div>
+    <table id="datatablesSimple">
+        <thead>
+            @*//Phần render*@
+            <tr>
+                <th>ID</th>
+                <th>Full name</th>
+                <th>User name</th>
+                <th>Password</th>
+                <th>Email</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @{ var dsstaff = db.NhanVien.ToList();
+                foreach (var item01 in dsstaff)
+                {
+                    <tr>
+                        <td>@item01.IDNV</td>
+                        <td>@item01.TenNV</td>
+                        <td>@item01.UserName</td>
+                        <td>@item01.Password</td>
+                        <td>@item01.Email_NV</td>
+                        <td>
+                            <a href="~/NhanVien/DetailStaff/@item01.IDNV" class="btn btn-info btn-sm edit">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 </div>
+

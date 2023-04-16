@@ -132,7 +132,7 @@
                         <div class="content">
                             <div class="location">
                                 <div class="item">
-                                    @{ var MaSBdi = db.TuyenBays.Find(item.MaTBay);}
+                                    @{ var MaSBdi = db.TuyenBay.Find(item.MaTBay);}
                                     <h1>@Html.DisplayFor(modelItem => MaSBdi.SanBayDi)</h1>
                                     <p>@item.NgayGio</p>
                                 </div>
@@ -151,7 +151,7 @@
                                     <p>@Html.DisplayFor(modelItem => item.MaCB)</p>
                                 </div>
                                 <div class="item">
-                                    @{var tenmb = db.MayBays.Find(item.MaMB);
+                                    @{var tenmb = db.MayBay.Find(item.MaMB);
                                     }
                                     <h4>flight</h4>
                                     <p>@Html.DisplayFor(modelItem => item.MaMB)</p>

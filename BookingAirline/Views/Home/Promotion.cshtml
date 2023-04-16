@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BookingAirline.Models.Voucher>
+    @using BookingAirline.Models
+@{
+    ViewBag.Title = "Promotion";
+    Layout = "~/Views/KhachHang/Shared/_LayoutPage1.cshtml";
+    BookingAirLightEntities db = new BookingAirLightEntities();
+}
+<link href="~/Content/Promotion.css" rel="stylesheet" />
+<br />
+<br />
+<body>
+    @{ var dsvc = db.Voucher.ToList();
+        foreach (var item in dsvc)
+        {
+            <div class="noidung">
+                <p style="font-size:60px;">@item.TenVC</p>
+                <br />
+                <p>Bắt đầu từ ngày @item.NgayApDung đến ngày @item.NgayHetHan</p>
+            </div>
+            <div class="center">
+
+
+                <div class="form">
+                    <h1>Promo code</h1>
+                    <form>
+                        <div class="inputbox">
+                            <input type="text" value="@item.MaVC" required="required" readonly>
+
+                        </div>
+                        <div class="inputbox">
+                            <p>@item.ChietKhau %</p>
+                        </div>
+                        <br />
+                        <div class="inputbox">
+                            <button>Tìm thêm vé</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <br />
+            <br />
+        }
+    }
+</body>
+

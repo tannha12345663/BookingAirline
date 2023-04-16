@@ -29,6 +29,7 @@ namespace BookingAirline.Models
         public Nullable<double> ThanhTien { get; set; }
         public string IDKH { get; set; }
         public string CCCD { get; set; }
+        public string MaVC { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietHD> ChiTietHD { get; set; }
@@ -37,5 +38,6 @@ namespace BookingAirline.Models
         public virtual KhachHang KhachHang { get; set; }
         public virtual NhanVien NhanVien { get; set; }
         public virtual Phi Phi { get; set; }
+        public virtual Voucher Voucher { get; set; }
     }
 }

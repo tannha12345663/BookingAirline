@@ -95,6 +95,7 @@
                                                 </select>
                                             </fieldset>
                                         </div>
+                                        
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <label for="to">To:</label>
@@ -165,8 +166,10 @@
             </div>
         </div>
     </section>
-
-     @RenderBody()
+    <div>
+        @RenderBody()
+    </div>
+  
 
     <br />
 </body>
@@ -219,4 +222,5 @@
             log: function () { }
         };
     }
+
 </script>
