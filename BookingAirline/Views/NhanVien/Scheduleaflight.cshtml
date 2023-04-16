@@ -150,7 +150,7 @@
                                             {
                                                 <span class="badge bg-secondary">Sắp hết hạn và đặt chỗ</span>
                                             }
-                                            else if (han.Days >0) 
+                                            else if (han.Days > 0)
                                             {
                                                 <span class="badge bg-success">Còn hiệu lực</span>
                                             }
@@ -177,20 +177,26 @@
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                             }
-                                            if (han.Days >= 0 && han.Minutes >=30)
+                                            if (han.Days > 0)
                                             {
                                                 <button value="@item01.MaCB" id="MaCbay" data-toggle="modal" data-target="#myModal03" class="btn btn-danger btn-sm edit">
                                                     <i class="fa fa-remove"></i>
                                                 </button>
                                             }
-                                            else if (han.Days <= 0 && han.Minutes <30 )
+                                            else if (han.Days == 0 && han.Minutes >= 30)
+                                            {
+                                                <button value="@item01.MaCB" id="MaCbay" data-toggle="modal" data-target="#myModal03" class="btn btn-danger btn-sm edit">
+                                                    <i class="fa fa-remove"></i>
+                                                </button>
+                                            }
+                                            else if (han.Days <= 0 && han.Minutes < 30)
                                             {
                                                 <p style="font-weight:bold">None</p>
                                             }
                                         }
                                         @*<a href="/NhanVien/DeleteFlight/@item01.MaCB" onclick=" return confirm('Are you sure you want to delete ?')" class="btn btn-danger btn-sm edit">
-                                            <i class="fa fa-remove"></i>
-                                        </a>*@
+                                    <i class="fa fa-remove"></i>
+                                </a>*@
 
                                     </td>
                                 </tr>

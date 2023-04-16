@@ -437,6 +437,7 @@
     <Content Include="Style\Css\bootstrap.min.css" />
     <Content Include="Style\Css\Contact.css" />
     <Content Include="Style\Css\contactStyle.css" />
+    <Content Include="Style\Css\DataTable.css" />
     <Content Include="Style\Css\datepicker.css" />
     <Content Include="Style\Css\fontAwesome.css" />
     <Content Include="Style\Css\hero-slider.css" />
@@ -455,6 +456,7 @@
     <Content Include="Style\Css\VeMB1504.css" />
     <Content Include="Style\Js\bootstrap.min.js" />
     <Content Include="Style\Js\custom-navigation.js" />
+    <Content Include="Style\Js\Datatable.js" />
     <Content Include="Style\Js\datepicker.js" />
     <Content Include="Style\Js\IMGScript.js" />
     <Content Include="Style\Js\jquery-1.11.2.min.js" />
