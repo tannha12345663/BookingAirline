@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = "ChooseSeat";
-    Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
+    Layout = "~/Views/KhachHangHA/Shared/_LayoutPage2.cshtml";
     BookingAirLightEntities database = new BookingAirLightEntities();
     var macb = ViewData["MaCB"];
 }
@@ -12,12 +12,10 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!--Icon-->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-
 
 
 <h2 style="text-align:center">ChooseSeat : @macb</h2>
@@ -230,4 +228,16 @@
             $('#submit').attr('action', '/KhachHangHA/ChooseSeatdi/' + quantity)
         }
     })
+</script>
+<script>
+    $(document).ready(function () {
+        $("#round").change(function () {
+            var check = $("#round").val();
+            $("#return").prop("disabled", false);
+
+        });
+        $("#oneway").change(function () {
+            $("#return").attr("disabled", true);
+        })
+    });
 </script>

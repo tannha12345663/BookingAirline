@@ -20,7 +20,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="apple-touch-icon" href="~/Style/apple-touch-icon.html">
     <link rel="Shortcut Icon" href="~/hinh/logo-i.png" type="image/x-icon" />
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    @*<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />*@
     <link href="~/Style/Admin/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <script src="~/Style/Admin/js/jquery-confirm.js"></script>
@@ -84,7 +84,7 @@
                                 </a>
                             </nav>
                         </div>
-                        
+
                         <a class="nav-link" href="~/NhanVien/TicketList">
                             <div class="sb-nav-link-icon"><i class="fas fa-ticket-alt"></i></div>
                             Ticket List
@@ -131,9 +131,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="~/Style/Admin/js/chart-area-demo.js"></script>
     <script src="~/Style/Admin/js/chart-bar-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="~/Style/Admin/js/datatables-simple-demo.js"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="~/Style/Admin/js/datatables-simple-demo.js"></script>*@
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 
-    @RenderSection("script",false)
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#datatablesSimple').DataTable();
+            $('#datatablesSimple1').DataTable();
+            $('#datatablesSimple2').DataTable();
+        });
+    </script>
+    @RenderSection("script", false)
 </body>
 </html>

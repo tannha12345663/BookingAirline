@@ -127,7 +127,7 @@
                     <th>Chức năng</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 @{
                     var dstb = database.TuyenBays.ToList();
                     var stt = 0;
@@ -182,7 +182,7 @@
                             <div class="form-group col-md-6">
                                 <label class="control-label">Nhập mã sân bay</label>
                                 <input class="form-control text-box single-line" id="InputMaSB" name="MaSB" type="text" required>
-                                <span id="error"></span>
+                                <span id="error" style="color:red"></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="control-label">Nhập tên sân bay</label>
@@ -460,6 +460,7 @@
         //Kiểm tra mã sân bay có bị trùng
         $("#InputMaSB").on('input', function () {
             var inputval = $(this).val();
+            console.log(inputval); //Dùng để check value biến hứng khi có sự kiện người dùng tác động vào
             var isDuplicate = false;
 
             //Tạo một Ajax request với controller và action tương ứng
@@ -472,13 +473,13 @@
                 success: function (response) {
                     if (response) {
                         //Nếu dữ liệu đã tồn tại, hiển thị thông báo
-                        isDuplicate = true;
+                        //isDuplicate = true;
                         var html = '<p> Dữ liệu đã tồn tại</p>'
                         $('#error').html(html);
                         $("#btnSave").attr("disabled", "disabled");
                     } else {
                         if (inputval.length == 0) {
-                            var html1 = ''
+                            var html1 = 'Không được để trống'
                             $('#error').html(html1);
                             $("#btnSave").prop("disabled", false);
                         } else {

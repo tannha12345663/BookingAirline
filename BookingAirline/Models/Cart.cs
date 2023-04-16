@@ -31,8 +31,7 @@ namespace BookingAirline.Models
                 {
                     idVe = mave,
                     soLuong = sl,
-                    CCCD = cccd
-
+                    CCCD=cccd
                 });
             }
             else
@@ -64,7 +63,7 @@ namespace BookingAirline.Models
             }
         }
         //Cập nhật CCCD
-        public void CapNhatCCCD(string id, string cccd)
+        public void CapNhatCCCD(string id,string cccd)
         {
             var item = items.Find(s => s.idVe.MaVe == id);
             if (item != null)

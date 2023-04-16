@@ -43,6 +43,7 @@ namespace BookingAirline.Models
         public virtual DbSet<SanBay> SanBays { get; set; }
         public virtual DbSet<TuyenBay> TuyenBays { get; set; }
         public virtual DbSet<Ve> Ves { get; set; }
+        public virtual DbSet<Voucher> Vouchers { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
     }
 }

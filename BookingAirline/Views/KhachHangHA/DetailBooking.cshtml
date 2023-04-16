@@ -182,9 +182,7 @@
                                         <div class="custom-radio">
                                             <input type="radio" id="radio01" name="radio" checked />
                                             <label for="radio01"><span></span>FLIGHT</label>
-                                        </div>
-
-
+                                        </div>                                                                                
                                     </div>
 
                                     <div class="table-responsive">
@@ -211,17 +209,15 @@
                                                                     var total = string.Format("{0:0,0 vnđ}", item.DonGia);
                                                                 }
                                                                 <li><span>Price:</span> @total</li>
-                                                                @{
-                                                                    var cccd = db.Ves.Where(s => s.MaVe == item.MaVe && s.MaCB == item.MaCB).FirstOrDefault();
+                                                                @{ 
+                                                                    var cccd = db.Ves.Where(s => s.MaVe == item.MaVe&&s.MaCB==item.MaCB).FirstOrDefault();
                                                                 }
                                                                 <li><span>Citizen ID:</span> @cccd.CCCD</li>
                                                             </ul>
                                                         </td>
-
                                                     </tr>
                                                     stt++;
                                                 }
-
                                             </tbody>
                                         </table>
                                     </div>

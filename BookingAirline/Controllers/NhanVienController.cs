@@ -294,7 +294,7 @@ namespace BookingAirline.Controllers
                 }
                 //Check thông tin sân bay đi và sân bay đến có tồn tại sẵn trong hệ thống hay không 
                 var check = database.TuyenBays.Where(s => s.SanBayDi == tb.SanBayDi && s.SanBayDen == tb.SanBayDen).FirstOrDefault();
-                if (check != null)
+                if(check != null)
                 {
                     TempData["messageAlert"] = "Error02";
                     return RedirectToAction("FlightRoute");
@@ -332,7 +332,7 @@ namespace BookingAirline.Controllers
         [HttpPost]
         public ActionResult DeleteFR(string id)
         {
-            var tb = database.TuyenBays.Where(s => s.MaTBay == id).FirstOrDefault();
+            var tb = database.TuyenBays.Where(s => s.MaTBay == id).FirstOrDefault() ;
             database.TuyenBays.Remove(tb);
             database.SaveChanges();
             TempData["matuyenbay"] = tb.MaTBay;

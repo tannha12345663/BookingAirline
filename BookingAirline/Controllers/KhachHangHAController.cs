@@ -126,14 +126,14 @@ namespace BookingAirline.Controllers
             //Lọc tìm kiếm chuyến bay
             var di = Request["From"].ToString();
             var den = Request["to"].ToString();
-            var chuyendi = database.TuyenBays.Where(s => s.SanBayDi == di && s.SanBayDen == den).FirstOrDefault();
+            var chuyendi = database.TuyenBays.Where(s => s.SanBayDi == di && s.SanBayDen ==den ).FirstOrDefault();
             //var listdi = database.ChuyenBays.Where(s => s.MaTBay == chuyendi.MaTBay && Convert.ToDateTime(s.NgayGio).ToString("dd")== Day ).ToList();
             var test = database.ChuyenBays.SqlQuery
                 ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month and MaTbay=@chuyendi",
                 new SqlParameter("@year", year),
                 new SqlParameter("@day", Day),
                 new SqlParameter("@month", month),
-                new SqlParameter("@chuyendi", chuyendi.MaTBay)
+                new SqlParameter("@chuyendi",chuyendi.MaTBay)
                 ).ToList();
             //Hiển thị danh sách các chuyến bay
             return View(test);
@@ -184,7 +184,7 @@ namespace BookingAirline.Controllers
                         new SqlParameter("@year", year),
                         new SqlParameter("@day", Day),
                         new SqlParameter("@month", month),
-                        new SqlParameter("@chuyenve", chuyenve.MaTBay)
+                        new SqlParameter("@chuyenve",chuyenve.MaTBay)
                         ).ToList();
                 return View(test);
             }
@@ -218,7 +218,6 @@ namespace BookingAirline.Controllers
             {
                 Session["SLKH"] = (cart.Items.Count() / 2);
             }
-
             return View(cart);
         }
         //Nhân thông tin khi người dùng nhập thông tin khách hàng tương ứng với vé
@@ -237,7 +236,6 @@ namespace BookingAirline.Controllers
             {
                 foreach (var item01 in cart.Items)
                 {
-
                     var mave1 = item01.idVe.MaVe;
                     var cccd = Request["cccd_" + stt];
                     cart.CapNhatCCCD(mave1, cccd);
@@ -263,7 +261,7 @@ namespace BookingAirline.Controllers
                     else if (item01.idVe.MaCB == cbden)
                     {
                         var mave2 = item01.idVe.MaVe;
-                        var cccd2 = Request["cccd_" + number / 2];
+                        var cccd2 = Request["cccd_" + number/2];
                         cart.CapNhatCCCD(mave2, cccd2);
                     }
                     number++;
@@ -345,8 +343,7 @@ namespace BookingAirline.Controllers
                     //Add thông tin vé vào giỏ hàng
                     var ticket = Request["Ma" + i];
                     var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi && s.MaVe == ticket).FirstOrDefault();
-                    GetCart().Add(detailtic, 1, null);
-
+                    GetCart().Add(detailtic, 1,null);
                     check++;
                     if (check == id)
                     {
@@ -386,8 +383,7 @@ namespace BookingAirline.Controllers
                     //Add thông tin vé vào giỏ hàng
                     var ticket = Request["Ma" + i];
                     var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBve && s.MaVe == ticket).FirstOrDefault();
-                    GetCart().Add(detailtic, 1, null);
-
+                    GetCart().Add(detailtic, 1,null);
                     check++;
                     if (check == id)
                     {
