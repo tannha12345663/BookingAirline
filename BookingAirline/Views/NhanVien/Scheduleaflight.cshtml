@@ -286,7 +286,8 @@
                                     @{ var mb = database.MayBays.ToList();
                                         foreach (var item in mb)
                                         {
-                                            <option value="@item.MaMB">@item.MaMB</option>
+                                            var tenmb = database.MayBays.Find(item.MaMB);
+                                            <option value="@item.MaMB">@item.MaMB -- @tenmb.LoaiMayBay</option>
                                         }
                                     }
                                 </select>

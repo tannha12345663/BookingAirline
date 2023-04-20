@@ -82,7 +82,8 @@ namespace BookingAirline.Controllers
                 }
                 else
                 {
-                    kh.HinhAnh = kh.HinhAnh;
+                    var checkkh = database.KhachHangs.Find(kh.IDKH);
+                    kh.HinhAnh = checkkh.HinhAnh;
                     database.Entry(database.KhachHangs.Find(kh.IDKH)).CurrentValues.SetValues(kh);
                     database.SaveChanges();
                 }
@@ -217,6 +218,10 @@ namespace BookingAirline.Controllers
             if (check == "round")
             {
                 Session["SLKH"] = (cart.Items.Count() / 2);
+            }
+            else if(check == "one-way")
+            {
+                Session["SLKH"] = cart.Items.Count();
             }
             return View(cart);
         }
@@ -436,7 +441,7 @@ namespace BookingAirline.Controllers
 
 
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult ThanhToan01()
         {
             var uid = (BookingAirline.Models.KhachHang)Session["userKH"];

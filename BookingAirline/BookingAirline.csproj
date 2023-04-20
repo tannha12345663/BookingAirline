@@ -452,6 +452,7 @@
     <Content Include="Style\Css\thankyou.css" />
     <Content Include="Style\Css\ticketStyle.css" />
     <Content Include="Style\Css\tooplate-style.css" />
+    <Content Include="Style\Css\UploadAnh.css" />
     <Content Include="Style\Css\VeMB.css" />
     <Content Include="Style\Css\VeMB1504.css" />
     <Content Include="Style\Js\bootstrap.min.js" />
@@ -460,6 +461,7 @@
     <Content Include="Style\Js\datepicker.js" />
     <Content Include="Style\Js\IMGScript.js" />
     <Content Include="Style\Js\jquery-1.11.2.min.js" />
+    <Content Include="Style\Js\jquery-3.2.1.min.js" />
     <Content Include="Style\Js\jquery.min.js" />
     <Content Include="Style\Js\main.js" />
     <Content Include="Style\Js\modernizr-2.8.3-respond-1.4.2.min.js" />
@@ -537,6 +539,7 @@
     <Content Include="Views\KhachHangHA\Shared\_LayoutContact.cshtml" />
     <Content Include="Views\KhachHangHA\Shared\_LayoutPayment.cshtml" />
     <Content Include="Views\KhachHangHA\Shared\_LayoutPage2.cshtml" />
+    <Content Include="Views\KhachHangHA\Shared\_LayoutInfoCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
