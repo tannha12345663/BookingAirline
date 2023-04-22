@@ -200,6 +200,8 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderStatus.cs" />
+    <Compile Include="Models\VNPay\PayCompare.cs" />
+    <Compile Include="Models\VNPay\PayLib.cs" />
     <Compile Include="Models\Phi.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -215,6 +217,7 @@
     <Compile Include="Models\Ve.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VNPay\Ultil.cs" />
     <Compile Include="Models\Voucher.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
