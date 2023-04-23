@@ -163,14 +163,21 @@
     @RenderBody()
     <h2 style="text-align:center ">PROMOTION</h2>
     <br />
-    <div class="Sale">
-        <a href="~/Home/Promotion">
-            <img src="~/hinh/KM/du-lich-he-99k.jpg" />
-        </a>
-        <a href="~/Home/Promotion">
-            <img src="~/hinh/KM/vietjet-khuyen-mai-ve-0-dong-moi-ngay.jpg" />
-        </a>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="~/Home/Promotion">
+                    <img src="~/hinh/KM/du-lich-he-99k.jpg" />
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <a href="~/Home/Promotion">
+                    <img src="~/hinh/KM/vietjet-khuyen-mai-ve-0-dong-moi-ngay.jpg" />
+                </a>
+            </div>
+        </div>
     </div>
+
     <div class="tabs-content" id="weather">
         <div class="container">
             <div class="row">
@@ -563,11 +570,11 @@
 
     <div class="display-container">
 
-        
-        <img src="~/hinh/BL/Ảnh chụp màn hình 2023-03-23 235830.png" class="mySlides"/>
-        <img src="~/hinh/BL/Ảnh chụp màn hình 2023-03-23 235918.png" class="mySlides"/>
-        <img src="~/hinh/BL/Ảnh chụp màn hình 2023-03-23 235954.png" class="mySlides"/>
-        
+
+        <img src="~/hinh/BL/Ảnh chụp màn hình 2023-03-23 235954.png" class="mySlides" />
+        <img src="~/hinh/BL/Ảnh chụp màn hình 2023-03-23 235830.png" class="mySlides" />
+        <img src="~/hinh/BL/Ảnh chụp màn hình 2023-03-23 235918.png" class="mySlides" />
+
 
         <button class="image-button button-left" onclick="plusDivs(-1)">&#10094;</button>
         <button class="image-button button-right" onclick="plusDivs(1)">&#10095;</button>
@@ -577,9 +584,7 @@
     <br />
     <h2 style="text-align:center">Business Partner</h2>
     <div class="Coop">
-
-
-        <div class="logo">
+        <div class="logo" style="text-align:center">
             <img src="~/hinh/Cooplogo/Bamboo-Airways-logo.png" />
             <img src="~/hinh/Cooplogo/malaysia-airlines-logo.png" />
             <img src="~/hinh/Cooplogo/Singapore-Airlines-logo-01.png" />
@@ -587,37 +592,37 @@
             <img src="~/hinh/Cooplogo/VJ.png" />
             <img src="~/hinh/Cooplogo/VNEl.png" />
         </div>
-
     </div>
     <span class="divider"><hr /></span>
 
 
 
+</body>
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="primary-button">
-                        <a href="#" class="scroll-top">Back To Top</a>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <ul class="social-icons">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-
-                    </ul>
-                </div>
-                <div class="col-md-12">
-                    <p>By Team 30 </p>
-                </div>
-            </div>
-        </div>
-    </footer>
 
 </html>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="primary-button">
+                    <a href="#" class="scroll-top">Back To Top</a>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <ul class="social-icons">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <p>By Team 30 </p>
+            </div>
+        </div>
+    </div>
+</footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="~/Style/Js/jquery-1.11.2.min.js"><\/script>')</script>
 

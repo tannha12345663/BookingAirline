@@ -247,7 +247,6 @@
     <Compile Include="Models\OrderStatu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\VNPay\PayCompare.cs" />
     <Compile Include="Models\VNPay\PayLib.cs" />
     <Compile Include="Models\Phi.cs">
@@ -729,8 +728,6 @@
     <Content Include="Views\Home\Promotion.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Views\KhachHangs\" />
     <Content Include="Views\KhachHangHA\Shared\_LayoutInfoCustomer.cshtml" />
     <Content Include="Views\KhachHangHA\FailePayment.cshtml" />
     <Content Include="Views\NhanVien\CustomerManagement.cshtml" />
@@ -740,7 +737,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Data\Avatar\" />
+    <Folder Include="Views\KhachHangs\" />
     <Folder Include="Views\Payment\" />
   </ItemGroup>
   <ItemGroup>
