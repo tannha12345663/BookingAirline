@@ -22,7 +22,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <a href="~/KhachHang/DSachCBVe/@item.MaCB" style="text-decoration:none">
+                <a href="~/KhachHangHA/DSachCBVe01/@item.MaCB" style="text-decoration:none">
                     <div class="ticket">
                         <div class="qr_code">
                             <img src="~/Content/images/Vietjet-Air-Logo-PNG-3.png" alt="qr_code" />
@@ -30,7 +30,7 @@
                         <div class="content">
                             <div class="location">
                                 <div class="item">
-                                    @{ var MaSBdi = db.TuyenBay.Find(item.MaTBay);}
+                                    @{ var MaSBdi = db.TuyenBays.Find(item.MaTBay);}
                                     <h1>@Html.DisplayFor(modelItem => MaSBdi.SanBayDi)</h1>
                                     <h6>@item.NgayGio</h6>
                                 </div>
@@ -52,7 +52,7 @@
                                     <p>@Html.DisplayFor(modelItem => item.MaCB)</p>
                                 </div>
                                 <div class="item">
-                                    @{var tenmb = db.MayBay.Find(item.MaMB);
+                                    @{var tenmb = db.MayBays.Find(item.MaMB);
                                     }
                                     <h4>flight</h4>
                                     <p>@Html.DisplayFor(modelItem => item.MaMB)</p>

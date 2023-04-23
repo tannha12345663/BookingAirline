@@ -27,7 +27,7 @@ namespace BookingAirline.Controllers
         public ActionResult ThongtinCaNhan()
         {
             var user = (BookingAirline.Models.KhachHang)Session["userKH"];
-            var data = database.KhachHang.Where(s => s.IDKH == user.IDKH).FirstOrDefault();
+            var data = database.KhachHangs.Where(s => s.IDKH == user.IDKH).FirstOrDefault();
             return View(data);
         }
         public void LuuAnh(KhachHang kh, HttpPostedFileBase HinhAnh)
@@ -60,8 +60,8 @@ namespace BookingAirline.Controllers
         [HttpGet]
         public ActionResult EditProfile(string id)
         {
-            KhachHang kh = database.KhachHang.Find(id);
-            ViewBag.MaLKH = new SelectList(database.LoaiKH, "MaLKH", "TenLKH");
+            KhachHang kh = database.KhachHangs.Find(id);
+            ViewBag.MaLKH = new SelectList(database.LoaiKHs, "MaLKH", "TenLKH");
             return View(kh);
         }
 
@@ -100,7 +100,7 @@ namespace BookingAirline.Controllers
 
         public ActionResult DetailBooking(string id)
         {
-            var cthd = database.ChiTietHD.Where(s => s.MaHD == id).ToList();
+            var cthd = database.ChiTietHDs.Where(s => s.MaHD == id).ToList();
             TempData["mahd"] = id;
             return View(cthd);
         }
@@ -141,7 +141,7 @@ namespace BookingAirline.Controllers
         public ActionResult DSachCBVe(string id)
         {
             var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
-            OrderStatus order = new OrderStatus();
+            OrderStatu order = new OrderStatu();
             order.IDUser = uid.IDKH;
             var count = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
             if (count != null)
@@ -198,7 +198,7 @@ namespace BookingAirline.Controllers
             if (check == "round")
             {
                 var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
-                OrderStatus order = new OrderStatus();
+                OrderStatu order = new OrderStatu();
                 order = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
                 order.MaCBve = id;
                 database.Entry(order).State = System.Data.Entity.EntityState.Modified;
@@ -334,7 +334,7 @@ namespace BookingAirline.Controllers
             int check = 0;
             var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
             var dsorder = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
-            var dsve = database.Ve.Where(s => s.MaCB == dsorder.MaCBdi).ToList();
+            var dsve = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi).ToList();
             for (int i = 1; i <= dsve.Count(); i++)
             {
                 if (Request["Ma" + i] != null)
@@ -439,7 +439,7 @@ namespace BookingAirline.Controllers
             var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
             var kh = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
 
-            var maveve = database.Ve.Where(s => s.MaCB == kh.MaCBve).FirstOrDefault();
+            var maveve = database.Ves.Where(s => s.MaCB == kh.MaCBve).FirstOrDefault();
             var ttkh = (Order)Session["contacKH"]; // Thông tin liên lạc của KH
             var tongtien = string.Format("{0:0,0 vnđ}", ttkh.Total);
             //mavedi.TinhTrang = "Đã thanh toán";
@@ -455,7 +455,7 @@ namespace BookingAirline.Controllers
             themhd.ThanhTien = ttkh.Total;
             themhd.CCCD = ttkh.CCCD;
             themhd.IDKH = uid.IDKH;
-            database.HoaDon.Add(themhd);
+            database.HoaDons.Add(themhd);
             database.SaveChanges();
 
             //Thêm chi tiết hóa đơn
@@ -466,7 +466,7 @@ namespace BookingAirline.Controllers
             var dsorder = cart.Items;
             foreach (var item in dsorder)
             {
-                var mavedi = database.Ve.Where(s => s.MaVe == item.idVe.MaVe && s.MaCB == item.idVe.MaCB).FirstOrDefault();
+                var mavedi = database.Ves.Where(s => s.MaVe == item.idVe.MaVe && s.MaCB == item.idVe.MaCB).FirstOrDefault();
                 mavedi.TinhTrang = "Đã thanh toán";
                 mavedi.CCCD = item.CCCD;
                 mavedi.IDKH = uid.IDKH;
@@ -478,7 +478,7 @@ namespace BookingAirline.Controllers
                 cthd.DonGia = item.idVe.GiaVe;
                 cthd.MaCB = item.idVe.MaCB;
                 cthd.TongTien = (item.soLuong) * (item.idVe.GiaVe);
-                database.ChiTietHD.Add(cthd);
+                database.ChiTietHDs.Add(cthd);
                 database.SaveChanges();
             }
             if (maveve != null)

@@ -42,7 +42,7 @@ namespace BookingAirline.Controllers
                 Random rd = new Random();
                 var macb = "VN" + rd.Next(1, 1000);
                 cb.MaCB = macb;
-                database.ChuyenBay.Add(cb);
+                database.ChuyenBays.Add(cb);
                 database.SaveChanges();
                 var check = Convert.ToInt32(Request["checkbox01"]);
                 if (check == 1)
@@ -81,7 +81,7 @@ namespace BookingAirline.Controllers
                     ticket.TinhTrang = "Chưa đặt chỗ";
                     ticket.GiaVe = Convert.ToDouble(Request["dongiaG1"]);
                     ticket.CCCD = "null";
-                    database.Ve.Add(ticket);
+                    database.Ves.Add(ticket);
                     database.SaveChanges();
                 }
                 for (int i = 1; i <= id2; i++)
@@ -94,7 +94,7 @@ namespace BookingAirline.Controllers
                     ticket.TinhTrang = "Chưa đặt chỗ";
                     ticket.GiaVe = Convert.ToDouble(Request["dongiaG2"]);
                     ticket.CCCD = "null";
-                    database.Ve.Add(ticket);
+                    database.Ves.Add(ticket);
                     database.SaveChanges();
                 }
                 for (int i = 1; i <= id3; i++)
@@ -107,7 +107,7 @@ namespace BookingAirline.Controllers
                     ticket.TinhTrang = "Chưa đặt chỗ";
                     ticket.GiaVe = Convert.ToDouble(Request["dongiaG3"]);
                     ticket.CCCD = "null";
-                    database.Ve.Add(ticket);
+                    database.Ves.Add(ticket);
                     database.SaveChanges();
                 }
             }
@@ -124,7 +124,7 @@ namespace BookingAirline.Controllers
             }
             else
             {
-                database.MayBay.Add(mb);
+                database.MayBays.Add(mb);
                 database.SaveChanges();
                 return RedirectToAction("Scheduleaflight");
             }
@@ -146,7 +146,7 @@ namespace BookingAirline.Controllers
             }
             TempData["machuyenbay"] = ct.MaCTCB;
             TempData["messageAlert"] = "success";
-            database.ChiTietChuyenBay.Add(ct);
+            database.ChiTietChuyenBays.Add(ct);
             database.SaveChanges();
             return RedirectToAction("Scheduleaflight");
         }
@@ -155,7 +155,7 @@ namespace BookingAirline.Controllers
         {
             if (id != null)
             {
-                var thongtincb = database.ChuyenBay.Find(id);
+                var thongtincb = database.ChuyenBays.Find(id);
                 TempData["themthongtin"] = 2;
                 return View(thongtincb);
             }
@@ -185,8 +185,8 @@ namespace BookingAirline.Controllers
         [HttpPost]
         public ActionResult DeleteFlight(string id)
         {
-            var tb = database.ChuyenBay.Find(id);
-            database.ChuyenBay.Remove(tb);
+            var tb = database.ChuyenBays.Find(id);
+            database.ChuyenBays.Remove(tb);
             database.SaveChanges();
             TempData["machuyenbay"] = tb.MaCB;
             TempData["messageAlert"] = "XoaThanhCong";
@@ -318,7 +318,7 @@ namespace BookingAirline.Controllers
         }
         public ActionResult DetailFR(string id)
         {
-            var ttFR = database.TuyenBay.Find(id);
+            var ttFR = database.TuyenBays.Find(id);
             return View(ttFR);
         }
         [HttpPost]
@@ -349,7 +349,7 @@ namespace BookingAirline.Controllers
         //Thêm vé máy bay sau khi đã có chuyến bay
         public ActionResult TicketManagement()
         {
-            var dsticket = database.Ve.ToList();
+            var dsticket = database.Ves.ToList();
             return View(dsticket);
         }
         public ActionResult TicketList()
@@ -358,12 +358,12 @@ namespace BookingAirline.Controllers
         }
         public ActionResult TotalRevenue()
         {
-            var dshd = database.HoaDon.ToList();
+            var dshd = database.HoaDons.ToList();
             return View(dshd);
         }
         public ActionResult DetailTotalRevenue(string id)
         {
-            var cthd = database.ChiTietHD.Where(s => s.MaHD == id).ToList();
+            var cthd = database.ChiTietHDs.Where(s => s.MaHD == id).ToList();
             TempData["Mahd"] = id;
             return View(cthd);
         }
@@ -374,9 +374,9 @@ namespace BookingAirline.Controllers
 
         public ActionResult Myinfor()
         {
-            return View();
+            NhanVien nhanvien = Session["userNV"] as NhanVien;
+            return View(nhanvien);
         }
-        [HttpGet]
         public ActionResult EditMyinfor(string id)
         {
 
@@ -393,7 +393,7 @@ namespace BookingAirline.Controllers
             {
                 var vien = new NhanVien();
                 var result = vien.Update(nhanvien);
-                //if(result)
+                //if (result)
                 //{
                 //    return RedirectToAction("TrangChu", "NhanVien");
                 //}
@@ -404,11 +404,11 @@ namespace BookingAirline.Controllers
 
 
                 database.SaveChanges();
-
+                 
 
             }
 
-            return View("TrangChu");
+            return View("Myinfor", nhanvien);
         }
 
 
@@ -418,7 +418,7 @@ namespace BookingAirline.Controllers
         }
         public ActionResult DetailStaff(string id)
         {
-            var ttnv = database.NhanVien.Find(id);
+            var ttnv = database.NhanViens.Find(id);
             return View(ttnv);
         }
 
@@ -441,7 +441,7 @@ namespace BookingAirline.Controllers
 
         public ActionResult DetailCus(string id)
         {
-            var ttCus = database.KhachHang.Find(id);
+            var ttCus = database.KhachHangs.Find(id);
             return View(ttCus);
         }
 
@@ -472,7 +472,7 @@ namespace BookingAirline.Controllers
         public ActionResult CreatePromotion(Voucher vc)
         {
             database.Entry(vc).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
-            database.Voucher.Add(vc);
+            database.Vouchers.Add(vc);
             database.SaveChanges();
             TempData["macv"] = vc.MaVC;
             TempData["MessageAlert"] = "success";
@@ -483,9 +483,9 @@ namespace BookingAirline.Controllers
         public ActionResult EditPro(string id)
         {
 
-            var voucher = new Voucher().ViewDetail(id);
+            //var voucher = new Voucher().ViewDetail(id);
 
-            return View(voucher);
+            return View(/*voucher*/);
         }
 
         [HttpPost]
@@ -495,7 +495,7 @@ namespace BookingAirline.Controllers
             if (ModelState.IsValid)
             {
                 var vc = new Voucher();
-                var result = vc.Update(voucher);
+                //var result = vc.Update(voucher);
                 
 
 
@@ -506,8 +506,8 @@ namespace BookingAirline.Controllers
 
         public ActionResult DeletePro(string id)
         {
-            var tb = database.Voucher.Find(id);
-            database.Voucher.Remove(tb);
+            var tb = database.Vouchers.Find(id);
+            database.Vouchers.Remove(tb);
             database.SaveChanges();
             TempData["mavc"] = tb.MaVC;
             TempData["messageAlert"] = "XoaThanhCong";

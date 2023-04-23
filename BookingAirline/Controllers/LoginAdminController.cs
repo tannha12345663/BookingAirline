@@ -20,8 +20,8 @@ namespace BookingAirline.Controllers
         [HttpPost]
         public ActionResult Login(string user, string password)
         {
-            var data = database.NhanVien.Where(s => s.UserName == user && s.Password == password).FirstOrDefault();
-            var taikhoan = database.NhanVien.SingleOrDefault(s => s.UserName == user && s.Password == password);
+            var data = database.NhanViens.Where(s => s.UserName == user && s.Password == password).FirstOrDefault();
+            var taikhoan = database.NhanViens.SingleOrDefault(s => s.UserName == user && s.Password == password);
             if (data == null)
             {
                 TempData["error"] = "Tài khoản đăng nhập không đúng";

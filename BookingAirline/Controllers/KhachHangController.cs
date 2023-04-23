@@ -46,7 +46,7 @@ namespace BookingAirline.Controllers
         public ActionResult DSachCBVe(string id)
         {
             var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
-            OrderStatus order = new OrderStatus();
+            OrderStatu order = new OrderStatu();
             order.IDUser = uid;
             var count = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
             if (count != null)
@@ -99,7 +99,7 @@ namespace BookingAirline.Controllers
             if (check == "round")
             {
                 var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
-                OrderStatus order = new OrderStatus();
+                OrderStatu order = new OrderStatu();
                 order = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
                 order.MaCBve = id;
                 database.Entry(order).State = System.Data.Entity.EntityState.Modified;
@@ -301,7 +301,7 @@ namespace BookingAirline.Controllers
             themhd.NgayLap = System.DateTime.Now;
             themhd.ThanhTien = ttkh.Total;
             themhd.CCCD = ttkh.CCCD;
-            database.HoaDon.Add(themhd);
+            database.HoaDons.Add(themhd);
             database.SaveChanges();
 
 
@@ -315,7 +315,7 @@ namespace BookingAirline.Controllers
             var dsorder = cart.Items;
             foreach (var item in dsorder)
             {
-                var mavedi = database.Ve.Where(s => s.MaVe == item.idVe.MaVe && s.MaCB == item.idVe.MaCB).FirstOrDefault();
+                var mavedi = database.Ves.Where(s => s.MaVe == item.idVe.MaVe && s.MaCB == item.idVe.MaCB).FirstOrDefault();
                 mavedi.TinhTrang = "Đã thanh toán";
                 mavedi.CCCD = ttkh.CCCD;
                 database.Entry(mavedi).State = System.Data.Entity.EntityState.Modified;
@@ -326,7 +326,7 @@ namespace BookingAirline.Controllers
                 cthd.DonGia = item.idVe.GiaVe;
                 cthd.MaCB = item.idVe.MaCB;
                 cthd.TongTien = (item.soLuong) * (item.idVe.GiaVe);
-                database.ChiTietHD.Add(cthd);
+                database.ChiTietHDs.Add(cthd);
                 database.SaveChanges();
 
                 //Tiến hành thiết lập tạo phiếu đặt chỗ cho khách hàng

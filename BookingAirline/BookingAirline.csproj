@@ -196,7 +196,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\OrderStatus.cs">
+    <Compile Include="Models\OrderStatu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Phi.cs">
@@ -265,6 +265,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Create promotion.css" />
     <Content Include="Content\CSS_01\atomic.css" />
     <Content Include="Content\CSS_01\blue-violet.css" />
     <Content Include="Content\CSS_01\bootstrap.min.css" />
@@ -340,23 +341,11 @@
     <Content Include="hinh\IMG_0839 %281%29.jpg" />
     <Content Include="hinh\ka-img.jpg" />
     <Content Include="hinh\KM\1605156754662.jpg" />
-    <Content Include="hinh\KM\call-center-que-es.jpg" />
-    <Content Include="hinh\KM\CauVangDaNang-1654082224-7229-1654082320.jpg" />
+    <Content Include="hinh\KM\bannerqc.png" />
+    <Content Include="hinh\KM\bnnqc.jpg" />
+    <Content Include="hinh\KM\bnqc.jpg" />
     <Content Include="hinh\KM\du-lich-he-99k.jpg" />
-    <Content Include="hinh\KM\haimuoithangtam2.jpg" />
-    <Content Include="hinh\KM\ho-guom-du-lich-Ha-Noi-ivivu.jpg" />
-    <Content Include="hinh\KM\hoi-an-1680591517857660432696.jpg" />
-    <Content Include="hinh\KM\image-cau-rong-o-da-nang-bieu-tuong-du-lich-da-nang-day-an-tuong-165685681617500.jpg" />
-    <Content Include="hinh\KM\images1089892_1.jpg" />
-    <Content Include="hinh\KM\kham-pha-nhung-canh-dep-da-lat-ban-khong-the-bo-lo-nam-2022-3-scaled.jpg" />
     <Content Include="hinh\KM\khuyen-mai-chao-thang-6-Bamboo-Airways.jpg" />
-    <Content Include="hinh\KM\Lovepik_com-401345555-travel-landmarks-element-vector-material.png" />
-    <Content Include="hinh\KM\myhc_75425.jpg" />
-    <Content Include="hinh\KM\photo-1-15725292418741610848171.jpg" />
-    <Content Include="hinh\KM\Portual.jpg" />
-    <Content Include="hinh\KM\shutterstockrf1456340747-3358.jpg" />
-    <Content Include="hinh\KM\thien-nhien-thuy-si.jpg" />
-    <Content Include="hinh\KM\things to do in nha trang-5.jpg" />
     <Content Include="hinh\KM\vietjet-khuyen-mai-ve-0-dong-moi-ngay.jpg" />
     <Content Include="hinh\log-in.png" />
     <Content Include="hinh\logo-cnpm-removebg.png" />
@@ -661,7 +650,6 @@
     <Content Include="Views\LoginUser\ResetPass.cshtml" />
     <Content Include="Views\NhanVien\DetailStaff.cshtml" />
     <Content Include="Views\NhanVien\Promotion.cshtml" />
-    <Content Include="Views\Home\Promotion.cshtml" />
     <Content Include="Views\NhanVien\CreatePromotion.cshtml" />
     <Content Include="Views\NhanVien\EditPro.cshtml" />
     <Content Include="Views\KhachHang\ChooseSeatVe.cshtml" />
@@ -674,11 +662,11 @@
     <Content Include="Views\KhachHangHA\Shared\_LayoutContact.cshtml" />
     <Content Include="Views\KhachHangHA\Shared\_LayoutPayment.cshtml" />
     <Content Include="Views\KhachHangHA\Shared\_LayoutPage2.cshtml" />
+    <Content Include="Views\Home\Promotion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\KhachHangs\" />
-    <Folder Include="Data\Avatar\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

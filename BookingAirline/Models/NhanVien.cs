@@ -18,7 +18,7 @@ namespace BookingAirline.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NhanVien()
         {
-            this.HoaDon = new HashSet<HoaDon>();
+            this.HoaDons = new HashSet<HoaDon>();
         }
     
         public string IDNV { get; set; }
@@ -33,12 +33,12 @@ namespace BookingAirline.Models
     
         public virtual ChucVu ChucVu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HoaDon> HoaDon { get; set; }
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
         public bool Update(NhanVien nv)
         {
             try
             {
-                var nhanvien = db.NhanVien.Find(nv.IDNV);
+                var nhanvien = db.NhanViens.Find(nv.IDNV);
                 nhanvien.IDNV = nv.IDNV;
                 nhanvien.UserName = nv.UserName;
                 nhanvien.Password = nv.Password;
@@ -58,7 +58,7 @@ namespace BookingAirline.Models
         }
         public NhanVien ViewDetail(string id)
         {
-            return db.NhanVien.Find(id);
+            return db.NhanViens.Find(id);
         }
     }
 }

@@ -278,7 +278,7 @@
                             <div class="form-group col-md-6">
                                 <label class="control-label">Chọn mã máy bay</label>
                                 <select class="form-control " name="MaMB" type="text" required>
-                                    @{ var mb = database.MayBay.ToList();
+                                    @{ var mb = database.MayBays.ToList();
                                         foreach (var item in mb)
                                         {
                                             <option value="@item.MaMB">@item.MaMB</option>
@@ -289,7 +289,7 @@
                             <div class="form-group col-md-6">
                                 <label class="control-label">Chọn mã tuyến bay</label>
                                 <select class="form-control " name="MaTBay" type="text" required>
-                                    @{ var tb = database.TuyenBay.ToList();
+                                    @{ var tb = database.TuyenBays.ToList();
                                         foreach (var item in tb)
                                         {
                                             <option value="@item.MaTBay">@item.MaTBay</option>

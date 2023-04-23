@@ -85,7 +85,7 @@ namespace BookingAirline.Controllers
         [HttpPost]
         public ActionResult ForgotPassword(string email)
         {
-            var data = database.KhachHang.FirstOrDefault(s => s.Email == email);
+            var data = database.KhachHangs.FirstOrDefault(s => s.Email == email);
             if (data == null)
             {
                 TempData["error04"] = "Không tồn tại email này !";
@@ -113,12 +113,12 @@ namespace BookingAirline.Controllers
         public ActionResult ResetPass(string email, string username)
         {
 
-            var mail = database.KhachHang.Where(s => s.Email == email).FirstOrDefault();
-            var user = database.KhachHang.Where(s => s.UserName == username).FirstOrDefault();
+            var mail = database.KhachHangs.Where(s => s.Email == email).FirstOrDefault();
+            var user = database.KhachHangs.Where(s => s.UserName == username).FirstOrDefault();
             
             if(mail != null && user != null)
             {
-                var kh = database.KhachHang.Where(s => s.Email == email).FirstOrDefault();
+                var kh = database.KhachHangs.Where(s => s.Email == email).FirstOrDefault();
                 
                     kh.Password = "12345678";
                     database.Entry(kh).State = System.Data.Entity.EntityState.Modified;

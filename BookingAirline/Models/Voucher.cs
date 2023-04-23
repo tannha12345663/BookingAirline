@@ -14,7 +14,6 @@ namespace BookingAirline.Models
     
     public partial class Voucher
     {
-        BookingAirLightEntities db = new BookingAirLightEntities();
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Voucher()
         {
@@ -29,30 +28,6 @@ namespace BookingAirline.Models
         public string TinhTrang { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HoaDon> HoaDon { get; set; }
-        public bool Update(Voucher vc)
-        {
-            try
-            {
-                var voucher = db.Voucher.Find(vc.MaVC);
-                voucher.MaVC = vc.MaVC;
-                voucher.TenVC = vc.TenVC;
-                voucher.ChietKhau = vc.ChietKhau;
-                voucher.NgayApDung = vc.NgayApDung;
-                voucher.NgayHetHan = vc.NgayHetHan;
-                voucher.TinhTrang = vc.TinhTrang;
-                db.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
-        }
-        public Voucher ViewDetail(string id)
-        {
-            return db.Voucher.Find(id);
-        }
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
     }
 }

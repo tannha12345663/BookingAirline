@@ -12,7 +12,7 @@ namespace BookingAirline.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderStatus
+    public partial class OrderStatu
     {
         public string IDUser { get; set; }
         public string MaCBdi { get; set; }

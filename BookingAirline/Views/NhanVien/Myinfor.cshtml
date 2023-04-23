@@ -1,10 +1,10 @@
 ﻿@model BookingAirline.Models.NhanVien
-
 @using BookingAirline.Models;
+
 @{
     ViewBag.Title = "Myinfor";
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
-    BookingAirLightEntities db = new BookingAirLightEntities();
+   
 }
 
 
@@ -73,9 +73,6 @@
 
 
 
-                        @{ var dsNV = db.NhanVien.ToList();
-                            foreach (var itemnv in dsNV)
-                            {
 
                                 <form action="#">
 
@@ -86,8 +83,7 @@
                                                 <div class="profile-meta">
                                                     <h3 class="text-bold text-dark mb-10">
 
-                                                        @itemnv.UserName
-
+                                                        @Model.UserName
                                                     </h3>
                                                 </div>
                                             </th>
@@ -97,7 +93,7 @@
                                                 <div class="col-12">
                                                     <div class="input-style-1">
                                                         <label>Full Name:</label>
-                                                        <input type="text" value="@itemnv.TenNV">
+                                                        <input type="text" value="@Model.TenNV">
                                                     </div>
                                                 </div>
                                             </th>
@@ -108,7 +104,7 @@
                                                     <div class="input-style-1">
                                                         <label>Day of birth:</label>
                                                         <input type="email"
-                                                               value="@itemnv.NgaySinh" />
+                                                               value="@Model.NgaySinh" />
                                                     </div>
                                                 </div>
                                             </th>
@@ -119,7 +115,7 @@
                                                     <div class="input-style-1">
                                                         <label>Email:</label>
                                                         <input type="email"
-                                                               value="@itemnv.Email_NV" />
+                                                               value="@Model.Email_NV" />
                                                     </div>
                                                 </div>
                                             </th>
@@ -129,7 +125,7 @@
                                                 <div class="col-12">
                                                     <div class="input-style-1">
                                                         <label>Phone:</label>
-                                                        <input type="text" value="@itemnv.SDT_NV" />
+                                                        <input type="text" value="@Model.SDT_NV" />
                                                     </div>
                                                 </div>
                                             </th>
@@ -140,20 +136,19 @@
                                                 <div class="col-12">
                                                     <div class="input-style-1">
                                                         <label>Password</label>
-                                                        <input type="password" value="@itemnv.Password" />
+                                                        <input type="password" value="@Model.Password" />
                                                     </div>
                                                 </div>
                                             </th>
 
                                         </tr>
                                         <tr>
-                                            @Html.ActionLink("Edit", "EditMyinfor", new { id = itemnv.IDNV }) 
+                                            @Html.ActionLink("Edit", "EditMyinfor", new { id = @Model.IDNV }) 
                                             </tr>
 
                                     </table>
                                 </form>
-                            }
-                        }
+                           
 
                         <!-- end col -->
                     </div>
