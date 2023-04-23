@@ -84,7 +84,7 @@
                                                             <h3>CODE BOOKING: @item.MaHD</h3>
                                                             <ul class="list-unstyled booking-info">
                                                                 <li><span>Booking Date:</span> @item.NgayLap</li>
-                                                                @{ var email = db.KhachHang.Where(s => s.IDKH == item.IDKH).FirstOrDefault();}
+                                                                @{ var email = db.KhachHangs.Where(s => s.IDKH == item.IDKH).FirstOrDefault();}
                                                                 <li><span>Client:</span> @item.IDKH<span class="line">|</span> @email.Email<span class="line">|</span></li>
                                                                 @{
                                                                     var total = string.Format("{0:0,0 vnđ}", item.ThanhTien);
