@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -369,9 +370,33 @@ namespace BookingAirline.Controllers
         {
             return View();
         }
+        
         public ActionResult ReportManagement()
         {
             return View();
+        }
+        
+        public ActionResult CustomerManagement()
+        {
+            return View();
+        }
+
+        public ActionResult DetailCus(string id)
+        {
+            var ttCus = database.KhachHangs.Find(id);
+            return View(ttCus);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DetailCus(KhachHang kh)
+        {
+            database.Entry(kh).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+            database.SaveChanges();
+            TempData["makhachhang"] = kh.IDKH;
+            TempData["MessageAlert"] = "SuaKH";
+            return RedirectToAction("CustomerManagement");
+
         }
     }
 }

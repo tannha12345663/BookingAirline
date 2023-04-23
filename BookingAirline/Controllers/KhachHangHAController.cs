@@ -107,10 +107,12 @@ namespace BookingAirline.Controllers
             TempData["mahd"] = id;
             return View(cthd);
         }
-        public ActionResult Whishlist()
-        {
-            return View();
-        }
+
+        //UynNhi
+        //public ActionResult Whishlist()
+        //{
+           
+        //}
 
         public ActionResult MyCard()
         {
@@ -558,6 +560,38 @@ namespace BookingAirline.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+        public ActionResult HienThiWL()
+        {
+            var ds = database.Wishlists.ToList();
+            return View(ds);
+        }
+        public ActionResult WhishList(string id)
+        {
+            var KH = (BookingAirline.Models.KhachHang)Session["userKH"];
+            //Xác thực người dùng đã đăng nhập hay chưa
+            if (Session["userKH"]!=null)
+            {
+                var faCB = database.Wishlists.Where(s => s.MaCB == id && s.MaKH == KH.IDKH).FirstOrDefault();
+                if(faCB==null)
+                {
+                    Wishlist wl = new Wishlist();
+                    Random rd = new Random();
+                    var rdnumber = rd.Next(1, 1000);
+                    wl.MaWL = rdnumber.ToString();
+                    wl.MaCB = id;
+                    wl.MaKH = KH.IDKH;
+                    wl.NgayThem = System.DateTime.Now;
+                    database.Wishlists.Add(wl);
+                    database.SaveChanges();
+                    return RedirectToAction("ChooseSeat", "KhachHangHA");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "LoginUser");
+            }
             return View();
         }
     }

@@ -433,5 +433,32 @@ namespace BookingAirline.Controllers
 
             return View();
         }
+
+        public ActionResult WhishList(string id)
+        {
+            var KH = (BookingAirline.Models.KhachHang)Session["userKH"];
+            //Xác thực người dùng đã đăng nhập hay chưa
+            if (Session["userKH"] != null)
+            {
+                var faCB = database.Wishlists.Where(s => s.MaCB == id && s.MaKH == KH.IDKH).FirstOrDefault();
+                if (faCB == null)
+                {
+                    Wishlist wl = new Wishlist();
+                    Random rd = new Random();
+                    var rdnumber = rd.Next(1, 1000);
+                    wl.MaWL = rdnumber.ToString();
+                    wl.MaCB = id;
+                    wl.MaKH = KH.IDKH;
+                    wl.NgayThem = System.DateTime.Now;
+                    database.Wishlists.Add(wl);
+                    database.SaveChanges();
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "LoginUser");
+            }
+            return RedirectToAction("ChooseSeat", "KhachHangHA");
+        }
     }
 }
