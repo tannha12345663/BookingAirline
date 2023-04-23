@@ -200,9 +200,21 @@ namespace BookingAirline.Controllers
 
         public ActionResult FlightRoute()
         {
-
             return View();
         }
+        [HttpPost]
+        public JsonResult KTtenSB(string input)
+        {
+            bool isDuplicate = false;
+            var check = database.SanBays.Where(s => s.MaSB == input).FirstOrDefault();
+            if (check != null)
+            {
+                isDuplicate = true;
+                return Json(isDuplicate, JsonRequestBehavior.AllowGet);
+            }
+            return Json(isDuplicate, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public JsonResult GetData()
         {
@@ -210,9 +222,10 @@ namespace BookingAirline.Controllers
             try
             {
                 database.Configuration.ProxyCreationEnabled = false;
-                var dstb = database.TuyenBay.ToList();
-                return Json(new { Data = dstb, TotalItem = dstb.Count }, JsonRequestBehavior.AllowGet);
-            } catch (Exception ex)
+                var dstb = database.TuyenBays.ToList();
+                return Json(new { Data = dstb, TotalItems = dstb.Count }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(ex.Message);
@@ -241,13 +254,15 @@ namespace BookingAirline.Controllers
         //    }
 
         //}
+
         //Áp dụng Ajax vào chức năng thêm mới sân bay
         [HttpPost]
         public ActionResult AddAirport(SanBay sb)
         {
             if (sb != null)
             {
-                database.SanBay.Add(sb);
+                database.SanBays.Add(sb);
+
                 try
                 {
                     database.SaveChanges();
@@ -279,15 +294,25 @@ namespace BookingAirline.Controllers
                     TempData["messageAlert"] = "Error01";
                     return RedirectToAction("FlightRoute");
                 }
-                Random rd = new Random();
-                var matb = "TB" + rd.Next(1, 1000);
-                tb.MaTBay = matb;
-                database.TuyenBay.Add(tb);
-                database.SaveChanges();
-                TempData["matuyenbay"] = tb.MaTBay;
-                TempData["messageAlert"] = "success";
-                //return RedirectToAction("FlightRoute");
-                return Json(new { success = true });
+                //Check thông tin sân bay đi và sân bay đến có tồn tại sẵn trong hệ thống hay không 
+                var check = database.TuyenBays.Where(s => s.SanBayDi == tb.SanBayDi && s.SanBayDen == tb.SanBayDen).FirstOrDefault();
+                if(check != null)
+                {
+                    TempData["messageAlert"] = "Error02";
+                    return RedirectToAction("FlightRoute");
+                }
+                else
+                {
+                    Random rd = new Random();
+                    var matb = "TB" + rd.Next(1, 1000);
+                    tb.MaTBay = matb;
+                    database.TuyenBays.Add(tb);
+                    database.SaveChanges();
+                    TempData["matuyenbay"] = tb.MaTBay;
+                    TempData["messageAlert"] = "success";
+                    return RedirectToAction("FlightRoute");
+                }
+                //return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
 
         }
@@ -309,8 +334,8 @@ namespace BookingAirline.Controllers
         [HttpPost]
         public ActionResult DeleteFR(string id)
         {
-            var tb = database.TuyenBay.Find(id);
-            database.TuyenBay.Remove(tb);
+            var tb = database.TuyenBays.Where(s => s.MaTBay == id).FirstOrDefault() ;
+            database.TuyenBays.Remove(tb);
             database.SaveChanges();
             TempData["matuyenbay"] = tb.MaTBay;
             TempData["messageAlert"] = "XoaTBay";

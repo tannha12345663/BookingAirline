@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookingAirline.Models.Ve>
+﻿﻿@model IEnumerable<BookingAirline.Models.Ve>
 @using BookingAirline.Models;
 @{
     ViewBag.Title = "TicketManagement";
@@ -17,53 +17,54 @@
             </div>
         </div>
 
+</div>
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        All airline tickets
     </div>
-    <br />
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            All airline tickets
-        </div>
-        <div class="card-body">
-            <table id="datatablesSimple">
-                <thead>
-                    @*//Phần render*@
-                    <tr>
-                        <th>Mã vé</th>
-                        <th>Mã chuyến bay</th>
-                        <th>Hạng vé</th>
-                        <th>CCCD</th>
-                        <th>Giá vé</th>
-                        <th>Tình Trạng</th>
-                        <th>Chức năng</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        foreach (var item01 in Model)
-                        {
-                            <tr>
-                                <td>@item01.MaVe</td>
-                                <td>@item01.MaCB</td>
-                                @{ var tenhv = database.HangVe.Find(item01.MaHV);}
-                                <td>@tenhv.TenHV</td>
-                                <td>@item01.CCCD</td>
-                                <td>@item01.GiaVe</td>
-                                <td>@item01.TinhTrang</td>
-                                <td>Chỉnh sửa || Xóa</td>
-                            </tr>
-                        }
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                @*//Phần render*@
+                <tr>
+                    <th>Mã vé</th>
+                    <th>Mã chuyến bay</th>
+                    <th>Hạng vé</th>
+                    <th>CCCD</th>
+                    <th>Giá vé</th>
+                    <th>Tình Trạng</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item01 in Model)
+                    {
+                        <tr>
+                            <td>@item01.MaVe</td>
+                            <td>@item01.MaCB</td>
+                            @{ var tenhv = database.HangVes.Find(item01.MaHV);}
+                            <td>@tenhv.TenHV</td>
+                            <td>@item01.CCCD</td>
+                            @{ var format = string.Format("{0:0,0 vnđ}", item01.GiaVe);}
+                            <td>@format</td>
+
+                            <td>@item01.TinhTrang</td>
+                            <td>Chỉnh sửa || Xóa</td>
+                        </tr>
                     }
-                </tbody>
-            </table>
-        </div>
+                }
+            </tbody>
+        </table>
     </div>
-    <!--Form thêm vé dành cho chuyến bay -->
-    <!-- The Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-         data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
+</div>
+<!--Form thêm vé dành cho chuyến bay -->
+<!-- The Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
@@ -86,18 +87,16 @@
                                 </div>
                             </div>
 
-                            <div class="modal-footer">
-                                <div class="form-group">
-                                    <input type="submit" value="Add new" class="btn btn-success" />
-                                    <a class="btn btn-primary" data-dismiss="modal" href="#">Cancel</a>
-                                    <BR>
-                                </div>
+                        <div class="modal-footer">
+                            <div class="form-group">
+                                <input type="submit" value="Add new" class="btn btn-success" />
+                                <a class="btn btn-primary" data-dismiss="modal" href="#">Cancel</a>
+                                <BR>
                             </div>
                         </div>
-                    </form>
-                </div>
-
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
+</div>

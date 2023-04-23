@@ -4,6 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link href="~/Style/Css/Admin/footerStyle.css" rel="stylesheet" />
     <link rel="apple-touch-icon" href="~/Style/apple-touch-icon.html">
     <link rel="stylesheet" href="~/Style/Css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Style/Css/bootstrap-theme.min.css">
@@ -21,7 +22,7 @@
     <script src="~/Style/Js/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="opacity:70%">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="opacity:80%;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -31,15 +32,15 @@
                 </button>
                 @*@Html.ActionLink("Home","Home",new {area = ""}, new {@class = "navbar-brand"})*@
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse" style="font-size:16px;">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "TrangChu", "KhachHang")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "KhachHang")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "KhachHang")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="~/LoginUser/Login"><span class="fa fa-user"></span> Login</a></li>
-                    <li><a href="@Url.Action("LogOut","LoginUser")">Log Out</a></li>
+                    <li><a href="@Url.Action("SignUp","LoginUser")">Register</a></li>
                 </ul>
             </div>
         </div>
@@ -49,9 +50,9 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="left-side">
-                        <div class="logo">
-                            <img src="~/hinh/logo.png" alt="Flight Template">
-                        </div>
+                        @*<div class="logo">
+                                <img src="~/hinh/logo.png" alt="Flight Template">
+                            </div>*@
                         <div class="tabs-content">
                             <h4>Explore the world with us</h4>
                             <br />
@@ -59,6 +60,7 @@
                                 <li><a href="#">Find us on <em>Facebook</em><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#">Our <em>YouTube</em> Channel<i class="fa fa-youtube"></i></a></li>
                                 <li><a href="#">Follow our <em>instagram</em><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="~/Home/Contact">Contact our <em>Infomations</em><i class="fa fa-phone"></i></a></li>
                             </ul>
                         </div>
                     <div class="page-direction-button">
@@ -117,41 +119,33 @@
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <label for="departure">Departure date:</label>
-                                                <input name="deparure" type="text" class="form-control date" id="deparure" placeholder="Select date..." required="" onchange='this.form()'>
+
+                                                <input name="deparure" id="deparure" type="date" class="form-control date01" min=@DateTime.Now.ToString("yyyy-MM-dd") placeholder="Select date..." required="">
+
                                             </fieldset>
                                         </div>
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <label for="return">Return date:</label>
-                                                <input name="return" type="text" class="form-control date" id="return" placeholder="Select date..." required="" onchange='this.form()'>
+
+                                                <input name="return" id="return" disabled type="date" class="form-control date01" min=@DateTime.Now.ToString("yyyy-MM-dd") placeholder="Select date..." required="">
                                             </fieldset>
-                                        </div>
+                                        </div>                               
                                         <div class="col-md-6">
                                             <div class="radio-select">
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-6 col-xs-6">
                                                         <label for="round">Round</label>
-                                                        <input type="radio" name="trip" id="round" value="round" required="required" onchange='this.form.()'>
+                                                        <input type="radio" name="trip" id="round" value="round" required="required">
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-6">
                                                         <label for="oneway">Oneway</label>
-                                                        <input type="radio" name="trip" id="oneway" value="oneway" required="required" onchange='this.form.()'>
+                                                        <input type="radio" name="trip" id="oneway" value="oneway" required="required">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
-                                            <fieldset>
-                                                <label for="to">Class:</label>
-                                                <select required name='Class' onchange='this.form()'>
-                                                    <option value="" disabled="disabled">Select a location...</option>
-                                                    <option value="HV01">Business class</option>
-                                                    <option value="HV02">Vip class</option>
-                                                    <option value="HV03">Economy class</option>
-                                                </select>
-                                            </fieldset>
-                                        </div>
                                         <div class="col-md-6 pull-right">
                                             <fieldset>
                                                 <button type="submit" id="form-submit" class="btn">Search</button>
@@ -166,18 +160,34 @@
             </div>
         </div>
     </section>
-    <div>
-        @RenderBody()
-    </div>
-  
-
-    <br />
+    @RenderBody()
 </body>
-
 </html>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="primary-button">
+                    <a href="#" class="scroll-top">Back To Top</a>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <ul class="social-icons">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="~/Style/Js/jquery-1.11.2.min.js"><\/script>')</script>
-
 <script src="~/Style/Js/bootstrap.min.js"></script>
 
 <script src="~/Style/Js/datepicker.js"></script>
@@ -185,6 +195,11 @@
 <script src="~/Style/Js/main.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js" type="text/javascript"></script>
+<!--Code Jquery -->
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+<script src="~/Style/Js/script.js"></script>
+
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -222,5 +237,16 @@
             log: function () { }
         };
     }
+</script>
+<script>
+    $(document).ready(function () {
+        $("#round").change(function () {
+            var check = $("#round").val();
+            $("#return").prop("disabled", false);
 
+        });
+        $("#oneway").change(function () {
+            $("#return").attr("disabled", true);
+        })
+    });
 </script>

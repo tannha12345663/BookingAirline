@@ -17,7 +17,7 @@ namespace BookingAirline.Controllers
         // GET: KhachHangs
         public ActionResult Index()
         {
-            var khachHangs = db.KhachHang.Include(k => k.LoaiKH);
+            var khachHangs = db.KhachHangs.Include(k => k.LoaiKH);
             return View(khachHangs.ToList());
         }
 
@@ -28,7 +28,7 @@ namespace BookingAirline.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            KhachHang khachHang = db.KhachHang.Find(id);
+            KhachHang khachHang = db.KhachHangs.Find(id);
             if (khachHang == null)
             {
                 return HttpNotFound();
@@ -39,7 +39,7 @@ namespace BookingAirline.Controllers
         // GET: KhachHangs/Create
         public ActionResult Create()
         {
-            ViewBag.MaLKH = new SelectList(db.LoaiKH, "MaLKH", "TenLKH");
+            ViewBag.MaLKH = new SelectList(db.LoaiKHs, "MaLKH", "TenLKH");
             return View();
         }
 
@@ -52,12 +52,12 @@ namespace BookingAirline.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.KhachHang.Add(khachHang);
+                db.KhachHangs.Add(khachHang);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MaLKH = new SelectList(db.LoaiKH, "MaLKH", "TenLKH", khachHang.MaLKH);
+            ViewBag.MaLKH = new SelectList(db.LoaiKHs, "MaLKH", "TenLKH", khachHang.MaLKH);
             return View(khachHang);
         }
 
@@ -68,12 +68,12 @@ namespace BookingAirline.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            KhachHang khachHang = db.KhachHang.Find(id);
+            KhachHang khachHang = db.KhachHangs.Find(id);
             if (khachHang == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MaLKH = new SelectList(db.LoaiKH, "MaLKH", "TenLKH", khachHang.MaLKH);
+            ViewBag.MaLKH = new SelectList(db.LoaiKHs, "MaLKH", "TenLKH", khachHang.MaLKH);
             return View(khachHang);
         }
 
@@ -90,7 +90,7 @@ namespace BookingAirline.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MaLKH = new SelectList(db.LoaiKH, "MaLKH", "TenLKH", khachHang.MaLKH);
+            ViewBag.MaLKH = new SelectList(db.LoaiKHs, "MaLKH", "TenLKH", khachHang.MaLKH);
             return View(khachHang);
         }
 
@@ -101,7 +101,7 @@ namespace BookingAirline.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            KhachHang khachHang = db.KhachHang.Find(id);
+            KhachHang khachHang = db.KhachHangs.Find(id);
             if (khachHang == null)
             {
                 return HttpNotFound();
@@ -114,8 +114,8 @@ namespace BookingAirline.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            KhachHang khachHang = db.KhachHang.Find(id);
-            db.KhachHang.Remove(khachHang);
+            KhachHang khachHang = db.KhachHangs.Find(id);
+            db.KhachHangs.Remove(khachHang);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

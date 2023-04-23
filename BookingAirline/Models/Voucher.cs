@@ -18,7 +18,7 @@ namespace BookingAirline.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Voucher()
         {
-            this.HoaDon = new HashSet<HoaDon>();
+            this.HoaDons = new HashSet<HoaDon>();
         }
     
         public string MaVC { get; set; }

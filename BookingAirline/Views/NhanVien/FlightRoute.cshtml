@@ -1,4 +1,4 @@
-﻿@using BookingAirline.Models
+﻿﻿@using BookingAirline.Models
 @{
     ViewBag.Title = "FlightRoute";
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
@@ -57,6 +57,17 @@
             });
         </script>
     }
+    else if (checkmess == "Error02")
+    {
+        <script>
+            swal({
+                title: "Thêm tuyến bay mới không thành công",
+                text: "Mã sân bay đi và sân bay đến đã tồn tại trong hệ thống ! ",
+                icon: "error",
+                button: "OK",
+            });
+        </script>
+    }
     if (checkmess == "XoaTBay")
     {
         <script>
@@ -67,7 +78,7 @@
                 button: "OK",
             });
         </script>
-    }; ;
+    };
 
 }
 
@@ -110,12 +121,13 @@
                     <th>Chức năng</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 @{
-                    var dstb = database.TuyenBay.ToList();
-
+                    var dstb = database.TuyenBays.ToList();
+                    var stt = 0;
                     foreach (var item01 in dstb)
                     {
+                        stt++;
                         <tr>
                             @{ var tensbdi = database.SanBay.Find(item01.SanBayDi);
                                 var tensbden = database.SanBay.Find(item01.SanBayDen);}
@@ -131,7 +143,7 @@
                                 @*<a href="~/NhanVien/DeleteFR/@item01.MaTBay" onclick=" return confirm('Are you sure you want to delete ?')" class="btn btn-danger btn-sm edit">
                                         <i class="fa fa-remove"></i>
                                     </a>*@
-                                <button value="@item01.MaTBay" id="MaTbay" data-toggle="modal" data-target="#myModal03" class="btn btn-danger btn-sm edit">
+                                <button data-id="myModal03" data-value="@item01.MaTBay" data-toggle="modal" data-target="#myModal03" class="btn btn-sm btn-danger">
                                     <i class="fa fa-remove"></i>
                                 </button>
                             </td>
@@ -161,11 +173,12 @@
                     @Html.AntiForgeryToken()
                     <div class="modal-body">
                         <div class="row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label class="control-label">Nhập mã sân bay</label>
                                 <input class="form-control text-box single-line" id="InputMaSB" name="MaSB" type="text" required>
+                                <span id="error" style="color:red"></span>
                             </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label class="control-label">Nhập tên sân bay</label>
                                 <input class="form-control" id="InputTenSB" name="TenSB" type="text" required>
                             </div>
@@ -204,24 +217,24 @@
                         <div class="row">
                             <div class="form-group col-md-12">
                                 <label class="control-label">Chọn mã sân bay đi</label>
-                                <select class="form-control" id="MaSB" name="SanBayDi" type="text" required>
-                                    <option selected="true" disabled="disabled">--Please choose an option--</option>
-                                    @{ var masb = database.SanBay.ToList();
+                                <select class="form-control col-md-8" id="MaSB" name="SanBayDi" type="text" required>
+                                    <option selected disabled="disabled">--Please choose an option--</option>
+                                    @{ var masb = database.SanBays.ToList();
                                         foreach (var item in masb)
                                         {
-                                            <option value="@item.MaSB">@item.MaSB (@item.TenSB)</option>
+                                            <option value="@item.MaSB">@item.MaSB - (@item.TenSB)</option>
                                         }
                                     }
                                 </select>
                             </div>
                             <div class="form-group col-md-12">
-                                <label class="control-label">Chọn mã sân bay đến</label>
-                                <select class="form-control " id="MaSB" name="SanBayDen" type="text" required>
-                                    <option selected="true" disabled="disabled">--Please choose an option--</option>
+                                <label class="control-label ">Chọn mã sân bay đến</label>
+                                <select class="form-control col-md-8 " id="MaSB" name="SanBayDen" type="text" required>
+                                    <option selected disabled="disabled">--Please choose an option--</option>
                                     @{
                                         foreach (var item01 in masb)
                                         {
-                                            <option value="@item01.MaSB">@item01.MaSB  (@item01.TenSB)</option>
+                                            <option value="@item01.MaSB">@item01.MaSB - (@item01.TenSB)</option>
                                         }
                                     }
                                 </select>
@@ -292,7 +305,7 @@
     </div>
 </div>
 <!--Modal xác nhận xóa Thông tin tuyến bay-->
-<div class="modal fade" id="myModal03" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal hide fade" id="myModal03" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -305,13 +318,15 @@
 
             <div class="modal-footer">
                 <a href="#" class="btn btn-primary" data-dismiss="modal">Cancle</a>
-                <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirm</a>
+                <a href="#" class="btn btn-danger" id="XacNhanXoa" onclick="">Confirm</a>
             </div>
 
         </div>
     </div>
 </div>
+
 @section script{
+
     <script>
         LoadData();
         $(document).ready(function () {
@@ -349,13 +364,12 @@
                 $.ajax({
                     url: '/NhanVien/AddRoute',
                     type: 'POST',
+                    dataType: 'json',
                     data: model,
                     success: function (res) {
-                        if (res.success == true) {
+                        if (res.success) {
+                            console.log("Them moi thanh cong");
                             window.location.reload();
-                        }
-                        else {
-
                         }
                     }
                 });
@@ -385,8 +399,22 @@
                 }
             })
         }
-        function ConfirmDelete() {
-            var matb = $('#MaTbay').val();
+        //Thực hiện lấy id theo hàng mình muốn xóa
+        $(document).ready(function () {
+            $(".btn-danger").click(function () {
+                var id = $(this).data("id");
+                var value = $(this).data("value");
+                //$("#XacNhanXoa").attr("onclick", `ConfirmDelete(${value})`);
+                $("#XacNhanXoa").attr("data-value", `${value}`);
+                console.log("Id la " + id + " Voi value la " + value);
+            })
+            $("#XacNhanXoa").click(function () {
+                var data_del = $(this).data("value");
+                ConfirmDelete(data_del);
+            })
+        })
+        function ConfirmDelete(matb) {
+            console.log(matb);
             $.ajax({
                 type: "POST",
                 url: "/NhanVien/DeleteFR/" + matb,
@@ -400,6 +428,67 @@
                 }
             })
         }
+
+        function checkInput() {
+            var input = $('#InputMaSB').val();
+            if (input === '') {
+                $('#error').html('Bạn phải nhập thông tin');
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/NhanVien/KTtenSB",
+                    data: { input: input },
+                    success: function (result) {
+                        if (result.isValid) {
+                            $('#error').html('');
+                        } else {
+                            $('#error').html('Sân bay này đã có sẵn');
+                        }
+                    }
+                });
+            }
+        }
+
+    </script>
+    <script>
+        //Kiểm tra mã sân bay có bị trùng
+        $("#InputMaSB").on('input', function () {
+            var inputval = $(this).val();
+            console.log(inputval); //Dùng để check value biến hứng khi có sự kiện người dùng tác động vào
+            var isDuplicate = false;
+
+            //Tạo một Ajax request với controller và action tương ứng
+            $.ajax({
+                url: '@Url.Action("KTtenSB","NhanVien")',
+                type: 'POST',
+                data: {
+                    input:inputval
+                },
+                success: function (response) {
+                    if (response) {
+                        //Nếu dữ liệu đã tồn tại, hiển thị thông báo
+                        //isDuplicate = true;
+                        var html = '<p> Dữ liệu đã tồn tại</p>'
+                        $('#error').html(html);
+                        $("#btnSave").attr("disabled", "disabled");
+                    } else {
+                        if (inputval.length == 0) {
+                            var html1 = 'Không được để trống'
+                            $('#error').html(html1);
+                            $("#btnSave").prop("disabled", false);
+                        } else {
+                            var html1 = 'Checking...'
+                            $('#error').html(html1);
+                            $("#btnSave").prop("disabled", false);
+                        }
+
+                    }
+                }
+            })
+        })
+    </script>
+    <script>
+
     </script>
 
 

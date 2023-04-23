@@ -27,10 +27,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="dashboard-heading">
-                        <h2>Travel <span>Profile</span></h2>
-                        <p>Hi Lisa, Welcome to Star Travels!</p>
-                        <p>All your trips booked with us will appear here and you'll be able to manage everything!</p>
+                    <div class="dashboard-heading">                       
+                        <h2> <span>Booking</span></h2>
+                        <p>
+                            Hi  @{var khachHang = (BookingAirline.Models.KhachHang)HttpContext.Current.Session["userKH"];}
+                            @khachHang.UserName, Welcome to FLIGHT Travels!
+                        </p>
                     </div><!-- end dashboard-heading -->
 
                     <div class="dashboard-wrapper">
@@ -40,7 +42,7 @@
                                 <ul class="nav nav-tabs nav-stacked text-center">
                                     <li><a href="~/KhachHangHA/ThongTinKH"><span><i class="fa fa-cogs"></i></span>Dashboard</a></li>
                                     <li><a href="~/KhachHangHA/ThongtinCaNhan"><span><i class="fa fa-user"></i></span>Profile</a></li>
-                                    <li class="active"><a href="~/KhachHangHA/Booking"><span><i class="fa fa-briefcase"></i></span>Booking</a></li>
+                                    <li class="active"><a href="~/KhachHangHA/Booking"><span><i class="fa fa-briefcase"></i></span>Invoice</a></li>
                                     <li><a href="~/KhachHangHA/Whishlist"><span><i class="fa fa-heart"></i></span>Wishlist</a></li>
                                     <li><a href="~/KhachHangHA/MyCard"><span><i class="fa fa-credit-card"></i></span>My Cards</a></li>
                                 </ul>
@@ -84,7 +86,10 @@
                                                                 <li><span>Booking Date:</span> @item.NgayLap</li>
                                                                 @{ var email = db.KhachHang.Where(s => s.IDKH == item.IDKH).FirstOrDefault();}
                                                                 <li><span>Client:</span> @item.IDKH<span class="line">|</span> @email.Email<span class="line">|</span></li>
-                                                                <li><span>Total bill:</span> @item.ThanhTien</li>
+                                                                @{
+                                                                    var total = string.Format("{0:0,0 vnđ}", item.ThanhTien);
+                                                                }
+                                                                <li><span>Total bill:</span> @total</li>
                                                             </ul>
                                                             <button class="btn btn-orange">Message</button>
                                                         </td>

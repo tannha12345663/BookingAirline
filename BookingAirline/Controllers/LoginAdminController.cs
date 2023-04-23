@@ -38,11 +38,11 @@ namespace BookingAirline.Controllers
         }
 
 
-        public ActionResult LogOut() 
-        { 
+        public ActionResult LogOut()
+        {
             Session.Abandon();
             return RedirectToAction("Login", "LoginAdmin");
         }
-        
+
     }
 }

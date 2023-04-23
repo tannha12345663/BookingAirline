@@ -24,8 +24,10 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="dashboard-heading">
-                        <h2>Travel <span>Profile</span></h2>
-                        <p>Hi Lisa, Welcome to Star Travels!</p>
+                        <h2>Travel <span>Profile</span></h2>                        
+                        <p>Hi  @{var khachHang = (BookingAirline.Models.KhachHang)HttpContext.Current.Session["userKH"];}
+                            @khachHang.UserName, Welcome to FLIGHT Travels!
+                        </p>
                         <p>All your trips booked with us will appear here and you'll be able to manage everything!</p>
                     </div><!-- end dashboard-heading -->
 
@@ -36,7 +38,7 @@
                                 <ul class="nav nav-tabs nav-stacked text-center">
                                     <li><a href="~/KhachHangHA/ThongTinKH"><span><i class="fa fa-cogs"></i></span>Dashboard</a></li>
                                     <li class="active"><a href="~/KhachHangHA/ThongtinCaNhan"><span><i class="fa fa-user"></i></span>Profile</a></li>
-                                    <li><a href="~/KhachHangHA/Booking"><span><i class="fa fa-briefcase"></i></span>Booking</a></li>
+                                    <li><a href="~/KhachHangHA/Booking"><span><i class="fa fa-briefcase"></i></span>Invopice</a></li>
                                     <li><a href="~/KhachHangHA/Whishlist"><span><i class="fa fa-heart"></i></span>Wishlist</a></li>
                                     <li><a href="~/KhachHangHA/MyCard"><span><i class="fa fa-credit-card"></i></span>My Cards</a></li>
                                 </ul>
@@ -49,7 +51,7 @@
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-sm-5 col-md-4 user-img">
-                                                <img src="~/hinh/135017829_1026004181228801_2637032699560275_n.jpg" class="img-responsive" alt="user-img" />
+                                                <img src="@Model.HinhAnh" class="img-responsive" alt="user-img" />
                                             </div><!-- end columns -->
 
                                             <div class="col-sm-7 col-md-8  user-detail">

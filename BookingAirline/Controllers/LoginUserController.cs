@@ -20,8 +20,8 @@ namespace BookingAirline.Controllers
         [HttpPost]
         public ActionResult Login(string user, string password)
         {
-            var data = database.KhachHang.Where(s => s.UserName == user && s.Password == password).FirstOrDefault();
-            var taikhoan = database.KhachHang.SingleOrDefault(s => s.UserName == user && s.Password == password);
+            var data = database.KhachHangs.Where(s => s.UserName == user && s.Password == password).FirstOrDefault();
+            var taikhoan = database.KhachHangs.SingleOrDefault(s => s.UserName == user && s.Password == password);
             if (data == null)
             {
                 TempData["error"] = "Tài khoản đăng nhập không đúng";
@@ -41,10 +41,10 @@ namespace BookingAirline.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult SignUp(string user, string email, string password, string confirm)
+        public ActionResult SignUp([Bind(Include = "UserName,Email,Password")] KhachHang kh, string password, string confirm)
         {
-            var checkuser = database.KhachHang.FirstOrDefault(s => s.UserName == user);
-            var checkemail = database.KhachHang.FirstOrDefault(s => s.Email == email);
+            var checkuser = database.KhachHangs.FirstOrDefault(s => s.UserName == kh.UserName);
+            var checkemail = database.KhachHangs.FirstOrDefault(s => s.Email == kh.Email);
             if (checkuser != null)
             {
                 TempData["error01"] = "User này đã có vui lòng đổi user khác !";
@@ -62,23 +62,24 @@ namespace BookingAirline.Controllers
             }
             else if (password == confirm)
             {
-                Random rd = new Random();
-                var makh = "KH" + rd.Next(1, 1000);
-                KhachHang kh = new KhachHang();
-                kh.IDKH = makh;
-                kh.MaLKH = "Normal";
-                kh.UserName = user;
-                kh.Password = password;
-                kh.Email = email;
-                database.KhachHang.Add(kh);
-                database.SaveChanges();
-                return RedirectToAction("TrangChu", "KhachHang");
+                if (ModelState.IsValid)
+                {
+                    Random rd = new Random();
+                    var makh = "KH" + rd.Next(1, 1000);
+                    kh.IDKH = makh;
+                    kh.MaLKH = "Normal";
+                    database.KhachHangs.Add(kh);
+                    database.SaveChanges();
+
+                    return RedirectToAction("TrangChu", "KhachHang");
+                }
+
+
             }
             return View();
         }
         public ActionResult ForgotPassword()
         {
-
             return View();
         }
         [HttpPost]

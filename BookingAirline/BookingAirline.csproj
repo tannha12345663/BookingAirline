@@ -48,10 +48,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -137,7 +137,6 @@
     <Compile Include="Controllers\LoginAdminController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\NhanVienController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Global.asax.cs">
@@ -156,6 +155,7 @@
     <Compile Include="Models\ChuyenBay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\customer.cs" />
     <Compile Include="Models\DoanhThuNam.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -317,6 +317,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="hinh\135017829_1026004181228801_2637032699560275_n.jpg" />
+    <Content Include="hinh\AboutUs.jpg" />
     <Content Include="hinh\banner-bg.jpg" />
     <Content Include="hinh\BL\Ảnh chụp màn hình 2023-03-23 235830.png" />
     <Content Include="hinh\BL\Ảnh chụp màn hình 2023-03-23 235918.png" />
@@ -364,6 +365,7 @@
     <Content Include="hinh\massage-service.jpg" />
     <Content Include="hinh\may-bay-phuong-tien-di-chuyen-tien-loi-va-an-toan-nhat-1.jpg" />
     <Content Include="hinh\neo-img.jpg" />
+    <Content Include="hinh\neo.jpg" />
     <Content Include="hinh\place-01.jpg" />
     <Content Include="hinh\place-02.jpg" />
     <Content Include="hinh\place-03.jpg" />
@@ -547,9 +549,11 @@
     <Content Include="Style\Admin\js\jquery-confirm.js" />
     <Content Include="Style\Admin\js\scripts.js" />
     <Content Include="Style\apple-touch-icon.html" />
-    <Content Include="Style\Css\aboutStyle.css" />
+    <Content Include="Style\Css\AboutUsStyle.css" />
     <Content Include="Style\Css\Admin\adminlte.min.css" />
     <Content Include="Style\Css\Admin\all.min.css" />
+    <Content Include="Style\Css\Admin\contactStyle.css" />
+    <Content Include="Style\Css\Admin\footerStyle.css" />
     <Content Include="Style\Css\Admin\DetailCus.css" />
     <Content Include="Style\Css\Admin\icheck-bootstrap.min.css" />
     <Content Include="Style\Css\Admin\icon.css" />
@@ -559,6 +563,7 @@
     <Content Include="Style\Css\Admin\trangchu.css" />
     <Content Include="Style\Css\bootstrap-theme.min.css" />
     <Content Include="Style\Css\bootstrap.min.css" />
+    <Content Include="Style\Css\Contact.css" />
     <Content Include="Style\Css\contactStyle.css" />
     <Content Include="Style\Css\datepicker.css" />
     <Content Include="Style\Css\fontAwesome.css" />
@@ -570,8 +575,12 @@
     <Content Include="Style\Css\owl-carousel.css" />
     <Content Include="Style\Css\Payment.css" />
     <Content Include="Style\Css\style.css" />
+    <Content Include="Style\Css\thanhtoan.css" />
+    <Content Include="Style\Css\thankyou.css" />
     <Content Include="Style\Css\ticketStyle.css" />
     <Content Include="Style\Css\tooplate-style.css" />
+    <Content Include="Style\Css\VeMB.css" />
+    <Content Include="Style\Css\VeMB1504.css" />
     <Content Include="Style\Js\bootstrap.min.js" />
     <Content Include="Style\Js\custom-navigation.js" />
     <Content Include="Style\Js\datepicker.js" />
@@ -594,14 +603,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\KhachHang\About.cshtml" />
+    <Content Include="Views\KhachHang\Contact.cshtml" />
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\Create.cshtml" />
     <Content Include="Views\LoginAdmin\Register.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\ShoppingCart\ShowCart.cshtml" />
     <Content Include="Views\ShoppingCart\BagCart.cshtml" />
     <Content Include="Views\KhachHang\Shared\_LayoutPage1.cshtml" />
@@ -658,10 +664,21 @@
     <Content Include="Views\Home\Promotion.cshtml" />
     <Content Include="Views\NhanVien\CreatePromotion.cshtml" />
     <Content Include="Views\NhanVien\EditPro.cshtml" />
+    <Content Include="Views\KhachHang\ChooseSeatVe.cshtml" />
+    <Content Include="Views\KhachHangHA\ChooseSeatVe.cshtml" />
+    <Content Include="Views\KhachHang\DSChuyenBayTest.cshtml" />
+    <Content Include="Views\Home\Shared\_LayoutContact.cshtml" />
+    <Content Include="Views\KhachHangHA\About.cshtml" />
+    <Content Include="Views\KhachHangHA\Contact.cshtml" />
+    <Content Include="Views\KhachHang\Shared\_LayoutContact.cshtml" />
+    <Content Include="Views\KhachHangHA\Shared\_LayoutContact.cshtml" />
+    <Content Include="Views\KhachHangHA\Shared\_LayoutPayment.cshtml" />
+    <Content Include="Views\KhachHangHA\Shared\_LayoutPage2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\KhachHangs\" />
+    <Folder Include="Data\Avatar\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

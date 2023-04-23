@@ -5,14 +5,17 @@
     Layout = "~/Views/KhachHang/Shared/_LayoutPage1.cshtml";
     BookingAirLightEntities db = new BookingAirLightEntities();
 }
-<link href="~/Content/CSS_remake/Style01.css" rel="stylesheet" />
+
+<link href="~/Style/Css/VeMB1504.css" rel="stylesheet" />
+<link href="~/Style/Css/VeMB.css" rel="stylesheet" />
 </br>
 
-</br>
 
-<div class="section-heading">
-    <h2>Ticket For You For @Session["From"] to @Session["To"] </h2>
+<div style="margin:0%; text-align:center">
+    <h2 style="font-weight:bold">Ticket For You For @Session["From"] to  @Session["To"]</h2>
 </div>
+<br />
+
 <div class="container">
     <table class="table table-hover table-bordered js-copytextarea " cellpadding="0" cellspacing="0" border="0"
            id="sampleTable">
@@ -29,14 +32,17 @@
                                 <div class="item">
                                     @{ var MaSBdi = db.TuyenBay.Find(item.MaTBay);}
                                     <h1>@Html.DisplayFor(modelItem => MaSBdi.SanBayDi)</h1>
-                                    <p>@item.NgayGio</p>
+                                    <h6>@item.NgayGio</h6>
                                 </div>
                                 <div class="path">
                                     <ion-icon name="airplane"></ion-icon>
                                 </div>
                                 <div class="item">
                                     <h1>@Html.DisplayFor(modelItem => MaSBdi.SanBayDen)</h1>
-                                    <p>12:00PM JULY. 11 2019</p>
+                                    @{ DateTime timeto = (DateTime)item.NgayGio;}
+                                    <h6>
+                                        @timeto.AddHours(2)
+                                    </h6>
                                 </div>
                             </div>
 
@@ -52,17 +58,23 @@
                                     <p>@Html.DisplayFor(modelItem => item.MaMB)</p>
                                 </div>
                                 <div class="item">
-                                    <h4>Slot</h4>
+                                    <h4>remaining seats</h4>
+                                    @{ var checkdsve = db.Ves.Where(s => s.MaCB == item.MaCB && s.TinhTrang == "Chưa đặt chỗ").Count();}
+                                    <p>@checkdsve</p>
+                                </div>
+                                <div class="item">
+                                    <h4>Total Slot</h4>
                                     @{ var soghe = item.SoLuongGheHang1 + item.SoLuongGheHang2 + item.SoLuongGheHang3;}
                                     <p>@Html.DisplayFor(modelItem => soghe)</p>
                                 </div>
-                                <div class="item">
-                                    <h4>seat</h4>
-                                    <p>18W</p>
-                                </div>
+
                                 <div class="item">
                                     <h4>terminal</h4>
                                     <p>P4</p>
+                                </div>
+                                <div class="item">
+                                    <h4>Price</h4>
+                                    <p> 70$</p>
                                 </div>
                             </div>
                         </div>
@@ -73,6 +85,9 @@
         </tbody>
     </table>
 </div>
+
+
+
 
 <section id="most-visited">
     <div class="container">
@@ -179,28 +194,5 @@
         </div>
     </div>
 </section>
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="primary-button">
-                    <a href="#" class="scroll-top">Back To Top</a>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <ul class="social-icons">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                </ul>
-            </div>
-            <div class="col-md-12">
-                <p>By Team 30 </p>
-            </div>
-        </div>
-    </div>
-</footer>
 
 <script src="https://unpkg.com/ionicons@4.2.2/dist/ionicons.js"></script>

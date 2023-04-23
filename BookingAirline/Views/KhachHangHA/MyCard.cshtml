@@ -24,9 +24,11 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="dashboard-heading">
-                        <h2>Travel <span>Profile</span></h2>
-                        <p>Hi Lisa, Welcome to Star Travels!</p>
-                        <p>All your trips booked with us will appear here and you'll be able to manage everything!</p>
+                        <h2> <span>Cards</span></h2>
+                        <p>
+                            Hi  @{var khachHang = (BookingAirline.Models.KhachHang)HttpContext.Current.Session["userKH"];}
+                            @khachHang.UserName, Welcome to FLIGHT Travels!
+                        </p>
                     </div><!-- end dashboard-heading -->
 
                     <div class="dashboard-wrapper">
@@ -36,7 +38,7 @@
                                 <ul class="nav nav-tabs nav-stacked text-center">
                                     <li ><a href="~/KhachHangHA/ThongTinKH"><span><i class="fa fa-cogs"></i></span>Dashboard</a></li>
                                     <li><a href="~/KhachHangHA/ThongtinCaNhan"><span><i class="fa fa-user"></i></span>Profile</a></li>
-                                    <li><a href="~/KhachHangHA/Booking"><span><i class="fa fa-briefcase"></i></span>Booking</a></li>
+                                    <li><a href="~/KhachHangHA/Booking"><span><i class="fa fa-briefcase"></i></span>Invoice</a></li>
                                     <li><a href="~/KhachHangHA/Whishlist"><span><i class="fa fa-heart"></i></span>Wishlist</a></li>
                                     <li class="active"><a href="~/KhachHangHA/MyCard"><span><i class="fa fa-credit-card"></i></span>My Cards</a></li>
                                 </ul>
@@ -60,44 +62,12 @@
                                             </div><!-- end primary-tag -->
 
                                             <ul class="list-unstyled list-inline">
-                                                <li class="card-img"><img src="images/master-card.png" class="img-responsive" alt="card-img" /></li>
+                                                @*<li class="card-img"><img src="~/hinh/card.png" class="img-responsive" alt="card-img" /></li>*@
                                                 <li class="card-links"><button class="btn" data-toggle="modal" data-target="#edit-card"><span><i class="fa fa-pencil"></i></span></button><button class="btn"><span><i class="fa fa-close"></i></span></button></li>
                                             </ul>
                                         </div><!-- end card-block -->
                                     </div><!-- end columns -->
-
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="card-block">
-                                            <h2 class="card-number">xxxx xxxx xxxx 1234</h2>
-                                            <h3 class="card-expiry">Vaild Thru 06/17</h3>
-                                            <div class="card-name">
-                                                <h4>Name On Card</h4>
-                                                <h3 class="user-name">Lisa</h3>
-                                            </div><!-- end card-name -->
-
-                                            <ul class="list-unstyled list-inline">
-                                                <li class="card-img"><img src="images/master-card.png" class="img-responsive" alt="card-img" /></li>
-                                                <li class="card-links"><button class="btn" data-toggle="modal" data-target="#edit-card"><span><i class="fa fa-pencil"></i></span></button><button class="btn"><span><i class="fa fa-close"></i></span></button></li>
-                                            </ul>
-                                        </div><!-- end card-block -->
-                                    </div><!-- end columns -->
-
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="card-block">
-                                            <h2 class="card-number">xxxx xxxx xxxx 1234</h2>
-                                            <h3 class="card-expiry">Vaild Thru 06/17</h3>
-                                            <div class="card-name">
-                                                <h4>Name On Card</h4>
-                                                <h3 class="user-name">Lisa</h3>
-                                            </div><!-- end card-name -->
-
-                                            <ul class="list-unstyled list-inline">
-                                                <li class="card-img"><img src="images/master-card.png" class="img-responsive" alt="card-img" /></li>
-                                                <li class="card-links"><button class="btn" data-toggle="modal" data-target="#edit-card"><span><i class="fa fa-pencil"></i></span></button><button class="btn"><span><i class="fa fa-close"></i></span></button></li>
-                                            </ul>
-                                        </div><!-- end card-block -->
-                                    </div><!-- end columns -->
-
+                                                                 
                                     <div class="col-sm-12 col-md-6">
                                         <a href="#add-card" data-toggle="modal">
                                             <div class="card-block add-card">
