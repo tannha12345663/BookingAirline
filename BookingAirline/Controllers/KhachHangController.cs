@@ -30,11 +30,10 @@ namespace BookingAirline.Controllers
             var chuyendi = database.TuyenBays.Where(s => s.SanBayDi == di).FirstOrDefault();
             //var listdi = database.ChuyenBays.Where(s => s.MaTBay == chuyendi.MaTBay && Convert.ToDateTime(s.NgayGio).ToString("dd")== Day ).ToList();
             var test = database.ChuyenBays.SqlQuery
-                ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month and MaTBay = @chuyendi ", 
+                ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month ", 
                 new SqlParameter("@year",year),
                 new SqlParameter("@day", Day),
-                new SqlParameter("@month", month),
-                new SqlParameter("@chuyendi", chuyendi.MaTBay)).ToList();
+                new SqlParameter("@month", month)).ToList();
             //Hiển thị danh sách các chuyến bay
             return View(test);
         }
@@ -82,8 +81,7 @@ namespace BookingAirline.Controllers
                     ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month and MaTBay = @chuyenve ",
                         new SqlParameter("@year", year),
                         new SqlParameter("@day", Day),
-                        new SqlParameter("@month", month),
-                        new SqlParameter("@chuyenve", chuyenve.MaTBay)).ToList();
+                        new SqlParameter("@month", month)).ToList();
                 return View(test);
             }
 
@@ -365,6 +363,33 @@ namespace BookingAirline.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult WhishList(string id)
+        {
+            var KH = (BookingAirline.Models.KhachHang)Session["userKH"];
+            //Xác thực người dùng đã đăng nhập hay chưa
+            if (Session["userKH"] != null)
+            {
+                var faCB = database.Wishlists.Where(s => s.MaCB == id && s.MaKH == KH.IDKH).FirstOrDefault();
+                if (faCB == null)
+                {
+                    Wishlist wl = new Wishlist();
+                    Random rd = new Random();
+                    var rdnumber = rd.Next(1, 1000);
+                    wl.MaWL = rdnumber.ToString();
+                    wl.MaCB = id;
+                    wl.MaKH = KH.IDKH;
+                    wl.NgayThem = System.DateTime.Now;
+                    database.Wishlists.Add(wl);
+                    database.SaveChanges();
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "LoginUser");
+            }
+            return RedirectToAction("ChooseSeat", "KhachHangHA");
         }
     }
 }
