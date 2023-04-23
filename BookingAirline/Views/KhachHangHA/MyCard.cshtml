@@ -1,89 +1,43 @@
 ﻿
 @{
     ViewBag.Title = "MyCard";
-    Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
+    Layout = "~/Views/KhachHangHA/Shared/_LayoutInfoCustomer.cshtml";
+    ViewBag.active5 = "active";
 }
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
-<!-- Bootstrap Stylesheet -->
-<link href="~/Content/CSS_01/bootstrap.min.css" rel="stylesheet" />
-<!-- Font Awesome Stylesheet -->
-<link href="~/Content/CSS_01/font-awesome.min.css" rel="stylesheet" />
-<!-- Custom Stylesheets -->
-<link href="~/Content/CSS_01/style.css" rel="stylesheet" />
-<link href="~/Content/CSS_01/orange.css" rel="stylesheet" />
-<link href="~/Content/CSS_01/responsive.css" rel="stylesheet" />
+<div class="col-xs-12 col-sm-10 col-md-10 dashboard-content my-cards">
+    <h2 class="dash-content-title">Credit/Debit Cards</h2>
+    <div class="row">
 
+        <div class="col-sm-12 col-md-6">
+            <div class="card-block">
+                <h2 class="card-number">xxxx xxxx xxxx 1234</h2>
+                <h3 class="card-expiry">Vaild Thru 06/17</h3>
+                <div class="card-name">
+                    <h4>Name On Card</h4>
+                    <h3 class="user-name">Lisa</h3>
+                </div><!-- end card-name -->
 
-<!--===== INNERPAGE-WRAPPER ====-->
-<section class="innerpage-wrapper">
-    <div id="dashboard" class="innerpage-section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="dashboard-heading">
-                        <h2> <span>Cards</span></h2>
-                        <p>
-                            Hi  @{var khachHang = (BookingAirline.Models.KhachHang)HttpContext.Current.Session["userKH"];}
-                            @khachHang.UserName, Welcome to FLIGHT Travels!
-                        </p>
-                    </div><!-- end dashboard-heading -->
+                <div class="primary-tag">
+                    <h4>Primary</h4>
+                </div><!-- end primary-tag -->
 
-                    <div class="dashboard-wrapper">
-                        <div class="row">
+                <ul class="list-unstyled list-inline">
+                    @*<li class="card-img"><img src="~/hinh/card.png" class="img-responsive" alt="card-img" /></li>*@
+                    <li class="card-links"><button class="btn" data-toggle="modal" data-target="#edit-card"><span><i class="fa fa-pencil"></i></span></button><button class="btn"><span><i class="fa fa-close"></i></span></button></li>
+                </ul>
+            </div><!-- end card-block -->
+        </div><!-- end columns -->
 
-                            <div class="col-xs-12 col-sm-2 col-md-2 dashboard-nav">
-                                <ul class="nav nav-tabs nav-stacked text-center">
-                                    <li ><a href="~/KhachHangHA/ThongTinKH"><span><i class="fa fa-cogs"></i></span>Dashboard</a></li>
-                                    <li><a href="~/KhachHangHA/ThongtinCaNhan"><span><i class="fa fa-user"></i></span>Profile</a></li>
-                                    <li><a href="~/KhachHangHA/Booking"><span><i class="fa fa-briefcase"></i></span>Invoice</a></li>
-                                    <li><a href="~/KhachHangHA/Whishlist"><span><i class="fa fa-heart"></i></span>Wishlist</a></li>
-                                    <li class="active"><a href="~/KhachHangHA/MyCard"><span><i class="fa fa-credit-card"></i></span>My Cards</a></li>
-                                </ul>
-                            </div><!-- end columns -->
+        <div class="col-sm-12 col-md-6">
+            <a href="#add-card" data-toggle="modal">
+                <div class="card-block add-card">
+                    <span><i class="fa fa-plus-circle"></i></span>
+                    <h4>Add New Card</h4>
+                </div><!-- end card-block -->
+            </a>
+        </div><!-- end columns -->
 
-                            <div class="col-xs-12 col-sm-10 col-md-10 dashboard-content my-cards">
-                                <h2 class="dash-content-title">Credit/Debit Cards</h2>
-                                <div class="row">
-
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="card-block">
-                                            <h2 class="card-number">xxxx xxxx xxxx 1234</h2>
-                                            <h3 class="card-expiry">Vaild Thru 06/17</h3>
-                                            <div class="card-name">
-                                                <h4>Name On Card</h4>
-                                                <h3 class="user-name">Lisa</h3>
-                                            </div><!-- end card-name -->
-
-                                            <div class="primary-tag">
-                                                <h4>Primary</h4>
-                                            </div><!-- end primary-tag -->
-
-                                            <ul class="list-unstyled list-inline">
-                                                @*<li class="card-img"><img src="~/hinh/card.png" class="img-responsive" alt="card-img" /></li>*@
-                                                <li class="card-links"><button class="btn" data-toggle="modal" data-target="#edit-card"><span><i class="fa fa-pencil"></i></span></button><button class="btn"><span><i class="fa fa-close"></i></span></button></li>
-                                            </ul>
-                                        </div><!-- end card-block -->
-                                    </div><!-- end columns -->
-                                                                 
-                                    <div class="col-sm-12 col-md-6">
-                                        <a href="#add-card" data-toggle="modal">
-                                            <div class="card-block add-card">
-                                                <span><i class="fa fa-plus-circle"></i></span>
-                                                <h4>Add New Card</h4>
-                                            </div><!-- end card-block -->
-                                        </a>
-                                    </div><!-- end columns -->
-
-                                </div><!-- end row -->
-                            </div><!-- end columns -->
-
-                        </div><!-- end row -->
-                    </div><!-- end dashboard-wrapper -->
-                </div><!-- end columns -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end dashboard -->
-</section><!-- end innerpage-wrapper -->
+    </div><!-- end row -->
+</div>
