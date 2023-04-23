@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookingAirline.Models.Ve>
+﻿﻿@model IEnumerable<BookingAirline.Models.Ve>
 @using BookingAirline.Models;
 @{
     ViewBag.Title = "TicketManagement";
@@ -55,7 +55,9 @@
                             @{ var tenhv = database.HangVes.Find(item01.MaHV);}
                             <td>@tenhv.TenHV</td>
                             <td>@item01.CCCD</td>
-                            <td>@item01.GiaVe</td>
+                            @{ var format = string.Format("{0:0,0 vnđ}", item01.GiaVe);}
+                            <td>@format</td>
+
                             <td>@item01.TinhTrang</td>
                             <td>Chỉnh sửa || Xóa</td>
                         </tr>
@@ -103,7 +105,6 @@
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>

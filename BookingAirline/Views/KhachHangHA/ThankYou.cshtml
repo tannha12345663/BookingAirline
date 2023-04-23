@@ -1,26 +1,25 @@
 ﻿
 @{
     ViewBag.Title = "ThankYou";
-    Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
+    Layout = "~/Views/KhachHangHA/Shared/_LayoutContact.cshtml";
+    var thongbao = TempData["Message"];
 }
-
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i%7CPlayfair+Display:400,400i,700,700i,900,900i" rel="stylesheet">
-<link href="~/Content/CSS_01/bootstrap.min.css" rel="stylesheet" />
-<link href="~/Content/CSS_01/font-awesome.min.css" rel="stylesheet" />
+@*<link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i%7CPlayfair+Display:400,400i,700,700i,900,900i" rel="stylesheet">*@
 <link href="~/Content/CSS_01/style.css" rel="stylesheet" />
 <link href="~/Content/CSS_01/orange.css" rel="stylesheet" />
-<link href="~/Content/CSS_01/responsive.css" rel="stylesheet" />
-<!--==== INNERPAGE-WRAPPER =====-->
+<link href="~/Style/Css/thankyou.css" rel="stylesheet" />
+
 <section class="innerpage-wrapper">
     <div id="thank-you" class="innerpage-section-padding">
         <div class="container">
             <div class="row">
 
-                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 content-side">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content-side">
                     <div class="space-right">
                         <div class="thank-you-note">
                             <h3>Your Booking is confirmed now. Thank You!</h3>
+                            <h2>@thongbao</h2>
                             <p>
                                 Please check in your email. Invoice information has been sent
                             </p>
@@ -28,103 +27,77 @@
                         </div><!-- end thank-you-note -->
 
                         <div class="traveler-info">
-                            <h3 class="t-info-heading"><span><i class="fa fa-info-circle"></i></span>Traveler Information</h3>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>Booking Number:</td>
-                                            <td>000-111-222</td>
-                                        </tr>
-                                        <tr>
-                                            <td>First Name:</td>
-                                            <td>James</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Last Name:</td>
-                                            <td>Anderson</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email Address:</td>
-                                            <td>info@loremipsum.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Home Address:</td>
-                                            <td>D-Block Main Road, Lorum Ipsum.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Town/City:</td>
-                                            <td>Paris/France</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Zip Code:</td>
-                                            <td>700250</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country:</td>
-                                            <td>USA</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div><!-- end table-responsive -->
+                            <h3 class="t-info-heading">
+                                <span><i class="fa fa-info-circle"></i></span>Traveler Information</h
 
-                            <div class="payment-method">
-                                <h3 class="t-info-heading"><span><i class="fa fa-credit-card"></i></span>Payment</h3>
-                                <p>Payment is made by the use of:</p>
-                                <ul class="list-inline">
-                                    <li><img src="images/payment-1.png" class="img-responsive" alt="payment-img" /></li>
-                                    <li><img src="images/payment-2.png" class="img-responsive" alt="payment-img" /></li>
-                                    <li class="active"><img src="images/payment-3.png" class="img-responsive" alt="payment-img" /></li>
-                                    <li><img src="images/payment-4.png" class="img-responsive" alt="payment-img" /></li>
-                                </ul>
-                            </div><!-- end payment-method -->
-                        </div><!-- end traveler-info -->
-                    </div><!-- end space-right -->
-                </div><!-- end columns -->
+                                <div class="feedback" id="oldX"></div><div class="feedback" id="oldY"></div>
+                                <div class="table">
+                                    <div class="table-cell">
+                                        <div id="ticket">
+                                            <div class="row perforated first">
+                                                <img class="logo" src="~/Content/images/Vietjet-Air-Logo-PNG-3.png" />
+                                                <div class="right">
+                                                    <div class="label">Flight Number</div>
+                                                    <div class="num">UA 1136</div>
+                                                </div>
+                                            </div>
+                                            <div class="row perforated destinations">
+                                                <div class="left">
+                                                    <div class="label">Departing</div>
+                                                    <div class="airport">ORD</div>
+                                                    <div class="city">Chicago, IL</div>
+                                                </div>
+                                                <svg id="plane" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" enable-background="new 0 0 100 100" xml:space="preserve">
+                                                <g>
+                                                <path d="M12.5,50L6.25,31.25h6.25L25,43.75h25L31.25,6.25h6.25l31.25,37.5h12.5c0,0,12.5,0,12.5,6.25s-12.5,6.25-12.5,6.25h-12.5   L37.5,93.75h-6.25L50,56.25H25l-12.5,12.5H6.25L12.5,50z" /> 
+                                                </g> 
+                                                </svg>
 
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 side-bar blog-sidebar right-side-bar">
+                                                <div class="right">
+                                                    <div class="label">Arriving</div>
+                                                    <div class="airport">PDX</div>
+                                                    <div class="city">Portland, OR</div>
+                                                </div>
+                                            </div>
+                                            <div class="row normRow">
+                                                <div>
+                                                    <div class="label">Passenger</div>
+                                                    <div class="col">Andrew P Vosburg</div>
+                                                </div>
 
-                    <div class="row">
+                                            </div>
+                                            <div class="row normRow">
+                                                <div class="col6">
+                                                    <div class="label">Departs in</div>
+                                                    <div class="countdown">---</div>
+                                                </div>
+                                                <div class="col6">
+                                                    <div class="label">Gate</div>
+                                                    <div>D26</div>
+                                                </div>
+                                            </div>
+                                            <div class="row normRow">
 
+                                                <div class="col6">
+                                                    <div class="label">Departs at</div>
+                                                    <div>8:00am</div>
+                                                </div>
+                                                <div class="col6">
+                                                    <div class="label">Arrives at</div>
+                                                    <div>10:35am</div>
+                                                </div>
 
-
-                        <div class="col-xs-12 col-sm-6 col-md-12">
-                            <div class="side-bar-block contact">
-                                <h2 class="side-bar-heading">Contact Us</h2>
-                                <div class="c-list">
-                                    <div class="icon"><span><i class="fa fa-envelope"></i></span></div>
-                                    <div class="text"><p>support@star-hotel.com</p></div>
-                                </div><!-- end c-list -->
-
-                                <div class="c-list">
-                                    <div class="icon"><span><i class="fa fa-phone"></i></span></div>
-                                    <div class="text"><p>+222 – 5548 656</p></div>
-                                </div><!-- end c-list -->
-
-                                <div class="c-list">
-                                    <div class="icon"><span><i class="fa fa-map-marker"></i></span></div>
-                                    <div class="text"><p>Street No: 1234/A, Blu Vard Area, Main Double Road, UK</p></div>
-                                </div><!-- end c-list -->
-                            </div><!-- end side-bar-block -->
-                        </div><!-- end columns -->
-
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="side-bar-block follow-us">
-                                <h2 class="side-bar-heading">Follow Us</h2>
-                                <ul class="list-unstyled list-inline">
-                                    <li><a href="#"><span><i class="fa fa-facebook"></i></span></a></li>
-                                    <li><a href="#"><span><i class="fa fa-twitter"></i></span></a></li>
-                                    <li><a href="#"><span><i class="fa fa-linkedin"></i></span></a></li>
-                                    <li><a href="#"><span><i class="fa fa-google-plus"></i></span></a></li>
-                                    <li><a href="#"><span><i class="fa fa-pinterest-p"></i></span></a></li>
-                                </ul>
-                            </div><!-- end side-bar-block -->
-                        </div><!-- end columns -->
-
-                    </div><!-- end row -->
-                </div><!-- end columns -->
-
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end thank-you -->
-</section><!-- end innerpage-wrapper -->
+                                            </div>
+                                            <div class="row">
+                                                <div class="sparkler"></div>
+                                                <img id="qr" src='https://chart.googleapis.com/chart?cht=qr&chl=UA%201136%2098745-34538459&chs=180x180&choe=UTF-8&chld=L|2' alt=''><div class="smalltext">Hologram must change when moving device for ticket to be valid</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>

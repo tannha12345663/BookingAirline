@@ -8,6 +8,8 @@ using BookingAirline.App_Start;
 using System.Web.Helpers;
 using System.IO;
 using System.Data.SqlClient;
+using System.Configuration;
+using BookingAirline.Models.VNPay;
 
 namespace BookingAirline.Controllers
 {
@@ -74,7 +76,7 @@ namespace BookingAirline.Controllers
             //return RedirectToAction("ThongtinCaNhan");
             if (ModelState.IsValid)
             {
-                if(HinhAnh != null)
+                if (HinhAnh != null)
                 {
                     LuuAnh(kh, HinhAnh);
                     database.Entry(database.KhachHangs.Find(kh.IDKH)).CurrentValues.SetValues(kh);
@@ -82,7 +84,8 @@ namespace BookingAirline.Controllers
                 }
                 else
                 {
-                    kh.HinhAnh = kh.HinhAnh;
+                    var checkkh = database.KhachHangs.Find(kh.IDKH);
+                    kh.HinhAnh = checkkh.HinhAnh;
                     database.Entry(database.KhachHangs.Find(kh.IDKH)).CurrentValues.SetValues(kh);
                     database.SaveChanges();
                 }
@@ -94,7 +97,7 @@ namespace BookingAirline.Controllers
         public ActionResult Booking()
         {
             var user = (BookingAirline.Models.KhachHang)Session["userKH"];
-            var hd = database.HoaDons.Where(s => s.IDKH== user.IDKH).ToList();
+            var hd = database.HoaDons.Where(s => s.IDKH == user.IDKH).ToList();
             return View(hd);
         }
 
@@ -127,13 +130,16 @@ namespace BookingAirline.Controllers
             var year = ngaykh.ToString("yyyy");
             //Lọc tìm kiếm chuyến bay
             var di = Request["From"].ToString();
-            var chuyendi = database.TuyenBays.Where(s => s.SanBayDi == di).FirstOrDefault();
+            var den = Request["to"].ToString();
+            var chuyendi = database.TuyenBays.Where(s => s.SanBayDi == di && s.SanBayDen ==den ).FirstOrDefault();
             //var listdi = database.ChuyenBays.Where(s => s.MaTBay == chuyendi.MaTBay && Convert.ToDateTime(s.NgayGio).ToString("dd")== Day ).ToList();
             var test = database.ChuyenBays.SqlQuery
-                ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month  ",
+                ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month and MaTbay=@chuyendi",
                 new SqlParameter("@year", year),
                 new SqlParameter("@day", Day),
-                new SqlParameter("@month", month)).ToList();
+                new SqlParameter("@month", month),
+                new SqlParameter("@chuyendi",chuyendi.MaTBay)
+                ).ToList();
             //Hiển thị danh sách các chuyến bay
             return View(test);
         }
@@ -163,24 +169,28 @@ namespace BookingAirline.Controllers
             }
             else
             {
-                
+
                 order.MaCBdi = id;
                 database.OrderStatus.Add(order);
                 database.SaveChanges();
+
                 DateTime ngaykh = Convert.ToDateTime(Session["Return"]);
                 var month = ngaykh.ToString("MM");
                 var Day = ngaykh.ToString("dd");
                 var year = ngaykh.ToString("yyyy");
 
                 //Kiểm tra và xuất dữ liệu vé theo trước
-                var to = Session["To"].ToString();
-                var chuyenve = database.TuyenBays.Where(s => s.SanBayDi == to).FirstOrDefault();
+                var di = Session["To"].ToString();
+                var den = Session["From"].ToString();
+                var chuyenve = database.TuyenBays.Where(s => s.SanBayDi == di && s.SanBayDen == den).FirstOrDefault();
                 //var listcv = database.ChuyenBays.Where(s => s.MaTBay == chuyenve.MaTBay).ToList();
                 var test = database.ChuyenBays.SqlQuery
-                    ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month",
+                    ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month and MaTBay = @chuyenve",
                         new SqlParameter("@year", year),
                         new SqlParameter("@day", Day),
-                        new SqlParameter("@month", month)).ToList();
+                        new SqlParameter("@month", month),
+                        new SqlParameter("@chuyenve",chuyenve.MaTBay)
+                        ).ToList();
                 return View(test);
             }
 
@@ -203,17 +213,73 @@ namespace BookingAirline.Controllers
             }
             return View();
         }
-
+        //Điền thông tin khách hàng
         public ActionResult DienThongTinKH(string id)
         {
-            return View();
+            Session["SLKH"] = null;
+            Cart cart = Session["Cart"] as Cart;
+            var check = Session["trip"].ToString();
+            if (check == "round")
+            {
+                Session["SLKH"] = (cart.Items.Count() / 2);
+            }
+            else if(check == "one-way")
+            {
+                Session["SLKH"] = cart.Items.Count();
+            }
+            return View(cart);
         }
-
+        //Nhân thông tin khi người dùng nhập thông tin khách hàng tương ứng với vé
         [HttpPost]
         public ActionResult DienThongTinKH()
         {
             var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
             var dsorder = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
+            //Lấy thông tin khách hàng khi có nhiều vé
+            var di = Session["From"].ToString();
+            var den = Session["To"].ToString();
+            var checkkhuhoi = Session["Return"];
+            Cart cart = Session["Cart"] as Cart;
+            var stt = 0;
+            if (checkkhuhoi == null)
+            {
+                foreach (var item01 in cart.Items)
+                {
+                    var mave1 = item01.idVe.MaVe;
+                    var cccd = Request["cccd_" + stt];
+                    cart.CapNhatCCCD(mave1, cccd);
+                    stt++;
+                }
+            }
+            else
+            {
+                var cbdi = dsorder.MaCBdi;
+                var cbden = dsorder.MaCBve;
+                var number = 0;
+                var number2 = 0;
+                foreach (var item01 in cart.Items)
+                {
+
+                    //Chép cccd vào vé lúc đi của khách khàng
+                    if (item01.idVe.MaCB == cbdi)
+                    {
+                        var mave1 = item01.idVe.MaVe;
+                        var cccd = Request["cccd_" + number];
+                        cart.CapNhatCCCD(mave1, cccd);
+                    }
+                    //Chép cccd vào vè lúc về của khách hàng
+                    else if (item01.idVe.MaCB == cbden)
+                    {
+                        
+                        var mave2 = item01.idVe.MaVe;
+                        var cccd2 = Request["cccd_" + number2];
+                        cart.CapNhatCCCD(mave2, cccd2);
+                        number2++;
+                    }
+                    number++;
+                }
+            }
+
             Random rd = new Random();
             var total = 0;
             #region Ban cu
@@ -253,7 +319,7 @@ namespace BookingAirline.Controllers
             contact.ShipName = Request["name"];
             contact.ShipEmail = Request["email"];
             contact.NumberPhone = Request["number"];
-            contact.CCCD = Request["cccd"];
+            contact.CCCD = Request["cccd_0"];
             contact.Total = total;
             Session["contacKH"] = contact;
             return RedirectToAction("ThanhToan");
@@ -289,8 +355,7 @@ namespace BookingAirline.Controllers
                     //Add thông tin vé vào giỏ hàng
                     var ticket = Request["Ma" + i];
                     var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi && s.MaVe == ticket).FirstOrDefault();
-                    GetCart().Add(detailtic, 1);
-
+                    GetCart().Add(detailtic, 1,null);
                     check++;
                     if (check == id)
                     {
@@ -330,8 +395,7 @@ namespace BookingAirline.Controllers
                     //Add thông tin vé vào giỏ hàng
                     var ticket = Request["Ma" + i];
                     var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBve && s.MaVe == ticket).FirstOrDefault();
-                    GetCart().Add(detailtic, 1);
-
+                    GetCart().Add(detailtic, 1,null);
                     check++;
                     if (check == id)
                     {
@@ -353,7 +417,17 @@ namespace BookingAirline.Controllers
             }
             return cart;
         }
-
+        //Tạo mới thông tin khách hàng
+        public DanhSachKH GetCustomer()
+        {
+            DanhSachKH customer = Session["Customer"] as DanhSachKH;
+            if (customer == null || Session["Customer"] == null)
+            {
+                customer = new DanhSachKH();
+                Session["Customer"] = customer;
+            }
+            return customer;
+        }
 
         public ActionResult ThanhToan()
         {
@@ -368,7 +442,10 @@ namespace BookingAirline.Controllers
             Session["contacKH"] = contact;
             return View(cart);
         }
-        [HttpPost]
+
+
+
+        [HttpGet]
         public ActionResult ThanhToan01()
         {
             var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
@@ -403,7 +480,7 @@ namespace BookingAirline.Controllers
             {
                 var mavedi = database.Ves.Where(s => s.MaVe == item.idVe.MaVe && s.MaCB == item.idVe.MaCB).FirstOrDefault();
                 mavedi.TinhTrang = "Đã thanh toán";
-                mavedi.CCCD = ttkh.CCCD;
+                mavedi.CCCD = item.CCCD;
                 mavedi.IDKH = uid.IDKH;
                 database.Entry(mavedi).State = System.Data.Entity.EntityState.Modified;
                 database.SaveChanges();
@@ -415,6 +492,16 @@ namespace BookingAirline.Controllers
                 cthd.TongTien = (item.soLuong) * (item.idVe.GiaVe);
                 database.ChiTietHDs.Add(cthd);
                 database.SaveChanges();
+
+                //Tiến hành thiết lập tạo phiếu đặt chỗ cho khách hàng
+                PhieuDatCho pdc = new PhieuDatCho();
+                pdc.MaPhieu = "PDC" + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9);
+                pdc.MaCB = cthd.MaCB;
+                pdc.CCCD = themhd.CCCD;
+                pdc.NgayDat = System.DateTime.Now;
+                pdc.SoGhe = cthd.MaVe;
+                database.PhieuDatChoes.Add(pdc);
+                database.SaveChanges();
             }
             if (maveve != null)
             {
@@ -422,25 +509,45 @@ namespace BookingAirline.Controllers
                 database.Entry(maveve).State = System.Data.Entity.EntityState.Modified;
                 database.SaveChanges();
             };
-
+            //Render form gửi email về cho khách hàng
             string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/Template/HtmlPage1.html"));
             content = content.Replace("{{CustomerName}}", ttkh.ShipName);
             content = content.Replace("{{Phone}}", ttkh.NumberPhone);
             content = content.Replace("{{Email}}", ttkh.ShipEmail);
             content = content.Replace("{{Total}}", tongtien);
             content = content.Replace("{{Thoigian}}", Convert.ToString(ttkh.CreateDate));
+            content = content.Replace("{{Invoice}}", themhd.MaHD);
             string subject = "Đây là tin nhắn tự động từ hệ thống POS";
             WebMail.Send(ttkh.ShipEmail, subject, content, null, null, null, true, null, null, null, null, null, null);
+            cart.XoaSauKhiDat();
+            var count = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
+            database.OrderStatus.Remove(count);
+            database.SaveChanges();
             return RedirectToAction("ThankYou");
+            //return RedirectToAction("Payment");
         }
         public ActionResult ConfirmTT()
         {
 
             return RedirectToAction("ThankYou");
         }
+
+        
+
+
         public ActionResult ThankYou()
         {
             return View();
+        }
+        public ActionResult FailePayment()
+        {
+            return View();
+        }
+        public ActionResult PayCancel()
+        {
+            Cart cart = Session["Cart"] as Cart;
+            cart.XoaSauKhiDat();
+            return RedirectToAction("TrangChu");
         }
         public ActionResult About()
         {

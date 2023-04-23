@@ -11,10 +11,14 @@
     <link href="~/Style/Css/contactStyle.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+
+
+
+<body>   
     <div class="container-contact">
         <div class="content">
             <div class="left-side">
+                <h1 id="countdown">5:00</h1>
                 <div class="address details">
                     <i class="fas fa-map-marker-alt"></i>
                     <div class="topic">Address</div>
@@ -56,4 +60,26 @@
     </div>
 </body>
 
+<script>
+    // Tính toán thời gian còn lại
+    var timeLeft = 10;
+    // Cập nhật đồng hồ mỗi giây
+    var downloadTimer = setInterval(function () {
+        timeLeft--;
+        // Tính phút, giây còn lại
+        var minutes = Math.floor(timeLeft / 60);
+        var seconds = timeLeft % 60;
+        if (seconds < 10) {
+            seconds = "0" + seconds; // Thêm số 0 vào đầu giây nếu số giây < 10
+        }
+        // Hiển thị thời gian còn lại
+        document.getElementById("countdown").innerHTML = minutes + ":" + seconds;
+        // Khi đến thời gian đích
+        if (timeLeft < 0) {
+            clearInterval(countdown);
+            document.getElementById("countdown").innerHTML = "Hết thời gian thanh toán";
+            window.location.href = '/KhachHangHA/TrangChu'
+        }
+    }, 1000);
+</script>
 
