@@ -3,84 +3,42 @@
 @using BookingAirline.Models;
 @{
     ViewBag.Title = "ThongtinCaNhan";
-    Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
+    Layout = "~/Views/KhachHangHA/Shared/_LayoutInfoCustomer.cshtml";
+    ViewBag.active2 = "active";
 }
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+<style>
+    img {
+        border-radius: 50%;
+    }
+</style>
 
-<!-- Bootstrap Stylesheet -->
-<link href="~/Content/CSS_01/bootstrap.min.css" rel="stylesheet" />
-<!-- Font Awesome Stylesheet -->
-<link href="~/Content/CSS_01/font-awesome.min.css" rel="stylesheet" />
-<!-- Custom Stylesheets -->
-<link href="~/Content/CSS_01/style.css" rel="stylesheet" />
-<link href="~/Content/CSS_01/orange.css" rel="stylesheet" />
-<link href="~/Content/CSS_01/responsive.css" rel="stylesheet" />
-
-<!--===== INNERPAGE-WRAPPER ====-->
-<section class="innerpage-wrapper">
-    <div id="dashboard" class="innerpage-section-padding">
-        <div class="container">
+<div class="col-xs-12 col-sm-10 col-md-10 dashboard-content user-profile">
+    <h2 class="dash-content-title">My Profile</h2>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4>Profile Details</h4></div>
+        <div class="panel-body">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="dashboard-heading">
-                        <h2>Travel <span>Profile</span></h2>                        
-                        <p>Hi  @{var khachHang = (BookingAirline.Models.KhachHang)HttpContext.Current.Session["userKH"];}
-                            @khachHang.UserName, Welcome to FLIGHT Travels!
-                        </p>
-                        <p>All your trips booked with us will appear here and you'll be able to manage everything!</p>
-                    </div><!-- end dashboard-heading -->
+                <div class="col-sm-5 col-md-4 user-img">
+                    <img src="@Model.HinhAnh" class="img-responsive" alt="user-img" style="width:350px" />
+                </div><!-- end columns -->
+                <div class="col-sm-7 col-md-8  user-detail">
+                    <ul class="list-unstyled">
+                        <li><span>Name:</span> @Model.TenKH</li>
+                        <li><span>Date of Birth:</span> @Model.NgaySinh</li>
+                        <li><span>Email:</span> @Model.Email</li>
+                        <li><span>Phone:</span> @Model.SDT</li>
+                        <li><span>Country:</span> United States of America</li>
+                    </ul>
+                    <a class="btn" href="~/KhachHangHA/EditProfile/@Model.IDKH" data-target="#edit-profile">Edit Profile</a>
+                    <a class="btn" href="~/LoginUser/ResetPass">Reset password?</a>
+                </div><!-- end columns -->
+                <div class="col-sm-12 user-desc">
+                    <h4>About You</h4>
+                    <p>Vestibulum tristique, justo eu sollicitudin sagittis, metus dolor eleifend urna, quis scelerisque purus quam nec ligula. Suspendisse iaculis odio odio, ac vehicula nisi faucibus eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere semper sem ac aliquet. Duis vel bibendum tellus, eu hendrerit sapien. Proin fringilla, enim vel lobortis viverra, augue orci fringilla diam, sed cursus elit mi vel lacus. Nulla facilisi. Fusce sagittis, magna non vehicula gravida, ante arcu pulvinar arcu, aliquet luctus arcu purus sit amet sem. Mauris blandit odio sed nisi porttitor egestas. Mauris in quam interdum purus vehicula rutrum quis in sem. Integer interdum lectus at nulla dictum luctus. Sed risus felis, posuere id condimentum non, egestas pulvinar enim. Praesent pretium risus eget nisi ullamcorper fermentum. Duis lacinia nisi ac rhoncus vestibulum.</p>
 
-                    <div class="dashboard-wrapper">
-                        <div class="row">
-
-                            <div class="col-xs-12 col-sm-2 col-md-2 dashboard-nav">
-                                <ul class="nav nav-tabs nav-stacked text-center">
-                                    <li><a href="~/KhachHangHA/ThongTinKH"><span><i class="fa fa-cogs"></i></span>Dashboard</a></li>
-                                    <li class="active"><a href="~/KhachHangHA/ThongtinCaNhan"><span><i class="fa fa-user"></i></span>Profile</a></li>
-                                    <li><a href="~/KhachHangHA/Booking"><span><i class="fa fa-briefcase"></i></span>Invopice</a></li>
-                                    <li><a href="~/KhachHangHA/Whishlist"><span><i class="fa fa-heart"></i></span>Wishlist</a></li>
-                                    <li><a href="~/KhachHangHA/MyCard"><span><i class="fa fa-credit-card"></i></span>My Cards</a></li>
-                                </ul>
-                            </div><!-- end columns -->
-
-                            <div class="col-xs-12 col-sm-10 col-md-10 dashboard-content user-profile">
-                                <h2 class="dash-content-title">My Profile</h2>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"><h4>Profile Details</h4></div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-sm-5 col-md-4 user-img">
-                                                <img src="@Model.HinhAnh" class="img-responsive" alt="user-img" />
-                                            </div><!-- end columns -->
-
-                                            <div class="col-sm-7 col-md-8  user-detail">
-                                                <ul class="list-unstyled">
-                                                    <li><span>Name:</span> @Model.TenKH</li>
-                                                    <li><span>Date of Birth:</span> @Model.NgaySinh</li>
-                                                    <li><span>Email:</span> @Model.Email</li>
-                                                    <li><span>Phone:</span> @Model.SDT</li>
-                                                    <li><span>Address:</span></li>
-                                                    <li><span>Country:</span> United States of America</li>
-                                                </ul>
-                                                <a class="btn" href="~/KhachHangHA/EditProfile/@Model.IDKH"  data-target="#edit-profile">Edit Profile</a>
-                                            </div><!-- end columns -->
-
-                                            <div class="col-sm-12 user-desc">
-                                                <h4>About You</h4>
-                                                <p>Vestibulum tristique, justo eu sollicitudin sagittis, metus dolor eleifend urna, quis scelerisque purus quam nec ligula. Suspendisse iaculis odio odio, ac vehicula nisi faucibus eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere semper sem ac aliquet. Duis vel bibendum tellus, eu hendrerit sapien. Proin fringilla, enim vel lobortis viverra, augue orci fringilla diam, sed cursus elit mi vel lacus. Nulla facilisi. Fusce sagittis, magna non vehicula gravida, ante arcu pulvinar arcu, aliquet luctus arcu purus sit amet sem. Mauris blandit odio sed nisi porttitor egestas. Mauris in quam interdum purus vehicula rutrum quis in sem. Integer interdum lectus at nulla dictum luctus. Sed risus felis, posuere id condimentum non, egestas pulvinar enim. Praesent pretium risus eget nisi ullamcorper fermentum. Duis lacinia nisi ac rhoncus vestibulum.</p>
-
-                                            </div><!-- end columns -->
-                                        </div><!-- end row -->
-
-                                    </div><!-- end panel-body -->
-                                </div><!-- end panel-detault -->
-                            </div><!-- end columns -->
-
-                        </div><!-- end row -->
-                    </div><!-- end dashboard-wrapper -->
                 </div><!-- end columns -->
             </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end dashboard -->
-</section><!-- end innerpage-wrapper -->
+
+        </div><!-- end panel-body -->
+    </div><!-- end panel-detault -->
+</div>

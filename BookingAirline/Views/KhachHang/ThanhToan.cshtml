@@ -28,11 +28,11 @@
 
 <body>
     <div class="container-fluid">
-        <div class="row justify-content-center" style="padding:30px; " >
+        <div class="row justify-content-center" style="padding:30px; ">
             <div class="col-12 col-lg-11">
                 <div class="card card0 rounded-0">
                     <div class="row">
-                        <div class="col-md-7 d-md-block d-none p-0 box">
+                        <div class="col-md-7 d-md-block p-0 box">
                             <div class="card rounded-0 border-0 card1" id="bill">
                                 <h3 id="heading1">Booking Details</h3>
                                 @foreach (var item in Model.Items)
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5 col-sm-12 p-0 box">
+                        <div class="col-md-5 p-0 box">
                             <div class="card rounded-0 border-0 card2" id="paypage">
                                 <div class="form-card">
                                     <h2 id="heading2" class="text-danger" style="color:#000000; font-weight:bold">Payment Method</h2>
@@ -107,7 +107,7 @@
                                         <div class="form-group col-sm-12">
                                             <a href="~/KhachHang/ConfirmTT" class="btn btn-primary btn-block">Payment</a>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -205,7 +205,7 @@
 
 <script>
     // Tính toán thời gian còn lại
-    var timeLeft = 300;
+    var timeLeft = 5;
     // Cập nhật đồng hồ mỗi giây
     var downloadTimer = setInterval(function () {
         timeLeft--;
@@ -225,7 +225,6 @@
         }
     }, 1000);
 </script>
-
 
 
 

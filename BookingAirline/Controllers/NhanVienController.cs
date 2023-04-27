@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -18,6 +19,8 @@ namespace BookingAirline.Controllers
         public ActionResult TrangChu()
         {
             return View();
+
+
         }
 
         public ActionResult Scheduleaflight()
@@ -369,9 +372,150 @@ namespace BookingAirline.Controllers
         {
             return View();
         }
-        public ActionResult ReportManagement()
+
+        public ActionResult Myinfor()
+        {
+            NhanVien nhanvien = Session["userNV"] as NhanVien;
+            return View(nhanvien);
+        }
+        public ActionResult EditMyinfor(string id)
+        {
+
+            var nhanvien = new NhanVien().ViewDetail(id);
+
+            return View(nhanvien);
+        }
+
+        [HttpPost]
+
+        public ActionResult EditMyinfor(NhanVien nhanvien)
+        {
+            if (ModelState.IsValid)
+            {
+                var vien = new NhanVien();
+                var result = vien.Update(nhanvien);
+                //if (result)
+                //{
+                //    return RedirectToAction("TrangChu", "NhanVien");
+                //}
+                //else
+                //{
+                //    ModelState.AddModelError("", "Success");
+                //}
+
+
+                database.SaveChanges();
+                 
+
+            }
+
+            return View("Myinfor", nhanvien);
+        }
+
+
+        public ActionResult Staff()
         {
             return View();
         }
+        public ActionResult DetailStaff(string id)
+        {
+            var ttnv = database.NhanViens.Find(id);
+            return View(ttnv);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DetailStaff(NhanVien nv)
+        {
+            database.Entry(nv).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+            database.SaveChanges();
+            TempData["manhanvien"] = nv.IDNV;
+            TempData["MessageAlert"] = "SuaNV";
+            return RedirectToAction("Staff");
+
+        }
+
+        public ActionResult CustomerManagement()
+        {
+            return View();
+        }
+
+
+        public ActionResult DetailCus(string id)
+        {
+            var ttCus = database.KhachHangs.Find(id);
+            return View(ttCus);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DetailCus(KhachHang kh)
+        {
+            database.Entry(kh).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+            database.SaveChanges();
+            TempData["makhachhang"] = kh.IDKH;
+            TempData["MessageAlert"] = "SuaKH";
+            return RedirectToAction("CustomerManagement");
+
+        }
+
+        public ActionResult Promotion()
+        {
+            return View();
+        }
+        
+        public ActionResult CreatePromotion()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreatePromotion(Voucher vc)
+        {
+            database.Entry(vc).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+            database.Vouchers.Add(vc);
+            database.SaveChanges();
+            TempData["macv"] = vc.MaVC;
+            TempData["MessageAlert"] = "success";
+            return RedirectToAction("Promotion");
+
+        }
+        [HttpGet]
+        public ActionResult EditPro(string id)
+        {
+
+            //var voucher = new Voucher().ViewDetail(id);
+
+            return View(/*voucher*/);
+        }
+
+        [HttpPost]
+
+        public ActionResult EditPro(Voucher voucher)
+        {
+            if (ModelState.IsValid)
+            {
+                var vc = new Voucher();
+                //var result = vc.Update(voucher);
+                
+
+
+            }
+
+            return View("Promotion");
+        }
+
+        public ActionResult DeletePro(string id)
+        {
+            var tb = database.Vouchers.Find(id);
+            database.Vouchers.Remove(tb);
+            database.SaveChanges();
+            TempData["mavc"] = tb.MaVC;
+            TempData["messageAlert"] = "XoaThanhCong";
+            //return RedirectToAction("FlightRoute");
+            return Json(new { success = true });
+        }
+
     }
 }

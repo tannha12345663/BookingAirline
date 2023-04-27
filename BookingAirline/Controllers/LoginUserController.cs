@@ -104,5 +104,45 @@ namespace BookingAirline.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
+
+        public ActionResult ResetPass()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ResetPass(string email, string username)
+        {
+
+            var mail = database.KhachHangs.Where(s => s.Email == email).FirstOrDefault();
+            var user = database.KhachHangs.Where(s => s.UserName == username).FirstOrDefault();
+            
+            if(mail != null && user != null)
+            {
+                var kh = database.KhachHangs.Where(s => s.Email == email).FirstOrDefault();
+                
+                    kh.Password = "12345678";
+                    database.Entry(kh).State = System.Data.Entity.EntityState.Modified;
+                    database.SaveChanges();
+                
+                    return RedirectToAction("Login");
+               
+                
+            }
+            else
+            {
+                TempData["error"] = "Tài khoản không tồn tại";
+                return View();
+            }
+
+
+            return View();
+
+        }
     }
 }
+
+
+
+
+
+
