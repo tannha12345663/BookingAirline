@@ -129,8 +129,8 @@
                     {
                         stt++;
                         <tr>
-                            @{ var tensbdi = database.SanBay.Find(item01.SanBayDi);
-                                var tensbden = database.SanBay.Find(item01.SanBayDen);}
+                            @{ var tensbdi = database.SanBays.Find(item01.SanBayDi);
+                                var tensbden = database.SanBays.Find(item01.SanBayDen);}
                             <td>@item01.MaTBay</td>
                             <td>@item01.SanBayDi</td>
                             <td>@tensbdi.TenSB</td>
@@ -273,7 +273,7 @@
                             <div class="form-group col-md-12">
                                 <label class="control-label">Chọn mã sân bay</label>
                                 <select class="form-control " name="MaSB" type="text" required>
-                                    @{ var masb01 = database.SanBay.ToList();
+                                    @{ var masb01 = database.SanBays.ToList();
                                         foreach (var item in masb01)
                                         {
                                             <option value="@item.MaSB">@item.MaSB</option>
