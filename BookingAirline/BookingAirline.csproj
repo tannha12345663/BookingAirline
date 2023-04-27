@@ -354,6 +354,7 @@
     <Content Include="Content\images\Payment Error.gif" />
     <Content Include="Content\images\Vietjet-Air-Logo-PNG-3.png" />
     <Content Include="Content\index.css" />
+    <Content Include="Content\myInfor.css" />
     <Content Include="Content\Promotion.css" />
     <Content Include="Content\resetpass.css" />
     <Content Include="Content\style.css" />
