@@ -8,6 +8,8 @@ using BookingAirline.App_Start;
 using System.Web.Helpers;
 using System.IO;
 using System.Data.SqlClient;
+using System.Configuration;
+using BookingAirline.Models.VNPay;
 
 namespace BookingAirline.Controllers
 {
@@ -82,7 +84,8 @@ namespace BookingAirline.Controllers
                 }
                 else
                 {
-                    kh.HinhAnh = kh.HinhAnh;
+                    var checkkh = database.KhachHangs.Find(kh.IDKH);
+                    kh.HinhAnh = checkkh.HinhAnh;
                     database.Entry(database.KhachHangs.Find(kh.IDKH)).CurrentValues.SetValues(kh);
                     database.SaveChanges();
                 }
@@ -104,10 +107,12 @@ namespace BookingAirline.Controllers
             TempData["mahd"] = id;
             return View(cthd);
         }
-        public ActionResult Whishlist()
-        {
-            return View();
-        }
+
+        //UynNhi
+        //public ActionResult Whishlist()
+        //{
+           
+        //}
 
         public ActionResult MyCard()
         {
@@ -218,6 +223,10 @@ namespace BookingAirline.Controllers
             {
                 Session["SLKH"] = (cart.Items.Count() / 2);
             }
+            else if(check == "one-way")
+            {
+                Session["SLKH"] = cart.Items.Count();
+            }
             return View(cart);
         }
         //Nhân thông tin khi người dùng nhập thông tin khách hàng tương ứng với vé
@@ -247,6 +256,7 @@ namespace BookingAirline.Controllers
                 var cbdi = dsorder.MaCBdi;
                 var cbden = dsorder.MaCBve;
                 var number = 0;
+                var number2 = 0;
                 foreach (var item01 in cart.Items)
                 {
 
@@ -260,9 +270,11 @@ namespace BookingAirline.Controllers
                     //Chép cccd vào vè lúc về của khách hàng
                     else if (item01.idVe.MaCB == cbden)
                     {
+                        
                         var mave2 = item01.idVe.MaVe;
-                        var cccd2 = Request["cccd_" + number/2];
+                        var cccd2 = Request["cccd_" + number2];
                         cart.CapNhatCCCD(mave2, cccd2);
+                        number2++;
                     }
                     number++;
                 }
@@ -433,7 +445,7 @@ namespace BookingAirline.Controllers
 
 
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult ThanhToan01()
         {
             var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
@@ -480,6 +492,16 @@ namespace BookingAirline.Controllers
                 cthd.TongTien = (item.soLuong) * (item.idVe.GiaVe);
                 database.ChiTietHDs.Add(cthd);
                 database.SaveChanges();
+
+                //Tiến hành thiết lập tạo phiếu đặt chỗ cho khách hàng
+                PhieuDatCho pdc = new PhieuDatCho();
+                pdc.MaPhieu = "PDC" + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9);
+                pdc.MaCB = cthd.MaCB;
+                pdc.CCCD = themhd.CCCD;
+                pdc.NgayDat = System.DateTime.Now;
+                pdc.SoGhe = cthd.MaVe;
+                database.PhieuDatChoes.Add(pdc);
+                database.SaveChanges();
             }
             if (maveve != null)
             {
@@ -487,7 +509,7 @@ namespace BookingAirline.Controllers
                 database.Entry(maveve).State = System.Data.Entity.EntityState.Modified;
                 database.SaveChanges();
             };
-
+            //Render form gửi email về cho khách hàng
             string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/Template/HtmlPage1.html"));
             content = content.Replace("{{CustomerName}}", ttkh.ShipName);
             content = content.Replace("{{Phone}}", ttkh.NumberPhone);
@@ -502,15 +524,30 @@ namespace BookingAirline.Controllers
             database.OrderStatus.Remove(count);
             database.SaveChanges();
             return RedirectToAction("ThankYou");
+            //return RedirectToAction("Payment");
         }
         public ActionResult ConfirmTT()
         {
 
             return RedirectToAction("ThankYou");
         }
+
+        
+
+
         public ActionResult ThankYou()
         {
             return View();
+        }
+        public ActionResult FailePayment()
+        {
+            return View();
+        }
+        public ActionResult PayCancel()
+        {
+            Cart cart = Session["Cart"] as Cart;
+            cart.XoaSauKhiDat();
+            return RedirectToAction("TrangChu");
         }
         public ActionResult About()
         {
@@ -523,6 +560,38 @@ namespace BookingAirline.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+        public ActionResult HienThiWL()
+        {
+            var ds = database.Wishlists.ToList();
+            return View(ds);
+        }
+        public ActionResult WhishList(string id)
+        {
+            var KH = (BookingAirline.Models.KhachHang)Session["userKH"];
+            //Xác thực người dùng đã đăng nhập hay chưa
+            if (Session["userKH"]!=null)
+            {
+                var faCB = database.Wishlists.Where(s => s.MaCB == id && s.MaKH == KH.IDKH).FirstOrDefault();
+                if(faCB==null)
+                {
+                    Wishlist wl = new Wishlist();
+                    Random rd = new Random();
+                    var rdnumber = rd.Next(1, 1000);
+                    wl.MaWL = rdnumber.ToString();
+                    wl.MaCB = id;
+                    wl.MaKH = KH.IDKH;
+                    wl.NgayThem = System.DateTime.Now;
+                    database.Wishlists.Add(wl);
+                    database.SaveChanges();
+                    return RedirectToAction("ChooseSeat", "KhachHangHA");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "LoginUser");
+            }
             return View();
         }
     }

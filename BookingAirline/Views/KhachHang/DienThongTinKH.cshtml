@@ -51,11 +51,81 @@
                             <input type="text" name="cccd_0" placeholder="Enter your CCCD" required>
                         </div>
                     </div>
-                    <button class="nextBtn" type="submit">
+                    @*<button class="nextBtn" type="submit">
+                <span class="btnText">Payment</span>
+                <i class="uil uil-navigator"></i>
+            </button>*@
+
+
+                </div>
+                <hr />
+                @{
+                    var stt = 0;
+                    var check = Session["trip"].ToString();
+                    var slkh = 0;
+                    if (check == "round")
+                    {
+                        slkh = (int)Session["SLKH"];
+                    }
+                    foreach (var item01 in Model.Items)
+                    {
+
+                        stt++;
+                        if (stt < slkh)
+                        {
+                            <div class="details ID" id="@item01.idVe.MaVe">
+                                <span class="title">Book Tickets For Relatives for Perseron @stt </span>
+
+                                <div class="fields">
+                                    <div class="input-field">
+                                        <label>Full Name</label>
+                                        <input type="text" placeholder="Enter ID type">
+                                    </div>
+
+                                    <div class="input-field">
+                                        <label>Date of Birth</label>
+                                        <input type="date" placeholder="Enter birth date">
+                                    </div>
+
+                                    <div class="input-field">
+                                        <label>Email</label>
+                                        <input type="text" placeholder="Enter your email">
+                                    </div>
+
+                                    <div class="input-field">
+                                        <label>Mobile Number</label>
+                                        <input type="number" placeholder="Enter mobile number">
+                                    </div>
+
+                                    <div class="input-field">
+                                        <label>Gender</label>
+                                        <select>
+                                            <option disabled selected>Select gender</option>
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                            <option>Others</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-field">
+                                        <label>CCCD</label>
+                                        <input type="text" placeholder="Enter your CCCD" name="cccd_@stt">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <hr />
+                        }
+
+                    }
+                    <button class="nextBtn">
                         <span class="btnText">Payment</span>
                         <i class="uil uil-navigator"></i>
                     </button>
-                </div>
+                }
+
+
+
             </div>
 
         </div>
