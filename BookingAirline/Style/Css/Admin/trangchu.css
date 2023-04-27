@@ -31,9 +31,7 @@
 .Coop {
     justify-content: space-around;
     flex-wrap: wrap;
-    padding-left: 50px;
-    padding-right: 50px;
-    text-align: left;
+    text-align: center;
 }
 
 .logo {
@@ -53,7 +51,6 @@
 .Sale{
     justify-content:space-around;
     flex-wrap:wrap;
-    padding-left:210px;
     /*padding-right: 50px;*/
 }
 .mySlides {

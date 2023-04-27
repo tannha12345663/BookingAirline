@@ -22,7 +22,7 @@ h2{
 }
 
 .container_infcustomer {   
-    position: relative;
+    /*position: relative;*/
     max-width: 900px;
     width: 100%;
     border-radius: 6px;
