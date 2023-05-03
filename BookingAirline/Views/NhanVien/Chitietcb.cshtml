@@ -1,0 +1,86 @@
+﻿@model BookingAirline.Models.ChuyenBay
+
+@{
+    ViewBag.Title = "Chitietcb";
+    Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Detaile flight @Model.MaCB</h2>
+<br />
+<div class="container">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="~/hinh/HinhNen/8d80128d9cb6ca236f7e4b7babdc98ed.jpg" height="500" width="350" />
+            </div>
+
+            <div class="col-md-6">
+                <div class="row" id="themdong">
+                    <div class="col-md-12">
+                        <div style="font-size:15px">----Flight Infomation----</div>
+                    </div>
+                    <div class="col-md-5" id="ThongtinMB">
+                        <label class="control-label" style="font-weight:bold">Airplane code: </label>
+                        @Html.DisplayFor(model => model.MaMB)
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="control-label" style="font-weight:bold">Route code</label>
+                        @Html.DisplayFor(model => model.MaTBay)
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label" style="font-weight:bold">Time: </label>
+                        @Html.DisplayFor(model => model.NgayGio)
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label" style="font-weight:bold">Flight time: </label>
+                        @Html.DisplayFor(model => model.ThoiGianBay)
+                    </div>
+                    <div class="col-md-12">
+
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label" style="font-weight:bold">Number of seats G1:</label>
+                        @Html.DisplayFor(model => model.SoLuongGheHang1)
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label" style="font-weight:bold">Number of seats G2:</label>
+                        @Html.DisplayFor(model => model.SoLuongGheHang2)
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label" style="font-weight:bold">Number of seats G3:</label>
+                        @Html.DisplayFor(model => model.SoLuongGheHang3)
+                    </div>
+                    <div class="col-md-12">
+
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label class="control-label" style="font-weight:bold">Intermediate airport:</label>
+                        @Html.DisplayFor(model => model.NgayGio)
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label" style="font-weight:bold">
+                            Stopover time:
+                        </label>
+
+                    </div>
+                    <div class="col-md-12">
+
+                    </div>
+                    <div class="form-group col-md-9">
+                        <label class="control-label" style="font-weight:bold">Notes:</label>
+
+                    </div>
+                    <div class="col-md-8">
+                        <p>
+                            @Html.ActionLink("Back to List", "Scheduleaflight", null, new { @class = "btn btn-danger" })
+                            @Html.ActionLink("Edit", "DetailFlight", new { id = Model.MaCB }, new { @class = "btn btn-primary" })
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

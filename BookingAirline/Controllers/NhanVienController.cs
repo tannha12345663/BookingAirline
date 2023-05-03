@@ -19,8 +19,6 @@ namespace BookingAirline.Controllers
         public ActionResult TrangChu()
         {
             return View();
-
-
         }
 
         public ActionResult Scheduleaflight()
@@ -151,7 +149,19 @@ namespace BookingAirline.Controllers
             database.SaveChanges();
             return RedirectToAction("Scheduleaflight");
         }
-
+        //Xem chi tiết chuyến bay
+        public ActionResult Chitietcb(string id)
+        {
+            if (id != null)
+            {
+                var cb = database.ChuyenBays.Find(id);
+                return View (cb);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+        }
         public ActionResult DetailFlight(string id)
         {
             if (id != null)
@@ -168,20 +178,55 @@ namespace BookingAirline.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DetailFlight(ChuyenBay cb)
+        public ActionResult DetailFlight([Bind(Include = "MaCB,MaMB,MaTbay,NgayGio,ThoiGianBay,SoLuongGheHang1,SoLuongGheHang2,SoLuongGheHang3")] ChuyenBay cb,string id)
         {
-            ChiTietChuyenBay ctcb = new ChiTietChuyenBay();
-            ctcb.MaCTCB = cb.MaCB;
-            ctcb.SanBayTrungGian = Request["SanBayTrungGian"];
-            ctcb.ThoiGianDung = Request["ThoiGianDung"];
-            ctcb.GhiChu = Request["GhiChu"];
-            database.Entry(ctcb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
-            database.SaveChanges();
-            database.Entry(cb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
-            database.SaveChanges();
-            TempData["machuyenbay"] = cb.MaCB;
-            TempData["messageAlert"] = "SuaThanhCong";
-            return RedirectToAction("Scheduleaflight");
+            if (ModelState.IsValid)
+            {
+                Random rd = new Random();
+                var ctcb = database.ChiTietChuyenBays.Where(s => s.MaCTCB == cb.MaCB).FirstOrDefault();
+                ChiTietChuyenBay ctcb01 = new ChiTietChuyenBay();
+                if (ctcb != null)
+                {
+
+                    ctcb.SanBayTrungGian = Request["SanBayTrungGian"];
+                    ctcb.ThoiGianDung = Request["ThoiGianDung"];
+                    ctcb.GhiChu = Request["GhiChu"];
+                    database.Entry(ctcb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+                    database.SaveChanges();
+
+                    database.Entry(cb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+                    database.SaveChanges();
+                    TempData["machuyenbay"] = cb.MaCB;
+                    TempData["messageAlert"] = "SuaThanhCong";
+                }
+                else
+                {
+                    if (id != null)
+                    {
+                        ctcb01.STT = rd.Next(0, 100000);
+                        ctcb01.MaCTCB = cb.MaCB;
+                        ctcb01.SanBayTrungGian = Request["SanBayTrungGian"];
+                        ctcb01.ThoiGianDung = Request["ThoiGianDung"];
+                        ctcb01.GhiChu = Request["GhiChu"];
+                        database.ChiTietChuyenBays.Add(ctcb01);
+                        database.SaveChanges();
+                    }
+                    else
+                    {
+
+                    }
+                    database.Entry(cb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+                    database.SaveChanges();
+                    TempData["machuyenbay"] = cb.MaCB;
+                    TempData["messageAlert"] = "SuaThanhCong";
+                }
+                return RedirectToAction("Scheduleaflight");
+            }
+            else
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+                
         }
         [HttpPost]
         public ActionResult DeleteFlight(string id)

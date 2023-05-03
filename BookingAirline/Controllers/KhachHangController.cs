@@ -63,7 +63,7 @@ namespace BookingAirline.Controllers
                 return RedirectToAction("TrangChu");
             }
             var check = Session["trip"].ToString();
-            if (check == "oneway")
+            if (check == "one-way")
             {
                 order.MaCBdi = id;
                 database.OrderStatus.Add(order);
@@ -114,7 +114,7 @@ namespace BookingAirline.Controllers
             }
             return View();
         }
-        //Version 1.0
+
         public ActionResult DienThongTinKH(string id)
         {
             Session["SLKH"] = null;
@@ -123,6 +123,10 @@ namespace BookingAirline.Controllers
             if (check == "round")
             {
                 Session["SLKH"] = (cart.Items.Count() / 2);
+            }
+            else if (check == "one-way")
+            {
+                Session["SLKH"] = cart.Items.Count();
             }
             return View(cart);
         }
@@ -273,7 +277,6 @@ namespace BookingAirline.Controllers
                 return RedirectToAction("ChooseSeatVe");
             }
             return RedirectToAction("DienThongTinKH");
-
         }
 
         //Chọn chỗ ngồi lúc về

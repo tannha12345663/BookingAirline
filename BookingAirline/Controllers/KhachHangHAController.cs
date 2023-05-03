@@ -169,7 +169,6 @@ namespace BookingAirline.Controllers
             }
             else
             {
-
                 order.MaCBdi = id;
                 database.OrderStatus.Add(order);
                 database.SaveChanges();

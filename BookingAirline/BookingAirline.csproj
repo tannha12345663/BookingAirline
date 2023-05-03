@@ -48,10 +48,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -394,6 +394,8 @@
     <Content Include="hinh\Fly.jpg" />
     <Content Include="hinh\heading-bg.jpg" />
     <Content Include="hinh\heading-pg1.jpg" />
+    <Content Include="hinh\HinhNen\702752200da027749782267c56c3897f.jpg" />
+    <Content Include="hinh\HinhNen\8d80128d9cb6ca236f7e4b7babdc98ed.jpg" />
     <Content Include="hinh\IMG_0839 %281%29.jpg" />
     <Content Include="hinh\detailCus01.jpg" />
     <Content Include="hinh\ka-img.jpg" />
@@ -726,6 +728,7 @@
     <Content Include="Views\KhachHangHA\Shared\_LayoutPayment.cshtml" />
     <Content Include="Views\KhachHangHA\Shared\_LayoutPage2.cshtml" />
     <Content Include="Views\Home\Promotion.cshtml" />
+    <Content Include="Views\NhanVien\Chitietcb.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\KhachHangHA\Shared\_LayoutInfoCustomer.cshtml" />

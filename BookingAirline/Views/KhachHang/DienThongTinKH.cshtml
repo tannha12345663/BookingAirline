@@ -4,7 +4,7 @@
 }
 
 <link rel="stylesheet" href="~/Style/Css/InfoCustomers.css">
-
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
 <div class="container_infcustomer">
     <header>CUSTOMER INFOMATION</header>
@@ -63,7 +63,7 @@
                     var stt = 0;
                     var check = Session["trip"].ToString();
                     var slkh = 0;
-                    if (check == "round")
+                    if (check == "round" || check == "one-way")
                     {
                         slkh = (int)Session["SLKH"];
                     }
@@ -131,11 +131,6 @@
         </div>
     </form>
 </div>
-
-
-
-
-
 
 <!--<script src="script.js"></script>-->
 
