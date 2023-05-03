@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BookingAirLightModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BookingAirLightModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ChiTietChuyenBay">
           <Key>
             <PropertyRef Name="STT" />
@@ -169,6 +169,18 @@
           </Key>
           <Property Name="MaSB" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="TenSB" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="save_log_chuyenbay">
+          <Key>
+            <PropertyRef Name="Malog" />
+          </Key>
+          <Property Name="Malog" Type="datetime" Nullable="false" />
+          <Property Name="ThaoTac" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaCB" Type="nvarchar" MaxLength="10" />
+          <Property Name="MaMB" Type="nvarchar" MaxLength="10" />
+          <Property Name="MaTBay" Type="nvarchar" MaxLength="10" />
+          <Property Name="NgayGio" Type="datetime" />
+          <Property Name="ThoiGianBay" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -499,6 +511,7 @@
           <EntitySet Name="Phi" EntityType="Self.Phi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhieuDatCho" EntityType="Self.PhieuDatCho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanBay" EntityType="Self.SanBay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="save_log_chuyenbay" EntityType="Self.save_log_chuyenbay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TuyenBay" EntityType="Self.TuyenBay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ve" EntityType="Self.Ve" Schema="dbo" store:Type="Tables" />
@@ -581,8 +594,7 @@
             <End Role="Ve" EntitySet="Ve" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookingAirLightModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1199,7 +1211,20 @@
             <End Role="SanBay" EntitySet="SanBays" />
             <End Role="TuyenBay" EntitySet="TuyenBays" />
           </AssociationSet>
+          <EntitySet Name="save_log_chuyenbay" EntityType="BookingAirLightModel.save_log_chuyenbay" />
         </EntityContainer>
+        <EntityType Name="save_log_chuyenbay">
+          <Key>
+            <PropertyRef Name="Malog" />
+          </Key>
+          <Property Name="Malog" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ThaoTac" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaCB" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MaMB" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MaTBay" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="NgayGio" Type="DateTime" Precision="3" />
+          <Property Name="ThoiGianBay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1440,6 +1465,19 @@
                 <ScalarProperty Name="MaCB" ColumnName="MaCB" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
                 <ScalarProperty Name="NgayThem" ColumnName="NgayThem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="save_log_chuyenbay">
+            <EntityTypeMapping TypeName="BookingAirLightModel.save_log_chuyenbay">
+              <MappingFragment StoreEntitySet="save_log_chuyenbay">
+                <ScalarProperty Name="ThoiGianBay" ColumnName="ThoiGianBay" />
+                <ScalarProperty Name="NgayGio" ColumnName="NgayGio" />
+                <ScalarProperty Name="MaTBay" ColumnName="MaTBay" />
+                <ScalarProperty Name="MaMB" ColumnName="MaMB" />
+                <ScalarProperty Name="MaCB" ColumnName="MaCB" />
+                <ScalarProperty Name="ThaoTac" ColumnName="ThaoTac" />
+                <ScalarProperty Name="Malog" ColumnName="Malog" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

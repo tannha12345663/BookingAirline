@@ -1,4 +1,4 @@
-﻿@model BookingAirline.Models.KhachHang
+﻿﻿@model BookingAirline.Models.KhachHang
 @using BookingAirline.Models;
 @{
     ViewBag.Title = "CustomerManagement";
@@ -74,7 +74,7 @@
                 </tr>
             </thead>
             <tbody>
-                @{ var ttkh = database.KhachHang.ToList();
+                @{ var ttkh = database.KhachHangs.ToList();
                     foreach (var item in ttkh)
                     {
                         <tr>
@@ -96,4 +96,3 @@
         </table>
     </div>
 </div>
-
