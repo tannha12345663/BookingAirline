@@ -1,8 +1,12 @@
 ﻿@model BookingAirline.Models.ChuyenBay
+@using BookingAirline.Models;
 
 @{
     ViewBag.Title = "Chitietcb";
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
+    var today = DateTime.Now;
+    BookingAirLightEntities db = new BookingAirLightEntities();
+    var ctcb = db.ChiTietChuyenBays.Where(s => s.MaCTCB == Model.MaCB).FirstOrDefault();
 }
 
 <h2>Detaile flight @Model.MaCB</h2>
@@ -53,31 +57,57 @@
                     <div class="col-md-12">
 
                     </div>
-                    <div class="form-group col-md-5">
-                        <label class="control-label" style="font-weight:bold">Intermediate airport:</label>
-                        @Html.DisplayFor(model => model.NgayGio)
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="control-label" style="font-weight:bold">
-                            Stopover time:
-                        </label>
+                    @{
+                        if (ctcb != null)
+                        {
+                            <div class="form-group col-md-5">
+                                <label class="control-label" style="font-weight:bold">Intermediate airport:</label>
+                                @ctcb.SanBayTrungGian
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label" style="font-weight:bold">
+                                    Stopover time:
+                                </label>
+                                @ctcb.ThoiGianDung
 
-                    </div>
-                    <div class="col-md-12">
 
-                    </div>
-                    <div class="form-group col-md-9">
-                        <label class="control-label" style="font-weight:bold">Notes:</label>
 
-                    </div>
+                            </div>
+                            <div class="col-md-12">
+
+                            </div>
+                            <div class="form-group col-md-9">
+                                <label class="control-label" style="font-weight:bold">Notes:</label>
+                                @ctcb.GhiChu
+
+                            </div>
+                        }
+                    }
+
                     <div class="col-md-8">
                         <p>
-                            @Html.ActionLink("Back to List", "Scheduleaflight", null, new { @class = "btn btn-danger" })
-                            @Html.ActionLink("Edit", "DetailFlight", new { id = Model.MaCB }, new { @class = "btn btn-primary" })
 
+                            @{
+                                TimeSpan han = (DateTime)Model.NgayGio - today;
+                                if (han.Days <= 0)
+                                {
+                                    <button class="btn btn-primary" disabled>Edit</button>
+                                    <h2 style="color:red">Unconditional !</h2>
+                                    <h3 style="color:red">Overdue</h3>
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Edit", "DetailFlight", new { id = Model.MaCB }, new { @class = "btn btn-primary" })
+                                }
+                            }
                         </p>
                     </div>
                 </div>
+
+            </div>
+            <div class="col-md-4" style="text-align:center">
+                <br />
+                @Html.ActionLink("Back to List", "Scheduleaflight", null, new { @class = "btn btn-danger" })
             </div>
         </div>
 

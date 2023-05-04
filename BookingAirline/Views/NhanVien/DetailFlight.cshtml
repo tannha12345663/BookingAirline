@@ -13,9 +13,13 @@
 <div class="container">
     <form action="~/NhanVien/DetailFlight" id="EditDetaile" method="post">
         @Html.AntiForgeryToken()
+        
         <div class="modal-body">
             <div class="row">
                 @Html.HiddenFor(model => model.MaCB)
+                @Html.HiddenFor(model => model.SoLuongGheHang1)
+                @Html.HiddenFor(model => model.SoLuongGheHang2)
+                @Html.HiddenFor(model => model.SoLuongGheHang3)
                 <div class="col-md-4">
                     <img src="~/hinh/HinhNen/8d80128d9cb6ca236f7e4b7babdc98ed.jpg" height="500" width="350" />
                 </div>
@@ -72,18 +76,18 @@
                         <div class="col-md-12">
 
                         </div>
-                        <div class="form-group col-md-3">
-                            <label class="control-label">Number of seats G1:</label>
-                            <input class="form-control" name="SoLuongGheHang1" type="number" value="@Model.SoLuongGheHang1">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="control-label">Number of seats G2:</label>
-                            <input class="form-control" name="SoLuongGheHang2" type="number" value="@Model.SoLuongGheHang2">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="control-label">Number of seats G3:</label>
-                            <input class="form-control" name="SoLuongGheHang3" type="number" value="@Model.SoLuongGheHang3">
-                        </div>
+                        @*<div class="form-group col-md-3">
+                    <label class="control-label">Number of seats G1:</label>
+                    <input class="form-control" name="SoLuongGheHang1" type="number" value="@Model.SoLuongGheHang1">
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="control-label">Number of seats G2:</label>
+                    <input class="form-control" name="SoLuongGheHang2" type="number" value="@Model.SoLuongGheHang2">
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="control-label">Number of seats G3:</label>
+                    <input class="form-control" name="SoLuongGheHang3" type="number" value="@Model.SoLuongGheHang3">
+                </div>*@
                         <div class="col-md-12">
 
                         </div>

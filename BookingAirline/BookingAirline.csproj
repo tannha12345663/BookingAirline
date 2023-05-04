@@ -730,6 +730,8 @@
     <Content Include="Views\KhachHangHA\Shared\_LayoutPage2.cshtml" />
     <Content Include="Views\Home\Promotion.cshtml" />
     <Content Include="Views\NhanVien\Chitietcb.cshtml" />
+    <Content Include="Views\KhachHang\FailePayment.cshtml" />
+    <Content Include="Views\KhachHang\Shared\_LayoutPagePaymentStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\KhachHangHA\Shared\_LayoutInfoCustomer.cshtml" />

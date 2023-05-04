@@ -120,6 +120,9 @@ namespace BookingAirline.Controllers
         }
         public ActionResult DSachCB()
         {
+            //Lấy số lượng chỗ ngồi
+            var soluong = Int64.Parse(Request["aldults"]) + Int64.Parse(Request["children"]);
+            Session["SoLuong"] = soluong;
             Session["From"] = Request["from"];
             Session["To"] = Request["to"];
             Session["Trip"] = Request["trip"];
@@ -246,7 +249,12 @@ namespace BookingAirline.Controllers
                 {
                     var mave1 = item01.idVe.MaVe;
                     var cccd = Request["cccd_" + stt];
-                    cart.CapNhatCCCD(mave1, cccd);
+                    var TenKh = Request["TenKH_" + stt];
+                    var Ngaysinh = Request["NgaySinh_" + stt];
+                    var Email = Request["Email_" + stt];
+                    var Phone = Request["Phone_" + stt];
+                    var Gioitinh = Request["GioiTinh_" + stt];
+                    cart.CapNhatCCCD(mave1, cccd, TenKh, Ngaysinh, Email, Phone, Gioitinh);
                     stt++;
                 }
             }
@@ -264,7 +272,12 @@ namespace BookingAirline.Controllers
                     {
                         var mave1 = item01.idVe.MaVe;
                         var cccd = Request["cccd_" + number];
-                        cart.CapNhatCCCD(mave1, cccd);
+                        var TenKh = Request["TenKH_" + stt];
+                        var Ngaysinh = Request["NgaySinh_" + stt];
+                        var Email = Request["Email_" + stt];
+                        var Phone = Request["Phone_" + stt];
+                        var Gioitinh = Request["GioiTinh_" + stt];
+                        cart.CapNhatCCCD(mave1, cccd, TenKh, Ngaysinh, Email, Phone, Gioitinh);
                     }
                     //Chép cccd vào vè lúc về của khách hàng
                     else if (item01.idVe.MaCB == cbden)
@@ -272,8 +285,12 @@ namespace BookingAirline.Controllers
                         
                         var mave2 = item01.idVe.MaVe;
                         var cccd2 = Request["cccd_" + number2];
-                        cart.CapNhatCCCD(mave2, cccd2);
-                        number2++;
+                        var TenKh = Request["TenKH_" + stt];
+                        var Ngaysinh = Request["NgaySinh_" + stt];
+                        var Email = Request["Email_" + stt];
+                        var Phone = Request["Phone_" + stt];
+                        var Gioitinh = Request["GioiTinh_" + stt];
+                        cart.CapNhatCCCD(mave2, cccd2, TenKh, Ngaysinh, Email, Phone, Gioitinh);
                     }
                     number++;
                 }
@@ -530,10 +547,6 @@ namespace BookingAirline.Controllers
 
             return RedirectToAction("ThankYou");
         }
-
-        
-
-
         public ActionResult ThankYou()
         {
             return View();

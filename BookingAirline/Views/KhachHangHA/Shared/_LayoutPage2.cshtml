@@ -131,7 +131,18 @@
                                                 <input name="return" type="date" disabled class="form-control date01" min=@DateTime.Now.ToString("yyyy-MM-dd") id="return" placeholder="Select date..." required>
                                             </fieldset>
                                         </div>
-
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label>Quantity aldults:</label>
+                                                <input class="form-control date01" type="number" min="1" name="aldults" />
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label>Quantity children:</label>
+                                                <input class="form-control date01" type="number" min="1" name="children" />
+                                            </fieldset>
+                                        </div>
                                         <div class="col-md-6 mt-5">
                                             <div class="radio-select">
                                                 <div class="row">
@@ -170,14 +181,6 @@
 
 </body>
 
-
-                </ul>
-            </div>
-            <div class="col-md-12">
-                <p>By Team 30 </p>
-            </div>
-        </div>
-    </div>
 </footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="~/Style/Js/jquery-1.11.2.min.js"><\/script>')</script>
@@ -268,7 +271,7 @@
     })
 
 </script>
-<script>
+@*<script>
     var slideIndex = 1;
     showDivs(slideIndex);
 
@@ -286,5 +289,5 @@
         }
         x[slideIndex - 1].style.display = "block";
     }
-</script>
+</script>*@
 

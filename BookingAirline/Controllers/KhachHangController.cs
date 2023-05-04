@@ -22,6 +22,9 @@ namespace BookingAirline.Controllers
         }
         public ActionResult DSachCB()
         {
+            //Lấy số lượng chỗ ngồi
+            var soluong = Int64.Parse(Request["aldults"]) + Int64.Parse(Request["children"]);
+            Session["SoLuong"] = soluong;
             Session["From"] = Request["from"];
             Session["To"] = Request["to"];
             Session["Trip"] = Request["trip"];
@@ -42,6 +45,7 @@ namespace BookingAirline.Controllers
                 new SqlParameter("@month", month),
                 new SqlParameter("@chuyendi", chuyendi.MaTBay)
                 ).ToList();
+
             //Hiển thị danh sách các chuyến bay
             return View(test);
         }
@@ -136,6 +140,9 @@ namespace BookingAirline.Controllers
         {
             var uid = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
             var dsorder = database.OrderStatus.Where(s => s.IDUser == uid).FirstOrDefault();
+            //Tạo mới danh sách các khách hàng mới tham gia vào hệ thống
+            KhachHang kh = new KhachHang();
+            Random rd = new Random();
             //Lấy thông tin khách hàng khi có nhiều vé
             var di = Session["From"].ToString();
             var den = Session["To"].ToString();
@@ -146,9 +153,32 @@ namespace BookingAirline.Controllers
             {
                 foreach (var item01 in cart.Items)
                 {
+                    
                     var mave1 = item01.idVe.MaVe;
                     var cccd = Request["cccd_" + stt];
-                    cart.CapNhatCCCD(mave1, cccd);
+                    var TenKh = Request["TenKH_" + stt];
+                    var Ngaysinh = Request["NgaySinh_"+stt];
+                    var Email = Request["Email_" + stt];
+                    var Phone = Request["Phone_" + stt];
+                    var Gioitinh = Request["GioiTinh_" + stt];
+                    cart.CapNhatCCCD(mave1, cccd,TenKh,Ngaysinh,Email,Phone,Gioitinh);
+                    
+                    //Kiểm tra và thêm các thông tin khách hàng vào danh sách khách hàng tham gia hệ thống
+                    var check01 = database.KhachHangs.Where(s => s.CCCD == cccd).FirstOrDefault();
+                    //Kiểm tra nếu mã cccd này chưa có thông tin sẽ lưu lại
+                    if(check01 == null)
+                    {
+                        kh = new KhachHang();
+                        kh.IDKH = "KH"+ rd.Next(0, 10000); // Hàm random thông tin khách hàng kèm 3 số cuối theo mã cccd
+                        kh.CCCD = cccd;
+                        kh.TenKH = TenKh;
+                        kh.SDT = Phone;
+                        kh.Email = Email;
+                        kh.GioiTinh = Gioitinh;
+                        kh.NgaySinh = Ngaysinh;
+                        database.KhachHangs.Add(kh);
+                        database.SaveChanges();
+                    }
                     stt++;
                 }
             }
@@ -166,7 +196,12 @@ namespace BookingAirline.Controllers
                     {
                         var mave1 = item01.idVe.MaVe;
                         var cccd = Request["cccd_" + number];
-                        cart.CapNhatCCCD(mave1, cccd);
+                        var TenKh = Request["TenKH_" + stt];
+                        var Ngaysinh = Request["NgaySinh_" + stt];
+                        var Email = Request["Email_" + stt];
+                        var Phone = Request["Phone_" + stt];
+                        var Gioitinh = Request["GioiTinh_" + stt];
+                        cart.CapNhatCCCD(mave1, cccd, TenKh, Ngaysinh, Email, Phone, Gioitinh);
                     }
                     //Chép cccd vào vè lúc về của khách hàng
                     else if (item01.idVe.MaCB == cbden)
@@ -174,14 +209,18 @@ namespace BookingAirline.Controllers
 
                         var mave2 = item01.idVe.MaVe;
                         var cccd2 = Request["cccd_" + number2];
-                        cart.CapNhatCCCD(mave2, cccd2);
+                        var TenKh = Request["TenKH_" + stt];
+                        var Ngaysinh = Request["NgaySinh_" + stt];
+                        var Email = Request["Email_" + stt];
+                        var Phone = Request["Phone_" + stt];
+                        var Gioitinh = Request["GioiTinh_" + stt];
+                        cart.CapNhatCCCD(mave2, cccd2, TenKh, Ngaysinh, Email, Phone, Gioitinh);
                         number2++;
                     }
                     number++;
                 }
             }
 
-            Random rd = new Random();
             var total = 0;
             #region Bancu
             //var mave = "VE" + rd.Next(1, 1000);
@@ -462,6 +501,10 @@ namespace BookingAirline.Controllers
                 return RedirectToAction("Login", "LoginUser");
             }
             return RedirectToAction("ChooseSeat", "KhachHangHA");
+        }
+        public ActionResult FailePayment()
+        {
+            return View();
         }
     }
 }

@@ -64,7 +64,7 @@
                             </ul>
                         </div>
                     <div class="page-direction-button">
-                        <a href="/Home/Contact"><i class="fa fa-phone"></i>Contact Us Now</a>
+                        @*<a href="/Home/Contact" ><i class="fa fa-phone"></i>Contact Us Now</a>*@
                         </div>
                     </div>
                 </div>
@@ -130,7 +130,19 @@
 
                                                 <input name="return" id="return" disabled type="date" class="form-control date01" min=@DateTime.Now.ToString("yyyy-MM-dd") placeholder="Select date..." required="">
                                             </fieldset>
-                                        </div>                               
+                                        </div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label>Quantity aldults:</label>
+                                                <input class="form-control date01"type="number"min="1" name="aldults" required/>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label>Quantity children:</label>
+                                                <input class="form-control date01" type="number" min="0" name="children" required/>
+                                            </fieldset>
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="radio-select">
                                                 <div class="row">
@@ -146,7 +158,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6 pull-right">
+                                        <div class="col-md-6">
                                             <fieldset>
                                                 <button type="submit" id="form-submit" class="btn">Search</button>
                                             </fieldset>
