@@ -131,9 +131,19 @@
                                                 <input name="return" type="date" disabled class="form-control date01" min=@DateTime.Now.ToString("yyyy-MM-dd") id="return" placeholder="Select date..." required>
                                             </fieldset>
                                         </div>
-
-
                                         <div class="col-md-6">
+                                            <fieldset>
+                                                <label>Quantity aldults:</label>
+                                                <input class="form-control date01" type="number" min="1" name="aldults" />
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label>Quantity children:</label>
+                                                <input class="form-control date01" type="number" min="1" name="children" />
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6 mt-5">
                                             <div class="radio-select">
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-6 col-xs-6">
@@ -144,9 +154,11 @@
                                                         <label for="oneway">Oneway</label>
                                                         <input type="radio" name="trip" id="oneway" value="one-way" required="required">
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <button type="submit" id="form-submit" class="btn">Order Ticket Now</button>
@@ -169,14 +181,6 @@
 
 </body>
 
-
-                </ul>
-            </div>
-            <div class="col-md-12">
-                <p>By Team 30 </p>
-            </div>
-        </div>
-    </div>
 </footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="~/Style/Js/jquery-1.11.2.min.js"><\/script>')</script>
@@ -267,5 +271,25 @@
     })
 
 </script>
+
+@*<script>
+    var slideIndex = 1;
+    showDivs(slideIndex);
+
+    function plusDivs(n) {
+        showDivs(slideIndex += n);
+    }
+
+    function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        if (n > x.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = x.length }
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        x[slideIndex - 1].style.display = "block";
+    }
+</script>*@
 
 

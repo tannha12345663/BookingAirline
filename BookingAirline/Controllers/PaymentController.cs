@@ -89,6 +89,10 @@ namespace BookingAirline.Controllers
                         {
                             return RedirectToAction("FailePayment", "KhachHangHA");
                         }
+                        else
+                        {
+                            return RedirectToAction("FailePayment", "KhachHang");
+                        }
                     }
                 }
                 else

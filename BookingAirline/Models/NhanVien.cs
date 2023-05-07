@@ -14,7 +14,6 @@ namespace BookingAirline.Models
     
     public partial class NhanVien
     {
-        BookingAirLightEntities db = new BookingAirLightEntities();
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NhanVien()
         {
@@ -34,31 +33,5 @@ namespace BookingAirline.Models
         public virtual ChucVu ChucVu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
-        public bool Update(NhanVien nv)
-        {
-            try
-            {
-                var nhanvien = db.NhanViens.Find(nv.IDNV);
-                nhanvien.IDNV = nv.IDNV;
-                nhanvien.UserName = nv.UserName;
-                nhanvien.Password = nv.Password;
-                nhanvien.TenNV = nv.TenNV;
-                nhanvien.SDT_NV = nv.SDT_NV;
-                nhanvien.Email_NV = nv.Email_NV;
-                nhanvien.NgaySinh = nv.NgaySinh;
-                nhanvien.GioiTinh = nv.GioiTinh;
-                db.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
-        }
-        public NhanVien ViewDetail(string id)
-        {
-            return db.NhanViens.Find(id);
-        }
     }
 }
