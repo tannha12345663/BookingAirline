@@ -41,11 +41,10 @@ namespace BookingAirline.Models
         public virtual DbSet<Phi> Phis { get; set; }
         public virtual DbSet<PhieuDatCho> PhieuDatChoes { get; set; }
         public virtual DbSet<SanBay> SanBays { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<save_log_chuyenbay> save_log_chuyenbay { get; set; }
         public virtual DbSet<TuyenBay> TuyenBays { get; set; }
         public virtual DbSet<Ve> Ves { get; set; }
         public virtual DbSet<Voucher> Vouchers { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
-        public virtual DbSet<save_log_chuyenbay> save_log_chuyenbay { get; set; }
     }
 }
