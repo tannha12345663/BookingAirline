@@ -4,6 +4,8 @@
     ViewBag.Title = "Danh sách chuyến đi";
     Layout = "~/Views/KhachHang/Shared/_LayoutPage1.cshtml";
     BookingAirLightEntities db = new BookingAirLightEntities();
+    var sl = Convert.ToInt32(Session["SoLuong"]);
+    var stt = 0;
 }
 
 <link href="~/Style/Css/VeMB1504.css" rel="stylesheet" />
@@ -22,65 +24,70 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <a href="~/KhachHang/DSachCBVe01/@item.MaCB" style="text-decoration:none">
-                    <div class="ticket">
-                        <div class="qr_code">
-                            <img src="~/Content/images/Vietjet-Air-Logo-PNG-3.png" alt="qr_code" />
-                        </div>
-                        <div class="content">
-                            <div class="location">
-                                <div class="item">
-                                    @{ var MaSBdi = db.TuyenBays.Find(item.MaTBay);}
-                                    <h1>@Html.DisplayFor(modelItem => MaSBdi.SanBayDi)</h1>
-                                    <h6>@item.NgayGio</h6>
-                                </div>
-                                <div class="path">
-                                    <ion-icon name="airplane"></ion-icon>
-                                </div>
-                                <div class="item">
-                                    <h1>@Html.DisplayFor(modelItem => MaSBdi.SanBayDen)</h1>
-                                    @{ DateTime timeto = (DateTime)item.NgayGio;}
-                                    <h6>
-                                        @timeto.AddHours(2)
-                                    </h6>
-                                </div>
+                var check = db.Ves.Where(s => s.MaCB == item.MaCB && s.TinhTrang == "Chưa đặt chỗ").Count();
+                if (check >= sl)
+                {
+                    stt++;
+                    <a href="~/KhachHang/DSachCBVe01/@item.MaCB" style="text-decoration:none">
+                        <div class="ticket">
+                            <div class="qr_code">
+                                <img src="~/Content/images/Vietjet-Air-Logo-PNG-3.png" alt="qr_code" />
                             </div>
-
-                            <div class="info">
-                                <div class="item">
-                                    <h4>Code</h4>
-                                    <p>@Html.DisplayFor(modelItem => item.MaCB)</p>
-                                </div>
-                                <div class="item">
-                                    @{var tenmb = db.MayBays.Find(item.MaMB);
-                                    }
-                                    <h4>flight</h4>
-                                    <p>@Html.DisplayFor(modelItem => item.MaMB)</p>
-                                </div>
-                                <div class="item">
-                                    <h4>remaining seats</h4>
-                                    @{ var checkdsve = db.Ves.Where(s => s.MaCB == item.MaCB && s.TinhTrang == "Chưa đặt chỗ").Count();}
-                                    <p>@checkdsve</p>
-                                </div>
-                                <div class="item">
-                                    <h4>Total Slot</h4>
-                                    @{ var soghe = item.SoLuongGheHang1 + item.SoLuongGheHang2 + item.SoLuongGheHang3;}
-                                    <p>@Html.DisplayFor(modelItem => soghe)</p>
+                            <div class="content">
+                                <div class="location">
+                                    <div class="item">
+                                        @{ var MaSBdi = db.TuyenBays.Find(item.MaTBay);}
+                                        <h1>@Html.DisplayFor(modelItem => MaSBdi.SanBayDi)</h1>
+                                        <h6>@item.NgayGio</h6>
+                                    </div>
+                                    <div class="path">
+                                        <ion-icon name="airplane"></ion-icon>
+                                    </div>
+                                    <div class="item">
+                                        <h1>@Html.DisplayFor(modelItem => MaSBdi.SanBayDen)</h1>
+                                        @{ DateTime timeto = (DateTime)item.NgayGio;}
+                                        <h6>
+                                            @timeto.AddHours(2)
+                                        </h6>
+                                    </div>
                                 </div>
 
-                                <div class="item">
-                                    <h4>terminal</h4>
-                                    <p>P4</p>
-                                </div>
-                                <div class="item">
-                                    <h4>Price</h4>
-                                    <p> 70$</p>
+                                <div class="info">
+                                    <div class="item">
+                                        <h4>Code</h4>
+                                        <p>@Html.DisplayFor(modelItem => item.MaCB)</p>
+                                    </div>
+                                    <div class="item">
+                                        @{var tenmb = db.MayBays.Find(item.MaMB);
+                                        }
+                                        <h4>flight</h4>
+                                        <p>@Html.DisplayFor(modelItem => item.MaMB)</p>
+                                    </div>
+                                    <div class="item">
+                                        <h4>remaining seats</h4>
+                                        @{ var checkdsve = db.Ves.Where(s => s.MaCB == item.MaCB && s.TinhTrang == "Chưa đặt chỗ").Count();}
+                                        <p>@checkdsve</p>
+                                    </div>
+                                    <div class="item">
+                                        <h4>Total Slot</h4>
+                                        @{ var soghe = item.SoLuongGheHang1 + item.SoLuongGheHang2 + item.SoLuongGheHang3;}
+                                        <p>@Html.DisplayFor(modelItem => soghe)</p>
+                                    </div>
+                                    <div class="item">
+                                        <h4>Price</h4>
+                                        <p> 70$</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                }
                 <br />
+            }
+            @if (stt == 0)
+            {
+                <br />
+                <h2 style="text-align:center;color:red">Sorry, there are currently no suitable flights for you</h2>
             }
         </tbody>
     </table>

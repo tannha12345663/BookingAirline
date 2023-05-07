@@ -4,159 +4,96 @@
 @{
     ViewBag.Title = "Myinfor";
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
-   
+
 }
-
-
-
-
-<!-- ========== section start ========== -->
-<section class="section">
-    <div class="container-fluid">
-        <!-- ========== title-wrapper start ========== -->
-        <div class="title-wrapper pt-30">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <div class="titlemb-30">
-                        <h2>My Information</h2>
-                    </div>
+<link href="~/Content/myInfor.css" rel="stylesheet" />
+<div class="container-xl px-4 mt-4">
+    <div class="row">
+        <div class="col-xl-4">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header">Ảnh đại diện</div>
+                <div class="card-body text-center">
+                    <!-- Profile picture image-->
+                    <img id="myImg" class="img-account-profile rounded-circle mb-2" src="~/hinh/ka-img.jpg"  alt="your image">
+                    
                 </div>
-                <!-- end col -->
-                <div class="col-md-6">
-                    <div class="breadcrumb-wrapper mb-30">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="#0">Dashboard</a>
-                                </li>
-                                <li class="breadcrumb-item"><a href="#0">Pages</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    My Information
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-                <!-- end col -->
             </div>
-            <!-- end row -->
         </div>
-        <!-- ========== title-wrapper end ========== -->
-
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card-style settings-card-1 mb-30">
-                    <div class="
-                    title
-                    mb-30
-                    d-flex
-                    justify-content-between
-                    align-items-center
-                  ">
-                        <h6>My Profile</h6>
+        <div class="col-xl-8">
+            <!-- Account details card-->
+            <div class="card mb-4">
+                <div class="card-header">Thông tin</div>
+                <div class="card-body">
+                    <form>
                         
-                    </div>
-                    <div class="profile-info">
-                        <div class="d-flex align-items-center mb-30">
-                            <div class="profile-image">
+                       
 
-                                <img src="~/hinh/ka-img.jpg" />
-                                <div class="update-image">
-                                    <input type="file" />
-                                    <label for="">
-                                        <i class="lni lni-cloud-upload"></i>
-                                    </label>
-                                </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputUsername">Tên tài khoản: </label>
+                                <input class="form-control" id="inputUsername" type="text" value="@Model.UserName" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputPass">Password:</label>
+                                <input class="form-control" id="inputPass" type="text" value="@Model.Password" readonly>
                             </div>
 
+
                         </div>
+                        <!-- Form Row        -->
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputName">Họ và tên:</label>
+                                <input class="form-control" id="inputName" type="text" value="@Model.TenNV" readonly>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputDateOfBirth">Ngày sinh:</label>
+                                <input class="form-control" id="inputDateOfBirth" type="text" value="@Model.NgaySinh" readonly>
+                            </div>
 
 
+                        </div>
+                        <!-- Form Group (email address)-->
+                        
 
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputEmail">Email:</label>
+                                <input class="form-control" id="inputEmail" type="email" value="@Model.Email_NV" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputPhone">Phone number</label>
+                                <input class="form-control" id="inputPhone" type="text" value="@Model.SDT_NV" readonly>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-primary" type="button" > @Html.ActionLink("Edit", "EditMyInfor")</button>
+                        
 
-                                <form action="#">
-
-                                    <table>
-                                        @*//Phần render*@
-                                        <tr>
-                                            <th>
-                                                <div class="profile-meta">
-                                                    <h3 class="text-bold text-dark mb-10">
-
-                                                        @Model.UserName
-                                                    </h3>
-                                                </div>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                <div class="col-12">
-                                                    <div class="input-style-1">
-                                                        <label>Full Name:</label>
-                                                        <input type="text" value="@Model.TenNV">
-                                                    </div>
-                                                </div>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                <div class="col-12">
-                                                    <div class="input-style-1">
-                                                        <label>Day of birth:</label>
-                                                        <input type="email"
-                                                               value="@Model.NgaySinh" />
-                                                    </div>
-                                                </div>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                <div class="col-12">
-                                                    <div class="input-style-1">
-                                                        <label>Email:</label>
-                                                        <input type="email"
-                                                               value="@Model.Email_NV" />
-                                                    </div>
-                                                </div>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                <div class="col-12">
-                                                    <div class="input-style-1">
-                                                        <label>Phone:</label>
-                                                        <input type="text" value="@Model.SDT_NV" />
-                                                    </div>
-                                                </div>
-                                            </th>
-                                        </tr>
-
-                                        <tr>
-                                            <th>
-                                                <div class="col-12">
-                                                    <div class="input-style-1">
-                                                        <label>Password</label>
-                                                        <input type="password" value="@Model.Password" />
-                                                    </div>
-                                                </div>
-                                            </th>
-
-                                        </tr>
-                                        <tr>
-                                            @Html.ActionLink("Edit", "EditMyinfor", new { id = @Model.IDNV }) 
-                                            </tr>
-
-                                    </table>
-                                </form>
-                           
-
-                        <!-- end col -->
-                    </div>
-                    <!-- end row -->
+                    </form>
                 </div>
-                <!-- end container -->
             </div>
         </div>
     </div>
-</section>
-<!-- ========== section end ========== -->
+</div>
+<script type="text/javascript">
+    /* The uploader form */
+    $(function () {
+        $(":file").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+
+    function imageIsLoaded(e) {
+        $('#myImg').attr('src', e.target.result);
+        $('#yourImage').attr('src', e.target.result);
+    };
+
+</script>
+

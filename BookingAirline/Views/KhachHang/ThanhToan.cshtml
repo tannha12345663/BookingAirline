@@ -49,8 +49,9 @@
                                             }
                                             <h3 style="color: #000000; font-weight: bold" class="item-description">FROM: @matbay.SanBayDi - TO: @matbay.SanBayDen</h3>
                                             <div class="col-lg-7 col-8 mt-4" style="color:#000000">
-                                                <small class="item-description">@macb.NgayGio</small>
-                                                <p class="item-description">Name: @item.idVe.IDKH</p>
+                                                <small class="item-description">Departure day: @macb.NgayGio</small>
+                                                <p class="item-description">Name: @item.HotenKH</p>
+                                                <p class="item-description">Citizen ID: @item.CCCD</p>
                                                 <p class="item-description">Price: @ThanhTien</p>
 
                                                 @{ cal += Convert.ToInt32(item.idVe.GiaVe); }
@@ -106,6 +107,8 @@
                                     <div class="row">
                                         <div class="form-group col-sm-12">
                                             <a href="~/KhachHang/ConfirmTT" class="btn btn-primary btn-block">Payment</a>
+                                            <a href="~/Payment/Payment01" class="btn btn-primary btn-block">Payment for VNPAY</a>
+                                            <a href="~/Payment/Payment01" class="btn btn-primary btn-block">Payment for Zalo Pay</a>
                                         </div>
 
                                     </div>
@@ -205,7 +208,7 @@
 
 <script>
     // Tính toán thời gian còn lại
-    var timeLeft = 5;
+    var timeLeft = 300;
     // Cập nhật đồng hồ mỗi giây
     var downloadTimer = setInterval(function () {
         timeLeft--;

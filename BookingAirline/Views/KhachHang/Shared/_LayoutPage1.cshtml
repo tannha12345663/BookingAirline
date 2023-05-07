@@ -64,6 +64,9 @@
                                 <li><a href="~/Home/Contact">Contact our <em>Infomations</em><i class="fa fa-phone"></i></a></li>
                             </ul>
                         </div>
+                    <div class="page-direction-button">
+                        @*<a href="/Home/Contact" ><i class="fa fa-phone"></i>Contact Us Now</a>*@
+                        </div>
                     </div>
                 </div>
 
@@ -130,6 +133,18 @@
                                             </fieldset>
                                         </div>
                                         <div class="col-md-6">
+                                            <fieldset>
+                                                <label>Quantity aldults:</label>
+                                                <input class="form-control date01"type="number"min="1" name="aldults" required/>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label>Quantity children:</label>
+                                                <input class="form-control date01" type="number" min="0" name="children" required/>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="radio-select">
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-6 col-xs-6">
@@ -138,13 +153,13 @@
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-6">
                                                         <label for="oneway">Oneway</label>
-                                                        <input type="radio" name="trip" id="oneway" value="oneway" required="required">
+                                                        <input type="radio" name="trip" id="oneway" value="one-way" required="required">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6 pull-right">
+                                        <div class="col-md-6">
                                             <fieldset>
                                                 <button type="submit" id="form-submit" class="btn">Search</button>
                                             </fieldset>

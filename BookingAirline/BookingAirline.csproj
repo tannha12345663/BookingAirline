@@ -357,6 +357,7 @@
     <Content Include="Content\images\Payment Error.gif" />
     <Content Include="Content\images\Vietjet-Air-Logo-PNG-3.png" />
     <Content Include="Content\index.css" />
+    <Content Include="Content\myInfor.css" />
     <Content Include="Content\Promotion.css" />
     <Content Include="Content\resetpass.css" />
     <Content Include="Content\style.css" />
@@ -397,6 +398,8 @@
     <Content Include="hinh\Fly.jpg" />
     <Content Include="hinh\heading-bg.jpg" />
     <Content Include="hinh\heading-pg1.jpg" />
+    <Content Include="hinh\HinhNen\702752200da027749782267c56c3897f.jpg" />
+    <Content Include="hinh\HinhNen\8d80128d9cb6ca236f7e4b7babdc98ed.jpg" />
     <Content Include="hinh\IMG_0839 %281%29.jpg" />
     <Content Include="hinh\detailCus01.jpg" />
     <Content Include="hinh\ka-img.jpg" />
@@ -730,6 +733,9 @@
     <Content Include="Views\Home\Promotion.cshtml" />
     <Content Include="Views\NhanVien\CustomerManagement.cshtml" />
     <Content Include="Views\NhanVien\History.cshtml" />
+    <Content Include="Views\NhanVien\Chitietcb.cshtml" />
+    <Content Include="Views\KhachHang\FailePayment.cshtml" />
+    <Content Include="Views\KhachHang\Shared\_LayoutPagePaymentStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\KhachHangHA\Shared\_LayoutInfoCustomer.cshtml" />
