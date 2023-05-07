@@ -516,7 +516,6 @@
 
           <EntitySet Name="save_log_chuyenbay" EntityType="Self.save_log_chuyenbay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-
           <EntitySet Name="TuyenBay" EntityType="Self.TuyenBay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ve" EntityType="Self.Ve" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Voucher" EntityType="Self.Voucher" Schema="dbo" store:Type="Tables" />
@@ -1450,6 +1449,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+
           <EntitySetMapping Name="save_log_chuyenbay">
             <EntityTypeMapping TypeName="BookingAirLightModel.save_log_chuyenbay">
               <MappingFragment StoreEntitySet="save_log_chuyenbay">
@@ -1463,6 +1463,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
