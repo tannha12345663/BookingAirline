@@ -15,7 +15,7 @@
 <br />
 @{
     var checkmess = (string)TempData["messageAlert"];
-    var makh = (string)TempData["manhanvien"];
+    var manv = (string)TempData["manhanvien"];
     if (checkmess == "SuaNV")
     {
         <script>
@@ -29,7 +29,11 @@
     }
 }
 <h2>Staff Management</h2>
-
+<div class="col-sm-">
+    <a class="btn-blue" href="~/LoginUser/ResetPass">
+        <i class="fa fa-unlock-alt" aria-hidden="true"></i>Reset customer's password
+    </a>
+</div>
 
 <br />
 <div class="card mb-4">
@@ -51,21 +55,28 @@
             </tr>
         </thead>
         <tbody>
-            @{ var dsstaff = db.NhanViens.ToList();
+            @{
+                var nv = (NhanVien)Session["userNV"];
+
+                var dsstaff = db.NhanViens.ToList();
                 foreach (var item01 in dsstaff)
                 {
-                    <tr>
-                        <td>@item01.IDNV</td>
-                        <td>@item01.TenNV</td>
-                        <td>@item01.UserName</td>
-                        <td>@item01.Password</td>
-                        <td>@item01.Email_NV</td>
-                        <td>
-                            <a href="~/NhanVien/DetailStaff/@item01.IDNV" class="btn btn-info btn-sm edit">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    if (nv.IDNV != item01.IDNV)
+                    {
+                        <tr>
+                            <td>@item01.IDNV</td>
+                            <td>@item01.TenNV</td>
+                            <td>@item01.UserName</td>
+                            <td>@item01.Password</td>
+                            <td>@item01.Email_NV</td>
+                            <td>
+                                <a href="~/NhanVien/DetailStaff/@item01.IDNV" class="btn btn-info btn-sm edit">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
                 }
             }
         </tbody>

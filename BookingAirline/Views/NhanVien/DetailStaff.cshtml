@@ -4,41 +4,21 @@
     ViewBag.Title = "DetailStaff";
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
 }
-<style>
-    .form-control, .dataTable-input {
-        display: block;
-        width: 100%;
-        padding: 0.875rem 1.125rem;
-        font-size: 15px;
-        font-weight: 400;
-        line-height: 1;
-        color: #69707a;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid #c5ccd6;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        border-radius: 0.35rem;
-        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    }
-    body {
-        margin-top: 20px;
-        color: #69707a;
-
-    }
-    .container-xl {
-        width: 1200px;
-        height: auto;
-        position: absolute;
-        top: 60%;
-        left: 50%;
-        transform: translate(-30%, -50%);
-    }
-</style>
+<link href="~/Content/myInfor.css" rel="stylesheet" />
 <h2>DetailStaff</h2>
 <div class="container-xl px-4 mt-4">
     <div class="row">
+        <div class="col-xl-4">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header">Ảnh đại diện</div>
+                <div class="card-body text-center">
+                    <!-- Profile picture image-->
+                    <img id="myImg" class="img-account-profile rounded-circle mb-2" src="~/hinh/ka-img.jpg" alt="your image">
+
+                </div>
+            </div>
+        </div>
         <div class="col-xl-8">
             <div class="card mb-4">
                 <div class="card-header">Thông tin</div>
@@ -62,7 +42,7 @@
                                     @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                                 </div>
-                       
+
                                 <div class="col-md-6">
                                     <span>Password:</span>
                                     @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
@@ -72,17 +52,17 @@
 
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
-                                    <span>IDNV:</span>
+                                    <span>FullName:</span>
                                     @Html.EditorFor(model => model.TenNV, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.TenNV, "", new { @class = "text-danger" })
                                 </div>
-                           
+
                                 <div class="col-md-6">
                                     <span>Sex:</span>
                                     @Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
                                 </div>
-                            
+
                                 <div class="col-md-6">
                                     <span>Day of  Birth:</span>
                                     @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control" } })
@@ -95,7 +75,7 @@
                                     @Html.EditorFor(model => model.SDT_NV, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.SDT_NV, "", new { @class = "text-danger" })
                                 </div>
-                           
+
                                 <div class="col-md-6">
                                     <span>Email:</span>
                                     @Html.EditorFor(model => model.Email_NV, new { htmlAttributes = new { @class = "form-control" } })
@@ -103,7 +83,7 @@
                                 </div>
                             </div>
 
-                            
+
 
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
