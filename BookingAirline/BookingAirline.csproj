@@ -248,8 +248,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderStatus.cs" />
-    <Compile Include="Models\VNPay\PayCompare.cs" />
-    <Compile Include="Models\VNPay\PayLib.cs" />
     <Compile Include="Models\Phi.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -259,15 +257,14 @@
     <Compile Include="Models\SanBay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TuyenBay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ve.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VNPay\PayCompare.cs" />
+    <Compile Include="Models\VNPay\PayLib.cs" />
     <Compile Include="Models\VNPay\Ultil.cs" />
     <Compile Include="Models\Voucher.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -327,6 +324,7 @@
     <Content Include="Content\images\logo-vietnamAL.png" />
     <Content Include="Content\images\Payment Error.gif" />
     <Content Include="Content\images\Vietjet-Air-Logo-PNG-3.png" />
+    <Content Include="Content\ResetPass.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Template\HtmlPage1.html" />
     <Content Include="Content\UploadAnh\UploadAnh.css" />
@@ -602,8 +600,8 @@
     <Content Include="Views\KhachHangHA\FailePayment.cshtml" />
     <Content Include="Views\NhanVien\CustomerManagement.cshtml" />
     <Content Include="Views\NhanVien\DetailCus.cshtml" />
-    <Content Include="Views\KhachHangHA\WhishList.cshtml" />
     <Content Include="Views\KhachHangHA\HienThiWL.cshtml" />
+    <Content Include="Views\LoginUser\ResetPass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

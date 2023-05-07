@@ -111,7 +111,7 @@ namespace BookingAirline.Controllers
         //UynNhi
         //public ActionResult Whishlist()
         //{
-           
+
         //}
 
         public ActionResult MyCard()
@@ -131,14 +131,14 @@ namespace BookingAirline.Controllers
             //Lọc tìm kiếm chuyến bay
             var di = Request["From"].ToString();
             var den = Request["to"].ToString();
-            var chuyendi = database.TuyenBays.Where(s => s.SanBayDi == di && s.SanBayDen ==den ).FirstOrDefault();
+            var chuyendi = database.TuyenBays.Where(s => s.SanBayDi == di && s.SanBayDen == den).FirstOrDefault();
             //var listdi = database.ChuyenBays.Where(s => s.MaTBay == chuyendi.MaTBay && Convert.ToDateTime(s.NgayGio).ToString("dd")== Day ).ToList();
             var test = database.ChuyenBays.SqlQuery
                 ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month and MaTbay=@chuyendi",
                 new SqlParameter("@year", year),
                 new SqlParameter("@day", Day),
                 new SqlParameter("@month", month),
-                new SqlParameter("@chuyendi",chuyendi.MaTBay)
+                new SqlParameter("@chuyendi", chuyendi.MaTBay)
                 ).ToList();
             //Hiển thị danh sách các chuyến bay
             return View(test);
@@ -189,7 +189,7 @@ namespace BookingAirline.Controllers
                         new SqlParameter("@year", year),
                         new SqlParameter("@day", Day),
                         new SqlParameter("@month", month),
-                        new SqlParameter("@chuyenve",chuyenve.MaTBay)
+                        new SqlParameter("@chuyenve", chuyenve.MaTBay)
                         ).ToList();
                 return View(test);
             }
@@ -223,7 +223,7 @@ namespace BookingAirline.Controllers
             {
                 Session["SLKH"] = (cart.Items.Count() / 2);
             }
-            else if(check == "one-way")
+            else if (check == "one-way")
             {
                 Session["SLKH"] = cart.Items.Count();
             }
@@ -270,7 +270,7 @@ namespace BookingAirline.Controllers
                     //Chép cccd vào vè lúc về của khách hàng
                     else if (item01.idVe.MaCB == cbden)
                     {
-                        
+
                         var mave2 = item01.idVe.MaVe;
                         var cccd2 = Request["cccd_" + number2];
                         cart.CapNhatCCCD(mave2, cccd2);
@@ -355,7 +355,7 @@ namespace BookingAirline.Controllers
                     //Add thông tin vé vào giỏ hàng
                     var ticket = Request["Ma" + i];
                     var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi && s.MaVe == ticket).FirstOrDefault();
-                    GetCart().Add(detailtic, 1,null);
+                    GetCart().Add(detailtic, 1, null);
                     check++;
                     if (check == id)
                     {
@@ -395,7 +395,7 @@ namespace BookingAirline.Controllers
                     //Add thông tin vé vào giỏ hàng
                     var ticket = Request["Ma" + i];
                     var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBve && s.MaVe == ticket).FirstOrDefault();
-                    GetCart().Add(detailtic, 1,null);
+                    GetCart().Add(detailtic, 1, null);
                     check++;
                     if (check == id)
                     {
@@ -532,9 +532,6 @@ namespace BookingAirline.Controllers
             return RedirectToAction("ThankYou");
         }
 
-        
-
-
         public ActionResult ThankYou()
         {
             return View();
@@ -571,10 +568,10 @@ namespace BookingAirline.Controllers
         {
             var KH = (BookingAirline.Models.KhachHang)Session["userKH"];
             //Xác thực người dùng đã đăng nhập hay chưa
-            if (Session["userKH"]!=null)
+            if (Session["userKH"] != null)
             {
                 var faCB = database.Wishlists.Where(s => s.MaCB == id && s.MaKH == KH.IDKH).FirstOrDefault();
-                if(faCB==null)
+                if (faCB == null)
                 {
                     Wishlist wl = new Wishlist();
                     Random rd = new Random();
@@ -587,12 +584,20 @@ namespace BookingAirline.Controllers
                     database.SaveChanges();
                     return RedirectToAction("ChooseSeat", "KhachHangHA");
                 }
+                else
+                {
+                    database.Wishlists.Remove(faCB);
+                    database.SaveChanges();
+                    return RedirectToAction("ChooseSeat", "KhachHangHA");
+                }
             }
             else
             {
                 return RedirectToAction("Login", "LoginUser");
-            }
-            return View();
+            } 
+                
+            
+            return View("ChooseSeat", "KhachHangHA");
         }
     }
 }

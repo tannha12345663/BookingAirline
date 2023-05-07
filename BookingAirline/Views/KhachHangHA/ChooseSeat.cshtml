@@ -18,8 +18,29 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-
-<h2 style="text-align:center">ChooseSeat : @macb</h2>
+<div class="Title" style="display:flex;">
+    <div class="title-de" style="margin-left: 590px">
+        <h2 style="text-align:center">ChooseSeat : @macb</h2>
+    </div>
+    <div style="line-height:82px; margin-left:15px">
+        @{
+            var KH = (BookingAirline.Models.KhachHang)Session["userKH"];
+            var WL = database.Wishlists.Where(s => s.MaCB == macb && s.MaKH == KH.IDKH).FirstOrDefault();
+            if (WL != null)
+            {
+                <a href="@Url.Action("WhishList","KhachHangHA",new { id=macb})" id="button">
+                    <i class="fa fa-heart" aria-hidden="true" style="font-size:29px; color:red"></i>
+                </a>
+            }
+            else
+            {
+                <a href="@Url.Action("WhishList","KhachHangHA",new { id=macb})" id="button">
+                    <i class="fa fa-heart" aria-hidden="true" style="font-size:29px; color:gray" ></i>
+                </a>
+            }
+        }
+    </div>
+</div>
 <link href="~/Style/Css/style.css" rel="stylesheet" />
 <div class="container">
     <form action="/KhachHangHA/ChooseSeat" method="post" id="submit">
@@ -33,6 +54,7 @@
                     var matb = database.TuyenBays.Where(s => s.MaTBay == checkmacb.MaTBay).FirstOrDefault();
                     var sanbaydi = database.SanBays.Where(s => s.MaSB == matb.SanBayDi).FirstOrDefault();
                     var sanbayden = database.SanBays.Where(s => s.MaSB == matb.SanBayDen).FirstOrDefault();
+                    
                 }
 
                 <div class="row">
@@ -188,11 +210,7 @@
                     <ul id="selected-seats">
                     </ul>
                     <button type="submit" class="btn btn-success" value="">Next</button>
-                    <div style="margin:10px">
-                        <a href="@Url.Action("WhishList","KhachHangHA",new { id=macb})">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </a>
-                    </div>
+                    
                     <div id="legend"></div>
                 </div>
             </div>
