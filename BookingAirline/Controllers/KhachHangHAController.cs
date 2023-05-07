@@ -332,9 +332,9 @@ namespace BookingAirline.Controllers
             #endregion
             var contact = new Order();
             contact.CreateDate = DateTime.Now;
-            contact.ShipName = Request["name"];
-            contact.ShipEmail = Request["email"];
-            contact.NumberPhone = Request["number"];
+            contact.ShipName = Request["TenKH_0"];
+            contact.ShipEmail = Request["Email_0"];
+            contact.NumberPhone = Request["Phone_0"];
             contact.CCCD = Request["cccd_0"];
             contact.Total = total;
             Session["contacKH"] = contact;
