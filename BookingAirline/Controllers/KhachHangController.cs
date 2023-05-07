@@ -196,12 +196,29 @@ namespace BookingAirline.Controllers
                     {
                         var mave1 = item01.idVe.MaVe;
                         var cccd = Request["cccd_" + number];
-                        var TenKh = Request["TenKH_" + stt];
-                        var Ngaysinh = Request["NgaySinh_" + stt];
-                        var Email = Request["Email_" + stt];
-                        var Phone = Request["Phone_" + stt];
-                        var Gioitinh = Request["GioiTinh_" + stt];
+                        var TenKh = Request["TenKH_" + number];
+                        var Ngaysinh = Request["NgaySinh_" + number];
+                        var Email = Request["Email_" + number];
+                        var Phone = Request["Phone_" + number];
+                        var Gioitinh = Request["GioiTinh_" + number];
                         cart.CapNhatCCCD(mave1, cccd, TenKh, Ngaysinh, Email, Phone, Gioitinh);
+                        number++;
+                        //Kiểm tra và thêm các thông tin khách hàng vào danh sách khách hàng tham gia hệ thống
+                        var check01 = database.KhachHangs.Where(s => s.CCCD == cccd).FirstOrDefault();
+                        //Kiểm tra nếu mã cccd này chưa có thông tin sẽ lưu lại
+                        if (check01 == null)
+                        {
+                            kh = new KhachHang();
+                            kh.IDKH = "KH" + rd.Next(0, 10000); // Hàm random thông tin khách hàng kèm 3 số cuối theo mã cccd
+                            kh.CCCD = cccd;
+                            kh.TenKH = TenKh;
+                            kh.SDT = Phone;
+                            kh.Email = Email;
+                            kh.GioiTinh = Gioitinh;
+                            kh.NgaySinh = Ngaysinh;
+                            database.KhachHangs.Add(kh);
+                            database.SaveChanges();
+                        }
                     }
                     //Chép cccd vào vè lúc về của khách hàng
                     else if (item01.idVe.MaCB == cbden)
@@ -209,15 +226,31 @@ namespace BookingAirline.Controllers
 
                         var mave2 = item01.idVe.MaVe;
                         var cccd2 = Request["cccd_" + number2];
-                        var TenKh = Request["TenKH_" + stt];
-                        var Ngaysinh = Request["NgaySinh_" + stt];
-                        var Email = Request["Email_" + stt];
-                        var Phone = Request["Phone_" + stt];
-                        var Gioitinh = Request["GioiTinh_" + stt];
+                        var TenKh = Request["TenKH_" + number2];
+                        var Ngaysinh = Request["NgaySinh_" + number2];
+                        var Email = Request["Email_" + number2];
+                        var Phone = Request["Phone_" + number2];
+                        var Gioitinh = Request["GioiTinh_" + number2];
                         cart.CapNhatCCCD(mave2, cccd2, TenKh, Ngaysinh, Email, Phone, Gioitinh);
                         number2++;
+                        //Kiểm tra và thêm các thông tin khách hàng vào danh sách khách hàng tham gia hệ thống
+                        var check01 = database.KhachHangs.Where(s => s.CCCD == cccd2).FirstOrDefault();
+                        //Kiểm tra nếu mã cccd này chưa có thông tin sẽ lưu lại
+                        if (check01 == null)
+                        {
+                            kh = new KhachHang();
+                            kh.IDKH = "KH" + rd.Next(0, 10000); // Hàm random thông tin khách hàng kèm 3 số cuối theo mã cccd
+                            kh.CCCD = cccd2;
+                            kh.TenKH = TenKh;
+                            kh.SDT = Phone;
+                            kh.Email = Email;
+                            kh.GioiTinh = Gioitinh;
+                            kh.NgaySinh = Ngaysinh;
+                            database.KhachHangs.Add(kh);
+                            database.SaveChanges();
+                        }
                     }
-                    number++;
+                    
                 }
             }
 
