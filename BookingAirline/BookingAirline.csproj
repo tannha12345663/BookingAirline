@@ -48,10 +48,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -247,7 +247,9 @@
     <Compile Include="Models\OrderStatu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+
     <Compile Include="Models\OrderStatus.cs" />
+
     <Compile Include="Models\Phi.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -257,6 +259,16 @@
     <Compile Include="Models\SanBay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+
+
+    <Compile Include="Models\save_log_chuyenbay.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+
+
     <Compile Include="Models\TuyenBay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -275,6 +287,32 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\admin\css\bootstrap.min.css" />
+    <Content Include="Content\admin\css\fullcalendar.css" />
+    <Content Include="Content\admin\css\lineicons.css" />
+    <Content Include="Content\admin\css\loading-bar.min.css" />
+    <Content Include="Content\admin\css\main.css" />
+    <Content Include="Content\admin\css\materialdesignicons.min.css" />
+    <Content Include="Content\admin\css\morris.css" />
+    <Content Include="Content\admin\fonts\LineIcons.svg" />
+    <Content Include="Content\admin\images\auth\reset-password.svg" />
+    <Content Include="Content\admin\images\auth\shape.svg" />
+    <Content Include="Content\admin\images\auth\signin-image.svg" />
+    <Content Include="Content\admin\images\favicon.svg" />
+    <Content Include="Content\admin\images\invoice\uideck-logo.svg" />
+    <Content Include="Content\admin\images\lead\lead-1.png" />
+    <Content Include="Content\admin\images\lead\lead-2.png" />
+    <Content Include="Content\admin\images\lead\lead-3.png" />
+    <Content Include="Content\admin\images\lead\lead-4.png" />
+    <Content Include="Content\admin\images\lead\lead-5.png" />
+    <Content Include="Content\admin\images\lead\lead-6.png" />
+    <Content Include="Content\admin\images\logo\logo-2.svg" />
+    <Content Include="Content\admin\images\logo\logo-white.svg" />
+    <Content Include="Content\admin\images\logo\logo.svg" />
+    <Content Include="Content\admin\images\modals\image-1.svg" />
+    <Content Include="Content\admin\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\admin\js\fullcalendar.js" />
+    <Content Include="Content\admin\js\main.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -291,6 +329,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Create promotion.css" />
     <Content Include="Content\CSS_01\atomic.css" />
     <Content Include="Content\CSS_01\blue-violet.css" />
     <Content Include="Content\CSS_01\bootstrap.min.css" />
@@ -324,10 +363,25 @@
     <Content Include="Content\images\logo-vietnamAL.png" />
     <Content Include="Content\images\Payment Error.gif" />
     <Content Include="Content\images\Vietjet-Air-Logo-PNG-3.png" />
+
+    <Content Include="Content\index.css" />
+    <Content Include="Content\myInfor.css" />
+    <Content Include="Content\Promotion.css" />
+    <Content Include="Content\resetpass.css" />
+
     <Content Include="Content\ResetPass.css" />
+
     <Content Include="Content\style.css" />
     <Content Include="Content\Template\HtmlPage1.html" />
-    <Content Include="Content\UploadAnh\UploadAnh.css" />
+    <Content Include="Data\Avatar\135017829_1026004181228801_2637032699560275_n-1.jpg" />
+    <Content Include="Data\Avatar\135017829_1026004181228801_2637032699560275_n-2.jpg" />
+    <Content Include="Data\Avatar\135017829_1026004181228801_2637032699560275_n-3.jpg" />
+    <Content Include="Data\Avatar\135017829_1026004181228801_2637032699560275_n.jpg" />
+    <Content Include="Data\Avatar\78396627_721759971653225_2465742588649406464_n-1.jpg" />
+    <Content Include="Data\Avatar\78396627_721759971653225_2465742588649406464_n.jpg" />
+    <Content Include="Data\Avatar\Anh-avatar-dep-chat-lam-hinh-dai-dien.jpg" />
+    <Content Include="Data\Avatar\avartar.jpg" />
+    <Content Include="Data\Avatar\hinh-avatar-cute-nu.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont3e6e.html" />
     <Content Include="fonts\fontawesome-webfont3e6e.svg" />
@@ -337,23 +391,42 @@
     <Content Include="hinh\135017829_1026004181228801_2637032699560275_n.jpg" />
     <Content Include="hinh\AboutUs.jpg" />
     <Content Include="hinh\banner-bg.jpg" />
-    <Content Include="hinh\beautiful-sight.jpg" />
-    <Content Include="hinh\card.png" />
+    <Content Include="hinh\BL\Ảnh chụp màn hình 2023-03-23 235830.png" />
+    <Content Include="hinh\BL\Ảnh chụp màn hình 2023-03-23 235918.png" />
+    <Content Include="hinh\BL\Ảnh chụp màn hình 2023-03-23 235954.png" />
     <Content Include="hinh\contact-01.jpg" />
     <Content Include="hinh\contact-02.jpg" />
     <Content Include="hinh\contact-bg.jpg" />
+    <Content Include="hinh\Cooplogo\Bamboo-Airways-logo.png" />
+    <Content Include="hinh\Cooplogo\malaysia-airlines-logo.png" />
+    <Content Include="hinh\Cooplogo\Singapore-Airlines-logo-01.png" />
+    <Content Include="hinh\Cooplogo\thai-airway-logo.png" />
+    <Content Include="hinh\Cooplogo\VJ.png" />
+    <Content Include="hinh\Cooplogo\VNEl.png" />
+    <Content Include="hinh\detailCus01.jpg" />
     <Content Include="hinh\evening-event.jpg" />
     <Content Include="hinh\fitness-service.jpg" />
+    <Content Include="hinh\Fly.jpg" />
     <Content Include="hinh\heading-bg.jpg" />
     <Content Include="hinh\heading-pg1.jpg" />
+    <Content Include="hinh\HinhNen\702752200da027749782267c56c3897f.jpg" />
+    <Content Include="hinh\HinhNen\8d80128d9cb6ca236f7e4b7babdc98ed.jpg" />
     <Content Include="hinh\IMG_0839 %281%29.jpg" />
     <Content Include="hinh\detailCus01.jpg" />
     <Content Include="hinh\ka-img.jpg" />
+    <Content Include="hinh\KM\1605156754662.jpg" />
+    <Content Include="hinh\KM\bannerqc.png" />
+    <Content Include="hinh\KM\bnnqc.jpg" />
+    <Content Include="hinh\KM\bnqc.jpg" />
+    <Content Include="hinh\KM\du-lich-he-99k.jpg" />
+    <Content Include="hinh\KM\khuyen-mai-chao-thang-6-Bamboo-Airways.jpg" />
+    <Content Include="hinh\KM\vietjet-khuyen-mai-ve-0-dong-moi-ngay.jpg" />
     <Content Include="hinh\log-in.png" />
     <Content Include="hinh\logo-cnpm-removebg.png" />
     <Content Include="hinh\logo-i.png" />
     <Content Include="hinh\logo.png" />
     <Content Include="hinh\massage-service.jpg" />
+    <Content Include="hinh\may-bay-phuong-tien-di-chuyen-tien-loi-va-an-toan-nhat-1.jpg" />
     <Content Include="hinh\neo-img.jpg" />
     <Content Include="hinh\neo.jpg" />
     <Content Include="hinh\place-01.jpg" />
@@ -386,6 +459,45 @@
     <Content Include="fonts\fontawesome-webfontd41d.eot" />
     <Content Include="fonts\glyphicons-halflings-regulard41d.eot" />
     <Content Include="hinh\weather-main1.jpg" />
+    <Content Include="Content\admin\css\.DS_Store" />
+    <Content Include="Content\admin\fonts\LineIcons.eot" />
+    <Content Include="Content\admin\fonts\LineIcons.ttf" />
+    <Content Include="Content\admin\fonts\LineIcons.woff" />
+    <Content Include="Content\admin\fonts\LineIcons.woff2" />
+    <Content Include="Content\admin\fonts\materialdesignicons-webfont.eot" />
+    <Content Include="Content\admin\fonts\materialdesignicons-webfont.ttf" />
+    <Content Include="Content\admin\fonts\materialdesignicons-webfont.woff" />
+    <Content Include="Content\admin\fonts\materialdesignicons-webfont.woff2" />
+    <Content Include="Content\admin\images\.DS_Store" />
+    <Content Include="Content\admin\images\auth\.DS_Store" />
+    <Content Include="Content\admin\images\invoice\.DS_Store" />
+    <Content Include="Content\admin\images\lead\.DS_Store" />
+    <Content Include="Content\admin\images\logo\.DS_Store" />
+    <Content Include="Content\admin\images\modals\.DS_Store" />
+    <Content Include="Content\admin\js\.DS_Store" />
+    <Content Include="Content\admin\scss\.DS_Store" />
+    <Content Include="Content\admin\scss\alerts\_alerts.scss" />
+    <Content Include="Content\admin\scss\auth\_signin.scss" />
+    <Content Include="Content\admin\scss\auth\_signup.scss" />
+    <Content Include="Content\admin\scss\buttons\_buttons.scss" />
+    <Content Include="Content\admin\scss\calendar\_calendar.scss" />
+    <Content Include="Content\admin\scss\cards\_cards.scss" />
+    <Content Include="Content\admin\scss\dashboards\_dashboards.scss" />
+    <Content Include="Content\admin\scss\forms\_form-elements.scss" />
+    <Content Include="Content\admin\scss\header\_header.scss" />
+    <Content Include="Content\admin\scss\icons\_icons.scss" />
+    <Content Include="Content\admin\scss\invoice\_invoice.scss" />
+    <Content Include="Content\admin\scss\main.scss" />
+    <Content Include="Content\admin\scss\notification\_notification.scss" />
+    <Content Include="Content\admin\scss\settings\_settings.scss" />
+    <Content Include="Content\admin\scss\tables\_tables.scss" />
+    <Content Include="Content\admin\scss\typography\.DS_Store" />
+    <Content Include="Content\admin\scss\typography\_typography.scss" />
+    <Content Include="Content\admin\scss\_common.scss" />
+    <Content Include="Content\admin\scss\_default.scss" />
+    <Content Include="Content\admin\scss\_mixin.scss" />
+    <Content Include="Content\admin\scss\_sidebar.scss" />
+    <Content Include="Content\admin\scss\_variables.scss" />
     <Content Include="lib\font-awesome\css\all.css" />
     <Content Include="lib\font-awesome\css\all.min.css" />
     <Content Include="lib\font-awesome\css\brands.css" />
@@ -437,7 +549,28 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="libman.json" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\bootstrap.esm.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\bootstrap.rtl.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Content\bootstrap-utilities.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="lib\font-awesome\webfonts\fa-brands-400.ttf" />
     <Content Include="lib\font-awesome\webfonts\fa-brands-400.woff2" />
     <Content Include="lib\font-awesome\webfonts\fa-regular-400.ttf" />
@@ -471,6 +604,7 @@
     <Content Include="Style\Admin\css\morris.css" />
     <Content Include="Style\Admin\css\startmin.css" />
     <Content Include="Style\Admin\css\styles.css" />
+    <Content Include="Style\Admin\css\styles1.css" />
     <Content Include="Style\Admin\css\timeline.css" />
     <Content Include="Style\Admin\js\chart-area-demo.js" />
     <Content Include="Style\Admin\js\chart-bar-demo.js" />
@@ -484,11 +618,13 @@
     <Content Include="Style\Css\Admin\contactStyle.css" />
     <Content Include="Style\Css\Admin\DetailCus.css" />
     <Content Include="Style\Css\Admin\footerStyle.css" />
+    <Content Include="Style\Css\Admin\DetailCus.css" />
     <Content Include="Style\Css\Admin\icheck-bootstrap.min.css" />
     <Content Include="Style\Css\Admin\icon.css" />
     <Content Include="Style\Css\Admin\js\adminlte.min.js" />
     <Content Include="Style\Css\Admin\js\bootstrap.bundle.min.js" />
     <Content Include="Style\Css\Admin\js\jquery.min.js" />
+    <Content Include="Style\Css\Admin\trangchu.css" />
     <Content Include="Style\Css\bootstrap-theme.min.css" />
     <Content Include="Style\Css\bootstrap.min.css" />
     <Content Include="Style\Css\Contact.css" />
@@ -586,6 +722,17 @@
     <Content Include="Views\NhanVien\TicketManagement.cshtml" />
     <Content Include="Views\KhachHang\ChooseSeat.cshtml" />
     <Content Include="Views\KhachHangHA\ChooseSeat.cshtml" />
+    <Content Include="Views\NhanVien\Staff.cshtml" />
+    <Content Include="Views\NhanVien\EditMyinfor.cshtml" />
+    <Content Include="Views\NhanVien\Myinfor.cshtml" />
+
+    <Content Include="Views\NhanVien\DetailCus.cshtml" />
+
+    <Content Include="Views\LoginUser\ResetPass.cshtml" />
+    <Content Include="Views\NhanVien\DetailStaff.cshtml" />
+    <Content Include="Views\NhanVien\Promotion.cshtml" />
+    <Content Include="Views\NhanVien\CreatePromotion.cshtml" />
+    <Content Include="Views\NhanVien\EditPro.cshtml" />
     <Content Include="Views\KhachHang\ChooseSeatVe.cshtml" />
     <Content Include="Views\KhachHangHA\ChooseSeatVe.cshtml" />
     <Content Include="Views\KhachHang\DSChuyenBayTest.cshtml" />
@@ -596,45 +743,36 @@
     <Content Include="Views\KhachHangHA\Shared\_LayoutContact.cshtml" />
     <Content Include="Views\KhachHangHA\Shared\_LayoutPayment.cshtml" />
     <Content Include="Views\KhachHangHA\Shared\_LayoutPage2.cshtml" />
+    <Content Include="Views\Home\Promotion.cshtml" />
+    <Content Include="Views\NhanVien\CustomerManagement.cshtml" />
+
+    <Content Include="Views\NhanVien\History.cshtml" />
+    <Content Include="Views\NhanVien\Chitietcb.cshtml" />
+    <Content Include="Views\KhachHang\FailePayment.cshtml" />
+    <Content Include="Views\KhachHang\Shared\_LayoutPagePaymentStatus.cshtml" />
+
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Views\KhachHangHA\Shared\_LayoutInfoCustomer.cshtml" />
     <Content Include="Views\KhachHangHA\FailePayment.cshtml" />
-    <Content Include="Views\NhanVien\CustomerManagement.cshtml" />
+
     <Content Include="Views\NhanVien\DetailCus.cshtml" />
+
+    <Content Include="Views\KhachHangHA\WhishList.cshtml" />
+
     <Content Include="Views\KhachHangHA\HienThiWL.cshtml" />
     <Content Include="Views\LoginUser\ResetPass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Data\Avatar\" />
+    <Folder Include="Views\KhachHangs\" />
     <Folder Include="Views\Payment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.rtl.min.css.map" />
-    <Content Include="Content\bootstrap.rtl.css.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
-    <Content Include="Content\bootstrap-utilities.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.esm.min.js.map" />
-    <Content Include="Scripts\bootstrap.esm.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.6.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.1.min.map" />
   </ItemGroup>

@@ -12,6 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="jquery-3.6.3.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
 @{
     var checkmess = (string)TempData["messageAlert"];
     var macb = (string)TempData["machuyenbay"];
@@ -171,12 +172,9 @@
                                     </td>
                                     <td style="text-align:center">
                                         @{ var ctcb = database.ChiTietChuyenBays.Where(s => s.MaCTCB == item01.MaCB).FirstOrDefault();
-                                            if (ctcb != null)
-                                            {
-                                                <a href="~/NhanVien/DetailFlight/@item01.MaCB" class="btn btn-info btn-sm edit">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            }
+                                            <a href="~/NhanVien/Chitietcb/@item01.MaCB" class="btn btn-info btn-sm edit">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
                                             if (han.Days > 0)
                                             {
                                                 <button value="@item01.MaCB" id="MaCbay" data-toggle="modal" data-target="#myModal03" class="btn btn-danger btn-sm edit">
@@ -191,12 +189,12 @@
                                             }
                                             else if (han.Days <= 0 && han.Minutes < 30)
                                             {
-                                                <p style="font-weight:bold">None</p>
+                                                
                                             }
                                         }
                                         @*<a href="/NhanVien/DeleteFlight/@item01.MaCB" onclick=" return confirm('Are you sure you want to delete ?')" class="btn btn-danger btn-sm edit">
-                                    <i class="fa fa-remove"></i>
-                                </a>*@
+                                                <i class="fa fa-remove"></i>
+                                            </a>*@
 
                                     </td>
                                 </tr>
@@ -206,8 +204,8 @@
                     </tbody>
                 </table>
             </div>
-        </div>               
-    </div>   
+        </div>
+    </div>
 </div>
 
 
@@ -298,7 +296,7 @@
                                     @{ var tb = database.TuyenBays.ToList();
                                         foreach (var item in tb)
                                         {
-                                            <option value="@item.MaTBay">@item.MaTBay</option>
+                                            <option value="@item.MaTBay">@item.MaTBay (@item.SanBayDi - @item.SanBayDen)</option>
                                         }
                                     }
                                 </select>

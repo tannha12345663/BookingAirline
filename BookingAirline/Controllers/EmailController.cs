@@ -23,5 +23,7 @@ namespace BookingAirline.Controllers
             ViewBag.msg = "Email đã được gửi thành công ...";
             return View();
         }
+
+
     }
 }

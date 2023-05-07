@@ -45,5 +45,6 @@ namespace BookingAirline.Models
         public virtual DbSet<Ve> Ves { get; set; }
         public virtual DbSet<Voucher> Vouchers { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
+        public virtual DbSet<save_log_chuyenbay> save_log_chuyenbay { get; set; }
     }
 }

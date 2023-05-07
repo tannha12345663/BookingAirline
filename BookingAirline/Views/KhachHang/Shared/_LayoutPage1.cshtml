@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -54,7 +55,8 @@
                                 <img src="~/hinh/logo.png" alt="Flight Template">
                             </div>*@
                         <div class="tabs-content">
-                            <h4>Choose Your Direction:</h4>
+                            <h4>Explore the world with us</h4>
+                            <br />
                             <ul class="social-links">
                                 <li><a href="#">Find us on <em>Facebook</em><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#">Our <em>YouTube</em> Channel<i class="fa fa-youtube"></i></a></li>
@@ -62,17 +64,24 @@
                                 <li><a href="~/Home/Contact">Contact our <em>Infomations</em><i class="fa fa-phone"></i></a></li>
                             </ul>
                         </div>
+                    <div class="page-direction-button">
+                        @*<a href="/Home/Contact" ><i class="fa fa-phone"></i>Contact Us Now</a>*@
+                        </div>
                     </div>
                 </div>
+
                 <div class="col-md-5 col-md-offset-1">
                     <section id="first-tab-group" class="tabgroup">
+
                         <div id="tab1">
                             <div class="submit-form">
-                                <h4>Check availability for <em>direction</em>:</h4>
+
+                                <h4>Hi, where do you want to go?</h4>
                                 <form id="form-submit" action="~/KhachHang/DSachCB" method="get">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <fieldset>
+
                                                 <label for="from">From:</label>
                                                 <select required name='from' onchange='this.form()'>
                                                     <option value="">Select a location...</option>
@@ -89,6 +98,7 @@
                                                 </select>
                                             </fieldset>
                                         </div>
+
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <label for="to">To:</label>
@@ -121,7 +131,19 @@
 
                                                 <input name="return" id="return" disabled type="date" class="form-control date01" min=@DateTime.Now.ToString("yyyy-MM-dd") placeholder="Select date..." required="">
                                             </fieldset>
-                                        </div>                               
+                                        </div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label>Quantity aldults:</label>
+                                                <input class="form-control date01"type="number"min="1" name="aldults" required/>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label>Quantity children:</label>
+                                                <input class="form-control date01" type="number" min="0" name="children" required/>
+                                            </fieldset>
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="radio-select">
                                                 <div class="row">
@@ -131,15 +153,15 @@
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-6">
                                                         <label for="oneway">Oneway</label>
-                                                        <input type="radio" name="trip" id="oneway" value="oneway" required="required">
+                                                        <input type="radio" name="trip" id="oneway" value="one-way" required="required">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6 pull-right">
+                                        <div class="col-md-6">
                                             <fieldset>
-                                                <button type="submit" id="form-submit" class="btn">Order Ticket Now</button>
+                                                <button type="submit" id="form-submit" class="btn">Search</button>
                                             </fieldset>
                                         </div>
                                     </div>
@@ -168,8 +190,7 @@
                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                     <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
+
                 </ul>
             </div>
         </div>

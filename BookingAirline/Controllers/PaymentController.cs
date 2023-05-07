@@ -89,6 +89,10 @@ namespace BookingAirline.Controllers
                         {
                             return RedirectToAction("FailePayment", "KhachHangHA");
                         }
+                        else
+                        {
+                            return RedirectToAction("FailePayment", "KhachHang");
+                        }
                     }
                 }
                 else
@@ -103,6 +107,8 @@ namespace BookingAirline.Controllers
             }
             return RedirectToAction("ConfirmTT", "KhachHang");
         }
+        //chức năng thanh toán Zalo Pay
+        
         public ActionResult Suceess()
         {
             return View();

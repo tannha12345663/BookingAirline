@@ -4,7 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+
       <Diagram DiagramId="4e977894ef85476bbebc3699efd89ede" Name="Diagram1">
+
         <EntityTypeShape EntityType="BookingAirLightModel.ChiTietChuyenBay" Width="1.5" PointX="8.25" PointY="16.375" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingAirLightModel.ChiTietHD" Width="1.5" PointX="10.5" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingAirLightModel.ChucVu" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
@@ -21,10 +23,11 @@
         <EntityTypeShape EntityType="BookingAirLightModel.Phi" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingAirLightModel.PhieuDatCho" Width="1.5" PointX="8.25" PointY="19.25" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingAirLightModel.SanBay" Width="1.5" PointX="1.5" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingAirLightModel.sysdiagram" Width="1.5" PointX="7.75" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingAirLightModel.TuyenBay" Width="1.5" PointX="3.75" PointY="19" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingAirLightModel.Ve" Width="1.5" PointX="8.25" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingAirLightModel.Voucher" Width="1.5" PointX="3" PointY="13.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingAirLightModel.Wishlist" Width="1.5" PointX="7.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingAirLightModel.Wishlist" Width="1.5" PointX="9.75" PointY="1.75" IsExpanded="true" />
         <AssociationConnector Association="BookingAirLightModel.FK_ChiTietChuyenBay_ChuyenBay" ManuallyRouted="false" />
         <AssociationConnector Association="BookingAirLightModel.FK_ChiTietHD_HoaDon" ManuallyRouted="false" />
         <AssociationConnector Association="BookingAirLightModel.FK_ChiTietHD_Ve1" ManuallyRouted="false" />
@@ -44,6 +47,7 @@
         <AssociationConnector Association="BookingAirLightModel.FK_Ve_KhachHang" ManuallyRouted="false" />
         <AssociationConnector Association="BookingAirLightModel.FK_TuyenBay_SanBay1" ManuallyRouted="false" />
         <AssociationConnector Association="BookingAirLightModel.FK_TuyenBay_SanBay2" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BookingAirLightModel.save_log_chuyenbay" Width="1.5" PointX="12.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

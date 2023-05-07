@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,14 +10,37 @@ using Newtonsoft.Json;
 
 namespace BookingAirline.Controllers
 {
+
     [AuthenticationNV]
     public class NhanVienController : Controller
     {
         BookingAirLightEntities database = new BookingAirLightEntities();
+
+        public NhanVien taikhoan()
+        {
+            NhanVien nv = new NhanVien();
+            nv = Session["userNV"] as NhanVien;
+            return nv;
+        }
+
+        public bool Checkquyen()
+        {
+            bool thu = false;
+            NhanVien check = new NhanVien();
+            NhanVien nvSession = taikhoan();
+
+            if( nvSession.MaCV == "NVBV")
+            {
+                return thu;
+            }
+            thu = true;
+            return thu;
+        }
         // GET: NhanVien
         public ActionResult TrangChu()
         {
             return View();
+
         }
 
         public ActionResult Scheduleaflight()
@@ -149,7 +171,19 @@ namespace BookingAirline.Controllers
             database.SaveChanges();
             return RedirectToAction("Scheduleaflight");
         }
-
+        //Xem chi tiết chuyến bay
+        public ActionResult Chitietcb(string id)
+        {
+            if (id != null)
+            {
+                var cb = database.ChuyenBays.Find(id);
+                return View (cb);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+        }
         public ActionResult DetailFlight(string id)
         {
             if (id != null)
@@ -166,20 +200,55 @@ namespace BookingAirline.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DetailFlight(ChuyenBay cb)
+        public ActionResult DetailFlight([Bind(Include = "MaCB,MaMB,MaTbay,NgayGio,ThoiGianBay")] ChuyenBay cb,string id)
         {
-            ChiTietChuyenBay ctcb = new ChiTietChuyenBay();
-            ctcb.MaCTCB = cb.MaCB;
-            ctcb.SanBayTrungGian = Request["SanBayTrungGian"];
-            ctcb.ThoiGianDung = Request["ThoiGianDung"];
-            ctcb.GhiChu = Request["GhiChu"];
-            database.Entry(ctcb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
-            database.SaveChanges();
-            database.Entry(cb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
-            database.SaveChanges();
-            TempData["machuyenbay"] = cb.MaCB;
-            TempData["messageAlert"] = "SuaThanhCong";
-            return RedirectToAction("Scheduleaflight");
+            if (ModelState.IsValid)
+            {
+                Random rd = new Random();
+                var ctcb = database.ChiTietChuyenBays.Where(s => s.MaCTCB == cb.MaCB).FirstOrDefault();
+                ChiTietChuyenBay ctcb01 = new ChiTietChuyenBay();
+                if (ctcb != null)
+                {
+
+                    ctcb.SanBayTrungGian = Request["SanBayTrungGian"];
+                    ctcb.ThoiGianDung = Request["ThoiGianDung"];
+                    ctcb.GhiChu = Request["GhiChu"];
+                    database.Entry(ctcb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+                    database.SaveChanges();
+
+                    database.Entry(cb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+                    database.SaveChanges();
+                    TempData["machuyenbay"] = cb.MaCB;
+                    TempData["messageAlert"] = "SuaThanhCong";
+                }
+                else
+                {
+                    if (id != null)
+                    {
+                        ctcb01.STT = rd.Next(0, 100000);
+                        ctcb01.MaCTCB = cb.MaCB;
+                        ctcb01.SanBayTrungGian = Request["SanBayTrungGian"];
+                        ctcb01.ThoiGianDung = Request["ThoiGianDung"];
+                        ctcb01.GhiChu = Request["GhiChu"];
+                        database.ChiTietChuyenBays.Add(ctcb01);
+                        database.SaveChanges();
+                    }
+                    else
+                    {
+
+                    }
+                    database.Entry(cb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+                    database.SaveChanges();
+                    TempData["machuyenbay"] = cb.MaCB;
+                    TempData["messageAlert"] = "SuaThanhCong";
+                }
+                return RedirectToAction("Scheduleaflight");
+            }
+            else
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+                
         }
         [HttpPost]
         public ActionResult DeleteFlight(string id)
@@ -370,16 +439,96 @@ namespace BookingAirline.Controllers
         {
             return View();
         }
-        
-        public ActionResult ReportManagement()
+
+        public ActionResult Myinfor()
+        {
+            NhanVien nhanvien = new NhanVien();
+
+            // xuat ra thong tin nv vua dang nhap
+            nhanvien = taikhoan();
+
+            return View(nhanvien);
+        }
+
+        public ActionResult EditMyinfor(string id)
+        {
+            var nv = database.NhanViens.Find(id);
+
+            //neu checkquyen == true thi la admin/ con = false thi la nvbv
+            ViewBag.checkLogin = Checkquyen();
+
+            return View(nv);
+        }
+
+        [HttpPost]
+        public ActionResult EditMyinfor(NhanVien nhanvien)
+        {
+            if (Checkquyen() && ModelState.IsValid)
+            {
+                var nv = database.NhanViens.Find(nhanvien.IDNV);
+                nv.MaCV = nhanvien.MaCV;
+                nv.TenNV = nhanvien.TenNV;
+                nv.NgaySinh = nhanvien.NgaySinh;
+                nv.Password = nhanvien.Password;
+                nv.UserName = nhanvien.UserName;
+                nv.SDT_NV = nhanvien.SDT_NV;
+                nv.GioiTinh = nhanvien.GioiTinh;
+                database.SaveChanges();
+            }
+
+            return View("Myinfor", nhanvien);
+        }
+        [HttpPost]
+        public ActionResult EditMyinforNV(string IDNV, string TenNV)
+        {
+            var nhanvien = database.NhanViens.Find(IDNV);
+            if (!Checkquyen() && ModelState.IsValid)
+            {
+                NhanVien nv = database.NhanViens.Find(IDNV);
+
+                nv.MaCV = nhanvien.MaCV;
+                nv.TenNV = TenNV;
+                nv.NgaySinh = nhanvien.NgaySinh;
+                nv.Password = nhanvien.Password;
+                nv.UserName = nhanvien.UserName;
+                nv.SDT_NV = nhanvien.SDT_NV;
+                nv.GioiTinh = nhanvien.GioiTinh;
+
+                database.SaveChanges();
+                
+               
+            }
+            
+            return View("Myinfor", nhanvien);
+        }
+
+        public ActionResult Staff()
         {
             return View();
         }
-        
+        public ActionResult DetailStaff(string id)
+        {
+            var ttnv = database.NhanViens.Find(id);
+            return View(ttnv);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DetailStaff(NhanVien nv)
+        {
+            database.Entry(nv).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+            database.SaveChanges();
+            TempData["manhanvien"] = nv.IDNV;
+            TempData["MessageAlert"] = "SuaNV";
+            return RedirectToAction("Staff");
+
+        }
+
         public ActionResult CustomerManagement()
         {
             return View();
         }
+
 
         public ActionResult DetailCus(string id)
         {
@@ -398,5 +547,75 @@ namespace BookingAirline.Controllers
             return RedirectToAction("CustomerManagement");
 
         }
+
+        public ActionResult Promotion()
+        {
+            return View();
+        }
+        
+        public ActionResult CreatePromotion()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreatePromotion(Voucher vc)
+        {
+            database.Entry(vc).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+            database.Vouchers.Add(vc);
+            database.SaveChanges();
+            TempData["macv"] = vc.MaVC;
+            TempData["MessageAlert"] = "success";
+            return RedirectToAction("Promotion");
+
+        }
+        
+        [HttpGet]
+        public ActionResult EditPro(string id)
+        {
+
+            var voucher = new Voucher().ViewDetail(id);
+
+            return View(voucher);
+        }
+
+        [HttpPost]
+
+        public ActionResult EditPro(Voucher voucher)
+        {
+            if (ModelState.IsValid)
+            {
+                var vc = new Voucher();
+                var result = vc.Update(voucher);
+
+
+
+            }
+
+            return View("Promotion");
+        }
+
+        
+
+        public ActionResult DeletePro(string id)
+        {
+            var tb = database.Vouchers.Find(id);
+            database.Vouchers.Remove(tb);
+            database.SaveChanges();
+            TempData["mavc"] = tb.MaVC;
+            TempData["messageAlert"] = "XoaThanhCong";
+            //return RedirectToAction("FlightRoute");
+            return Json(new { success = true });
+        }
+
+
+        
+        //Bảng log ghi lại lịch sử thêm xóa chuyến bay
+        public ActionResult History()
+        {
+            return View();
+        }
+
     }
 }
