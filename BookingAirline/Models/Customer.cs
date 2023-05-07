@@ -36,8 +36,8 @@ namespace BookingAirline.Models
                 SDT = dt,
                 GioiTinh = gioitinh,
                 CCCD = cccd
-            });
+            }) ;
         }
-
+        
     }
 }

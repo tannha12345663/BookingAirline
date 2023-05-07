@@ -10,14 +10,37 @@ using Newtonsoft.Json;
 
 namespace BookingAirline.Controllers
 {
+
     [AuthenticationNV]
     public class NhanVienController : Controller
     {
         BookingAirLightEntities database = new BookingAirLightEntities();
+
+        public NhanVien taikhoan()
+        {
+            NhanVien nv = new NhanVien();
+            nv = Session["userNV"] as NhanVien;
+            return nv;
+        }
+
+        public bool Checkquyen()
+        {
+            bool thu = false;
+            NhanVien check = new NhanVien();
+            NhanVien nvSession = taikhoan();
+
+            if( nvSession.MaCV == "NVBV")
+            {
+                return thu;
+            }
+            thu = true;
+            return thu;
+        }
         // GET: NhanVien
         public ActionResult TrangChu()
         {
             return View();
+
         }
 
         public ActionResult Scheduleaflight()
@@ -419,41 +442,65 @@ namespace BookingAirline.Controllers
 
         public ActionResult Myinfor()
         {
-            NhanVien nhanvien = Session["userNV"] as NhanVien;
+            NhanVien nhanvien = new NhanVien();
+
+            // xuat ra thong tin nv vua dang nhap
+            nhanvien = taikhoan();
+
             return View(nhanvien);
         }
-        //public ActionResult EditMyinfor(string id)
-        //{
 
-        //    var nhanvien = new NhanVien().ViewDetail(id);
+        public ActionResult EditMyinfor(string id)
+        {
+            var nv = database.NhanViens.Find(id);
 
-        //    return View(nhanvien);
-        //}
+            //neu checkquyen == true thi la admin/ con = false thi la nvbv
+            ViewBag.checkLogin = Checkquyen();
 
-        //[HttpPost]
+            return View(nv);
+        }
 
-        //public ActionResult EditMyinfor(NhanVien nhanvien)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var vien = new NhanVien();
-        //        var result = vien.Update(nhanvien);
-        //        //if (result)
-        //        //{
-        //        //    return RedirectToAction("TrangChu", "NhanVien");
-        //        //}
-        //        //else
-        //        //{
-        //        //    ModelState.AddModelError("", "Success");
-        //        //}
-        //        database.SaveChanges();
-                 
+        [HttpPost]
+        public ActionResult EditMyinfor(NhanVien nhanvien)
+        {
+            if (Checkquyen() && ModelState.IsValid)
+            {
+                var nv = database.NhanViens.Find(nhanvien.IDNV);
+                nv.MaCV = nhanvien.MaCV;
+                nv.TenNV = nhanvien.TenNV;
+                nv.NgaySinh = nhanvien.NgaySinh;
+                nv.Password = nhanvien.Password;
+                nv.UserName = nhanvien.UserName;
+                nv.SDT_NV = nhanvien.SDT_NV;
+                nv.GioiTinh = nhanvien.GioiTinh;
+                database.SaveChanges();
+            }
 
-        //    }
+            return View("Myinfor", nhanvien);
+        }
+        [HttpPost]
+        public ActionResult EditMyinforNV(string IDNV, string TenNV)
+        {
+            var nhanvien = database.NhanViens.Find(IDNV);
+            if (!Checkquyen() && ModelState.IsValid)
+            {
+                NhanVien nv = database.NhanViens.Find(IDNV);
 
-        //    return View("Myinfor", nhanvien);
-        //}
+                nv.MaCV = nhanvien.MaCV;
+                nv.TenNV = TenNV;
+                nv.NgaySinh = nhanvien.NgaySinh;
+                nv.Password = nhanvien.Password;
+                nv.UserName = nhanvien.UserName;
+                nv.SDT_NV = nhanvien.SDT_NV;
+                nv.GioiTinh = nhanvien.GioiTinh;
 
+                database.SaveChanges();
+                
+               
+            }
+            
+            return View("Myinfor", nhanvien);
+        }
 
         public ActionResult Staff()
         {
@@ -523,13 +570,14 @@ namespace BookingAirline.Controllers
             return RedirectToAction("Promotion");
 
         }
+        
         [HttpGet]
         public ActionResult EditPro(string id)
         {
 
-            //var voucher = new Voucher().ViewDetail(id);
+            var voucher = new Voucher().ViewDetail(id);
 
-            return View(/*voucher*/);
+            return View(voucher);
         }
 
         [HttpPost]
@@ -539,14 +587,16 @@ namespace BookingAirline.Controllers
             if (ModelState.IsValid)
             {
                 var vc = new Voucher();
-                //var result = vc.Update(voucher);
-                
+                var result = vc.Update(voucher);
+
 
 
             }
 
             return View("Promotion");
         }
+
+        
 
         public ActionResult DeletePro(string id)
         {
@@ -559,11 +609,13 @@ namespace BookingAirline.Controllers
             return Json(new { success = true });
         }
 
+
         
         //Bảng log ghi lại lịch sử thêm xóa chuyến bay
         public ActionResult History()
         {
             return View();
         }
+
     }
 }

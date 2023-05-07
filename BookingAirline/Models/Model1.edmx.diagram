@@ -4,7 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="aa43dc7f15c54b0db1f3cbf98d0ef67b" Name="Diagram1">
+
+      <Diagram DiagramId="0d82b74696634df49ada30b6a2c19ff8" Name="Diagram1">
+
         <EntityTypeShape EntityType="BookingAirLightModel.ChiTietChuyenBay" Width="1.5" PointX="8.25" PointY="16.375" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingAirLightModel.ChiTietHD" Width="1.5" PointX="10.5" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingAirLightModel.ChucVu" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
