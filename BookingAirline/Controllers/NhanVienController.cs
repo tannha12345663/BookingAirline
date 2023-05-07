@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -423,39 +422,37 @@ namespace BookingAirline.Controllers
             NhanVien nhanvien = Session["userNV"] as NhanVien;
             return View(nhanvien);
         }
-        public ActionResult EditMyinfor(string id)
-        {
+        //public ActionResult EditMyinfor(string id)
+        //{
 
-            var nhanvien = new NhanVien().ViewDetail(id);
+        //    var nhanvien = new NhanVien().ViewDetail(id);
 
-            return View(nhanvien);
-        }
+        //    return View(nhanvien);
+        //}
 
-        [HttpPost]
+        //[HttpPost]
 
-        public ActionResult EditMyinfor(NhanVien nhanvien)
-        {
-            if (ModelState.IsValid)
-            {
-                var vien = new NhanVien();
-                var result = vien.Update(nhanvien);
-                //if (result)
-                //{
-                //    return RedirectToAction("TrangChu", "NhanVien");
-                //}
-                //else
-                //{
-                //    ModelState.AddModelError("", "Success");
-                //}
-
-
-                database.SaveChanges();
+        //public ActionResult EditMyinfor(NhanVien nhanvien)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var vien = new NhanVien();
+        //        var result = vien.Update(nhanvien);
+        //        //if (result)
+        //        //{
+        //        //    return RedirectToAction("TrangChu", "NhanVien");
+        //        //}
+        //        //else
+        //        //{
+        //        //    ModelState.AddModelError("", "Success");
+        //        //}
+        //        database.SaveChanges();
                  
 
-            }
+        //    }
 
-            return View("Myinfor", nhanvien);
-        }
+        //    return View("Myinfor", nhanvien);
+        //}
 
 
         public ActionResult Staff()
@@ -562,5 +559,11 @@ namespace BookingAirline.Controllers
             return Json(new { success = true });
         }
 
+        
+        //Bảng log ghi lại lịch sử thêm xóa chuyến bay
+        public ActionResult History()
+        {
+            return View();
+        }
     }
 }
