@@ -61,12 +61,12 @@
             </div>
         </div>
     </div>
-
+    <img style="width:80%; height:auto;" src="~/hinh/KM/bannervj3-1603119109736.gif" />
     <br />
     <hr />
     <br />
     
-    <div class="left">
+    <div >
 
         @{ var dsvc = db.Vouchers.ToList();
             foreach (var item in dsvc)
@@ -74,7 +74,8 @@
                 <div class="noidung">
                     <p style="font-size:50px;">@item.TenVC</p>
                     <br />
-                    <p>Bắt đầu từ ngày @item.NgayApDung đến ngày @item.NgayHetHan</p>
+                    <p>Bắt đầu từ @Html.TextBoxFor(m => item.NgayApDung, "{0:dd/MM/yyyy}", new { @id = "datestart", @readonly = true}) đến  @Html.TextBoxFor(m => item.NgayHetHan, "{0:dd/MM/yyyy}", new { @id = "dayend", @readonly = true })</p>
+                   <br />
                 </div>
                 <div class="center">
 
@@ -86,13 +87,14 @@
                                 <input type="text" value="@item.MaVC" required="required" readonly>
 
                             </div>
-                            <div class="inputbox">
-                                <p>@item.ChietKhau </p>
+                            <div>
+                                <h4>@item.ChietKhau % </h4> 
+                            </div>
+                            
+                            <div >
+                                <a href="~/KhachHang/TrangChu">Tìm vé</a>
                             </div>
                             <br />
-                            <div class="inputbox">
-                                <a href="~/KhachHang/TrangChu">Tìm thêm vé</a>
-                            </div>
                         </form>
                     </div>
 
@@ -104,17 +106,7 @@
             }
         }
     </div>
-    <div class="right">
-        <div class="banner-banner">
-            <img src="~/hinh/KM/bnnqc.jpg" />
-        </div>
-        <div class="banner-banner">
-            <img src="~/hinh/KM/bnqc.jpg" />
-        </div>
-        <div class="banner-banner">
-            <img src="~/hinh/KM/bannerqc.png" />
-        </div>
-    </div>
+    
     
 </body>
 

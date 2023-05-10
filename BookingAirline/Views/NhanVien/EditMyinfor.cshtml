@@ -90,7 +90,7 @@
 
                                         <div class="col-md-6">
                                             <span>Day of Birth:</span>
-                                            <input type="date" name="NgaySinh" disabled value="@Model.NgaySinh" class="form-control" />
+                                            @Html.TextBoxFor(m => Model.NgaySinh, "{0:dd/MM/yyyy}", new { @id = "inputDateOfBirth", @class = "form-control", @readonly = true })
                                             @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -166,7 +166,7 @@
 
                                         <div class="col-md-6">
                                             <span>Day of Birth:</span>
-                                            <input type="date" name="Date of birth" value="@Model.NgaySinh" disabled class="form-control" />
+                                            @Html.TextBoxFor(m => Model.NgaySinh, "{0:dd/MM/yyyy}", new { @id = "inputDateOfBirth", @class = "form-control", @readonly = true })
                                             @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
                                         </div>
                                     </div>

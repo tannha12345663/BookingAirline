@@ -174,14 +174,72 @@
         </div>
     </section>
     @RenderBody()
-    <br />
+
 
     <br />
+    <h2 style="text-align:center"> WHAT DO CUSTOMERS SAY ABOUT US?</h2>
     <br />
+
+    <div class="display-container">
+
+
+        <img src="~/hinh/BL/Ảnh chụp màn hình 2023-03-23 235830.png" class="mySlides" />
+        <img src="~/hinh/BL/Ảnh chụp màn hình 2023-03-23 235918.png" class="mySlides" />
+        <img src="~/hinh/BL/Ảnh chụp màn hình 2023-03-23 235954.png" class="mySlides" />
+
+
+        <button class="image-button button-left" onclick="plusDivs(-1)">&#10094;</button>
+        <button class="image-button button-right" onclick="plusDivs(1)">&#10095;</button>
+    </div>
+
+
+    <br />
+    <h2 style="text-align:center">Business Partner</h2>
+    <div class="Coop">
+
+
+        <div class="logo">
+            <img src="~/hinh/Cooplogo/Bamboo-Airways-logo.png" />
+            <img src="~/hinh/Cooplogo/malaysia-airlines-logo.png" />
+            <img src="~/hinh/Cooplogo/Singapore-Airlines-logo-01.png" />
+            <img src="~/hinh/Cooplogo/thai-airway-logo.png" />
+            <img src="~/hinh/Cooplogo/VJ.png" />
+            <img src="~/hinh/Cooplogo/VNEl.png" />
+        </div>
+
+    </div>
+
+
+
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="primary-button">
+                        <a href="#" class="scroll-top">Back To Top</a>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <ul class="social-icons">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    <p>By Team 30 </p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 </body>
 
-</footer>
+
+</html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="~/Style/Js/jquery-1.11.2.min.js"><\/script>')</script>
 
@@ -272,7 +330,7 @@
 
 </script>
 
-@*<script>
+<script>
     var slideIndex = 1;
     showDivs(slideIndex);
 
@@ -290,6 +348,6 @@
         }
         x[slideIndex - 1].style.display = "block";
     }
-</script>*@
+</script>
 
 

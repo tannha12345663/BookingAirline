@@ -568,35 +568,26 @@ namespace BookingAirline.Controllers
             TempData["macv"] = vc.MaVC;
             TempData["MessageAlert"] = "success";
             return RedirectToAction("Promotion");
-
         }
         
-        [HttpGet]
+        
         public ActionResult EditPro(string id)
         {
-
-            var voucher = new Voucher().ViewDetail(id);
-
+            var voucher = database.Vouchers.Find(id);
             return View(voucher);
         }
 
         [HttpPost]
-
-        public ActionResult EditPro(Voucher voucher)
+        public ActionResult EditPro(Voucher voucher, string SelectTT)
         {
-            if (ModelState.IsValid)
-            {
-                var vc = new Voucher();
-                var result = vc.Update(voucher);
+            var vc = database.Vouchers.Find(voucher.MaVC);
+            vc.TinhTrang = SelectTT;
+            database.SaveChanges();
+            TempData["mavc"] = voucher.MaVC;
+            TempData["MessageAlert"] = "SuaThanhCong";
 
-
-
-            }
-
-            return View("Promotion");
+            return RedirectToAction("Promotion", "NhanVien");
         }
-
-        
 
         public ActionResult DeletePro(string id)
         {

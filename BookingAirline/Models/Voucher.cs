@@ -11,36 +11,41 @@ namespace BookingAirline.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Voucher
     {
         BookingAirLightEntities db = new BookingAirLightEntities();
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Voucher()
         {
-           
             this.HoaDons = new HashSet<HoaDon>();
         }
     
         public string MaVC { get; set; }
         public string TenVC { get; set; }
         public Nullable<double> ChietKhau { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> NgayApDung { get; set; }
         public Nullable<System.DateTime> NgayHetHan { get; set; }
         public string TinhTrang { get; set; }
-    
+        
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
+
         public bool Update(Voucher vc)
         {
             try
             {
                 var voucher = db.Vouchers.Find(vc.MaVC);
+                
                 voucher.MaVC = vc.MaVC;
                 voucher.TenVC = vc.TenVC;
                 voucher.NgayApDung = vc.NgayApDung;
                 voucher.NgayHetHan = vc.NgayHetHan;
                 voucher.TinhTrang = vc.TinhTrang;
+                   
+                
                 db.SaveChanges();
                 return true;
             }
@@ -54,5 +59,8 @@ namespace BookingAirline.Models
         {
             return db.Vouchers.Find(id);
         }
+        
     }
+    
 }
+

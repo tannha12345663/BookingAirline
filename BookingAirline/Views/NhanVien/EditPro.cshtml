@@ -6,10 +6,11 @@
 }
 
 <link href="~/Content/Create promotion.css" rel="stylesheet" />
+
 <h2>EditPromotion</h2>
 <div class="Main-content">
 
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("EditPro", "NhanVien", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
@@ -17,8 +18,9 @@
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                <span>Mã khuyến mãi</span>
+                
                 <div class="col-md-10">
+                    <span>Mã khuyến mãi</span>
                     @Html.EditorFor(model => model.MaVC, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.MaVC, "", new { @class = "text-danger" })
                 </div>
@@ -37,7 +39,7 @@
             <div class="form-group">
                 <span>Ngày bắt đầu</span>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.NgayApDung, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    @Html.EditorFor(model => model.NgayApDung, new { htmlAttributes = new { @class = "form-control", @type = "date", @min = @DateTime.Now.ToString("yyyy-MM-dd") } })
                     @Html.ValidationMessageFor(model => model.NgayApDung, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -45,7 +47,7 @@
             <div class="form-group">
                 <span>Ngày kết thúc</span>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.NgayHetHan, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    @Html.EditorFor(model => model.NgayHetHan, new { htmlAttributes = new { @class = "form-control", @type = "date", @min = @DateTime.Now.ToString("yyyy-MM-dd") } })
                     @Html.ValidationMessageFor(model => model.NgayHetHan, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -61,8 +63,11 @@
             <div class="form-group">
                 <span>Tình trạng</span>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.TinhTrang, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TinhTrang, "", new { @class = "text-danger" })
+                    @Html.DropDownList("SelectTT", new List<SelectListItem>
+                        {
+                            new SelectListItem { Text= "Active", Value = "Active",},
+                            new SelectListItem { Text= "Finish", Value = "Finish"},
+                        }, "-- Select TT --", new { @class = "form-control" })
                 </div>
             </div>
 
@@ -72,7 +77,6 @@
                 </div>
             </div>
         </div>
-
 
         <div>
             @Html.ActionLink("Back to List", "Promotion")
