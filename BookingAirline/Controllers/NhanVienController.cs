@@ -553,24 +553,58 @@ namespace BookingAirline.Controllers
             return View();
         }
         
-        public ActionResult CreatePromotion()
-        {
-            return View();
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreatePromotion(Voucher vc)
+        public ActionResult CreatePromotion(Voucher voucher, string SelectTT,string NgayApDung, string NgayHetHan)
         {
-            database.Entry(vc).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
-            database.Vouchers.Add(vc);
+            
+            voucher.TinhTrang = SelectTT;
+            database.Vouchers.Add(voucher);
             database.SaveChanges();
-            TempData["macv"] = vc.MaVC;
+            TempData["macv"] = voucher.MaVC;
             TempData["MessageAlert"] = "success";
             return RedirectToAction("Promotion");
         }
-        
-        
+        [HttpPost]
+        public JsonResult KTMavc(string input)
+        {
+            bool isDup = false;
+            var check = database.Vouchers.Where(s => s.MaVC == input).FirstOrDefault();
+            if (check != null)
+            {
+                isDup = true;
+                return Json(isDup, JsonRequestBehavior.AllowGet);
+            }
+            return Json(isDup, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetDatavc()
+        {
+            bool proxyCreation = database.Configuration.ProxyCreationEnabled;
+            try
+            {
+                database.Configuration.ProxyCreationEnabled = false;
+                var dstb = database.Vouchers.ToList();
+                return Json(new { Data = dstb, TotalItems = dstb.Count }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(ex.Message);
+            }
+            finally
+            {
+                //restore ProxyCreation to its original state
+                database.Configuration.ProxyCreationEnabled = proxyCreation;
+            }
+        }
+        public ActionResult CreatePromotion(Voucher vc)
+        {
+           
+            return View();
+        }
+
         public ActionResult EditPro(string id)
         {
             var voucher = database.Vouchers.Find(id);
@@ -582,10 +616,15 @@ namespace BookingAirline.Controllers
         {
             var vc = database.Vouchers.Find(voucher.MaVC);
             vc.TinhTrang = SelectTT;
+            vc.TenVC = voucher.TenVC;
+            vc.NgayApDung = voucher.NgayApDung;
+            vc.NgayHetHan = voucher.NgayHetHan;
+            vc.ChietKhau = voucher.ChietKhau;
+            
+
             database.SaveChanges();
             TempData["mavc"] = voucher.MaVC;
             TempData["MessageAlert"] = "SuaThanhCong";
-
             return RedirectToAction("Promotion", "NhanVien");
         }
 
@@ -600,13 +639,10 @@ namespace BookingAirline.Controllers
             return Json(new { success = true });
         }
 
-
-        
         //Bảng log ghi lại lịch sử thêm xóa chuyến bay
         public ActionResult History()
         {
             return View();
         }
-
     }
 }

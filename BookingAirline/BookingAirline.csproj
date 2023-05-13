@@ -728,12 +728,12 @@
     <Content Include="Views\KhachHangHA\Shared\_LayoutContact.cshtml" />
     <Content Include="Views\KhachHangHA\Shared\_LayoutPayment.cshtml" />
     <Content Include="Views\KhachHangHA\Shared\_LayoutPage2.cshtml" />
-    <Content Include="Views\Home\Promotion.cshtml" />
     <Content Include="Views\NhanVien\CustomerManagement.cshtml" />
     <Content Include="Views\NhanVien\History.cshtml" />
     <Content Include="Views\NhanVien\Chitietcb.cshtml" />
     <Content Include="Views\KhachHang\FailePayment.cshtml" />
     <Content Include="Views\KhachHang\Shared\_LayoutPagePaymentStatus.cshtml" />
+    <Content Include="Views\Home\Promotion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\KhachHangHA\Shared\_LayoutInfoCustomer.cshtml" />
