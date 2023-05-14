@@ -117,12 +117,12 @@
                             <th>Còn lại</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="myTableBody">
                         @{ var ttcb = database.ChuyenBays.ToList();
                             foreach (var item01 in ttcb)
                             {
                                 <tr>
-                                    <td style="text-align:center">@item01.MaCB</td>
+                                    <td style="text-align:center" >@item01.MaCB</td>
                                     <td style="text-align:center">@item01.MaMB</td>
                                     <td style="text-align:center">@item01.MaTBay</td>
                                     <td style="text-align:center">@item01.NgayGio</td>
@@ -415,7 +415,7 @@
 
             <div class="modal-footer">
                 <a href="#" class="btn btn-primary" data-dismiss="modal">Cancle</a>
-                <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirm</a>
+                <a href="#" class="btn btn-danger" id="ConfirmDelete">Confirm</a>
             </div>
 
         </div>
@@ -435,22 +435,27 @@
             }
         }
 
+        $('#myTableBody').on("click", "#MaCbay", function () {
+            $('.myModal03').show();
+            var value = $(this).val();
+            console.log("Bạn vừa chọn chuyến bay" + value);
+            $('#ConfirmDelete').click(function () {
+                var macb = value;
+                $.ajax({
+                    type: "POST",
+                    url: "/NhanVien/DeleteFlight/" + macb,
+                    success: function (res) {
+                        if (res.success == true) {
+                            window.location.reload();
+                        }
+                        else {
 
-        function ConfirmDelete() {
-            var macb = $('#MaCbay').val();
-            $.ajax({
-                type: "POST",
-                url: "/NhanVien/DeleteFlight/" + macb,
-                success: function (res) {
-                    if (res.success == true) {
-                        window.location.reload();
+                        }
                     }
-                    else {
-
-                    }
-                }
+                })
             })
-        }
+        }); 
+        
     </script>
 }
 @{

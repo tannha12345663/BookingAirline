@@ -17,7 +17,7 @@ namespace BookingAirline.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string GioiTinh { get; set; }
-
+        public string IDKH { get; set; }
     }
     public class Cart
     {
@@ -69,7 +69,7 @@ namespace BookingAirline.Models
             }
         }
         //Cập nhật CCCD
-        public void CapNhatCCCD(string id,string cccd,string hotenkh, string ngaysinh,string email,string phone, string gioitinh)
+        public void CapNhatCCCD(string id,string cccd,string hotenkh, string ngaysinh,string email,string phone, string gioitinh,string idkh)
         {
             var item = items.Find(s => s.idVe.MaVe == id);
             if (item != null)
@@ -80,6 +80,7 @@ namespace BookingAirline.Models
                 item.Email = email;
                 item.Phone = phone;
                 item.GioiTinh = gioitinh;
+                item.IDKH = idkh;
             }
         }
         //Xóa sản phẩm trong giỏ hàng

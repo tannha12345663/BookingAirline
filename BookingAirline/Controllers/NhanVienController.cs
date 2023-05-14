@@ -177,7 +177,7 @@ namespace BookingAirline.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DetailFlight([Bind(Include = "MaCB,MaMB,MaTbay,NgayGio,ThoiGianBay")] ChuyenBay cb,string id)
+        public ActionResult DetailFlight([Bind(Include = "MaCB,MaMB,MaTbay,NgayGio,ThoiGianBay,SoLuongGheHang1,SoLuongGheHang2,SoLuongGheHang3,TinhTrang")] ChuyenBay cb,string id)
         {
             if (ModelState.IsValid)
             {

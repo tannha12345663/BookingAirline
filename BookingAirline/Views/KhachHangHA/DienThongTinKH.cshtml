@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "DienThongTinKH";
     Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
+    var ttkh = (KhachHang)Session["userKH"];
 }
 
 
@@ -27,28 +28,28 @@
                     <div class="fields">
                         <div class="input-field">
                             <label>Full Name</label>
-                            <input type="text" name="name" placeholder="Enter your name" required>
+                            <input type="text" name="name" value="@ttkh.TenKH" placeholder="Enter your name" required>
                         </div>
 
                         <div class="input-field">
                             <label>Date of Birth</label>
-                            <input type="date" name="birth" placeholder="Enter birth date" required>
+                            <input type="date" name="birth" value="@ttkh.NgaySinh" placeholder="Enter birth date" required>
                         </div>
 
                         <div class="input-field">
                             <label>Email</label>
-                            <input type="text" name="email" placeholder="Enter your email" required>
+                            <input type="text" name="email" value="@ttkh.Email" placeholder="Enter your email" required>
                         </div>
 
                         <div class="input-field">
                             <label>Mobile Number</label>
-                            <input type="number" name="number" placeholder="Enter mobile number" required>
+                            <input type="number" name="number" value="@ttkh.SDT" placeholder="Enter mobile number" required>
                         </div>
 
                         <div class="input-field">
                             <label>Gender</label>
-                            <select required name="gioitinh">
-                                <option disabled selected>Select gender</option>
+                            <select required name="GioiTinh" class="form-control">
+                                <option disabled selected value="@ttkh.GioiTinh">@ttkh.GioiTinh</option>
                                 <option>Male</option>
                                 <option>Female</option>
                                 <option>Others</option>
@@ -57,7 +58,7 @@
 
                         <div class="input-field">
                             <label>CCCD</label>
-                            <input type="text" name="cccd_0" placeholder="Enter your CCCD" required>
+                            <input type="text" name="cccd_0" value="@ttkh.CCCD" placeholder="Enter your CCCD" required>
                         </div>
                     </div>
                     @*<button type="submit" class="nextBtn">

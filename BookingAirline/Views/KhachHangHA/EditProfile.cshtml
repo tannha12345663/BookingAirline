@@ -46,7 +46,13 @@
                             <p>Last update birth: @Model.NgaySinh</p>
                             <li><span>Email:</span> <input type="email" class="form-control" name="Email" placeholder="Email" value="@Model.Email" required /></li>
                             <li><span>Phone:</span> <input type="tel" class="form-control" name="SDT" placeholder="SDT" value="@Model.SDT" required /></li>
-                            <li><span>Country:</span> United States of America</li>
+                            <li><span>Citizen ID:</span><input class="form-control" type="number" name="CCCD" value="@Model.CCCD" required /></li>
+                            <li><span>Gender:</span><select class="form-control" type="number" name="GioiTinh" required>
+                                <option value="@Model.GioiTinh" selected disabled>@Model.GioiTinh</option>
+                                <option value="Male">Male</option>
+                                <option value="Fermale">Fermale</option>
+                                <option value="Other">Oter</option>
+                                    </select> </li>
                         </ul>
                         <input type="submit" class="btn" data-target="#edit-profile" value="Save Profile" />
                     </div><!-- end columns -->

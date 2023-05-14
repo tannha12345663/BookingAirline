@@ -161,7 +161,7 @@ namespace BookingAirline.Controllers
                     var Email = Request["Email_" + stt];
                     var Phone = Request["Phone_" + stt];
                     var Gioitinh = Request["GioiTinh_" + stt];
-                    cart.CapNhatCCCD(mave1, cccd,TenKh,Ngaysinh,Email,Phone,Gioitinh);
+                    
                     
                     //Kiểm tra và thêm các thông tin khách hàng vào danh sách khách hàng tham gia hệ thống
                     var check01 = database.KhachHangs.Where(s => s.CCCD == cccd).FirstOrDefault();
@@ -178,7 +178,13 @@ namespace BookingAirline.Controllers
                         kh.NgaySinh = Ngaysinh;
                         database.KhachHangs.Add(kh);
                         database.SaveChanges();
+                        cart.CapNhatCCCD(mave1, cccd, TenKh, Ngaysinh, Email, Phone, Gioitinh, kh.IDKH);
                     }
+                    else
+                    {
+                        cart.CapNhatCCCD(mave1, cccd, TenKh, Ngaysinh, Email, Phone, Gioitinh, check01.IDKH);
+                    }
+                    
                     stt++;
                 }
             }
@@ -201,8 +207,7 @@ namespace BookingAirline.Controllers
                         var Email = Request["Email_" + number];
                         var Phone = Request["Phone_" + number];
                         var Gioitinh = Request["GioiTinh_" + number];
-                        cart.CapNhatCCCD(mave1, cccd, TenKh, Ngaysinh, Email, Phone, Gioitinh);
-                        number++;
+                        
                         //Kiểm tra và thêm các thông tin khách hàng vào danh sách khách hàng tham gia hệ thống
                         var check01 = database.KhachHangs.Where(s => s.CCCD == cccd).FirstOrDefault();
                         //Kiểm tra nếu mã cccd này chưa có thông tin sẽ lưu lại
@@ -218,7 +223,13 @@ namespace BookingAirline.Controllers
                             kh.NgaySinh = Ngaysinh;
                             database.KhachHangs.Add(kh);
                             database.SaveChanges();
+                            cart.CapNhatCCCD(mave1, cccd, TenKh, Ngaysinh, Email, Phone, Gioitinh, kh.IDKH);
                         }
+                        else
+                        {
+                            cart.CapNhatCCCD(mave1, cccd, TenKh, Ngaysinh, Email, Phone, Gioitinh, check01.IDKH);
+                        }     
+                        number++;
                     }
                     //Chép cccd vào vè lúc về của khách hàng
                     else if (item01.idVe.MaCB == cbden)
@@ -231,8 +242,7 @@ namespace BookingAirline.Controllers
                         var Email = Request["Email_" + number2];
                         var Phone = Request["Phone_" + number2];
                         var Gioitinh = Request["GioiTinh_" + number2];
-                        cart.CapNhatCCCD(mave2, cccd2, TenKh, Ngaysinh, Email, Phone, Gioitinh);
-                        number2++;
+                        
                         //Kiểm tra và thêm các thông tin khách hàng vào danh sách khách hàng tham gia hệ thống
                         var check01 = database.KhachHangs.Where(s => s.CCCD == cccd2).FirstOrDefault();
                         //Kiểm tra nếu mã cccd này chưa có thông tin sẽ lưu lại
@@ -248,7 +258,13 @@ namespace BookingAirline.Controllers
                             kh.NgaySinh = Ngaysinh;
                             database.KhachHangs.Add(kh);
                             database.SaveChanges();
+                            cart.CapNhatCCCD(mave2, cccd2, TenKh, Ngaysinh, Email, Phone, Gioitinh, kh.IDKH);
                         }
+                        else
+                        {
+                            cart.CapNhatCCCD(mave2, cccd2, TenKh, Ngaysinh, Email, Phone, Gioitinh, check01.IDKH);
+                        }
+                        number2++;
                     }
                     
                 }
@@ -336,10 +352,11 @@ namespace BookingAirline.Controllers
                     var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBdi && s.MaVe == ticket).FirstOrDefault();
                     GetCart().Add(detailtic,1,null);                 
                     check++;
-                    if (check == id)
-                    {
-                        break;
-                    }
+                    
+                }
+                if (check == id)
+                {
+                    break;
                 }
 
             }
@@ -378,10 +395,11 @@ namespace BookingAirline.Controllers
                     var detailtic = database.Ves.Where(s => s.MaCB == dsorder.MaCBve && s.MaVe == ticket).FirstOrDefault();
                     GetCart().Add(detailtic, 1,null);
                     check++;
-                    if (check == id)
-                    {
-                        break;
-                    }
+                    
+                }
+                if (check == id)
+                {
+                    break;
                 }
 
             }
@@ -443,6 +461,7 @@ namespace BookingAirline.Controllers
             {
                 var mavedi = database.Ves.Where(s => s.MaVe == item.idVe.MaVe && s.MaCB == item.idVe.MaCB).FirstOrDefault();
                 mavedi.TinhTrang = "Đã thanh toán";
+                mavedi.IDKH = item.IDKH;
                 mavedi.CCCD = item.CCCD;
                 database.Entry(mavedi).State = System.Data.Entity.EntityState.Modified;
                 database.SaveChanges();
@@ -458,19 +477,21 @@ namespace BookingAirline.Controllers
                 //Tiến hành thiết lập tạo phiếu đặt chỗ cho khách hàng
                 PhieuDatCho pdc = new PhieuDatCho();
                 pdc.MaPhieu = "PDC" + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9);
-                pdc.MaCB = cthd.MaCB;
-                pdc.CCCD = themhd.CCCD;
+                pdc.MaCB = item.idVe.MaCB;
+                pdc.IDKH = item.IDKH;
+                pdc.CCCD = item.CCCD;
                 pdc.NgayDat = System.DateTime.Now;
-                pdc.SoGhe = cthd.MaVe;
+                pdc.SoGhe = item.idVe.MaVe;
                 database.PhieuDatChoes.Add(pdc);
                 database.SaveChanges();
             }
-            if (maveve != null)
-            {
-                maveve.TinhTrang = "Đã thanh toán";
-                database.Entry(maveve).State = System.Data.Entity.EntityState.Modified;
-                database.SaveChanges();
-            };
+            //if (maveve != null)
+            //{
+
+            //    maveve.TinhTrang = "Đã thanh toán";
+            //    database.Entry(maveve).State = System.Data.Entity.EntityState.Modified;
+            //    database.SaveChanges();
+            //};
             //Render form gửi email về cho khách hàng
             string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/Template/HtmlPage1.html"));
             content = content.Replace("{{CustomerName}}", ttkh.ShipName);
