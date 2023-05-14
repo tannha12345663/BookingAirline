@@ -14,7 +14,6 @@ namespace BookingAirline.Controllers
         // GET: LoginUser
         public ActionResult Login()
         {
-
             return View();
         }
         [HttpPost]
@@ -115,7 +114,7 @@ namespace BookingAirline.Controllers
 
             var mail = database.KhachHangs.Where(s => s.Email == email).FirstOrDefault();
             var user = database.KhachHangs.Where(s => s.UserName == username).FirstOrDefault();
-            
+
             if(mail != null && user != null)
             {
                 var kh = database.KhachHangs.Where(s => s.Email == email).FirstOrDefault();
@@ -127,6 +126,7 @@ namespace BookingAirline.Controllers
                     return RedirectToAction("Login");
                
                 
+
             }
             else
             {

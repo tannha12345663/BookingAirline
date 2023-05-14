@@ -6,6 +6,7 @@
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
 
 }
+
 <link href="~/Content/myInfor.css" rel="stylesheet" />
 <div class="container-xl px-4 mt-4">
     <div class="row">
@@ -15,8 +16,8 @@
                 <div class="card-header">Ảnh đại diện</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img id="myImg" class="img-account-profile rounded-circle mb-2" src="~/hinh/ka-img.jpg"  alt="your image">
-                    
+                    <img id="myImg" class="img-account-profile rounded-circle mb-2" src="~/hinh/ka-img.jpg" alt="your image">
+
                 </div>
             </div>
         </div>
@@ -26,8 +27,6 @@
                 <div class="card-header">Thông tin</div>
                 <div class="card-body">
                     <form>
-                        
-                       
 
                         <div class="row gx-3 mb-3">
                             <div class="col-md-6">
@@ -56,7 +55,7 @@
 
                         </div>
                         <!-- Form Group (email address)-->
-                        
+
 
                         <div class="row gx-3 mb-3">
                             <div class="col-md-6">
@@ -68,8 +67,7 @@
                                 <input class="form-control" id="inputPhone" type="text" value="@Model.SDT_NV" readonly>
                             </div>
                         </div>
-                        <button class="btn btn-outline-primary" type="button" > @Html.ActionLink("Edit", "EditMyInfor")</button>
-                        
+                        <button class="btn btn-outline-primary" type="button"> @Html.ActionLink("View Details", "EditMyInfor", new { id = Model.IDNV })</button>
 
                     </form>
                 </div>

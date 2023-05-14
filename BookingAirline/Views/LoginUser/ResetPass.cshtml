@@ -1,4 +1,9 @@
 ﻿
+@*@{
+    ViewBag.Title = "ResetPass";
+    Layout = "~/Views/KhachHangHA/Shared/_LayoutPage1.cshtml";
+}*@
+
 @{
     Layout = null;
 }
@@ -9,10 +14,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>ResetPass</title>
-    <link href="~/Content/resetpass.css" rel="stylesheet" />
+
+    <link href="~/Content/ResetPass.css" rel="stylesheet" />
 </head>
 <body>
-    
+
     <form method="post" action="~/LoginUser/ResetPass">
 
 
@@ -30,11 +36,14 @@
 
         </div>
         <br />
-         <p class="text-danger">@TempData["error"]</p>
+
+        <p class="text-danger">@TempData["error"]</p>
+
 
         <button type="submit" class="btn btn-orange btn-block">Reset</button>
         <br />
-        <i>*Password của bạn sẽ được đặt về mặc định là "12345678" sau khi reset </i>
+        <i>*Password sẽ được đặt về mặc định là "12345678" sau khi reset* </i>
     </form>
 </body>
 </html>
+

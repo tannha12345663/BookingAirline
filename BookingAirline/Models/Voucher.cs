@@ -14,9 +14,11 @@ namespace BookingAirline.Models
     
     public partial class Voucher
     {
+        BookingAirLightEntities db = new BookingAirLightEntities();
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Voucher()
         {
+           
             this.HoaDons = new HashSet<HoaDon>();
         }
     
@@ -29,5 +31,28 @@ namespace BookingAirline.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
+        public bool Update(Voucher vc)
+        {
+            try
+            {
+                var voucher = db.Vouchers.Find(vc.MaVC);
+                voucher.MaVC = vc.MaVC;
+                voucher.TenVC = vc.TenVC;
+                voucher.NgayApDung = vc.NgayApDung;
+                voucher.NgayHetHan = vc.NgayHetHan;
+                voucher.TinhTrang = vc.TinhTrang;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+        public Voucher ViewDetail(string id)
+        {
+            return db.Vouchers.Find(id);
+        }
     }
 }

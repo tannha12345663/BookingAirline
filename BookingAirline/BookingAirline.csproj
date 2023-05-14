@@ -247,6 +247,9 @@
     <Compile Include="Models\OrderStatu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+
+    <Compile Include="Models\OrderStatus.cs" />
+
     <Compile Include="Models\Phi.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -256,12 +259,16 @@
     <Compile Include="Models\SanBay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+
+
     <Compile Include="Models\save_log_chuyenbay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+
+
     <Compile Include="Models\TuyenBay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -356,10 +363,14 @@
     <Content Include="Content\images\logo-vietnamAL.png" />
     <Content Include="Content\images\Payment Error.gif" />
     <Content Include="Content\images\Vietjet-Air-Logo-PNG-3.png" />
+
     <Content Include="Content\index.css" />
     <Content Include="Content\myInfor.css" />
     <Content Include="Content\Promotion.css" />
     <Content Include="Content\resetpass.css" />
+
+    <Content Include="Content\ResetPass.css" />
+
     <Content Include="Content\style.css" />
     <Content Include="Content\Template\HtmlPage1.html" />
     <Content Include="Data\Avatar\135017829_1026004181228801_2637032699560275_n-1.jpg" />
@@ -716,7 +727,9 @@
     <Content Include="Views\NhanVien\Staff.cshtml" />
     <Content Include="Views\NhanVien\EditMyinfor.cshtml" />
     <Content Include="Views\NhanVien\Myinfor.cshtml" />
+
     <Content Include="Views\NhanVien\DetailCus.cshtml" />
+
     <Content Include="Views\LoginUser\ResetPass.cshtml" />
     <Content Include="Views\NhanVien\DetailStaff.cshtml" />
     <Content Include="Views\NhanVien\Promotion.cshtml" />
@@ -734,17 +747,23 @@
     <Content Include="Views\KhachHangHA\Shared\_LayoutPage2.cshtml" />
     <Content Include="Views\Home\Promotion.cshtml" />
     <Content Include="Views\NhanVien\CustomerManagement.cshtml" />
+
     <Content Include="Views\NhanVien\History.cshtml" />
     <Content Include="Views\NhanVien\Chitietcb.cshtml" />
     <Content Include="Views\KhachHang\FailePayment.cshtml" />
     <Content Include="Views\KhachHang\Shared\_LayoutPagePaymentStatus.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\KhachHangHA\Shared\_LayoutInfoCustomer.cshtml" />
     <Content Include="Views\KhachHangHA\FailePayment.cshtml" />
+
     <Content Include="Views\NhanVien\DetailCus.cshtml" />
+
     <Content Include="Views\KhachHangHA\WhishList.cshtml" />
+
     <Content Include="Views\KhachHangHA\HienThiWL.cshtml" />
+    <Content Include="Views\LoginUser\ResetPass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
