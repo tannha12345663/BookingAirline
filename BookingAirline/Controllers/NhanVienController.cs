@@ -176,8 +176,8 @@ namespace BookingAirline.Controllers
         {
             if (id != null)
             {
-                var cb = database.ChuyenBays.Find(id);
-                return View (cb);
+                var chitietcb = database.ChuyenBays.Find(id);
+                return View(chitietcb);
             }
             else
             {
@@ -571,30 +571,30 @@ namespace BookingAirline.Controllers
 
         }
         
-        [HttpGet]
-        public ActionResult EditPro(string id)
-        {
+        //[HttpGet]
+        //public ActionResult EditPro(string id)
+        //{
 
-            var voucher = new Voucher().ViewDetail(id);
+        //    var voucher = new Voucher().ViewDetail(id);
 
-            return View(voucher);
-        }
+        //    return View(voucher);
+        //}
 
-        [HttpPost]
+        //[HttpPost]
 
-        public ActionResult EditPro(Voucher voucher)
-        {
-            if (ModelState.IsValid)
-            {
-                var vc = new Voucher();
-                var result = vc.Update(voucher);
+        //public ActionResult EditPro(Voucher voucher)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var vc = new Voucher();
+        //        var result = vc.Update(voucher);
 
 
 
-            }
+        //    }
 
-            return View("Promotion");
-        }
+        //    return View("Promotion");
+        //}
 
         
 

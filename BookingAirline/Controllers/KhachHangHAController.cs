@@ -678,7 +678,6 @@ namespace BookingAirline.Controllers
             } 
                 
             
-            return View("ChooseSeat", "KhachHangHA");
         }
     }
 }

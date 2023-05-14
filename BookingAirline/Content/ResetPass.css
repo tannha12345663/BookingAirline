@@ -15,9 +15,9 @@ form {
     width: 350px;
 }
 
-label {
-    color: aliceblue;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+label{
+    color:aliceblue;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .input-container {
@@ -68,20 +68,18 @@ button {
         background-color: #06b;
     }
 
-h4 {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-}
-
-i {
-    color: white;
-    font-size: 15px;
-    text-align: left;
-}
-
-p {
-    color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+ h4{
+     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     color:white;
+     font-weight: bold;
+     text-align:center;
+ }
+ i{
+     color: white;
+     font-size: 15px;
+     text-align: left;
+ }
+ p{
+     color:white;
+     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ }

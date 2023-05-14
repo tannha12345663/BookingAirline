@@ -5,12 +5,6 @@ VisualStudioVersion = 16.0.33423.256
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingAirline", "BookingAirline\BookingAirline.csproj", "{4ED460FC-26A7-42FA-8978-C3FF08C73A33}"
 EndProject
-
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFunction", "TestFunction\TestFunction.csproj", "{22EACE2F-1770-484E-9FF4-9EDAC8239184}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{DCC34444-2579-4293-AB53-81FF7A2BFBD2}"
-EndProject
-
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,16 +15,6 @@ Global
 		{4ED460FC-26A7-42FA-8978-C3FF08C73A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4ED460FC-26A7-42FA-8978-C3FF08C73A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4ED460FC-26A7-42FA-8978-C3FF08C73A33}.Release|Any CPU.Build.0 = Release|Any CPU
-
-		{22EACE2F-1770-484E-9FF4-9EDAC8239184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22EACE2F-1770-484E-9FF4-9EDAC8239184}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22EACE2F-1770-484E-9FF4-9EDAC8239184}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22EACE2F-1770-484E-9FF4-9EDAC8239184}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DCC34444-2579-4293-AB53-81FF7A2BFBD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DCC34444-2579-4293-AB53-81FF7A2BFBD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DCC34444-2579-4293-AB53-81FF7A2BFBD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DCC34444-2579-4293-AB53-81FF7A2BFBD2}.Release|Any CPU.Build.0 = Release|Any CPU
-
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
