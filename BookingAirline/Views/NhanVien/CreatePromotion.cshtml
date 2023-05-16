@@ -90,9 +90,7 @@
         var endDateField = document.getElementById("end-date");
         var startDateField = document.getElementById("start-date");
 
-        // Thiết lập giá trị "min" của trường ngày bắt đầu bằng giá trị của trường ngày kết thúc
-
-        // Khi giá trị của trường ngày kết thúc thay đổi, cập nhật giá trị "min" của trường ngày bắt đầu
+       
         startDateField.addEventListener("change", function () {
             endDateField.min = startDateField.value;
             console.log(startDateField.value)

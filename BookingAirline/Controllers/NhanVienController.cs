@@ -517,6 +517,7 @@ namespace BookingAirline.Controllers
         public ActionResult DetailStaff(NhanVien nv)
         {
             database.Entry(nv).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+           
             database.SaveChanges();
             TempData["manhanvien"] = nv.IDNV;
             TempData["MessageAlert"] = "SuaNV";

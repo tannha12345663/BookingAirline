@@ -57,7 +57,9 @@ namespace BookingAirline.Models
         {
             var tong = items.Sum(s => s.soLuong * s.idVe.GiaVe);
             return (double)tong;
+
         }
+        
 
         //Cập nhật số lượng
         public void CapNhatSL(string id, int slmoi)
