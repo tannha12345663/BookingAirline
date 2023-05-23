@@ -6,6 +6,7 @@
     Layout = "~/Views/KhachHangHA/Shared/_LayoutInfoCustomer.cshtml";
     BookingAirLightEntities db = new BookingAirLightEntities();
     ViewBag.active3 = "active";
+    var stt = 0;
 }
 
 @{
@@ -79,6 +80,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
+                        stt++;
                         <tr>
                             <td class="dash-list-icon booking-list-date"><div class="b-date"><h3>18</h3><p>October</p></div></td>
                             <td class="dash-list-text booking-list-detail">
@@ -99,6 +101,10 @@
                             </td>
                             <td class="dash-list-btn"><a href="~/KhachHangHA/DetailBooking/@item.MaHD" class="btn btn-success">DETAILS</a></td>
                         </tr>
+                        if (stt == 6)
+                        {
+                            break;
+                        };
                     }
 
                 </tbody>

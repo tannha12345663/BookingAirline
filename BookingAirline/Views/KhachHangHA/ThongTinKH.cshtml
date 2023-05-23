@@ -4,7 +4,8 @@
     Layout = "~/Views/KhachHangHA/Shared/_LayoutInfoCustomer.cshtml";
     ViewBag.active1 = "active";
     BookingAirLightEntities db = new BookingAirLightEntities();
-    var dshd = db.HoaDons.Where(s=>s.MaHD)
+    var user = (BookingAirline.Models.KhachHang)Session["userKH"];
+    var dshd = db.HoaDons.Where(s => s.IDKH == user.IDKH).ToList();
 }
 
 <!--===== INNERPAGE-WRAPPER ====-->
@@ -51,58 +52,23 @@
         <div class="table-responsive">
             <table class="table table-hover">
                 <tbody>
-                    <tr>
-
-                        <td class="dash-list-icon invoice-icon"><i class="fa fa-bars"></i></td>
-                        <td class="dash-list-text invoice-text">
-                            <h4 class="invoice-title">Professional Plan</h4>
-                            <ul class="list-unstyled list-inline invoice-info">
-                                <li class="invoice-status red">Unpaid</li>
-                                <li class="invoice-order"> Order: #00214</li>
-                                <li class="invoice-date"> Date: 25/08/2017</li>
-                            </ul>
-                        </td>
-                        <td class="dash-list-btn"><button class="btn btn-orange">View Invoice</button></td>
-                    </tr>
-
-                    <tr>
-                        <td class="dash-list-icon invoice-icon"><i class="fa fa-bars"></i></td>
-                        <td class="dash-list-text invoice-text">
-                            <h4>Extended Plan</h4>
-                            <ul class="list-unstyled list-inline invoice-info">
-                                <li class="invoice-status green">Paid</li>
-                                <li class="invoice-order"> Order: #00214</li>
-                                <li class="invoice-date"> Date: 25/08/2017</li>
-                            </ul>
-                        </td>
-                        <td class="dash-list-btn"><button class="btn btn-orange">View Invoice</button></td>
-                    </tr>
-
-                    <tr>
-                        <td class="dash-list-icon invoice-icon"><i class="fa fa-bars"></i></td>
-                        <td class="dash-list-text invoice-text">
-                            <h4>Extended Plan</h4>
-                            <ul class="list-unstyled list-inline invoice-info">
-                                <li class="invoice-status red">Unpaid</li>
-                                <li class="invoice-order"> Order: #00214</li>
-                                <li class="invoice-date"> Date: 25/08/2017</li>
-                            </ul>
-                        </td>
-                        <td class="dash-list-btn"><button class="btn btn-orange">View Invoice</button></td>
-                    </tr>
-
-                    <tr>
-                        <td class="dash-list-icon invoice-icon"><i class="fa fa-bars"></i></td>
-                        <td class="dash-list-text invoice-text">
-                            <h4>Basic Plan</h4>
-                            <ul class="list-unstyled list-inline invoice-info">
-                                <li class="invoice-status red">Unpaid</li>
-                                <li class="invoice-order"> Order: #00214</li>
-                                <li class="invoice-date"> Date: 25/08/2017</li>
-                            </ul>
-                        </td>
-                        <td class="dash-list-btn"><button class="btn btn-orange">View Invoice</button></td>
-                    </tr>
+                    @{
+                        foreach (var item in dshd)
+                        {
+                            <tr>
+                                <td class="dash-list-icon invoice-icon"><i class="fa fa-bars"></i></td>
+                                <td class="dash-list-text invoice-text">
+                                    <h4 class="invoice-title">Professional Plan</h4>
+                                    <ul class="list-unstyled list-inline invoice-info">
+                                        <li class="invoice-status red">Pay: @item.TinhTrang</li>
+                                        <li class="invoice-order"> Order: #@item.MaHD</li>
+                                        <li class="invoice-date"> Date: @item.NgayLap</li>
+                                    </ul>
+                                </td>
+                                <td class="dash-list-btn"><a class="btn btn-orange"href="~/KhachHangHA/DetailBooking/@item.MaHD">View Invoice</a></td>
+                            </tr>
+                        }
+                    }
                 </tbody>
             </table>
         </div><!-- end table-responsive -->

@@ -24,6 +24,7 @@ namespace BookingAirline.Controllers
         }
         public ActionResult ThongTinKH()
         {
+            
             return View();
         }
         public ActionResult ThongtinCaNhan()
