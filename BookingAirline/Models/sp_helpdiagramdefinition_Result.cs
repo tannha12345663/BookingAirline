@@ -10,15 +10,10 @@
 namespace BookingAirline.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Wishlist
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public string MaWL { get; set; }
-        public string MaCB { get; set; }
-        public string MaKH { get; set; }
-        public Nullable<System.DateTime> NgayThem { get; set; }
-        public string MaCBVe { get; set; }
-        public Nullable<int> SoLuong { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

@@ -129,6 +129,5 @@ namespace BookingAirline.Controllers
             base.Dispose(disposing);
         }
 
-       
     }
 }

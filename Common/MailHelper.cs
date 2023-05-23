@@ -14,7 +14,6 @@ namespace Common
         {
             var fromEmailAddress = ConfigurationManager.AppSettings["FromEmailAddress"].ToString();
             var fromEmailDisplayName = ConfigurationManager.AppSettings["FromEmailDisplayName"].ToString();
-            var fromEmailPassword
         }
     }
 }

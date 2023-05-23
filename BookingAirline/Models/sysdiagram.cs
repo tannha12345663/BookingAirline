@@ -12,14 +12,12 @@ namespace BookingAirline.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class save_log_chuyenbay
+    public partial class sysdiagram
     {
-        public System.DateTime Malog { get; set; }
-        public string ThaoTac { get; set; }
-        public string MaCB { get; set; }
-        public string MaMB { get; set; }
-        public string MaTBay { get; set; }
-        public Nullable<System.DateTime> NgayGio { get; set; }
-        public string ThoiGianBay { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

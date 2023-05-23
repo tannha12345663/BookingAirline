@@ -342,7 +342,6 @@ namespace BookingAirline.Controllers
         }
 
         //Version 2.0
-        [HttpGet]
         public ActionResult ChooseSeat()
         {
             var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
@@ -577,9 +576,28 @@ namespace BookingAirline.Controllers
         }
         public ActionResult HienThiWL()
         {
-            var ds = database.Wishlists.ToList();
+            var KH = (BookingAirline.Models.KhachHang)Session["userKH"];
+            var ds = database.Wishlists.Where(s=>s.MaKH==KH.IDKH).ToList();
             return View(ds);
         }
+        [HttpPost]
+        public ActionResult TimVe(string MaCB)
+        {
+            var KH = (BookingAirline.Models.KhachHang)Session["userKH"];
+            var ds = database.Wishlists.Where(s => s.MaKH == KH.IDKH && s.MaCB.Contains(MaCB)).ToList();
+            return View("HienThiWL",ds);
+        }
+
+        public ActionResult XoaWL(string id)
+        {
+            var KH = (BookingAirline.Models.KhachHang)Session["userKH"];
+            var faCB = database.Wishlists.Where(s => s.MaCB == id && s.MaKH == KH.IDKH).FirstOrDefault();
+            database.Wishlists.Remove(faCB);
+            database.SaveChanges();
+            return RedirectToAction("HienThiWL");
+        }
+
+        [HttpPost]
         public ActionResult WhishList(string id)
         {
             var KH = (BookingAirline.Models.KhachHang)Session["userKH"];
@@ -587,33 +605,77 @@ namespace BookingAirline.Controllers
             if (Session["userKH"] != null)
             {
                 var faCB = database.Wishlists.Where(s => s.MaCB == id && s.MaKH == KH.IDKH).FirstOrDefault();
+                var order= database.OrderStatus.Where(s=> s.IDUser == KH.IDKH).FirstOrDefault();
                 if (faCB == null)
                 {
                     Wishlist wl = new Wishlist();
                     Random rd = new Random();
                     var rdnumber = rd.Next(1, 1000);
                     wl.MaWL = rdnumber.ToString();
-                    wl.MaCB = id;
+                    wl.MaCB = order.MaCBdi;
                     wl.MaKH = KH.IDKH;
                     wl.NgayThem = System.DateTime.Now;
+                    wl.MaCBVe = order.MaCBve;
+                    wl.SoLuong = int.Parse(Session["SoLuong"].ToString());
                     database.Wishlists.Add(wl);
                     database.SaveChanges();
-                    return RedirectToAction("ChooseSeat", "KhachHangHA");
+                    var success01 = true;
+                    //return RedirectToAction("ChooseSeat", "KhachHangHA");
+                    return Json(new { Data = success01 }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
                     database.Wishlists.Remove(faCB);
                     database.SaveChanges();
-                    return RedirectToAction("ChooseSeat", "KhachHangHA");
+                    var success02 = true;
+                    //return RedirectToAction("ChooseSeat", "KhachHangHA");
+                    return Json(new { Data01 = success02 }, JsonRequestBehavior.AllowGet);
                 }
             }
             else
             {
-                return RedirectToAction("Login", "LoginUser");
-            } 
-                
-            
-            return View("ChooseSeat", "KhachHangHA");
+                //return RedirectToAction("Login", "LoginUser");
+                return Json(new { redirectToUrl = Url.Action("Login", "LoginUser") });
+
+            }
+            Json(id, JsonRequestBehavior.AllowGet);
+            //return View("ChooseSeat", "KhachHangHA");
+        }
+
+        public ActionResult ReturnVe(string id)
+        {
+            var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
+            var WL = database.Wishlists.Where(s => s.MaCB == id && s.MaKH == uid.IDKH).FirstOrDefault();
+            Session["SoLuong"] = WL.SoLuong;
+            OrderStatu order = new OrderStatu();
+            order.IDUser = uid.IDKH;
+            var count = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
+            if (count != null)
+            {
+                database.OrderStatus.Remove(count);
+                database.SaveChanges();
+            }
+            //kiểm tra xem có khứ hồi không
+            if (WL.MaCBVe != null)
+            {
+                order.MaCBdi = id;
+                order.MaCBve = WL.MaCBVe;
+                database.OrderStatus.Add(order);
+                database.SaveChanges();
+                string trip = "round";
+                Session["trip"] = trip;
+                return RedirectToAction("ChooseSeat");
+            }
+            else
+            {
+                order.MaCBdi = id;
+                order.MaCBve = null;
+                database.OrderStatus.Add(order);
+                database.SaveChanges();
+                string trip = "one-way";
+                Session["trip"] = trip;
+                return RedirectToAction("ChooseSeat");
+            }
         }
     }
 }

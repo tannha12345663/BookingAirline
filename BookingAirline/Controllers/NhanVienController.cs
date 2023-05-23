@@ -548,53 +548,53 @@ namespace BookingAirline.Controllers
 
         }
 
-        public ActionResult Promotion()
-        {
-            return View();
-        }
+        //public ActionResult Promotion()
+        //{
+        //    return View();
+        //}
         
-        public ActionResult CreatePromotion()
-        {
-            return View();
-        }
+        //public ActionResult CreatePromotion()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreatePromotion(Voucher vc)
-        {
-            database.Entry(vc).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
-            database.Vouchers.Add(vc);
-            database.SaveChanges();
-            TempData["macv"] = vc.MaVC;
-            TempData["MessageAlert"] = "success";
-            return RedirectToAction("Promotion");
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CreatePromotion(Voucher vc)
+        //{
+        //    database.Entry(vc).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+        //    database.Vouchers.Add(vc);
+        //    database.SaveChanges();
+        //    TempData["macv"] = vc.MaVC;
+        //    TempData["MessageAlert"] = "success";
+        //    return RedirectToAction("Promotion");
 
-        }
+        //}
         
-        [HttpGet]
-        public ActionResult EditPro(string id)
-        {
+        //[HttpGet]
+        //public ActionResult EditPro(string id)
+        //{
 
-            var voucher = new Voucher().ViewDetail(id);
+        //    var voucher = new Voucher().ViewDetail(id);
 
-            return View(voucher);
-        }
+        //    return View(voucher);
+        //}
 
-        [HttpPost]
+        //[HttpPost]
 
-        public ActionResult EditPro(Voucher voucher)
-        {
-            if (ModelState.IsValid)
-            {
-                var vc = new Voucher();
-                var result = vc.Update(voucher);
+        //public ActionResult EditPro(Voucher voucher)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var vc = new Voucher();
+        //        var result = vc.Update(voucher);
 
 
 
-            }
+        //    }
 
-            return View("Promotion");
-        }
+        //    return View("Promotion");
+        //}
 
         
 
