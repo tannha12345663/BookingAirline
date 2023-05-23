@@ -60,7 +60,6 @@ namespace BookingAirline.Models
 
         }
         
-
         //Cập nhật số lượng
         public void CapNhatSL(string id, int slmoi)
         {

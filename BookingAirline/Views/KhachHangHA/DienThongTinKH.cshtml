@@ -125,11 +125,7 @@
                         }
 
                     }
-            <div class="input-field">
-                <label>Mã giảm giá: </label>
-                <input id="Mavc" style="text-align:center" type="text" class="text-justify" placeholder="Nhập mã giảm giá" />
-                <span id="error" style="color:red"></span>
-            </div>
+                    
                     <button class="btnNext" id="btnNext">
                         <span class="btnText">Payment</span>
                         <i class="uil uil-navigator"></i>
@@ -194,65 +190,4 @@
         };
     }
 </script>
-<script>
 
-    LoadData();
-    $(document).ready(function () {
-        $('#btnNext').click(function () {
-            var mavc = $('#Mavc').val();
-
-            var model = {
-                MaVC= mavc;
-            };
-            $.ajax({
-                url: '/KhachHangHA/DienThongTinKH',
-                type: 'POST',
-                data: model,
-                success: function (res) {
-                    if (res.success) {
-                        window.location.reload();
-                    }
-                }
-            });
-        });
-    });
-    
-
-</script>
-
-<script>
-
-        $("#Mavc").change('input', function () { 
-            var inputval = $(this).val();
-            console.log(inputval); //Dùng để check value biến hứng khi có sự kiện người dùng tác động vào
-            var isDup = false;
-            
-            //Tạo một Ajax request với controller và action tương ứng
-            $.ajax({
-                url: '@Url.Action("KTKM", "KhachHangHA")',
-                type: 'POST',
-                data: {
-                    input:inputval
-                },
-                success: function (response) {
-                    if (response) {
-                        var html1 = '<p> Đã áp dụng mã<p>'
-                        $('#error').html(html1);
-                        $("#btnNext").prop("disabled", false);
-                    }
-                    else {
-                        if (inputval.length == 0) {
-                            var html = ''
-                            $('#error').html(html);
-                            $("#btnNext").prop("disabled", false);
-                        }
-                        else {
-                            var html = '<p> Mã khuyến mãi không tồn tại <p>'
-                            $('#error').html(html);
-                            $("#btnNext").attr("disabled", "disable");
-                        }
-                    }
-                    
-            })
-        })
-</script>

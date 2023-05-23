@@ -341,37 +341,7 @@ namespace BookingAirline.Controllers
             Session["contacKH"] = contact;
             return RedirectToAction("ThanhToan");
         }
-        [HttpPost]
-        public JsonResult KTKM(string input)
-        {
-            bool isDup = false;
-            var check = database.Vouchers.FirstOrDefault(s => s.MaVC == input);
-            
-            if (check != null && check.TinhTrang == "Active")
-                isDup = true;
-
-            return Json(isDup, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult GetDatavc()
-        {
-            bool proxyCreation = database.Configuration.ProxyCreationEnabled;
-            try
-            {
-                database.Configuration.ProxyCreationEnabled = false;
-                var dstb = database.Vouchers.ToList();
-                return Json(new { Data = dstb, TotalItems = dstb.Count }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(ex.Message);
-            }
-            finally
-            {
-                //restore ProxyCreation to its original state
-                database.Configuration.ProxyCreationEnabled = proxyCreation;
-            }
-        }
+        
 
         //Version 2.0
         [HttpGet]
@@ -476,7 +446,7 @@ namespace BookingAirline.Controllers
             }
             return customer;
         }
-
+       
         public ActionResult ThanhToan(string id)
         {
             if (Session["Cart"] == null)
@@ -484,20 +454,51 @@ namespace BookingAirline.Controllers
                 return View();
             }
             Cart cart = Session["Cart"] as Cart;
-           
+            
                 var tt = cart.TongTien();
                 var contact = (Order)Session["contacKH"];
                 contact.Total = tt;
                 Session["contacKH"] = contact;
             
-            
+
             return View(cart);
         }
-        
+        [HttpPost]
+        public JsonResult KTKM(string input)
+        {
+            bool isDup = false;
+            var check = database.Vouchers.FirstOrDefault(s => s.MaVC == input);
+
+            if (check != null && check.TinhTrang == "Active")
+                isDup = true;
+
+            return Json(isDup, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetDatavc()
+        {
+            bool proxyCreation = database.Configuration.ProxyCreationEnabled;
+            try
+            {
+                database.Configuration.ProxyCreationEnabled = false;
+                var dstb = database.Vouchers.ToList();
+                return Json(new { Data = dstb, TotalItems = dstb.Count }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(ex.Message);
+            }
+            finally
+            {
+                //restore ProxyCreation to its original state
+                database.Configuration.ProxyCreationEnabled = proxyCreation;
+            }
+        }
 
         [HttpGet]
         public ActionResult ThanhToan01()
         {
+
             var uid = (BookingAirline.Models.KhachHang)Session["userKH"];
             var kh = database.OrderStatus.Where(s => s.IDUser == uid.IDKH).FirstOrDefault();
 
@@ -540,6 +541,7 @@ namespace BookingAirline.Controllers
                 cthd.DonGia = item.idVe.GiaVe;
                 cthd.MaCB = item.idVe.MaCB;
                 cthd.TongTien = (item.soLuong) * (item.idVe.GiaVe);
+                
                 database.ChiTietHDs.Add(cthd);
                 database.SaveChanges();
 
