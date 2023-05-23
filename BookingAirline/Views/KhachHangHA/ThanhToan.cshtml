@@ -305,21 +305,7 @@
      })
 
 </script>
-<script>
-    $("#Total").on('price', function () {
-        var currentTotal = $("#total").val();
-        console.log(currentTotal); //Dùng để check value biến hứng khi có sự kiện người dùng tác động vào
 
-        $.ajax({
-            url: '@Url.Action("ThanhToan", "KhachHangHA")',
-            type: "POST",
-            data: { total: $("#total").val() },
-            success: function (discountedTotal) {
-                $("#total").val(discountedTotal);
-            }
-        });
-    })
-</script>
 
 
 
