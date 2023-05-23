@@ -442,12 +442,14 @@ namespace BookingAirline.Controllers
             //database.Entry(mavedi).State = System.Data.Entity.EntityState.Modified;
             //database.SaveChanges();
             //Thêm lưu xuất ra hóa đơn
+            var idkh = database.KhachHangs.Where(s => s.CCCD == ttkh.CCCD).FirstOrDefault();
             Random rd = new Random();
             HoaDon themhd = new HoaDon();
             themhd.MaHD = "HD" + rd.Next(1, 100) + rd.Next(1, 100);
             themhd.TinhTrang = "Đã thanh toán";
             themhd.NgayLap = System.DateTime.Now;
             themhd.ThanhTien = ttkh.Total;
+            themhd.IDKH = idkh.IDKH;
             themhd.CCCD = ttkh.CCCD;
             database.HoaDons.Add(themhd);
             database.SaveChanges();

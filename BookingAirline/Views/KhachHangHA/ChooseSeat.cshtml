@@ -241,9 +241,10 @@
     $('input[type="checkbox"]').change(function () {
 
         var $this = $(this);
-        console.log("Bạn chọn", $this.val());
-
+        console.log("Bạn chọn", $(this).val());
         if ($this.is(":checked")) {
+            console.log(quantity)
+            console.log(sl);
             if (quantity >= sl) {
                 console.log('Vượt quá số lần chọn ');
                 $(this).prop('checked', false);

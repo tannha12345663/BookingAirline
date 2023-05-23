@@ -4,6 +4,7 @@
     ViewBag.Title = "Danh sách chuyến đi";
     Layout = "~/Views/KhachHang/Shared/_LayoutPage1.cshtml";
     BookingAirLightEntities db = new BookingAirLightEntities();
+    var today = DateTime.Now;
     var sl = Convert.ToInt32(Session["SoLuong"]);
     var stt = 0;
 }
@@ -25,13 +26,15 @@
             @foreach (var item in Model)
             {
                 var check = db.Ves.Where(s => s.MaCB == item.MaCB && s.TinhTrang == "Chưa đặt chỗ").Count();
-                if (check >= sl)
+                TimeSpan han = (DateTime)item.NgayGio - today;
+                if (check >= sl && han.TotalHours >=2)
                 {
                     stt++;
                     <a href="~/KhachHang/DSachCBVe/@item.MaCB" style="text-decoration:none">
                         <div class="ticket">
                             <div class="qr_code">
-                                <img src="~/Content/images/Vietjet-Air-Logo-PNG-3.png" alt="qr_code" />
+                                
+                                <img src="~/Content/images/logo.jpg" alt="Logo"/>
                             </div>
                             <div class="content">
                                 <div class="location">

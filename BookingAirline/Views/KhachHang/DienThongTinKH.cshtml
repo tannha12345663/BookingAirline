@@ -1,4 +1,6 @@
-﻿@{
+﻿﻿@model BookingAirline.Models.Cart
+@using BookingAirline.Models
+@{
     ViewBag.Title = "DienThongTinKH";
     Layout = "~/Views/KhachHang/Shared/_LayoutPage1.cshtml";
 }
@@ -23,17 +25,17 @@
 
                         <div class="input-field">
                             <label>Date of Birth</label>
-                            <input type="date"  placeholder="Enter birth date" name="NgaySinh_0" required>
+                            <input type="date" placeholder="Enter birth date" name="NgaySinh_0" required>
                         </div>
 
                         <div class="input-field">
                             <label>Email</label>
-                            <input type="text"  placeholder="Enter your email"  name="Email_0" required>
+                            <input type="text" placeholder="Enter your email" name="Email_0" required>
                         </div>
 
                         <div class="input-field">
                             <label>Mobile Number</label>
-                            <input type="number"  placeholder="Enter mobile number" name="Phone_0" required>
+                            <input type="number" placeholder="Enter mobile number" name="Phone_0" required>
                         </div>
 
                         <div class="input-field">
@@ -52,9 +54,9 @@
                         </div>
                     </div>
                     @*<button class="nextBtn" type="submit">
-                <span class="btnText">Payment</span>
-                <i class="uil uil-navigator"></i>
-            </button>*@
+                            <span class="btnText">Payment</span>
+                            <i class="uil uil-navigator"></i>
+                        </button>*@
 
 
                 </div>

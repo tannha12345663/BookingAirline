@@ -5,6 +5,7 @@
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
     BookingAirLightEntities database = new BookingAirLightEntities();
     var today = DateTime.Now;
+    ViewBag.active4 = "active";
 }
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -147,23 +148,19 @@
                                     <td style="text-align:center">
                                         @{
                                             TimeSpan han = (DateTime)item01.NgayGio - today;
-                                            if (slveconlai < 2 && han.Days <= 5)
+                                            if (slveconlai < 10 && han.Days <= 5 && han.Days>=0)
                                             {
                                                 <span class="badge bg-secondary">Sắp hết hạn và đặt chỗ</span>
                                             }
-                                            else if (han.Days > 0)
+                                            else if (han.Days >= 0 && han.TotalHours >2)
                                             {
                                                 <span class="badge bg-success">Còn hiệu lực</span>
                                             }
-                                            else if (han.Days == 0 && han.Minutes >= 30)
-                                            {
-                                                <span class="badge bg-success">Còn hiệu lực</span>
-                                            }
-                                            else if (han.Days == 0 && han.Minutes < 30)
+                                            else if (han.Days == 0 &&  han.TotalHours <= 2 && han.TotalHours >=0)
                                             {
                                                 <span class="badge bg-success">Đã đóng check in</span>
                                             }
-                                            else if (han.Days < 0)
+                                            else if (han.Days <= 0)
                                             {
                                                 <span class="badge bg-warning">Hết hiệu lực</span>
                                             }
@@ -181,13 +178,13 @@
                                                     <i class="fa fa-remove"></i>
                                                 </button>
                                             }
-                                            else if (han.Days == 0 && han.Minutes >= 30)
+                                            else if (han.Days == 0 &&  han.TotalHours > 2 )
                                             {
                                                 <button value="@item01.MaCB" id="MaCbay" data-toggle="modal" data-target="#myModal03" class="btn btn-danger btn-sm edit">
                                                     <i class="fa fa-remove"></i>
                                                 </button>
                                             }
-                                            else if (han.Days <= 0 && han.Minutes < 30)
+                                            else if (han.Days <= 0 && han.TotalHours<=2)
                                             {
                                                 
                                             }
@@ -303,7 +300,7 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Nhập ngày giờ khởi hành</label>
-                                <input class="form-control" name="NgayGio" type="datetime-local" required>
+                                <input class="form-control" name="NgayGio" type="datetime-local" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Nhập thời gian bay</label>

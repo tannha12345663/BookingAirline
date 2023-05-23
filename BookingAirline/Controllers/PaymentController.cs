@@ -103,7 +103,7 @@ namespace BookingAirline.Controllers
             
             if(checktk != null)
             {
-                return RedirectToAction("ThankYou", "KhachHangHA");
+                return RedirectToAction("ThanhToan01", "KhachHangHA");
             }
             return RedirectToAction("ConfirmTT", "KhachHang");
         }

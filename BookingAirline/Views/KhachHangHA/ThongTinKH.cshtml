@@ -1,8 +1,10 @@
-﻿
+﻿@using BookingAirline.Models;
 @{
     ViewBag.Title = "Thông tin khách hàng";
     Layout = "~/Views/KhachHangHA/Shared/_LayoutInfoCustomer.cshtml";
     ViewBag.active1 = "active";
+    BookingAirLightEntities db = new BookingAirLightEntities();
+    var dshd = db.HoaDons.Where(s=>s.MaHD)
 }
 
 <!--===== INNERPAGE-WRAPPER ====-->
@@ -50,6 +52,7 @@
             <table class="table table-hover">
                 <tbody>
                     <tr>
+
                         <td class="dash-list-icon invoice-icon"><i class="fa fa-bars"></i></td>
                         <td class="dash-list-text invoice-text">
                             <h4 class="invoice-title">Professional Plan</h4>

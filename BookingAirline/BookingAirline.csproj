@@ -351,6 +351,7 @@
     <Content Include="Content\CSS_remake\Style01.css" />
     <Content Include="Content\images\logo-jetstar.jpg" />
     <Content Include="Content\images\logo-vietnamAL.png" />
+    <Content Include="Content\images\logo.jpg" />
     <Content Include="Content\images\Payment Error.gif" />
     <Content Include="Content\images\Vietjet-Air-Logo-PNG-3.png" />
     <Content Include="Content\index.css" />

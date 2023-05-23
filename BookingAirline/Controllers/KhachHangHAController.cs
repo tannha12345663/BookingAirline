@@ -137,7 +137,7 @@ namespace BookingAirline.Controllers
             var chuyendi = database.TuyenBays.Where(s => s.SanBayDi == di && s.SanBayDen == den).FirstOrDefault();
             //var listdi = database.ChuyenBays.Where(s => s.MaTBay == chuyendi.MaTBay && Convert.ToDateTime(s.NgayGio).ToString("dd")== Day ).ToList();
             var test = database.ChuyenBays.SqlQuery
-                ("Select * from ChuyenBay where YEAR(NgayGio)= @year and DAY (NgayGio) = @day and MONTH(NgayGio)= @month and MaTbay=@chuyendi",
+                ("Select * from ChuyenBay where YEAR(NgayGio)>= @year and DAY (NgayGio) >= @day and MONTH(NgayGio) >= @month and MaTbay=@chuyendi",
                 new SqlParameter("@year", year),
                 new SqlParameter("@day", Day),
                 new SqlParameter("@month", month),
@@ -678,6 +678,25 @@ namespace BookingAirline.Controllers
             } 
                 
             
+        }
+        [HttpPost]
+        public ActionResult RefundTicket(string id)
+        {
+            try 
+            {
+                database.sp_Hoanve1(id);
+                TempData["messageAlert"] = "HoanVeS";
+                TempData["mahd"] = id;
+                
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                TempData["messageAlert"] = "Đã hoàn vé thành công";
+                TempData["mahd"] = id;
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            }
+            //return RedirectToAction("Booking", "KhachHangHA");
         }
     }
 }

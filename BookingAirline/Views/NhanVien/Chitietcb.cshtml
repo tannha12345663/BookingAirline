@@ -93,16 +93,16 @@
 
                             @{
                                 TimeSpan han = (DateTime)Model.NgayGio - today;
-                                if (han.Days <= 0)
+                                if (han.Days >= 0 && han.TotalHours >= 2)
+                                {
+                                    @Html.ActionLink("Edit", "DetailFlight", new { id = Model.MaCB }, new { @class = "btn btn-primary" })
+                                }
+                                else if (han.Days < 0)
                                 {
                                     <button class="btn btn-primary" disabled>Edit</button>
                                     <h2 style="color:red">Unconditional !</h2>
                                     <h3 style="color:red">Overdue</h3>
-                                }
-                                else
-                                {
-                                    @Html.ActionLink("Edit", "DetailFlight", new { id = Model.MaCB }, new { @class = "btn btn-primary" })
-                                }
+                                };
                             }
                         </p>
                     </div>

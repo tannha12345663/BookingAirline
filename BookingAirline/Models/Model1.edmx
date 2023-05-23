@@ -486,6 +486,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_Hoanve1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="mahd" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_XoaPDC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="macb" Type="varchar" Mode="In" />
+          <Parameter Name="soghe" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="BookingAirLightModelStoreContainer">
           <EntitySet Name="ChiTietChuyenBay" EntityType="Self.ChiTietChuyenBay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietHD" EntityType="Self.ChiTietHD" Schema="dbo" store:Type="Tables" />
@@ -1194,6 +1201,17 @@
             <End Role="TuyenBay" EntitySet="TuyenBays" />
           </AssociationSet>
           <EntitySet Name="save_log_chuyenbay" EntityType="BookingAirLightModel.save_log_chuyenbay" />
+          <FunctionImport Name="sp_Hoanve">
+            <Parameter Name="mave" Mode="In" Type="String" />
+            <Parameter Name="macb" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_XoaPDC">
+            <Parameter Name="macb" Mode="In" Type="String" />
+            <Parameter Name="soghe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Hoanve1">
+            <Parameter Name="mahd" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="save_log_chuyenbay">
           <Key>
@@ -1452,6 +1470,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_XoaPDC" FunctionName="BookingAirLightModel.Store.sp_XoaPDC" />
+          <FunctionImportMapping FunctionImportName="sp_Hoanve1" FunctionName="BookingAirLightModel.Store.sp_Hoanve1" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
