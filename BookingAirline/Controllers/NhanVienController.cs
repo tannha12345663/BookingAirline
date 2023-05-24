@@ -506,6 +506,20 @@ namespace BookingAirline.Controllers
         {
             return View();
         }
+        public ActionResult CreateStaff()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateStaff(NhanVien nhanVien, string IDNV, string MaCV, string UserName, string Password, string TenNV, string SDT_NV, string GioiTinh)
+        {
+
+            database.NhanViens.Add(nhanVien);
+            database.SaveChanges();
+            TempData["manhanvien"] = nhanVien.IDNV;
+            TempData["MessageAlert"] = "themthanhcong";
+            return RedirectToAction("Staff");
+        }
         public ActionResult DetailStaff(string id)
         {
             var ttnv = database.NhanViens.Find(id);
@@ -524,7 +538,16 @@ namespace BookingAirline.Controllers
             return RedirectToAction("Staff");
 
         }
-
+        public ActionResult DeleteStaff(string id)
+        {
+            var st = database.NhanViens.Find(id);
+            database.NhanViens.Remove(st);
+            database.SaveChanges();
+            TempData["manhanvien"] = st.IDNV;
+            TempData["messageAlert"] = "XoaThanhCong";
+           
+            return Json(new { success = true });
+        }
         public ActionResult CustomerManagement()
         {
             return View();
