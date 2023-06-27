@@ -10,16 +10,39 @@ using Newtonsoft.Json;
 
 namespace BookingAirline.Controllers
 {
+
     [AuthenticationNV]
     public class NhanVienController : Controller
     {
         BookingAirLightEntities database = new BookingAirLightEntities();
+
+        public NhanVien taikhoan()
+        {
+            NhanVien nv = new NhanVien();
+            nv = Session["userNV"] as NhanVien;
+            return nv;
+        }
+
+        public bool Checkquyen()
+        {
+            bool thu = false;
+            NhanVien check = new NhanVien();
+            NhanVien nvSession = taikhoan();
+
+            if( nvSession.MaCV == "NVBV")
+            {
+                return thu;
+            }
+            thu = true;
+            return thu;
+        }
         // GET: NhanVien
         public ActionResult TrangChu()
         {
             return View();
+
         }
-        
+
         public ActionResult Scheduleaflight()
         {
             return View();
@@ -42,8 +65,8 @@ namespace BookingAirline.Controllers
                 cb.MaCB = macb;
                 database.ChuyenBays.Add(cb);
                 database.SaveChanges();
-                var check = Convert.ToInt32(Request["checkbox01"]) ;
-                if ( check == 1)
+                var check = Convert.ToInt32(Request["checkbox01"]);
+                if (check == 1)
                 {
                     Session["mcb"] = cb.MaCB;
                     TempData["themthongtin"] = check;
@@ -57,13 +80,13 @@ namespace BookingAirline.Controllers
             }
 
         }
-        public void ThemVe(int id1,int id2,int id3, ChuyenBay cb)
+        public void ThemVe(int id1, int id2, int id3, ChuyenBay cb)
         {
             Ve ticket = new Ve();
             //Kiểm tra nếu số lượng
-            if (id1 ==0 && id2 == 0 && id3==0)
+            if (id1 == 0 && id2 == 0 && id3 == 0)
             {
-                return ;
+                return;
             }
             else
             {
@@ -77,7 +100,7 @@ namespace BookingAirline.Controllers
                     ticket.MaCB = cb.MaCB;
                     ticket.MaHV = "HV01";
                     ticket.TinhTrang = "Chưa đặt chỗ";
-                    ticket.GiaVe = Convert.ToDouble( Request["dongiaG1"]);
+                    ticket.GiaVe = Convert.ToDouble(Request["dongiaG1"]);
                     ticket.CCCD = "null";
                     database.Ves.Add(ticket);
                     database.SaveChanges();
@@ -109,11 +132,11 @@ namespace BookingAirline.Controllers
                     database.SaveChanges();
                 }
             }
-            
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddPlan ([Bind(Include = "MaMB,LoaiMayBay")] MayBay mb)
+        public ActionResult AddPlan([Bind(Include = "MaMB,LoaiMayBay")] MayBay mb)
         {
             if (mb == null)
             {
@@ -148,7 +171,19 @@ namespace BookingAirline.Controllers
             database.SaveChanges();
             return RedirectToAction("Scheduleaflight");
         }
-
+        //Xem chi tiết chuyến bay
+        public ActionResult Chitietcb(string id)
+        {
+            if (id != null)
+            {
+                var chitietcb = database.ChuyenBays.Find(id);
+                return View(chitietcb);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+        }
         public ActionResult DetailFlight(string id)
         {
             if (id != null)
@@ -157,7 +192,7 @@ namespace BookingAirline.Controllers
                 TempData["themthongtin"] = 2;
                 return View(thongtincb);
             }
-            else if(id == null)
+            else if (id == null)
             {
                 return HttpNotFound();
             }
@@ -165,20 +200,55 @@ namespace BookingAirline.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DetailFlight(ChuyenBay cb)
+        public ActionResult DetailFlight([Bind(Include = "MaCB,MaMB,MaTbay,NgayGio,ThoiGianBay,SoLuongGheHang1,SoLuongGheHang2,SoLuongGheHang3,TinhTrang")] ChuyenBay cb,string id)
         {
-            ChiTietChuyenBay ctcb = new ChiTietChuyenBay();
-            ctcb.MaCTCB = cb.MaCB;
-            ctcb.SanBayTrungGian = Request["SanBayTrungGian"];
-            ctcb.ThoiGianDung = Request["ThoiGianDung"];
-            ctcb.GhiChu = Request["GhiChu"];
-            database.Entry(ctcb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
-            database.SaveChanges();
-            database.Entry(cb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
-            database.SaveChanges();
-            TempData["machuyenbay"] = cb.MaCB;
-            TempData["messageAlert"] = "SuaThanhCong";
-            return RedirectToAction("Scheduleaflight");
+            if (ModelState.IsValid)
+            {
+                Random rd = new Random();
+                var ctcb = database.ChiTietChuyenBays.Where(s => s.MaCTCB == cb.MaCB).FirstOrDefault();
+                ChiTietChuyenBay ctcb01 = new ChiTietChuyenBay();
+                if (ctcb != null)
+                {
+
+                    ctcb.SanBayTrungGian = Request["SanBayTrungGian"];
+                    ctcb.ThoiGianDung = Request["ThoiGianDung"];
+                    ctcb.GhiChu = Request["GhiChu"];
+                    database.Entry(ctcb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+                    database.SaveChanges();
+
+                    database.Entry(cb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+                    database.SaveChanges();
+                    TempData["machuyenbay"] = cb.MaCB;
+                    TempData["messageAlert"] = "SuaThanhCong";
+                }
+                else
+                {
+                    if (id != null)
+                    {
+                        ctcb01.STT = rd.Next(0, 100000);
+                        ctcb01.MaCTCB = cb.MaCB;
+                        ctcb01.SanBayTrungGian = Request["SanBayTrungGian"];
+                        ctcb01.ThoiGianDung = Request["ThoiGianDung"];
+                        ctcb01.GhiChu = Request["GhiChu"];
+                        database.ChiTietChuyenBays.Add(ctcb01);
+                        database.SaveChanges();
+                    }
+                    else
+                    {
+
+                    }
+                    database.Entry(cb).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+                    database.SaveChanges();
+                    TempData["machuyenbay"] = cb.MaCB;
+                    TempData["messageAlert"] = "SuaThanhCong";
+                }
+                return RedirectToAction("Scheduleaflight");
+            }
+            else
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+                
         }
         [HttpPost]
         public ActionResult DeleteFlight(string id)
@@ -198,9 +268,21 @@ namespace BookingAirline.Controllers
 
         public ActionResult FlightRoute()
         {
-
             return View();
         }
+        [HttpPost]
+        public JsonResult KTtenSB(string input)
+        {
+            bool isDuplicate = false;
+            var check = database.SanBays.Where(s => s.MaSB == input).FirstOrDefault();
+            if (check != null)
+            {
+                isDuplicate = true;
+                return Json(isDuplicate, JsonRequestBehavior.AllowGet);
+            }
+            return Json(isDuplicate, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public JsonResult GetData()
         {
@@ -209,8 +291,9 @@ namespace BookingAirline.Controllers
             {
                 database.Configuration.ProxyCreationEnabled = false;
                 var dstb = database.TuyenBays.ToList();
-                return Json(new { Data=dstb,TotalItems=dstb.Count}, JsonRequestBehavior.AllowGet);
-            }catch(Exception ex)
+                return Json(new { Data = dstb, TotalItems = dstb.Count }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(ex.Message);
@@ -237,8 +320,9 @@ namespace BookingAirline.Controllers
         //        database.SaveChanges();
         //        return RedirectToAction("FlightRoute");
         //    }
-            
+
         //}
+
         //Áp dụng Ajax vào chức năng thêm mới sân bay
         [HttpPost]
         public ActionResult AddAirport(SanBay sb)
@@ -246,6 +330,7 @@ namespace BookingAirline.Controllers
             if (sb != null)
             {
                 database.SanBays.Add(sb);
+
                 try
                 {
                     database.SaveChanges();
@@ -259,7 +344,7 @@ namespace BookingAirline.Controllers
                 }
             }
             TempData["error"] = "Error";
-            return Json(new { success = false}); // Khai báo trả lại status của json
+            return Json(new { success = false }); // Khai báo trả lại status của json
         }
 
         [HttpPost]
@@ -277,15 +362,25 @@ namespace BookingAirline.Controllers
                     TempData["messageAlert"] = "Error01";
                     return RedirectToAction("FlightRoute");
                 }
-                Random rd = new Random();
-                var matb = "TB" + rd.Next(1, 1000);
-                tb.MaTBay = matb;
-                database.TuyenBays.Add(tb);
-                database.SaveChanges();
-                TempData["matuyenbay"] = tb.MaTBay;
-                TempData["messageAlert"] = "success";
-                //return RedirectToAction("FlightRoute");
-                return Json(new { success = true });
+                //Check thông tin sân bay đi và sân bay đến có tồn tại sẵn trong hệ thống hay không 
+                var check = database.TuyenBays.Where(s => s.SanBayDi == tb.SanBayDi && s.SanBayDen == tb.SanBayDen).FirstOrDefault();
+                if(check != null)
+                {
+                    TempData["messageAlert"] = "Error02";
+                    return RedirectToAction("FlightRoute");
+                }
+                else
+                {
+                    Random rd = new Random();
+                    var matb = "TB" + rd.Next(1, 1000);
+                    tb.MaTBay = matb;
+                    database.TuyenBays.Add(tb);
+                    database.SaveChanges();
+                    TempData["matuyenbay"] = tb.MaTBay;
+                    TempData["messageAlert"] = "success";
+                    return RedirectToAction("FlightRoute");
+                }
+                //return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
 
         }
@@ -307,7 +402,7 @@ namespace BookingAirline.Controllers
         [HttpPost]
         public ActionResult DeleteFR(string id)
         {
-            var tb = database.TuyenBays.Find(id);
+            var tb = database.TuyenBays.Where(s => s.MaTBay == id).FirstOrDefault() ;
             database.TuyenBays.Remove(tb);
             database.SaveChanges();
             TempData["matuyenbay"] = tb.MaTBay;
@@ -326,7 +421,7 @@ namespace BookingAirline.Controllers
             return View(dsticket);
         }
         public ActionResult TicketList()
-        {     
+        {
             return View();
         }
         public ActionResult TotalRevenue()
@@ -344,5 +439,183 @@ namespace BookingAirline.Controllers
         {
             return View();
         }
+
+        public ActionResult Myinfor()
+        {
+            NhanVien nhanvien = new NhanVien();
+
+            // xuat ra thong tin nv vua dang nhap
+            nhanvien = taikhoan();
+
+            return View(nhanvien);
+        }
+
+        public ActionResult EditMyinfor(string id)
+        {
+            var nv = database.NhanViens.Find(id);
+
+            //neu checkquyen == true thi la admin/ con = false thi la nvbv
+            ViewBag.checkLogin = Checkquyen();
+
+            return View(nv);
+        }
+
+        [HttpPost]
+        public ActionResult EditMyinfor(NhanVien nhanvien)
+        {
+            if (Checkquyen() && ModelState.IsValid)
+            {
+                var nv = database.NhanViens.Find(nhanvien.IDNV);
+                nv.MaCV = nhanvien.MaCV;
+                nv.TenNV = nhanvien.TenNV;
+                nv.NgaySinh = nhanvien.NgaySinh;
+                nv.Password = nhanvien.Password;
+                nv.UserName = nhanvien.UserName;
+                nv.SDT_NV = nhanvien.SDT_NV;
+                nv.GioiTinh = nhanvien.GioiTinh;
+                database.SaveChanges();
+            }
+
+            return View("Myinfor", nhanvien);
+        }
+        [HttpPost]
+        public ActionResult EditMyinforNV(string IDNV, string TenNV)
+        {
+            var nhanvien = database.NhanViens.Find(IDNV);
+            if (!Checkquyen() && ModelState.IsValid)
+            {
+                NhanVien nv = database.NhanViens.Find(IDNV);
+
+                nv.MaCV = nhanvien.MaCV;
+                nv.TenNV = TenNV;
+                nv.NgaySinh = nhanvien.NgaySinh;
+                nv.Password = nhanvien.Password;
+                nv.UserName = nhanvien.UserName;
+                nv.SDT_NV = nhanvien.SDT_NV;
+                nv.GioiTinh = nhanvien.GioiTinh;
+
+                database.SaveChanges();
+                
+               
+            }
+            
+            return View("Myinfor", nhanvien);
+        }
+
+        public ActionResult Staff()
+        {
+            return View();
+        }
+        public ActionResult DetailStaff(string id)
+        {
+            var ttnv = database.NhanViens.Find(id);
+            return View(ttnv);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DetailStaff(NhanVien nv)
+        {
+            database.Entry(nv).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+            database.SaveChanges();
+            TempData["manhanvien"] = nv.IDNV;
+            TempData["MessageAlert"] = "SuaNV";
+            return RedirectToAction("Staff");
+
+        }
+
+        public ActionResult CustomerManagement()
+        {
+            return View();
+        }
+
+
+        public ActionResult DetailCus(string id)
+        {
+            var ttCus = database.KhachHangs.Find(id);
+            return View(ttCus);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DetailCus(KhachHang kh)
+        {
+            database.Entry(kh).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+            database.SaveChanges();
+            TempData["makhachhang"] = kh.IDKH;
+            TempData["MessageAlert"] = "SuaKH";
+            return RedirectToAction("CustomerManagement");
+
+        }
+
+        public ActionResult Promotion()
+        {
+            return View();
+        }
+        
+        public ActionResult CreatePromotion()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreatePromotion(Voucher vc)
+        {
+            database.Entry(vc).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
+            database.Vouchers.Add(vc);
+            database.SaveChanges();
+            TempData["macv"] = vc.MaVC;
+            TempData["MessageAlert"] = "success";
+            return RedirectToAction("Promotion");
+
+        }
+        
+        //[HttpGet]
+        //public ActionResult EditPro(string id)
+        //{
+
+        //    var voucher = new Voucher().ViewDetail(id);
+
+        //    return View(voucher);
+        //}
+
+        //[HttpPost]
+
+        //public ActionResult EditPro(Voucher voucher)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var vc = new Voucher();
+        //        var result = vc.Update(voucher);
+
+
+
+        //    }
+
+        //    return View("Promotion");
+        //}
+
+        
+
+        public ActionResult DeletePro(string id)
+        {
+            var tb = database.Vouchers.Find(id);
+            database.Vouchers.Remove(tb);
+            database.SaveChanges();
+            TempData["mavc"] = tb.MaVC;
+            TempData["messageAlert"] = "XoaThanhCong";
+            //return RedirectToAction("FlightRoute");
+            return Json(new { success = true });
+        }
+
+
+        
+        //Bảng log ghi lại lịch sử thêm xóa chuyến bay
+        public ActionResult History()
+        {
+            return View();
+        }
+
     }
 }

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<BookingAirline.Models.NhanVien>
+@using BookingAirline.Models
+@{
+    ViewBag.Title = "Staff";
+    Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
+    BookingAirLightEntities db = new BookingAirLightEntities();
+    ViewBag.active11 = "active";
+
+}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="jquery-3.6.3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<br />
+@{
+    var checkmess = (string)TempData["messageAlert"];
+    var manv = (string)TempData["manhanvien"];
+    if (checkmess == "SuaNV")
+    {
+        <script>
+            swal({
+                title: "Đã sửa thông tin nhân viên thành công",
+                text: "Thông tin hân viên đã được sửa đổi",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }
+}
+<h2>Staff Management</h2>
+<div class="col-sm-">
+    <a class="btn-blue" href="~/LoginUser/ResetPass">
+        <i class="fa fa-unlock-alt" aria-hidden="true"></i>Reset customer's password
+    </a>
+</div>
+
+<br />
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        DataTable Flight
+    </div>
+    <table id="datatablesSimple">
+        <thead>
+            @*//Phần render*@
+            <tr>
+                <th>ID</th>
+                <th>Full name</th>
+                <th>User name</th>
+                <th>Password</th>
+                <th>Email</th>
+                <th>Chức năng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var nv = (NhanVien)Session["userNV"];
+
+                var dsstaff = db.NhanViens.ToList();
+                foreach (var item01 in dsstaff)
+                {
+                    if (nv.IDNV != item01.IDNV)
+                    {
+                        <tr>
+                            <td>@item01.IDNV</td>
+                            <td>@item01.TenNV</td>
+                            <td>@item01.UserName</td>
+                            <td>@item01.Password</td>
+                            <td>@item01.Email_NV</td>
+                            <td>
+                                <a href="~/NhanVien/DetailStaff/@item01.IDNV" class="btn btn-info btn-sm edit">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+

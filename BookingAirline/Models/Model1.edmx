@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BookingAirLightModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BookingAirLightModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ChiTietChuyenBay">
           <Key>
             <PropertyRef Name="STT" />
@@ -47,6 +47,7 @@
           <Property Name="SoLuongGheHang1" Type="int" />
           <Property Name="SoLuongGheHang2" Type="int" />
           <Property Name="SoLuongGheHang3" Type="int" />
+          <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="DoanhThuNam">
           <Key>
@@ -86,6 +87,7 @@
           <Property Name="ThanhTien" Type="float" />
           <Property Name="IDKH" Type="varchar" MaxLength="10" />
           <Property Name="CCCD" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaVC" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -101,6 +103,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="50" />
           <Property Name="NgaySinh" Type="nvarchar" MaxLength="50" />
+          <Property Name="HinhAnh" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="LoaiKH">
           <Key>
@@ -167,6 +170,18 @@
           <Property Name="MaSB" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="TenSB" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="save_log_chuyenbay">
+          <Key>
+            <PropertyRef Name="Malog" />
+          </Key>
+          <Property Name="Malog" Type="datetime" Nullable="false" />
+          <Property Name="ThaoTac" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaCB" Type="nvarchar" MaxLength="10" />
+          <Property Name="MaMB" Type="nvarchar" MaxLength="10" />
+          <Property Name="MaTBay" Type="nvarchar" MaxLength="10" />
+          <Property Name="NgayGio" Type="datetime" />
+          <Property Name="ThoiGianBay" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="TuyenBay">
           <Key>
             <PropertyRef Name="MaTBay" />
@@ -187,6 +202,27 @@
           <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
           <Property Name="GiaVe" Type="float" />
           <Property Name="CCCD" Type="nvarchar" MaxLength="50" />
+          <Property Name="XacNhan" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Voucher">
+          <Key>
+            <PropertyRef Name="MaVC" />
+          </Key>
+          <Property Name="MaVC" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TenVC" Type="nvarchar" MaxLength="50" />
+          <Property Name="ChietKhau" Type="float" />
+          <Property Name="NgayApDung" Type="datetime" />
+          <Property Name="NgayHetHan" Type="datetime" />
+          <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="MaWL" />
+          </Key>
+          <Property Name="MaWL" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaCB" Type="varchar" MaxLength="10" />
+          <Property Name="MaKH" Type="varchar" MaxLength="10" />
+          <Property Name="NgayThem" Type="datetime" />
         </EntityType>
         <Association Name="FK_ChiTietChuyenBay_ChuyenBay">
           <End Role="ChuyenBay" Type="Self.ChuyenBay" Multiplicity="0..1">
@@ -217,7 +253,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ChiTietHD_Ve1">
-          <End Role="Ve" Type="Self.Ve" Multiplicity="0..1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ChiTietHD" Type="Self.ChiTietHD" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ve">
@@ -328,6 +366,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HoaDon_Voucher">
+          <End Role="Voucher" Type="Self.Voucher" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voucher">
+              <PropertyRef Name="MaVC" />
+            </Principal>
+            <Dependent Role="HoaDon">
+              <PropertyRef Name="MaVC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_KhachHang_LoaiKH">
           <End Role="LoaiKH" Type="Self.LoaiKH" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -434,6 +486,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_Hoanve1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="mahd" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_XoaPDC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="macb" Type="varchar" Mode="In" />
+          <Parameter Name="soghe" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="BookingAirLightModelStoreContainer">
           <EntitySet Name="ChiTietChuyenBay" EntityType="Self.ChiTietChuyenBay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietHD" EntityType="Self.ChiTietHD" Schema="dbo" store:Type="Tables" />
@@ -451,8 +510,11 @@
           <EntitySet Name="Phi" EntityType="Self.Phi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhieuDatCho" EntityType="Self.PhieuDatCho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanBay" EntityType="Self.SanBay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="save_log_chuyenbay" EntityType="Self.save_log_chuyenbay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TuyenBay" EntityType="Self.TuyenBay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ve" EntityType="Self.Ve" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Voucher" EntityType="Self.Voucher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ChiTietChuyenBay_ChuyenBay" Association="Self.FK_ChiTietChuyenBay_ChuyenBay">
             <End Role="ChuyenBay" EntitySet="ChuyenBay" />
             <End Role="ChiTietChuyenBay" EntitySet="ChiTietChuyenBay" />
@@ -493,6 +555,10 @@
             <End Role="Phi" EntitySet="Phi" />
             <End Role="HoaDon" EntitySet="HoaDon" />
           </AssociationSet>
+          <AssociationSet Name="FK_HoaDon_Voucher" Association="Self.FK_HoaDon_Voucher">
+            <End Role="Voucher" EntitySet="Voucher" />
+            <End Role="HoaDon" EntitySet="HoaDon" />
+          </AssociationSet>
           <AssociationSet Name="FK_KhachHang_LoaiKH" Association="Self.FK_KhachHang_LoaiKH">
             <End Role="LoaiKH" EntitySet="LoaiKH" />
             <End Role="KhachHang" EntitySet="KhachHang" />
@@ -526,8 +592,7 @@
             <End Role="Ve" EntitySet="Ve" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookingAirLightModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -577,6 +642,7 @@
           <Property Name="SoLuongGheHang1" Type="Int32" />
           <Property Name="SoLuongGheHang2" Type="Int32" />
           <Property Name="SoLuongGheHang3" Type="Int32" />
+          <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ChiTietChuyenBays" Relationship="Self.FK_ChiTietChuyenBay_ChuyenBay" FromRole="ChuyenBay" ToRole="ChiTietChuyenBay" />
           <NavigationProperty Name="MayBay" Relationship="Self.FK_ChuyenBay_MayBay" FromRole="ChuyenBay" ToRole="MayBay" />
           <NavigationProperty Name="TuyenBay" Relationship="Self.FK_ChuyenBay_TuyenBay" FromRole="ChuyenBay" ToRole="TuyenBay" />
@@ -625,11 +691,13 @@
           <Property Name="ThanhTien" Type="Double" />
           <Property Name="IDKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="CCCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaVC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ChiTietHDs" Relationship="Self.FK_ChiTietHD_HoaDon" FromRole="HoaDon" ToRole="ChiTietHD" />
           <NavigationProperty Name="DoanhThuThangs" Relationship="Self.FK_DoanhThuThang_HoaDon" FromRole="HoaDon" ToRole="DoanhThuThang" />
           <NavigationProperty Name="KhachHang" Relationship="Self.FK_HoaDon_KhachHang1" FromRole="HoaDon" ToRole="KhachHang" />
           <NavigationProperty Name="NhanVien" Relationship="Self.FK_HoaDon_NhanVien" FromRole="HoaDon" ToRole="NhanVien" />
           <NavigationProperty Name="Phi" Relationship="Self.FK_HoaDon_Phi" FromRole="HoaDon" ToRole="Phi" />
+          <NavigationProperty Name="Voucher" Relationship="Self.FK_HoaDon_Voucher" FromRole="HoaDon" ToRole="Voucher" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -645,6 +713,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GioiTinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NgaySinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HinhAnh" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_KhachHang1" FromRole="KhachHang" ToRole="HoaDon" />
           <NavigationProperty Name="LoaiKH" Relationship="Self.FK_KhachHang_LoaiKH" FromRole="KhachHang" ToRole="LoaiKH" />
           <NavigationProperty Name="Ves" Relationship="Self.FK_Ve_KhachHang" FromRole="KhachHang" ToRole="Ve" />
@@ -745,10 +814,32 @@
           <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GiaVe" Type="Double" />
           <Property Name="CCCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="XacNhan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ChiTietHDs" Relationship="Self.FK_ChiTietHD_Ve1" FromRole="Ve" ToRole="ChiTietHD" />
           <NavigationProperty Name="ChuyenBay" Relationship="Self.FK_Ve_ChuyenBay" FromRole="Ve" ToRole="ChuyenBay" />
           <NavigationProperty Name="HangVe" Relationship="Self.FK_Ve_HangVe" FromRole="Ve" ToRole="HangVe" />
           <NavigationProperty Name="KhachHang" Relationship="Self.FK_Ve_KhachHang" FromRole="Ve" ToRole="KhachHang" />
+        </EntityType>
+        <EntityType Name="Voucher">
+          <Key>
+            <PropertyRef Name="MaVC" />
+          </Key>
+          <Property Name="MaVC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TenVC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChietKhau" Type="Double" />
+          <Property Name="NgayApDung" Type="DateTime" Precision="3" />
+          <Property Name="NgayHetHan" Type="DateTime" Precision="3" />
+          <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_Voucher" FromRole="Voucher" ToRole="HoaDon" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="MaWL" />
+          </Key>
+          <Property Name="MaWL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaCB" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MaKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NgayThem" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_ChiTietChuyenBay_ChuyenBay">
           <End Role="ChuyenBay" Type="Self.ChuyenBay" Multiplicity="0..1">
@@ -779,7 +870,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ChiTietHD_Ve1">
-          <End Role="Ve" Type="Self.Ve" Multiplicity="0..1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ChiTietHD" Type="Self.ChiTietHD" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ve">
@@ -946,6 +1039,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HoaDon_Voucher">
+          <End Role="Voucher" Type="Self.Voucher" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voucher">
+              <PropertyRef Name="MaVC" />
+            </Principal>
+            <Dependent Role="HoaDon">
+              <PropertyRef Name="MaVC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_KhachHang_LoaiKH">
           <End Role="LoaiKH" Type="Self.LoaiKH" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -1015,6 +1122,8 @@
           <EntitySet Name="SanBays" EntityType="Self.SanBay" />
           <EntitySet Name="TuyenBays" EntityType="Self.TuyenBay" />
           <EntitySet Name="Ves" EntityType="Self.Ve" />
+          <EntitySet Name="Vouchers" EntityType="Self.Voucher" />
+          <EntitySet Name="Wishlists" EntityType="Self.Wishlist" />
           <AssociationSet Name="FK_ChiTietChuyenBay_ChuyenBay" Association="Self.FK_ChiTietChuyenBay_ChuyenBay">
             <End Role="ChuyenBay" EntitySet="ChuyenBays" />
             <End Role="ChiTietChuyenBay" EntitySet="ChiTietChuyenBays" />
@@ -1071,6 +1180,10 @@
             <End Role="Phi" EntitySet="Phis" />
             <End Role="HoaDon" EntitySet="HoaDons" />
           </AssociationSet>
+          <AssociationSet Name="FK_HoaDon_Voucher" Association="Self.FK_HoaDon_Voucher">
+            <End Role="Voucher" EntitySet="Vouchers" />
+            <End Role="HoaDon" EntitySet="HoaDons" />
+          </AssociationSet>
           <AssociationSet Name="FK_KhachHang_LoaiKH" Association="Self.FK_KhachHang_LoaiKH">
             <End Role="LoaiKH" EntitySet="LoaiKHs" />
             <End Role="KhachHang" EntitySet="KhachHangs" />
@@ -1087,7 +1200,31 @@
             <End Role="SanBay" EntitySet="SanBays" />
             <End Role="TuyenBay" EntitySet="TuyenBays" />
           </AssociationSet>
+          <EntitySet Name="save_log_chuyenbay" EntityType="BookingAirLightModel.save_log_chuyenbay" />
+          <FunctionImport Name="sp_Hoanve">
+            <Parameter Name="mave" Mode="In" Type="String" />
+            <Parameter Name="macb" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_XoaPDC">
+            <Parameter Name="macb" Mode="In" Type="String" />
+            <Parameter Name="soghe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Hoanve1">
+            <Parameter Name="mahd" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="save_log_chuyenbay">
+          <Key>
+            <PropertyRef Name="Malog" />
+          </Key>
+          <Property Name="Malog" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ThaoTac" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaCB" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MaMB" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MaTBay" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="NgayGio" Type="DateTime" Precision="3" />
+          <Property Name="ThoiGianBay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1138,6 +1275,7 @@
                 <ScalarProperty Name="SoLuongGheHang1" ColumnName="SoLuongGheHang1" />
                 <ScalarProperty Name="SoLuongGheHang2" ColumnName="SoLuongGheHang2" />
                 <ScalarProperty Name="SoLuongGheHang3" ColumnName="SoLuongGheHang3" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1181,6 +1319,7 @@
                 <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
                 <ScalarProperty Name="IDKH" ColumnName="IDKH" />
                 <ScalarProperty Name="CCCD" ColumnName="CCCD" />
+                <ScalarProperty Name="MaVC" ColumnName="MaVC" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1197,6 +1336,7 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
                 <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1291,9 +1431,47 @@
                 <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
                 <ScalarProperty Name="GiaVe" ColumnName="GiaVe" />
                 <ScalarProperty Name="CCCD" ColumnName="CCCD" />
+                <ScalarProperty Name="XacNhan" ColumnName="XacNhan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Vouchers">
+            <EntityTypeMapping TypeName="BookingAirLightModel.Voucher">
+              <MappingFragment StoreEntitySet="Voucher">
+                <ScalarProperty Name="MaVC" ColumnName="MaVC" />
+                <ScalarProperty Name="TenVC" ColumnName="TenVC" />
+                <ScalarProperty Name="ChietKhau" ColumnName="ChietKhau" />
+                <ScalarProperty Name="NgayApDung" ColumnName="NgayApDung" />
+                <ScalarProperty Name="NgayHetHan" ColumnName="NgayHetHan" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wishlists">
+            <EntityTypeMapping TypeName="BookingAirLightModel.Wishlist">
+              <MappingFragment StoreEntitySet="Wishlist">
+                <ScalarProperty Name="MaWL" ColumnName="MaWL" />
+                <ScalarProperty Name="MaCB" ColumnName="MaCB" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="NgayThem" ColumnName="NgayThem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="save_log_chuyenbay">
+            <EntityTypeMapping TypeName="BookingAirLightModel.save_log_chuyenbay">
+              <MappingFragment StoreEntitySet="save_log_chuyenbay">
+                <ScalarProperty Name="ThoiGianBay" ColumnName="ThoiGianBay" />
+                <ScalarProperty Name="NgayGio" ColumnName="NgayGio" />
+                <ScalarProperty Name="MaTBay" ColumnName="MaTBay" />
+                <ScalarProperty Name="MaMB" ColumnName="MaMB" />
+                <ScalarProperty Name="MaCB" ColumnName="MaCB" />
+                <ScalarProperty Name="ThaoTac" ColumnName="ThaoTac" />
+                <ScalarProperty Name="Malog" ColumnName="Malog" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_XoaPDC" FunctionName="BookingAirLightModel.Store.sp_XoaPDC" />
+          <FunctionImportMapping FunctionImportName="sp_Hoanve1" FunctionName="BookingAirLightModel.Store.sp_Hoanve1" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

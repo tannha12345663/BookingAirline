@@ -1,9 +1,11 @@
-﻿@model BookingAirline.Models.ChuyenBay
+﻿﻿@model BookingAirline.Models.ChuyenBay
 @using BookingAirline.Models
 @{
     ViewBag.Title = "Scheduleaflight";
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
     BookingAirLightEntities database = new BookingAirLightEntities();
+    var today = DateTime.Now;
+    ViewBag.active4 = "active";
 }
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -11,6 +13,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="jquery-3.6.3.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
 @{
     var checkmess = (string)TempData["messageAlert"];
     var macb = (string)TempData["machuyenbay"];
@@ -53,7 +56,11 @@
 
 <h2>Schedulea flight</h2>
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="~/NhanVien/TrangChu">Dashboard</a></li>
+    <li class="breadcrumb-item">
+        <a href="~/NhanVien/TrangChu" style="text-decoration: none; color: #6c757d">
+            Dashboard
+        </a>
+    </li>
     <li class="breadcrumb-item active">Schedulea flight</li>
 </ol>
 <div class="card mb-4">
@@ -63,93 +70,146 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-2 mb-2">
+    <div class="col-md-2 mb-3" style="margin-right:-46px">
         <div class="btn btn-secondary text-white">
-            <a data-toggle="modal" data-target="#myModal01">Add Schulea </a>
+            <a data-toggle="modal" data-target="#myModal01">Add Schedule </a>
             <i class="fas fa-calendar me-2"></i>
         </div>
     </div>
-    <div class="col-md-2 mb-2">
+    <div class="col-md-2 mb-3">
         <div class="btn btn-primary text-white">
             <a data-toggle="modal" data-target="#myModal" data->Add Plane</a>
             <i class="fas fa-plane me-1"></i>
         </div>
     </div>
+    <div class="col-md-2">
+        <a class="btn btn-success btn-sm print-file" title="In" onclick="myApp.printTable()" style="margin: 0 0 8px -15px">
+            <i class="fas fa-print"></i> In dữ liệu
+        </a>
+    </div>
+</div>
 
-</div>
-<div class="col-sm-2">
-    <a class="btn btn-success btn-sm print-file" title="In" onclick="myApp.printTable()">
-        <i class="fas fa-print"></i> In dữ liệu
-    </a>
-</div>
-<div class="card mb-4">
+<div class="card">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
         DataTable Flight
     </div>
-    <div class="card-body table-responsive">
-        <table id="datatablesSimple">
-            <thead>
-                @*//Phần render*@
-                <tr>
-                    <th>Mã chuyến bay</th>
-                    <th>Mã máy bay</th>
-                    <th>Mã tuyến bay</th>
-                    <th>Ngày giờ</th>
-                    <th>Thời gian bay</th>
-                    <th>Tổng số ghế:</th>
-                    <th>Số lượng G1</th>
-                    <th>Số lượng G2</th>
-                    <th>Số lượng G3</th>
-                    <th>Tổng số ghế còn lại:</th>
-                    <th>Chức năng</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{ var ttcb = database.ChuyenBays.ToList();
-                    foreach (var item01 in ttcb)
-                    {
+    <div class="tab-content">
+        <div id="home" class="tab-pane active">
+            <div class="card-body table-responsive">
+                <table id="datatablesSimple" class="display stripe hover order-column row-border">
+                    <thead>
+                        @*//Phần render*@
                         <tr>
-                            <td>@item01.MaCB</td>
-                            <td>@item01.MaMB</td>
-                            <td>@item01.MaTBay</td>
-                            <td>@item01.NgayGio</td>
-                            <td>@item01.ThoiGianBay</td>
-                            @{ var tongghe = item01.SoLuongGheHang1 + item01.SoLuongGheHang2 + item01.SoLuongGheHang3;}
-                            <td>
-                                @tongghe
-                            </td>
-                            <td>@item01.SoLuongGheHang1</td>
-                            <td>@item01.SoLuongGheHang2</td>
-                            <td>@item01.SoLuongGheHang3</td>
-                            @{ var slgh = item01.SoLuongGheHang1 + item01.SoLuongGheHang2 + item01.SoLuongGheHang3;}
-                            <td>
-                                @slgh
-                            </td>
-                            <td>
-                                @{ var ctcb = database.ChiTietChuyenBays.Where(s => s.MaCTCB == item01.MaCB).FirstOrDefault();
-                                    if (ctcb != null)
-                                    {
-                                        <a href="~/NhanVien/DetailFlight/@item01.MaCB" class="btn btn-info btn-sm edit">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                    }
-                                }
-                                @*<a href="/NhanVien/DeleteFlight/@item01.MaCB" onclick=" return confirm('Are you sure you want to delete ?')" class="btn btn-danger btn-sm edit">
-                                        <i class="fa fa-remove"></i>
-                                    </a>*@
-                                <button value="@item01.MaCB" id="MaCbay" data-toggle="modal" data-target="#myModal03" class="btn btn-danger btn-sm edit">
-                                    <i class="fa fa-remove"></i>
-                                </button>
-                            </td>
+                            <th rowspan="2" style="text-align:center; border: 1px solid rgba(34,36,38,.1); background: #f9fafb ">Mã chuyến bay</th>
+                            <th rowspan="2" style="text-align:center; border: 1px solid rgba(34,36,38,.1); background: #f9fafb ">Mã máy bay</th>
+                            <th rowspan="2" style="text-align:center; border: 1px solid rgba(34,36,38,.1); background: #f9fafb">Mã tuyến bay</th>
+                            <th rowspan="2" style="text-align:center; border: 1px solid rgba(34,36,38,.1); background: #f9fafb">Ngày giờ</th>
+                            <th rowspan="2" style="text-align:center; border: 1px solid rgba(34,36,38,.1); background: #f9fafb">Thời gian bay</th>
+                            <th rowspan="2" style="text-align:center; border: 1px solid rgba(34,36,38,.1); background: #f9fafb">Tổng số ghế:</th>
+                            <th colspan="4" style="text-align:center; border: 1px solid rgba(34,36,38,.1); background: #f9fafb">Số lượng</th>
+                            <th rowspan="2" style="text-align:center; border: 1px solid rgba(34,36,38,.1); background: #f9fafb"> Tình trạng</th>
+                            <th rowspan="2" style="text-align:center; border: 1px solid rgba(34,36,38,.1); background: #f9fafb">Chức năng</th>
                         </tr>
-                    }
-                }
+                        <tr>
+                            <th>G1</th>
+                            <th>G2</th>
+                            <th>G3</th>
+                            <th>Còn lại</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTableBody">
+                        @{ var ttcb = database.ChuyenBays.ToList();
+                            foreach (var item01 in ttcb)
+                            {
+                                <tr>
+                                    <td style="text-align:center" >@item01.MaCB</td>
+                                    <td style="text-align:center">@item01.MaMB</td>
+                                    <td style="text-align:center">@item01.MaTBay</td>
+                                    <td style="text-align:center">@item01.NgayGio</td>
+                                    <td style="text-align:center">@item01.ThoiGianBay</td>
+                                    @{ var tongghe = item01.SoLuongGheHang1 + item01.SoLuongGheHang2 + item01.SoLuongGheHang3;}
+                                    <td style="text-align:center">
+                                        @tongghe
+                                    </td>
+                                    <td style="text-align:center">
+                                        @item01.SoLuongGheHang1
+                                    </td>
+                                    <td style="text-align:center">@item01.SoLuongGheHang2</td>
+                                    <td style="text-align:center">@item01.SoLuongGheHang3</td>
+                                    @{
+                                        var checkdsve = database.Ves.Where(s => s.MaCB == item01.MaCB && s.TinhTrang == "Đã thanh toán").Count();
+                                        var slgh = item01.SoLuongGheHang1 + item01.SoLuongGheHang2 + item01.SoLuongGheHang3;
+                                        var slveconlai = slgh - checkdsve;}
+                                    <td style="text-align:center">
+                                        @slveconlai
+                                    </td>
 
-            </tbody>
-        </table>
+                                    <td style="text-align:center">
+                                        @{
+                                            TimeSpan han = (DateTime)item01.NgayGio - today;
+                                            if (slveconlai < 10 && han.Days <= 5 && han.Days>=0)
+                                            {
+                                                <span class="badge bg-secondary">Sắp hết hạn và đặt chỗ</span>
+                                            }
+                                            else if (han.Days >= 0 && han.TotalHours >2)
+                                            {
+                                                <span class="badge bg-success">Còn hiệu lực</span>
+                                            }
+                                            else if (han.Days == 0 &&  han.TotalHours <= 2 && han.TotalHours >=0)
+                                            {
+                                                <span class="badge bg-success">Đã đóng check in</span>
+                                            }
+                                            else if (han.Days <= 0)
+                                            {
+                                                <span class="badge bg-warning">Hết hiệu lực</span>
+                                            }
+
+                                        }
+                                    </td>
+                                    <td style="text-align:center">
+                                        @{ var ctcb = database.ChiTietChuyenBays.Where(s => s.MaCTCB == item01.MaCB).FirstOrDefault();
+                                            <a href="~/NhanVien/Chitietcb/@item01.MaCB" class="btn btn-info btn-sm edit">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            if (han.Days > 0)
+                                            {
+                                                <button value="@item01.MaCB" id="MaCbay" data-toggle="modal" data-target="#myModal03" class="btn btn-danger btn-sm edit">
+                                                    <i class="fa fa-remove"></i>
+                                                </button>
+                                            }
+                                            else if (han.Days == 0 &&  han.TotalHours > 2 )
+                                            {
+                                                <button value="@item01.MaCB" id="MaCbay" data-toggle="modal" data-target="#myModal03" class="btn btn-danger btn-sm edit">
+                                                    <i class="fa fa-remove"></i>
+                                                </button>
+                                            }
+                                            else if (han.Days <= 0 && han.TotalHours<=2)
+                                            {
+                                                
+                                            }
+                                        }
+                                        @*<a href="/NhanVien/DeleteFlight/@item01.MaCB" onclick=" return confirm('Are you sure you want to delete ?')" class="btn btn-danger btn-sm edit">
+                                                <i class="fa fa-remove"></i>
+                                            </a>*@
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+
+
+
+
+
+
 <!--Form thêm Sân bay-->
 <!-- The Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -221,7 +281,8 @@
                                     @{ var mb = database.MayBays.ToList();
                                         foreach (var item in mb)
                                         {
-                                            <option value="@item.MaMB">@item.MaMB</option>
+                                            var tenmb = database.MayBays.Find(item.MaMB);
+                                            <option value="@item.MaMB">@item.MaMB -- @tenmb.LoaiMayBay</option>
                                         }
                                     }
                                 </select>
@@ -232,14 +293,14 @@
                                     @{ var tb = database.TuyenBays.ToList();
                                         foreach (var item in tb)
                                         {
-                                            <option value="@item.MaTBay">@item.MaTBay</option>
+                                            <option value="@item.MaTBay">@item.MaTBay (@item.SanBayDi - @item.SanBayDen)</option>
                                         }
                                     }
                                 </select>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Nhập ngày giờ khởi hành</label>
-                                <input class="form-control" name="NgayGio" type="datetime-local" required>
+                                <input class="form-control" name="NgayGio" type="datetime-local" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Nhập thời gian bay</label>
@@ -351,7 +412,7 @@
 
             <div class="modal-footer">
                 <a href="#" class="btn btn-primary" data-dismiss="modal">Cancle</a>
-                <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirm</a>
+                <a href="#" class="btn btn-danger" id="ConfirmDelete">Confirm</a>
             </div>
 
         </div>
@@ -371,22 +432,27 @@
             }
         }
 
+        $('#myTableBody').on("click", "#MaCbay", function () {
+            $('.myModal03').show();
+            var value = $(this).val();
+            console.log("Bạn vừa chọn chuyến bay" + value);
+            $('#ConfirmDelete').click(function () {
+                var macb = value;
+                $.ajax({
+                    type: "POST",
+                    url: "/NhanVien/DeleteFlight/" + macb,
+                    success: function (res) {
+                        if (res.success == true) {
+                            window.location.reload();
+                        }
+                        else {
 
-        function ConfirmDelete() {
-            var macb = $('#MaCbay').val();
-            $.ajax({
-                type: "POST",
-                url: "/NhanVien/DeleteFlight/" + macb,
-                success: function (res) {
-                    if (res.success == true) {
-                        window.location.reload();
+                        }
                     }
-                    else {
-
-                    }
-                }
+                })
             })
-        }
+        }); 
+        
     </script>
 }
 @{

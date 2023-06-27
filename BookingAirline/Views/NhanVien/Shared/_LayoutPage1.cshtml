@@ -1,5 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+@using BookingAirline.Models
+
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,120 +23,257 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="apple-touch-icon" href="~/Style/apple-touch-icon.html">
     <link rel="Shortcut Icon" href="~/hinh/logo-i.png" type="image/x-icon" />
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    @*<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />*@
     <link href="~/Style/Admin/css/styles.css" rel="stylesheet" />
+    <link href="~/Style/Admin/css/styles1.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <script src="~/Style/Admin/js/jquery-confirm.js"></script>
     <link href="~/Style/Admin/css/jquery-confirm.css" rel="stylesheet" />
+    <!-- ========== All CSS files linkup ========= -->
+    <link href="~/Content/admin/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/admin/css/lineicons.css" rel="stylesheet" />
+    <link href="~/Content/admin/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="~/Content/admin/css/fullcalendar.css" rel="stylesheet" />
+    <link href="~/Content/admin/css/main.css" rel="stylesheet" />
+
 
 </head>
+
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
-        @{
-            var user = (BookingAirline.Models.NhanVien)HttpContext.Current.Session["userNV"];}
-        <a class="navbar-brand ps-3" href="index.html">Hello @user.UserName </a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+    
+
+        <aside class="sidebar-nav-wrapper">
+
+            <div class="navbar-logo">
+
+                <a href="~/NhanVien/TrangChu">
+
+                    <img src="~/hinh/logo.png" />
+                </a>
             </div>
-        </form>
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="~/LoginAdmin/LogOut">Logout</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="~/NhanVien/TrangChu">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Dashboard
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Workplace</div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Flight Management
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="~/NhanVien/Scheduleaflight">
-                                    Schedule a flight
-                                </a>
-                                <a class="nav-link" href="~/NhanVien/FlightRoute">
-                                    Flight route
-                                </a>
-                                <a class="nav-link" href="~/NhanVien/TicketManagement">
-                                    Ticket Management
-                                </a>
-                            </nav>
-                        </div>
+            <nav class="sidebar-nav">
+                    <ul>
+                        <li class="nav-item nav-item-has-children">
+                            <a href="#0"
+                               data-bs-toggle="collapse"
+                               data-bs-target="#ddmenu_1"
+                               aria-controls="ddmenu_1"
+                               aria-expanded="false"
+                               aria-label="Toggle navigation">
+                                <span class="icon">
+                                    <svg width="22" height="22" viewBox="0 0 22 22">
+                                        <path d="M17.4167 4.58333V6.41667H13.75V4.58333H17.4167ZM8.25 4.58333V10.0833H4.58333V4.58333H8.25ZM17.4167 11.9167V17.4167H13.75V11.9167H17.4167ZM8.25 15.5833V17.4167H4.58333V15.5833H8.25ZM19.25 2.75H11.9167V8.25H19.25V2.75ZM10.0833 2.75H2.75V11.9167H10.0833V2.75ZM19.25 10.0833H11.9167V19.25H19.25V10.0833ZM10.0833 13.75H2.75V19.25H10.0833V13.75Z" />
+                                    </svg>
+                                </span>
+                                <span class="text">Dashboard</span>
+                            </a>
+                            <ul id="ddmenu_1" class="collapse show dropdown-nav">
+                                <li>
+                                    <a href="~/NhanVien/TrangChu" class="@ViewBag.active1"> eCommerce </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-item-has-children">
+                            <a href="#0"
+                               class="collapsed"
+                               data-bs-toggle="collapse"
+                               data-bs-target="#ddmenu_2"
+                               aria-controls="ddmenu_2"
+                               aria-expanded="false"
+                               aria-label="Toggle navigation">
+
+                                <span class="text">Pages</span>
+                            </a>
+                            <ul id="ddmenu_2" class="collapse show dropdown-nav">
+                                <li>
+                                    <a href="~/NhanVien/Myinfor" class="@ViewBag.active2">My Infor</a>
+                                </li>
+                                <li>
+                                    <a href="~/NhanVien/Reports" class="@ViewBag.active3"> Reports </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+                        <span class="divider"><hr /></span>
+                        <li class="nav-item nav-item-has-children">
+                            <a href="#0"
+                               class="collapsed"
+                               data-bs-toggle="collapse"
+                               data-bs-target="#ddmenu_3"
+                               aria-controls="ddmenu_3"
+                               aria-expanded="false"
+                               aria-label="Toggle navigation">
+
+                                <span class="text">Flight Management</span>
+                            </a>
+                            <ul id="ddmenu_3" class="collapse show dropdown-nav">
+                                <li>
+                                    <a href="~/NhanVien/Scheduleaflight" class="@ViewBag.active4"> Schedule a flight</a>
+                                </li>
+                                <li>
+                                    <a href="~/NhanVien/FlightRoute" class="@ViewBag.active5"> Flight Route</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+
+                            <a href="~/NhanVien/TicketManagement" class="@ViewBag.active6">Ticket Management</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a href="~/NhanVien/TicketList" class="@ViewBag.active7">Ticket List</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a href="~/NhanVien/TotalRevenue" class="@ViewBag.active8">Total Revenue</a>
+                        </li>
+
+                        <li>
+                            <a href="~/NhanVien/History" class="@ViewBag.active9">History</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="~/NhanVien/Promotion" class="@ViewBag.active10">Promotions</a>
+                        </li>
+                        <span class="divider">
+                            <hr />
+                        </span>
+                        @{
+                            var check = (NhanVien)Session["userNV"];
+                            if (check.MaCV == "Admin")
+                            {
+                                <li class="nav-item">
+                                    <a href="~/NhanVien/Staff" class="@ViewBag.active11">Staff</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="~/NhanVien/CustomerManagement" class="@ViewBag.active12">Customer Management</a>
+                                </li>
+                            }
+                        }
                         
-                        <a class="nav-link" href="~/NhanVien/TicketList">
-                            <div class="sb-nav-link-icon"><i class="fas fa-ticket-alt"></i></div>
-                            Ticket List
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Addons</div>
-                        <a class="nav-link" href="~/NhanVien/TotalRevenue">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Total Revenue
-                        </a>
-                        <a class="nav-link" href="~/NhanVien/Reports">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Reports
-                        </a>
-                    </div>
-                </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Start Bootstrap
-                </div>
+
+
+                    </ul>
             </nav>
-        </div>
-        <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid px-4">
-                    @RenderBody()
-                </div>
-            </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
+
+        </aside>
+        
+    
+
+
+
+    <main class="main-wrapper">
+        <!-- ========== header start ========== -->
+        <header class="header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-6">
+                        <div class="header-left d-flex align-items-center">
+                            <div class="menu-toggle-btn mr-20">
+                                <button id="menu-toggle"
+                                        class="main-btn primary-btn btn-hover">
+                                    <i class="lni lni-chevron-left me-2"></i> Menu
+                                </button>
+                            </div>
+                            <div class="header-search d-none d-md-flex">
+                                <form action="#">
+                                    <input type="text" placeholder="Search..." />
+                                    <button><i class="lni lni-search-alt"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-6">
+                        <div class="header-right">
+
+                            <!-- profile start -->
+                            <div class="profile-box ml-15">
+                                <button class="dropdown-toggle bg-transparent border-0"
+                                        type="button"
+                                        id="profile"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <div class="profile-info">
+                                        <div class="info">
+
+                                            @{
+                                                var user = (BookingAirline.Models.NhanVien)HttpContext.Current.Session["userNV"];}
+                                            <a class="dropdown"> @user.UserName </a>
+
+                                            <div class="image">
+
+                                                <img src="~/hinh/ka-img.jpg" />
+                                                <span class="status"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <i class="lni lni-chevron-down"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end"
+                                    aria-labelledby="profile">
+                                    <li>
+                                        <a href="~/NhanVien/Myinfor">
+                                            <i class="lni lni-user"></i> View Profile
+                                        </a>
+                                    </li>
+
+                                    @*<li>
+                                        <a href="~/NhanVien/EditMyinfor"> <i class="lni lni-cog"></i> Setting </a>
+                                    </li>*@
+                                    <li>
+                                        <a href="/LoginAdmin/LogOut"> <i class="lni lni-exit"></i> Sign Out </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- profile end -->
                         </div>
                     </div>
                 </div>
-            </footer>
+            </div>
+        </header>
+        <!-- ========== header end ========== -->
+
+        <div class="container-fluid px-4">
+            @RenderBody()
         </div>
-    </div>
+    </main>
+    <footer class="py-4 bg-light mt-auto">
+        <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    &middot;
+                    <a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="~/Style/Admin/js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="~/Style/Admin/js/chart-area-demo.js"></script>
     <script src="~/Style/Admin/js/chart-bar-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="~/Style/Admin/js/datatables-simple-demo.js"></script>
 
-    @RenderSection("script",false)
+
+
+    <script src="~/Content/admin/js/fullcalendar.js"></script>
+    <script src="~/Content/admin/js/main.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <link href="~/Style/Css/DataTable.css" rel="stylesheet" />
+    <script src="~/Style/Js/Datatable.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#datatablesSimple').DataTable();
+            $('#datatablesSimple1').DataTable();
+            $('#datatablesSimple2').DataTable();
+        });
+    </script>
+    @RenderSection("script", false)
 </body>
 </html>

@@ -29,5 +29,9 @@ namespace BookingAirline.Controllers
 
             return View();
         }
+       public ActionResult Promotion()
+        {
+            return View();
+        }
     }
 }

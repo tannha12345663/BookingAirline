@@ -27,22 +27,25 @@ namespace BookingAirline.Controllers
                 TempData["error"] = "Tài khoản đăng nhập không đúng";
                 return View();
             }
-            else if (taikhoan != null)
+            else
             {
-                //add session
-                database.Configuration.ValidateOnSaveEnabled = false;
                 Session["userNV"] = data;
                 return RedirectToAction("TrangChu", "NhanVien");
             }
-            return View();
+            ///*else if (taikhoan != null)
+            //{
+            //    //add session
+            //    database.Configuration.ValidateOnSaveEnabled = false;
+                
+            //}*/
         }
 
 
-        public ActionResult LogOut() 
-        { 
+        public ActionResult LogOut()
+        {
             Session.Abandon();
             return RedirectToAction("Login", "LoginAdmin");
         }
-        
+
     }
 }

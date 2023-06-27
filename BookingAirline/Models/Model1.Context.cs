@@ -12,6 +12,8 @@ namespace BookingAirline.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class BookingAirLightEntities : DbContext
     {
@@ -43,5 +45,43 @@ namespace BookingAirline.Models
         public virtual DbSet<SanBay> SanBays { get; set; }
         public virtual DbSet<TuyenBay> TuyenBays { get; set; }
         public virtual DbSet<Ve> Ves { get; set; }
+        public virtual DbSet<Voucher> Vouchers { get; set; }
+        public virtual DbSet<Wishlist> Wishlists { get; set; }
+        public virtual DbSet<save_log_chuyenbay> save_log_chuyenbay { get; set; }
+    
+        public virtual int sp_Hoanve(string mave, string macb)
+        {
+            var maveParameter = mave != null ?
+                new ObjectParameter("mave", mave) :
+                new ObjectParameter("mave", typeof(string));
+    
+            var macbParameter = macb != null ?
+                new ObjectParameter("macb", macb) :
+                new ObjectParameter("macb", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Hoanve", maveParameter, macbParameter);
+        }
+    
+        public virtual int sp_XoaPDC(string macb, string soghe)
+        {
+            var macbParameter = macb != null ?
+                new ObjectParameter("macb", macb) :
+                new ObjectParameter("macb", typeof(string));
+    
+            var sogheParameter = soghe != null ?
+                new ObjectParameter("soghe", soghe) :
+                new ObjectParameter("soghe", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_XoaPDC", macbParameter, sogheParameter);
+        }
+    
+        public virtual int sp_Hoanve1(string mahd)
+        {
+            var mahdParameter = mahd != null ?
+                new ObjectParameter("mahd", mahd) :
+                new ObjectParameter("mahd", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Hoanve1", mahdParameter);
+        }
     }
 }

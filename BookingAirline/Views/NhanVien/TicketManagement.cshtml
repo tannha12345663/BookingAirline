@@ -1,29 +1,22 @@
-﻿@model IEnumerable<BookingAirline.Models.Ve>
+﻿﻿@model IEnumerable<BookingAirline.Models.Ve>
 @using BookingAirline.Models;
 @{
     ViewBag.Title = "TicketManagement";
     Layout = "~/Views/NhanVien/Shared/_LayoutPage1.cshtml";
     BookingAirLightEntities database = new BookingAirLightEntities();
+    ViewBag.active6 = "active";
 }
 
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="~/NhanVien/TrangChu">Dasboard</a></li>
-    <li class="breadcrumb-item active">Ticket List</li>
-</ol>
-<div class="card mb-4">
-    <div class="card-body">
-        DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-        <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-    </div>
-</div>
+   
 
-<div class="row">
-    <div class="col-md-3 mb-3">
-        <div class="btn btn-secondary text-white">
-            <a data-toggle="modal" data-target="#myModal01">Add flight tickets </a>
-            <i class="fas fa-ticket me-2"></i>
+    <br />
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <div class="btn btn-secondary text-white">
+                <a data-toggle="modal" data-target="#myModal">Add flight tickets </a>
+                <i class="fas fa-ticket me-2"></i>
+            </div>
         </div>
-    </div>
 
 </div>
 <div class="card mb-4">
@@ -55,7 +48,9 @@
                             @{ var tenhv = database.HangVes.Find(item01.MaHV);}
                             <td>@tenhv.TenHV</td>
                             <td>@item01.CCCD</td>
-                            <td>@item01.GiaVe</td>
+                            @{ var format = string.Format("{0:0,0 vnđ}", item01.GiaVe);}
+                            <td>@format</td>
+
                             <td>@item01.TinhTrang</td>
                             <td>Chỉnh sửa || Xóa</td>
                         </tr>
@@ -72,26 +67,26 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Add new Air plan</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add new Air plan</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
 
-            <div class="modal-content">
-                <form action="~/NhanVien/AddPlan" method="post">
-                    @Html.AntiForgeryToken()
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <label class="control-label">Nhập mã máy bay</label>
-                                <input class="form-control text-box single-line" name="MaMB" type="text" required>
+                <div class="modal-content">
+                    <form action="~/NhanVien/AddPlan" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="control-label">Nhập mã máy bay</label>
+                                    <input class="form-control text-box single-line" name="MaMB" type="text" required>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="control-label">Nhập loại máy bay</label>
+                                    <input class="form-control" id="ChietKhau" name="LoaiMayBay" type="text" required>
+                                </div>
                             </div>
-                            <div class="form-group col-md-12">
-                                <label class="control-label">Nhập loại máy bay</label>
-                                <input class="form-control" id="ChietKhau" name="LoaiMayBay" type="text" required>
-                            </div>
-                        </div>
 
                         <div class="modal-footer">
                             <div class="form-group">
@@ -103,7 +98,6 @@
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>

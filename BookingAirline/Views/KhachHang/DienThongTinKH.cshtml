@@ -1,422 +1,186 @@
-﻿
+﻿﻿@model BookingAirline.Models.Cart
+@using BookingAirline.Models
+@{
+    ViewBag.Title = "DienThongTinKH";
+    Layout = "~/Views/KhachHang/Shared/_LayoutPage1.cshtml";
+}
 
-<link rel="apple-touch-icon" href="~/Style/apple-touch-icon.html">
-
-<link rel="stylesheet" href="~/Style/Css/bootstrap.min.css">
-<link rel="stylesheet" href="~/Style/Css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="~/Style/Css/fontAwesome.css">
-<link rel="stylesheet" href="~/Style/Css/hero-slider.css">
-<link rel="stylesheet" href="~/Style/Css/owl-carousel.css">
-<link rel="stylesheet" href="~/Style/Css/datepicker.css">
-<link rel="stylesheet" href="~/Style/Css/tooplate-style.css">
-<link rel="Shortcut Icon" href="~/hinh/logo-i.png" type="image/x-icon" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="~/Style/Css/myStyle.css">
-
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-
-<script src="~/Style/Js/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-
-
-
-<!----======== CSS ======== -->
 <link rel="stylesheet" href="~/Style/Css/InfoCustomers.css">
-
-<!----===== Iconscout CSS ===== -->
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-<!--<title>Responsive Regisration Form </title>-->
+<div class="container_infcustomer">
+    <header>CUSTOMER INFOMATION</header>
 
-<body>
+    <form action="~/KhachHang/DienThongTinKH/" method="post">
+        <div>
+            <div class="form first">
+                <div class="details personal">
+                    <span class="title">Personal Details</span>
 
-    <div class="navbar navbar-inverse navbar-fixed-top" style="opacity:70%">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @*@Html.ActionLink("Home","Home",new {area = ""}, new {@class = "navbar-brand"})*@
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "TrangChu", "KhachHang")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/LoginAdmin/Index"><span class="fa fa-user"></span> Login</a></li>
-                    <li><a href="@Url.Action("LogOut","LoginAdmin")">Log Out</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <section class="banner" id="top">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="left-side">
-                        <div class="logo">
-                            <img src="~/hinh/logo.png" alt="Flight Template">
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Enter your name" name="TenKH_0" required>
                         </div>
-                        <div class="tabs-content">
-                            <h4>Choose Your Direction:</h4>
-                            <ul class="social-links">
-                                <li><a href="#">Find us on <em>Facebook</em><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#">Our <em>YouTube</em> Channel<i class="fa fa-youtube"></i></a></li>
-                                <li><a href="#">Follow our <em>instagram</em><i class="fa fa-instagram"></i></a></li>
-                            </ul>
+
+                        <div class="input-field">
+                            <label>Date of Birth</label>
+                            <input type="date" placeholder="Enter birth date" name="NgaySinh_0" required>
                         </div>
-                        <div class="page-direction-button">
-                            <a href="/Home/Contact"><i class="fa fa-phone"></i>Contact Us Now</a>
+
+                        <div class="input-field">
+                            <label>Email</label>
+                            <input type="text" placeholder="Enter your email" name="Email_0" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Mobile Number</label>
+                            <input type="number" placeholder="Enter mobile number" name="Phone_0" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Gender</label>
+                            <select required name="GioiTinh_0">
+                                <option disabled selected>Select gender</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Others</option>
+                            </select>
+                        </div>
+
+                        <div class="input-field">
+                            <label>CCCD</label>
+                            <input type="text" name="cccd_0" placeholder="Enter your CCCD" required>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-5 col-md-offset-1">
-                    <section id="first-tab-group" class="tabgroup">
-                        <div id="tab1">
-                            <div class="submit-form">
-                                <h4>Check availability for <em>direction</em>:</h4>
-                                <form id="form-submit" action="~/KhachHang/DSachCB" method="get">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <fieldset>
-                                                <label for="from">From:</label>
-                                                <select required name='from' onchange='this.form()'>
-                                                    <option value="">Select a location...</option>
-                                                    <option value="SGN">Hồ Chí Minh (SGN)</option>
-                                                    <option value="Hong Kong">Hong Kong</option>
-                                                    <option value="India">India</option>
-                                                    <option value="Japan">Japan</option>
-                                                    <option value="Korea">Korea</option>
-                                                    <option value="Laos">Laos</option>
-                                                    <option value="Myanmar">Myanmar</option>
-                                                    <option value="Singapore">Singapore</option>
-                                                    <option value="Thailand">Thailand</option>
-                                                    <option value="Vietnam">Vietnam</option>
-                                                </select>
-                                            </fieldset>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <fieldset>
-                                                <label for="to">To:</label>
-                                                <select required name='to' onchange='this.form()'>
-                                                    <option value="">Select a location...</option>
-                                                    <option value="HAN">Hà Nội (HAN)</option>
-                                                    <option value="Hong Kong">Hong Kong</option>
-                                                    <option value="India">India</option>
-                                                    <option value="Japan">Japan</option>
-                                                    <option value="Korea">Korea</option>
-                                                    <option value="Laos">Laos</option>
-                                                    <option value="Myanmar">Myanmar</option>
-                                                    <option value="Singapore">Singapore</option>
-                                                    <option value="Thailand">Thailand</option>
-                                                    <option value="Vietnam">Vietnam</option>
-                                                </select>
-                                            </fieldset>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <fieldset>
-                                                <label for="departure">Departure date:</label>
-                                                <input name="deparure" type="text" class="form-control date" id="deparure" placeholder="Select date..." required="" onchange='this.form()'>
-                                            </fieldset>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <fieldset>
-                                                <label for="return">Return date:</label>
-                                                <input name="return" type="text" class="form-control date" id="return" placeholder="Select date..." required="" onchange='this.form()'>
-                                            </fieldset>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="radio-select">
-                                                <div class="row">
-                                                    <div class="col-md-6 col-sm-6 col-xs-6">
-                                                        <label for="round">Round</label>
-                                                        <input type="radio" name="trip" id="round" value="round" required="required" onchange='this.form.()'>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-6 col-xs-6">
-                                                        <label for="oneway">Oneway</label>
-                                                        <input type="radio" name="trip" id="oneway" value="one-way" required="required" onchange='this.form.()'>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <fieldset>
-                                                <button type="submit" id="form-submit" class="btn">Order Ticket Now</button>
-                                            </fieldset>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="container_infcustomer">
-        <header>CUSTOMER INFOMATION</header>
-
-        <form action="~/KhachHang/DienThongTinKH/" method="post">
-            <div>
-                <div class="form first">
-                    <div class="details personal">
-                        <span class="title">Personal Details</span>
-
-                        <div class="fields">
-                            <div class="input-field">
-                                <label>Full Name</label>
-                                <input type="text" name="name" placeholder="Enter your name" required>
-                            </div>
-
-                            <div class="input-field">
-                                <label>Date of Birth</label>
-                                <input type="date" name="birth" placeholder="Enter birth date" required>
-                            </div>
-
-                            <div class="input-field">
-                                <label>Email</label>
-                                <input type="text" name="email" placeholder="Enter your email" required>
-                            </div>
-
-                            <div class="input-field">
-                                <label>Mobile Number</label>
-                                <input type="number" name="number" placeholder="Enter mobile number" required>
-                            </div>
-
-                            <div class="input-field">
-                                <label>Gender</label>
-                                <select required name="gioitinh">
-                                    <option disabled selected>Select gender</option>
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                    <option>Others</option>
-                                </select>
-                            </div>
-
-                            <div class="input-field">
-                                <label>CCCD</label>
-                                <input type="text" name="cccd" placeholder="Enter your CCCD" required>
-                            </div>
-                        </div>
-                        @*<button type="submit" class="nextBtn">
-                                <span class="btnText">Payment</span>
-                                <i class="uil uil-navigator"></i>
-                            </button>*@
-                    </div>
-
-                    <div class="details ID">
-                        <span class="title">Book Tickets For Relatives</span>
-
-                        <div class="fields">
-                            <div class="input-field">
-                                <label>Full Name</label>
-                                <input type="text" placeholder="Enter ID type" >
-                            </div>
-
-                            <div class="input-field">
-                                <label>Date of Birth</label>
-                                <input type="date" placeholder="Enter birth date" >
-                            </div>
-
-                            <div class="input-field">
-                                <label>Email</label>
-                                <input type="text" placeholder="Enter your email" >
-                            </div>
-
-                            <div class="input-field">
-                                <label>Mobile Number</label>
-                                <input type="number" placeholder="Enter mobile number" >
-                            </div>
-
-                            <div class="input-field">
-                                <label>Gender</label>
-                                <select >
-                                    <option disabled selected>Select gender</option>
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                    <option>Others</option>
-                                </select>
-                            </div>
-                            <div class="input-field">
-                                <label>CCCD</label>
-                                <input type="text" placeholder="Enter your CCCD" >
-                            </div>
-                        </div>
-
-                        <button class="nextBtn" type="submit">
+                    @*<button class="nextBtn" type="submit">
                             <span class="btnText">Payment</span>
                             <i class="uil uil-navigator"></i>
-                        </button>
-                    </div>
+                        </button>*@
+
+
                 </div>
+                <hr />
+                @{
+                    var stt = 0;
+                    var check = Session["trip"].ToString();
+                    var slkh = 0;
+                    if (check == "round" || check == "one-way")
+                    {
+                        slkh = (int)Session["SLKH"];
+                    }
+                    foreach (var item01 in Model.Items)
+                    {
+
+                        stt++;
+                        if (stt < slkh)
+                        {
+                            <div class="details ID" id="@item01.idVe.MaVe">
+                                <span class="title">Book Tickets For Relatives for Perseron @stt </span>
+
+                                <div class="fields">
+                                    <div class="input-field">
+                                        <label>Full Name</label>
+                                        <input type="text" placeholder="Enter ID type" name="TenKH_@stt" required>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <label>Date of Birth</label>
+                                        <input type="date" placeholder="Enter birth date" name="NgaySinh_@stt" required>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <label>Email</label>
+                                        <input type="text" placeholder="Enter your email" name="Email_@stt" required>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <label>Mobile Number</label>
+                                        <input type="number" placeholder="Enter mobile number" name="Phone_@stt" required>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <label>Gender</label>
+                                        <select name="GioiTinh_@stt" required>
+                                            <option disabled selected>Select gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Others">Others</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-field">
+                                        <label>CCCD</label>
+                                        <input type="text" placeholder="Enter your CCCD" name="cccd_@stt" required>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <hr />
+                        }
+
+                    }
+                    <button class="nextBtn">
+                        <span class="btnText">Payment</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                }
+
+
+
             </div>
 
-            @*<div class="form second">
-                    <div class="details address">
-                        <span class="title">Address Details</span>
-
-                        <div class="fields">
-                            <div class="input-field">
-                                <label>Address Type</label>
-                                <input type="text" placeholder="Permanent or Temporary" required>
-                            </div>
-
-                            <div class="input-field">
-                                <label>Nationality</label>
-                                <input type="text" placeholder="Enter nationality" required>
-                            </div>
-
-                            <div class="input-field">
-                                <label>State</label>
-                                <input type="text" placeholder="Enter your state" required>
-                            </div>
-
-                            <div class="input-field">
-                                <label>District</label>
-                                <input type="text" placeholder="Enter your district" required>
-                            </div>
-
-                            <div class="input-field">
-                                <label>Block Number</label>
-                                <input type="number" placeholder="Enter block number" required>
-                            </div>
-
-                            <div class="input-field">
-                                <label>Ward Number</label>
-                                <input type="number" placeholder="Enter ward number" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="details family">
-                        <span class="title">Family Details</span>
-
-                        <div class="fields">
-                            <div class="input-field">
-                                <label>Father Name</label>
-                                <input type="text" placeholder="Enter father name" required>
-                            </div>
-
-                            <div class="input-field">
-                                <label>Mother Name</label>
-                                <input type="text" placeholder="Enter mother name" required>
-                            </div>
-
-                            <div class="input-field">
-                                <label>Grandfather</label>
-                                <input type="text" placeholder="Enter grandfther name" required>
-                            </div>
-
-                            <div class="input-field">
-                                <label>Spouse Name</label>
-                                <input type="text" placeholder="Enter spouse name" required>
-                            </div>
-
-                            <div class="input-field">
-                                <label>Father in Law</label>
-                                <input type="text" placeholder="Father in law name" required>
-                            </div>
-
-                            <div class="input-field">
-                                <label>Mother in Law</label>
-                                <input type="text" placeholder="Mother in law name" required>
-                            </div>
-                        </div>
-
-                        <div class="buttons">
-                            <div class="backBtn">
-                                <i class="uil uil-navigator"></i>
-                                <span class="btnText">Back</span>
-                            </div>
-
-                            <button class="sumbit">
-                                <span class="btnText">Submit</span>
-                                <i class="uil uil-navigator"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>*@
-        </form>
-    </div>
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="primary-button">
-                        <a href="#" class="scroll-top">Back To Top</a>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <ul class="social-icons">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                        <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                    </ul>
-                </div>
-                <div class="col-md-12">
-                    <p>By Team 30 </p>
-                </div>
-            </div>
         </div>
-    </footer>
+    </form>
+</div>
 
+<!--<script src="script.js"></script>-->
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="~/Style/Js/jquery-1.11.2.min.js"><\/script>')</script>
 
+<script src="~/Style/Js/bootstrap.min.js"></script>
 
-    <!--<script src="script.js"></script>-->
+<script src="~/Style/Js/datepicker.js"></script>
+<script src="~/Style/Js/plugins.js"></script>
+<script src="~/Style/Js/main.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="~/Style/Js/jquery-1.11.2.min.js"><\/script>')</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
 
-    <script src="~/Style/Js/bootstrap.min.js"></script>
+    $(document).ready(function () {
 
-    <script src="~/Style/Js/datepicker.js"></script>
-    <script src="~/Style/Js/plugins.js"></script>
-    <script src="~/Style/Js/main.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-
-            // navigation click actions
-            $('.scroll-link').on('click', function (event) {
-                event.preventDefault();
-                var sectionID = $(this).attr("data-id");
-                scrollToID('#' + sectionID, 750);
-            });
-            // scroll to top action
-            $('.scroll-top').on('click', function (event) {
-                event.preventDefault();
-                $('html, body').animate({ scrollTop: 0 }, 'slow');
-            });
-            // mobile nav toggle
-            $('#nav-toggle').on('click', function (event) {
-                event.preventDefault();
-                $('#main-nav').toggleClass("open");
-            });
+        // navigation click actions
+        $('.scroll-link').on('click', function (event) {
+            event.preventDefault();
+            var sectionID = $(this).attr("data-id");
+            scrollToID('#' + sectionID, 750);
         });
-        // scroll function
-        function scrollToID(id, speed) {
-            var offSet = 0;
-            var targetOffset = $(id).offset().top - offSet;
-            var mainNav = $('#main-nav');
-            $('html,body').animate({ scrollTop: targetOffset }, speed);
-            if (mainNav.hasClass("open")) {
-                mainNav.css("height", "1px").removeClass("in").addClass("collapse");
-                mainNav.removeClass("open");
-            }
+        // scroll to top action
+        $('.scroll-top').on('click', function (event) {
+            event.preventDefault();
+            $('html, body').animate({ scrollTop: 0 }, 'slow');
+        });
+        // mobile nav toggle
+        $('#nav-toggle').on('click', function (event) {
+            event.preventDefault();
+            $('#main-nav').toggleClass("open");
+        });
+    });
+    // scroll function
+    function scrollToID(id, speed) {
+        var offSet = 0;
+        var targetOffset = $(id).offset().top - offSet;
+        var mainNav = $('#main-nav');
+        $('html,body').animate({ scrollTop: targetOffset }, speed);
+        if (mainNav.hasClass("open")) {
+            mainNav.css("height", "1px").removeClass("in").addClass("collapse");
+            mainNav.removeClass("open");
         }
-        if (typeof console === "undefined") {
-            console = {
-                log: function () { }
-            };
-        }
-    </script>
-</body>
+    }
+    if (typeof console === "undefined") {
+        console = {
+            log: function () { }
+        };
+    }
+</script>

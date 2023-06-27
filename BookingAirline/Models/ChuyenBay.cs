@@ -30,6 +30,7 @@ namespace BookingAirline.Models
         public Nullable<int> SoLuongGheHang1 { get; set; }
         public Nullable<int> SoLuongGheHang2 { get; set; }
         public Nullable<int> SoLuongGheHang3 { get; set; }
+        public string TinhTrang { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietChuyenBay> ChiTietChuyenBays { get; set; }
