@@ -40,7 +40,10 @@
                                 <td>@item01.MaCB</td>
                                 <td>@item01.MaHV</td>
                                 <td>@item01.IDKH</td>
-                                <td>@item01.GiaVe</td>
+                                @{ 
+                                    var total1 = string.Format("{0:0,0 vnđ}", item01.GiaVe);
+                                }
+                                <td>@total1</td>
                                 <td>@item01.CCCD</td>
                                 <td>@item01.TinhTrang</td>
                                 <td>Chỉnh sửa || Xóa</td>

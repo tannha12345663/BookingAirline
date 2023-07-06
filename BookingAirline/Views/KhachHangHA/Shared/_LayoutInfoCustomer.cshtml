@@ -37,6 +37,14 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="~/Style/Js/jquery-3.2.1.min.js"></script>
+    <style>
+        .avatar {
+            width: 50px; /* Điều chỉnh kích thước avatar tùy ý */
+            height: 50px;
+            border-radius: 50%; /* Đây là thuộc tính tạo góc bo tròn */
+            overflow: hidden; /* Loại bỏ phần dư của hình ảnh vượt ra khỏi vùng giới hạn */
+        }
+    </style>
     <div class="navbar navbar-inverse navbar-fixed-top" style="opacity:80%;">
         <div class="container">
             <div class="navbar-header">
@@ -54,15 +62,21 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    @{var user = (BookingAirline.Models.KhachHang)HttpContext.Current.Session["userKH"]; }
+
+                    <li>
+                        <div class="avatar">
+                            <img src="@user.HinhAnh" alt="Avatar">
+                        </div>
+
+                    </li>
                     <li>
                         <a href="~/KhachHangHA/ThongTinKH">
-                            <span class="fa fa-user">
-                                @{var user = (BookingAirline.Models.KhachHang)HttpContext.Current.Session["userKH"]; }
-                            </span>
+
                             @user.UserName
                         </a>
                     </li>
-                    <li><a href="@Url.Action("LogOut", "LoginUser")">Log Out</a></li>
+                    <li><a href="@Url.Action("LogOut","LoginUser")">Log Out</a></li>
                 </ul>
             </div>
         </div>

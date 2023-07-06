@@ -18,5 +18,7 @@ namespace BookingAirline.Models
         public string MaCB { get; set; }
         public string MaKH { get; set; }
         public Nullable<System.DateTime> NgayThem { get; set; }
+        public string MaCBVe { get; set; }
+        public Nullable<int> SoLuong { get; set; }
     }
 }

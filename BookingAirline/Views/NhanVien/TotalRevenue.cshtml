@@ -43,7 +43,10 @@
                                 <td>@item01.IDKH</td>
                                 <td>@item01.TinhTrang</td>
                                 <td>@item01.NgayLap</td>
-                                <td>@item01.ThanhTien</td>
+                                @{ 
+                                    var total1 = string.Format("{0:0,0 vnđ}", item01.ThanhTien);
+                                }
+                                <td>@total1</td>
                                 <td id="hidden">
                                     <a href="~/NhanVien/DetailTotalRevenue/@item01.MaHD" class="btn btn-info btn-sm edit">
                                         <i style="height:20px" class="fa fa-info"></i>

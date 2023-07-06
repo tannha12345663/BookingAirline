@@ -1,4 +1,7 @@
-﻿﻿
+﻿@using BookingAirline.Models;
+@{ 
+    BookingAirLightEntities db01 = new BookingAirLightEntities();
+}
 <!DOCTYPE html>
 
 <html>
@@ -64,8 +67,8 @@
                                 <li><a href="~/Home/Contact">Contact our <em>Infomations</em><i class="fa fa-phone"></i></a></li>
                             </ul>
                         </div>
-                    <div class="page-direction-button">
-                        @*<a href="/Home/Contact" ><i class="fa fa-phone"></i>Contact Us Now</a>*@
+                        <div class="page-direction-button">
+                            @*<a href="/Home/Contact" ><i class="fa fa-phone"></i>Contact Us Now</a>*@
                         </div>
                     </div>
                 </div>
@@ -83,18 +86,28 @@
                                             <fieldset>
 
                                                 <label for="from">From:</label>
-                                                <select required name='from' onchange='this.form()'>
-                                                    <option value="">Select a location...</option>
+                                                <select required name='from' onchange='this.form()' id="from">
+                                                    <option selected disabled>Select a location...</option>
                                                     <option value="SGN">Hồ Chí Minh (SGN)</option>
-                                                    <option value="Hong Kong">Hong Kong</option>
-                                                    <option value="India">India</option>
-                                                    <option value="Japan">Japan</option>
-                                                    <option value="Korea">Korea</option>
-                                                    <option value="Laos">Laos</option>
-                                                    <option value="Myanmar">Myanmar</option>
-                                                    <option value="Singapore">Singapore</option>
-                                                    <option value="Thailand">Thailand</option>
-                                                    <option value="Vietnam">Vietnam</option>
+                                                    <option value="HAN">Hà Nội (HAN)</option>
+                                                    <option value="DAD">Đà Nẵng (DAD)</option>
+                                                    <option value="HPH">Hải Phòng (HPH)</option>
+                                                    <option value="VCA">Cần Thơ (VCA)</option>
+                                                    <option value="VII">Vinh (VII)</option>
+                                                    <option value="HUI">Huế (HUI)</option>
+                                                    <option value="DLI">Đà Lạt (DLI)</option>
+                                                    <option value="PXU">Pleiku (PXU)</option>
+                                                    <option value="VDH">Đồng Hới (VDH)</option>
+                                                    <option value="THD">Thanh Hóa (THD)</option>
+                                                    <option value="UIH">Qui Nhơn (UIH)</option>
+                                                    <option value="TBB">Tuy Hòa (TBB)</option>
+                                                    <option value="VCL">Chu Lai (VCL)</option>
+                                                    <option value="BMV">Ban Mê Thuột (BMV)</option>
+                                                    <option value="VCS">Côn Đảo (VCS)</option>
+                                                    <option value="VKG">Rạch Giá (VKG)</option>
+                                                    <option value="PQC">Phú Quốc (PQC)</option>
+                                                    <option value="VDO">Vân Đồn (VDO)</option>
+                                                    <option value="VCA">Cà Mau (VCA)</option>
                                                 </select>
                                             </fieldset>
                                         </div>
@@ -102,18 +115,28 @@
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <label for="to">To:</label>
-                                                <select required name='to' onchange='this.form()'>
-                                                    <option value="">Select a location...</option>
+                                                <select required name='to' onchange='this.form()' id="to">
+                                                    <option selected disabled>Select a location...</option>
+                                                    <option value="SGN">Hồ Chí Minh (SGN)</option>
                                                     <option value="HAN">Hà Nội (HAN)</option>
-                                                    <option value="Hong Kong">Hong Kong</option>
-                                                    <option value="India">India</option>
-                                                    <option value="Japan">Japan</option>
-                                                    <option value="Korea">Korea</option>
-                                                    <option value="Laos">Laos</option>
-                                                    <option value="Myanmar">Myanmar</option>
-                                                    <option value="Singapore">Singapore</option>
-                                                    <option value="Thailand">Thailand</option>
-                                                    <option value="Vietnam">Vietnam</option>
+                                                    <option value="DAD">Đà Nẵng (DAD)</option>
+                                                    <option value="HPH">Hải Phòng (HPH)</option>
+                                                    <option value="VCA">Cần Thơ (VCA)</option>
+                                                    <option value="VII">Vinh (VII)</option>
+                                                    <option value="HUI">Huế (HUI)</option>
+                                                    <option value="DLI">Đà Lạt (DLI)</option>
+                                                    <option value="PXU">Pleiku (PXU)</option>
+                                                    <option value="VDH">Đồng Hới (VDH)</option>
+                                                    <option value="THD">Thanh Hóa (THD)</option>
+                                                    <option value="UIH">Qui Nhơn (UIH)</option>
+                                                    <option value="TBB">Tuy Hòa (TBB)</option>
+                                                    <option value="VCL">Chu Lai (VCL)</option>
+                                                    <option value="BMV">Ban Mê Thuột (BMV)</option>
+                                                    <option value="VCS">Côn Đảo (VCS)</option>
+                                                    <option value="VKG">Rạch Giá (VKG)</option>
+                                                    <option value="PQC">Phú Quốc (PQC)</option>
+                                                    <option value="VDO">Vân Đồn (VDO)</option>
+                                                    <option value="VCA">Cà Mau (VCA)</option>
                                                 </select>
                                             </fieldset>
                                         </div>
@@ -135,13 +158,13 @@
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <label>Quantity aldults:</label>
-                                                <input class="form-control date01"type="number"min="1" name="aldults" required/>
+                                                <input class="form-control date01" type="number" min="1" name="aldults" required />
                                             </fieldset>
                                         </div>
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <label>Quantity children:</label>
-                                                <input class="form-control date01" type="number" min="0" name="children" required/>
+                                                <input class="form-control date01" type="number" min="0" name="children" required />
                                             </fieldset>
                                         </div>
                                         <div class="col-md-6">
@@ -174,6 +197,15 @@
         </div>
     </section>
     @RenderBody()
+    <!-- Start of LiveChat (www.livechat.com) code -->
+    <script>
+        window.__lc = window.__lc || {};
+        window.__lc.license = 15472062;
+        ; (function (n, t, c) { function i(n) { return e._h ? e._h.apply(null, n) : e._q.push(n) } var e = { _q: [], _h: null, _v: "2.0", on: function () { i(["on", c.call(arguments)]) }, once: function () { i(["once", c.call(arguments)]) }, off: function () { i(["off", c.call(arguments)]) }, get: function () { if (!e._h) throw new Error("[LiveChatWidget] You can't use getters before load."); return i(["get", c.call(arguments)]) }, call: function () { i(["call", c.call(arguments)]) }, init: function () { var n = t.createElement("script"); n.async = !0, n.type = "text/javascript", n.src = "https://cdn.livechatinc.com/tracking.js", t.head.appendChild(n) } }; !n.__lc.asyncInit && e.init(), n.LiveChatWidget = n.LiveChatWidget || e }(window, document, [].slice))
+    </script>
+    <noscript><a href="https://www.livechat.com/chat-with/15472062/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+    <!-- End of LiveChat code -->
+
 </body>
 </html>
 
@@ -260,5 +292,37 @@
         $("#oneway").change(function () {
             $("#return").attr("disabled", true);
         })
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Lưu trữ tất cả các option trong dropdown điểm đến (To)
+        var allOptions = $('#to option').clone();
+
+        // Xử lý sự kiện khi dropdown điểm đi (From) thay đổi
+        $('#from').change(function () {
+            var selectedOption = $(this).val(); // Lấy giá trị đã chọn trong dropdown điểm đi (From)
+
+            // Khôi phục tất cả các option trong dropdown điểm đến (To)
+            $('#to').empty().append(allOptions);
+
+            // Loại bỏ option đã chọn từ dropdown điểm đến (To)
+            $('#to option[value="' + selectedOption + '"]').remove();
+
+            // Hiển thị lại nội dung đã ẩn trước đó (nếu có)
+            $('#to').removeAttr('disabled');
+        });
+
+        // Xử lý sự kiện khi dropdown điểm đến (To) thay đổi
+        $('#to').change(function () {
+            var selectedOption = $(this).val(); // Lấy giá trị đã chọn trong dropdown điểm đến (To)
+
+            // Nếu người dùng chọn lại "Select a location..."
+            if (selectedOption === "") {
+                // Hiển thị lại tất cả các option trong dropdown điểm đến (To)
+                $('#to').empty().append(allOptions);
+            }
+        });
     });
 </script>

@@ -13,7 +13,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="jquery-3.6.3.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-
+<style>
+    .error-message {
+        color: red;
+        font-weight: bold;
+    }
+</style>
 @{
     var checkmess = (string)TempData["messageAlert"];
     var macb = (string)TempData["machuyenbay"];
@@ -272,9 +277,9 @@
                     <div class="modal-body">
                         <div class="row">
                             @*<div class="form-group col-md-12">
-                                    <label class="control-label">Nhập tuyến bay</label>
-                                    <input class="form-control text-box single-line"  name="MaTbay" type="text" required>
-                                </div>*@
+            <label class="control-label">Nhập tuyến bay</label>
+            <input class="form-control text-box single-line"  name="MaTbay" type="text" required>
+        </div>*@
                             <div class="form-group col-md-6">
                                 <label class="control-label">Chọn mã máy bay</label>
                                 <select class="form-control " name="MaMB" type="text" required>
@@ -330,6 +335,7 @@
                                 <label class="control-label">Nhập đơn giá G3:</label>
                                 <input class="form-control" name="dongiaG3" type="number" required>
                             </div>
+                            <div id="error-message" class="error-message"></div>
                             <div class="form-group col-md-8">
                                 <input name="checkbox01" value="1" type="radio" required /> Bổ sung thên chuyến bay (nếu có) <br />
                                 <input name="checkbox01" value="0" type="radio" required /> Không có
@@ -338,7 +344,7 @@
 
                         <div class="modal-footer">
                             <div class="form-group">
-                                <input type="submit" value="Add new" class="btn btn-success" />
+                                <input type="submit" value="Add new" id="ThemCB" class="btn btn-success" />
                                 <a class="btn btn-primary" data-dismiss="modal" href="#">Cancel</a>
                                 <BR>
                             </div>
@@ -452,7 +458,23 @@
                 })
             })
         }); 
-        
+        $(document).ready(function () {
+            $('input[name="dongiaG1"], input[name="dongiaG2"], input[name="dongiaG3"]').on('change', function () {
+                var G1 = parseFloat($('input[name="dongiaG1"]').val());
+                var G2 = parseFloat($('input[name="dongiaG2"]').val());
+                var G3 = parseFloat($('input[name="dongiaG3"]').val());
+
+                if (G1 <= G2 || G2 <= G3) {
+                    $('#error-message').text('Đơn giá G1 phải lớn hơn G2 và G2 phải lớn hơn G3');
+                    $('#ThemCB').prop("disabled", true);
+
+                } else {
+                    $('#error-message').text('');
+                    $('#ThemCB').prop("disabled", false);
+                }
+            });
+        });
+
     </script>
 }
 @{

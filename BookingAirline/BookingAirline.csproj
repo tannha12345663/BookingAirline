@@ -259,6 +259,7 @@
     <Compile Include="Models\save_log_chuyenbay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SelectTT.cs" />
     <Compile Include="Models\TuyenBay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -736,12 +737,13 @@
     <Content Include="Views\NhanVien\Chitietcb.cshtml" />
     <Content Include="Views\KhachHang\FailePayment.cshtml" />
     <Content Include="Views\KhachHang\Shared\_LayoutPagePaymentStatus.cshtml" />
+    <Content Include="Views\NhanVien\CreateStaff.cshtml" />
+    <Content Include="Views\KhachHangHA\PrintDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\KhachHangHA\Shared\_LayoutInfoCustomer.cshtml" />
     <Content Include="Views\KhachHangHA\FailePayment.cshtml" />
     <Content Include="Views\NhanVien\DetailCus.cshtml" />
-    <Content Include="Views\KhachHangHA\WhishList.cshtml" />
     <Content Include="Views\KhachHangHA\HienThiWL.cshtml" />
     <Content Include="Views\LoginUser\ResetPass.cshtml" />
   </ItemGroup>

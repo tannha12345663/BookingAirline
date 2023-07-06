@@ -223,6 +223,8 @@
           <Property Name="MaCB" Type="varchar" MaxLength="10" />
           <Property Name="MaKH" Type="varchar" MaxLength="10" />
           <Property Name="NgayThem" Type="datetime" />
+          <Property Name="MaCBVe" Type="varchar" MaxLength="10" />
+          <Property Name="SoLuong" Type="int" />
         </EntityType>
         <Association Name="FK_ChiTietChuyenBay_ChuyenBay">
           <End Role="ChuyenBay" Type="Self.ChuyenBay" Multiplicity="0..1">
@@ -840,6 +842,8 @@
           <Property Name="MaCB" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="MaKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="NgayThem" Type="DateTime" Precision="3" />
+          <Property Name="MaCBVe" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SoLuong" Type="Int32" />
         </EntityType>
         <Association Name="FK_ChiTietChuyenBay_ChuyenBay">
           <End Role="ChuyenBay" Type="Self.ChuyenBay" Multiplicity="0..1">
@@ -1210,7 +1214,7 @@
             <Parameter Name="soghe" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Hoanve1">
-            <Parameter Name="mahd" Mode="In" Type="String" />
+          <Parameter Name="mahd" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="save_log_chuyenbay">
@@ -1450,6 +1454,8 @@
           <EntitySetMapping Name="Wishlists">
             <EntityTypeMapping TypeName="BookingAirLightModel.Wishlist">
               <MappingFragment StoreEntitySet="Wishlist">
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="MaCBVe" ColumnName="MaCBVe" />
                 <ScalarProperty Name="MaWL" ColumnName="MaWL" />
                 <ScalarProperty Name="MaCB" ColumnName="MaCB" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />

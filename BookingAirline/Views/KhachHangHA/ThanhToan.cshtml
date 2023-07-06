@@ -50,7 +50,7 @@
                                             <h3 style="color: #000000; font-weight: bold" class="item-description">FROM: @matbay.SanBayDi - TO: @matbay.SanBayDen</h3>
                                             <div class="col-lg-7 col-8 mt-4" style="color:#000000">
                                                 <small class="item-description">@macb.NgayGio</small>
-                                                <p class="item-description">Name: @item.idVe.IDKH</p>
+                                                <p class="item-description">Name: @item.IDKH</p>
                                                 <p class="item-description">Price: @ThanhTien</p>
 
                                                 @{ cal += Convert.ToInt32(item.idVe.GiaVe); }
@@ -64,14 +64,23 @@
                                         </div>
                                     </div>
                                 }
-                                <div class="row">
+                                <div class="row" style=" display: flex; justify-content:center; ">
                                     <div class="col-md-12 red-bg">
                                         <p class="total" id="total-label">Total Price</p>
                                         @{ var total1 = string.Format("{0:0,0 vnđ}", cal);}
                                         <h2 class="price" id="total" style="color:#ffffff; font-weight:bold">@total1</h2>
                                         <small class="bill-date" id="total-label">Price includes all taxes</small>
                                     </div>
+                                    @*<div class="col-md-12 red-bg">
+                                        <div class="input-field"  >
+                                            <label style="color:white">Mã giảm giá: </label>
+                                            <input id="Mavc" style="text-align:center" type="text" class="text-justify" placeholder="Nhập mã giảm giá" />
+                                            <span id="error" style="color:red">
+                                            </span>
+                                        </div>
+                                    </div>*@
                                 </div>
+
                             </div>
                         </div>
                         <div class="col-md-5 p-0 box">
@@ -229,7 +238,69 @@
     }, 1000);
 </script>
 
+<script>
 
+    LoadData();
+    $(document).ready(function () {
+        $('#Next').click(function () {
+            var mavc = $('#Mavc').val();
+
+            var model = {
+                MaVC=mavc
+            };
+            $.ajax({
+                url: '/KhachHangHA/ThanhToan',
+                type: 'POST',
+                data: model,
+                success: function (res) {
+                    if (res.success) {
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+    });
+
+
+</script>
+<script>
+
+     $("#Mavc").change('input', function () {
+         var inputval = $(this).val();
+         console.log(inputval); //Dùng để check value biến hứng khi có sự kiện người dùng tác động vào
+         var isDup = false;
+
+         //Tạo một Ajax request với controller và action tương ứng
+         $.ajax({
+             url: '@Url.Action("KTKM", "KhachHangHA")',
+             type: 'POST',
+             data: {
+                 input: inputval
+             },
+             success: function (response) {
+                 if (response) {
+                     var html1 = '<p><p>'
+                     $('#error').html(html1);
+                    /* $("#Next").prop("disabled", false);*/
+                 }
+                 else {
+                     if (inputval.length == 0) {
+                         var html = '<p><p>'
+                         $('#error').html(html);
+                        /* $("#Next").prop("disabled", false);*/
+                     }
+                     else {
+                         var html = '<p> Mã khuyến mãi không tồn tại <p>'
+                         $('#error').html(html);
+                         /*$("#Next").attr("disabled", "disable");*/
+                     }
+                 }
+
+             },
+         })
+     })
+
+</script>
 
 
 

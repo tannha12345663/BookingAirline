@@ -445,7 +445,7 @@ namespace BookingAirline.Controllers
             var idkh = database.KhachHangs.Where(s => s.CCCD == ttkh.CCCD).FirstOrDefault();
             Random rd = new Random();
             HoaDon themhd = new HoaDon();
-            themhd.MaHD = "HD" + rd.Next(1, 100) + rd.Next(1, 100);
+            themhd.MaHD = (string)Session["madonhang"];
             themhd.TinhTrang = "Đã thanh toán";
             themhd.NgayLap = System.DateTime.Now;
             themhd.ThanhTien = ttkh.Total;

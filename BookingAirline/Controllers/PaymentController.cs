@@ -20,8 +20,11 @@ namespace BookingAirline.Controllers
         //Chức năng thanh toán VNPAY
         public ActionResult Payment01()
         {
+            Random rd = new Random();
             Cart cart = Session["Cart"] as Cart;
             var tt = cart.TongTien().ToString();
+            var mahd = "HD" + rd.Next(1, 100) + rd.Next(1, 100);
+            Session["madonhang"] = mahd;
 
             string url = ConfigurationManager.AppSettings["Url"];
             string returnUrl = ConfigurationManager.AppSettings["ReturnUrl"];
@@ -42,7 +45,7 @@ namespace BookingAirline.Controllers
             pay.AddRequestData("vnp_OrderInfo", "Thanh toán vé máy bay"); //Thông tin mô tả nội dung thanh toán
             pay.AddRequestData("vnp_OrderType", "other"); //topup: Nạp tiền điện thoại - billpayment: Thanh toán hóa đơn - fashion: Thời trang - other: Thanh toán trực tuyến
             pay.AddRequestData("vnp_ReturnUrl", returnUrl); //URL thông báo kết quả giao dịch khi Khách hàng kết thúc thanh toán
-            pay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString()); //mã hóa đơn
+            pay.AddRequestData("vnp_TxnRef", mahd.ToString()); //mã hóa đơn
 
             string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
 
@@ -67,7 +70,7 @@ namespace BookingAirline.Controllers
                     }
                 }
 
-                long orderId = Convert.ToInt64(pay.GetResponseData("vnp_TxnRef")); //mã hóa đơn
+                string orderId = pay.GetResponseData("vnp_TxnRef"); //mã hóa đơn
                 long vnpayTranId = Convert.ToInt64(pay.GetResponseData("vnp_TransactionNo")); //mã giao dịch tại hệ thống VNPAY
                 string vnp_ResponseCode = pay.GetResponseData("vnp_ResponseCode"); //response code: 00 - thành công, khác 00 - xem thêm https://sandbox.vnpayment.vn/apis/docs/bang-ma-loi/
                 string vnp_SecureHash = Request.QueryString["vnp_SecureHash"]; //hash của dữ liệu trả về

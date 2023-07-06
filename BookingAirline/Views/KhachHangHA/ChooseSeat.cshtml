@@ -20,7 +20,6 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
-<h2 style="text-align:center">ChooseSeat : @macb</h2>
 <h3 style="text-align:center;color:red" id="Warning" hidden>The quantity you selected exceeds the original quantity !</h3>
 
 <div class="Title" style="display:flex;">
@@ -28,22 +27,18 @@
         <h2 style="text-align:center">ChooseSeat : @macb</h2>
     </div>
     <div style="line-height:82px; margin-left:15px">
-        @{
-            var KH = (BookingAirline.Models.KhachHang)Session["userKH"];
-            var WL = database.Wishlists.Where(s => s.MaCB == macb && s.MaKH == KH.IDKH).FirstOrDefault();
-            if (WL != null)
-            {
-                <a href="@Url.Action("WhishList","KhachHangHA",new { id=macb})" id="button">
-                    <i class="fa fa-heart" aria-hidden="true" style="font-size:29px; color:red"></i>
-                </a>
-            }
-            else
-            {
-                <a href="@Url.Action("WhishList","KhachHangHA",new { id=macb})" id="button">
-                    <i class="fa fa-heart" aria-hidden="true" style="font-size:29px; color:gray" ></i>
-                </a>
-            }
-        }
+        @{ var KH = (BookingAirline.Models.KhachHang)Session["userKH"];
+                        var WL = database.Wishlists.Where(s => s.MaCB == macb && s.MaKH == KH.IDKH).FirstOrDefault();
+                        if (WL != null)
+                        {
+            <button style="border:none;background-color:white;" id="macb" value="@macb">
+                <i class="fa fa-heart" id="like" aria-hidden="true" style="font-size:29px; color:red"></i>
+            </button> }
+                        else
+                        {
+            <button style="border:none;background-color:white;" id="macb" value=@macb>
+                <i class="fa fa-heart" id="like" aria-hidden="true" style="font-size:29px; color:gray"></i>
+            </button> } }
     </div>
 </div>
 
@@ -216,11 +211,6 @@
                     </ul>
 
                     <button type="submit" class="btn btn-success" id="Next" disabled value="">Next</button>
-                    <div style="margin:10px">
-                        <a href="@Url.Action("WhishList","KhachHangHA",new { id=macb})">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </a>
-                    </div>
 
                     <div id="legend"></div>
                 </div>
@@ -280,16 +270,32 @@
         }
     })
 </script>
-@*<script>
-    $(document).ready(function () {
-        $("#round").change(function () {
-            var check = $("#round").val();
-            $("#return").prop("disabled", false);
 
+
+<script type="text/javascript">
+    $(function () {
+        $('#macb').click(function () {
+            var CB = $(this).val();
+            console.log(CB);
+            $.ajax({
+                url: '@Url.Action("WhishList")',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: CB },
+                success: function (res)
+                {
+                    if (res.Data == true) {
+                        alert("Bạn đã thêm thành công");
+                        $("#like").attr('style', 'font-size:29px; color:red');
+
+                    }
+                    else if (res.Data01 == true) {
+                        alert("Bạn đã xóa thành công");
+                        $("#like").attr('style', 'font-size:29px; color:gray');
+                    }
+
+                },
+            });
         });
-        $("#oneway").change(function () {
-            $("#return").attr("disabled", true);
-        })
     });
-</script>*@
-
+</script>

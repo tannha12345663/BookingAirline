@@ -420,13 +420,15 @@ namespace BookingAirline.Controllers
             var dsticket = database.Ves.ToList();
             return View(dsticket);
         }
+
+
         public ActionResult TicketList()
         {
             return View();
         }
         public ActionResult TotalRevenue()
         {
-            var dshd = database.HoaDons.ToList();
+            var dshd = database.HoaDons.ToList().OrderByDescending(s=>s.NgayLap);
             return View(dshd);
         }
         public ActionResult DetailTotalRevenue(string id)
@@ -560,43 +562,53 @@ namespace BookingAirline.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreatePromotion(Voucher vc)
+        public ActionResult CreatePromotion(Voucher voucher, string SelectTT, string NgayApDung, string NgayHetHan)
         {
-            database.Entry(vc).State = (System.Data.Entity.EntityState)System.Data.Entity.EntityState.Modified;
-            database.Vouchers.Add(vc);
+
+            voucher.TinhTrang = SelectTT;
+            database.Vouchers.Add(voucher);
             database.SaveChanges();
-            TempData["macv"] = vc.MaVC;
+            TempData["macv"] = voucher.MaVC;
             TempData["MessageAlert"] = "success";
             return RedirectToAction("Promotion");
-
         }
-        
-        //[HttpGet]
-        //public ActionResult EditPro(string id)
-        //{
-
-        //    var voucher = new Voucher().ViewDetail(id);
-
-        //    return View(voucher);
-        //}
-
-        //[HttpPost]
-
-        //public ActionResult EditPro(Voucher voucher)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var vc = new Voucher();
-        //        var result = vc.Update(voucher);
 
 
 
-        //    }
+        [HttpPost]
+        public JsonResult KTMavc(string input)
+        {
+            bool isDup = false;
+            var check = database.Vouchers.Where(s => s.MaVC == input).FirstOrDefault();
+            if (check != null)
+            {
+                isDup = true;
+                return Json(isDup, JsonRequestBehavior.AllowGet);
+            }
+            return Json(isDup, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetDatavc()
+        {
+            bool proxyCreation = database.Configuration.ProxyCreationEnabled;
+            try
+            {
+                database.Configuration.ProxyCreationEnabled = false;
+                var dstb = database.Vouchers.ToList();
+                return Json(new { Data = dstb, TotalItems = dstb.Count }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(ex.Message);
+            }
+            finally
+            {
+                //restore ProxyCreation to its original state
+                database.Configuration.ProxyCreationEnabled = proxyCreation;
+            }
+        }
 
-        //    return View("Promotion");
-        //}
-
-        
 
         public ActionResult DeletePro(string id)
         {
@@ -615,6 +627,31 @@ namespace BookingAirline.Controllers
         public ActionResult History()
         {
             return View();
+        }
+
+        public ActionResult CreateStaff()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateStaff(NhanVien nhanVien, string IDNV, string MaCV, string UserName, string Password, string TenNV, string SDT_NV, string GioiTinh)
+        {
+
+            database.NhanViens.Add(nhanVien);
+            database.SaveChanges();
+            TempData["manhanvien"] = nhanVien.IDNV;
+            TempData["MessageAlert"] = "themthanhcong";
+            return RedirectToAction("Staff");
+        }
+        public ActionResult DeleteStaff(string id)
+        {
+            var st = database.NhanViens.Find(id);
+            database.NhanViens.Remove(st);
+            database.SaveChanges();
+            TempData["manhanvien"] = st.IDNV;
+            TempData["messageAlert"] = "XoaThanhCong";
+
+            return Json(new { success = true });
         }
 
     }

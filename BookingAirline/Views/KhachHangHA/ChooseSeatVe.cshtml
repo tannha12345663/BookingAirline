@@ -20,8 +20,26 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
+<div class="Title" style="display:flex;">
+    <div class="title-de" style="margin-left: 590px">
+        <h2 style="text-align:center">ChooseSeat : @macb</h2>
+    </div>
+    <div style="line-height:82px; margin-left:15px">
+        @{ var KH = (BookingAirline.Models.KhachHang)Session["userKH"];
+                        var WL = database.Wishlists.Where(s => s.MaCBVe == macb && s.MaKH == KH.IDKH).FirstOrDefault();
+                        if (WL != null)
+                        {
+            <button style="border:none;background-color:white;" id="macb" value="@macb">
+                <i class="fa fa-heart" id="like" aria-hidden="true" style="font-size:29px; color:red"></i>
+            </button> }
+                        else
+                        {
+            <button style="border:none;background-color:white;" id="macb" value=@macb>
+                <i class="fa fa-heart" id="like" aria-hidden="true" style="font-size:29px; color:gray"></i>
+            </button> } }
+    </div>
+</div>
 
-<h2 style="text-align:center">ChooseSeat: @macb</h2>
 <h3 style="text-align:center;color:red" id="Warning" hidden>The quantity you selected exceeds the original quantity !</h3>
 <link href="~/Style/Css/style.css" rel="stylesheet" />
 <div class="container">
@@ -355,4 +373,32 @@
             $('#Next').attr('disabled', true);
         }
     })
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#macb').click(function () {
+            var CB = $(this).val();
+            console.log(CB);
+            $.ajax({
+                url: '@Url.Action("WhishList")',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: CB },
+                success: function (res)
+                {
+                    if (res.Data == true) {
+                        alert("Bạn đã thêm thành công");
+                        $("#like").attr('style', 'font-size:29px; color:red');
+
+                    }
+                    else if (res.Data01 == true) {
+                        alert("Bạn đã xóa thành công");
+                        $("#like").attr('style', 'font-size:29px; color:gray');
+                    }
+
+                },
+            });
+        });
+    });
 </script>

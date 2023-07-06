@@ -30,20 +30,22 @@ namespace BookingAirline.Models
         //Thêm vé vào giỏ hàng
         public void Add(Ve mave, int sl, string cccd)
         {
-            var item = Items.FirstOrDefault(s => s.idVe.MaVe == mave.MaVe);
-            if (item == null)
-            {
-                items.Add(new CartItem
-                {
-                    idVe = mave,
-                    soLuong = sl,
-                    CCCD=cccd
-                });
-            }
-            else
-            {
-                item.soLuong += sl;
-            }
+            //var item = Items.FirstOrDefault(s => s.idVe.MaVe == mave.MaVe);
+            //if (item == null)
+            //{
+            //    items.Add(new CartItem
+            //    {
+            //        idVe = mave,
+            //        soLuong = sl,
+            //        CCCD=cccd
+            //    });
+            //}
+            //else
+            //{
+            //    item.soLuong += sl;
+            //}
+
+            items.Add(new CartItem{ idVe = mave, soLuong = sl, CCCD = cccd });
         }
 
         //Tính tổng số lượng trong giỏ

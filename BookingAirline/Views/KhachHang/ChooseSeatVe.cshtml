@@ -18,7 +18,17 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<h2 style="text-align:center">ChooseSeat : @macb</h2>
+<div class="Title" style="display:flex;">
+    <div class="title-de" style="margin-left: 590px">
+        <h2 style="text-align:center">ChooseSeat : @macb</h2>
+    </div>
+    <div style="line-height:82px; margin-left:15px">
+        <a href="~/LoginUser/Login">
+            <i class="fa fa-heart" id="like" aria-hidden="true" style="font-size:29px; color:gray"></i>
+        </a>
+    </div>
+</div>
+
 <h3 style="text-align:center;color:red" id="Warning" hidden>The quantity you selected exceeds the original quantity !</h3>
 <link href="~/Style/Css/style.css" rel="stylesheet" />
 <div class="container">
@@ -188,8 +198,7 @@
                     <ul id="selected-seats">
                     </ul>
                     <button type="submit" class="btn btn-success" id="Next" disabled value="">Next</button>
-                    <a class="btn btn-primary" href="@Url.Action("WishList","KhachHangHA",macb)">Yêu Thích</i></a>
-                    <div id="legend"></div>
+
                 </div>
             </div>
         </div>
